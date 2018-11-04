@@ -69,7 +69,7 @@ Bandlücke) in Form von Photonen emittieren. Dieser Vorgang ist in Abbildung
 
 Innerhalb des durch die unterschiedlich
 verspiegelten Außenflächen und des höheren Brechungsindezes der aktiven Schicht
-abgegrenzten inneren Resonators entstehen dort stehende Wellen. Da die Abmessung
+abgegrenzten internen Resonators entstehen dort stehende Wellen. Da die Abmessung
 der Diode nicht größer ist als die Wellenlänge des emittierten Lichtes, ist der
 von der Diode ausgehende Lichtstrahl elliptischund stark divergent. Um diesem
 Abhilfe zu schaffen, wird zusätlich noch eine Linse werdendet, um den Strahl zu
@@ -108,7 +108,7 @@ $\Delta\nu\approx\SI{1}{\mega\hertz}$.
 
 \subsection{Laser Verstärkung}
 Um das von Laser emittierte Licht zu abzustimmen, werden Verstärkungen im
-Dioden-Chip durch das aktive Medium, durch den inneren Resonator, der Gitterrückstreuung
+Dioden-Chip durch das aktive Medium, durch den internen Resonator, der Gitterrückstreuung
 und des externen Resonators verwendet. Dazu ist in Abbildung \ref{fig:net_gain}
 die Wellenlänge in Abhängigkeit der einzelenen Verstärkungsweisen aufgetragen.
 \begin{figure}[htb]
@@ -127,7 +127,7 @@ erreicht und gehalten wird. Die Abhängigkeit dieser beiden Größen ist in Abbi
 \ref{fig:temp_lambda} dargestellt. Die durchgezogenen Linien repräsentieren hier
 die verschiedenen Lasermoden.
 
-Der innere Resonator, abgegrenzt durch zwei reflektierenden Schichten, formt ein
+Der interne Resonator, abgegrenzt durch zwei reflektierenden Schichten, formt ein
 Fabr-Perot-Etalon. Dies ist ein optischer Resonator, bei dem viele kohärente Strahlen
 aus dem einfallenden Licht resultieren, indem der Lichtstarhl zwischen den
 Abgrenzungen des aktiven Mediums immer wieder reflektiert wird und somit eine
@@ -137,7 +137,7 @@ sowie antiproportional von der Resonatorlänge $L$ und dem Brechungsindex $n$ ab
 \begin{equation}
   \Delta\nu_\text{FSR} = \frac{c}{2Ln}
 \end{equation}
-Zudem ist die Wellenlänge des Lichts im inneren Resonator auf zwei Arten abhängig
+Zudem ist die Wellenlänge des Lichts im internen Resonator auf zwei Arten abhängig
 vom anliegenden Anregungsstrom. Zum einen wird die Diode von de anlilegenden Strom
 erwärmt, was wieder auf das ative Medium wirkt. Zum anderen wird durch den Anregungsstrom
 die Ladungsträgerdichte im aktiven Medium und damit der Brechungsindex beeinflusst.
@@ -173,3 +173,33 @@ Wellenlänge von
 \end{equation}
 mit der Gitterkonstanten $d$. Wird nun der Anregungsstrom, die temperatur und die
 Position des Gitters optimal eingestellt, so ist ein Einmodenbetrieb möglich.
+
+
+In Abbildung \ref{fig:gain_freq} ist die Verstärkung des Lichtes durch den internen
+Resonator, sowie durch den äußeren Resonator und die Gitterrückstreuung gegen
+die Frequenz aufgetragen. Bei Veränderung des Winkels am Beugungsgitter verschiebt
+sich das Maximum des externen Resonators und es kommt zu einem Modensprung, je
+nachdem, welche Mode die höchste Verstärkung erfährt.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/gain-freq.pdf}
+  \caption{Aufzeichnung der Lichtverstärkung gegen die Frequenz für den internen
+  Resonator und den externen Resonator mit Gitterrückstreuung \cite{anleitung}.}
+  \label{fig:gain_freq}
+\end{figure}
+
+\subsection{Rubidium Absorptionsspektrum}
+Wenn der Lasers bei einer Wellenlänge von $\lambda = \SI{780}{\nano\meter}$ in
+einem gewissen Frequenzbereich Licht emittiert, wird von den
+beiden in diesem Experiment betrachteten Rubidiumisotopen ($^{85}$Rb und $^{87}$Rb)
+derjenige Lichtanteil absorbiert, welcher gleich der Übergangsenergie des jeweiligen
+Isotops passt. Diese Übergänge sind in der Graphik \ref{fig:ueber} dargestellt.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics{images/uebergaenge.pdf}
+  \caption{Übergänge der Rubidiumisotope $^{85}$Rb und $^{87}$Rb, sowie ein durch
+  eine Photodiode aufgenommenes Absorptionsspektrum \cite{anleitung}.}
+  \label{fig:ueber}
+\end{figure}
