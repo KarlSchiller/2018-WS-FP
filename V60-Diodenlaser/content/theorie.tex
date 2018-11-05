@@ -21,8 +21,17 @@ Laser sind optische Geräte, die möglichst kohärentes, monochromatisches Licht
 hoher Intensität emittieren.
 Der allgemeine Aufbau eines Lasers besteht aus einer Pumpquelle, ein Lasermedium
 und einem Resonator, wie in Abbildung \ref{fig:laser} abgebildet.
+Die Aufgaben der einzelen Bestandtteile werden in einem Diode-Chip und einen
+äußeren Resonator zusammengefasst.
 
-Dabei sorgt die Pumpquelle dafür, dass in dem Lasermedium (auch aktives Medium)
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/V61.pdf}
+  \caption{Schematische Darstellung der allgemeinen Laserkomponenten \cite{anleitung2}.}
+  \label{fig:laser}
+\end{figure}
+
+Eine sorgt die Pumpquelle dafür, dass in dem Lasermedium (auch aktives Medium)
 eine Besetzungsinversion auftritt. Eine Besetzungsinversion wird dann erreicht,
 wenn mehr Elektronen ein höhergelegenes Energieniveau einnehmen als der
 Grundzustand. Durch Einsetzten dieser Besetzungsinversion durch Absorption werden
@@ -31,20 +40,11 @@ diese Emission induzierte Emission gennant. Das nun erzeugte Licht erzeugt inner
 des Resonators stehende Wellen, deren Wellenlänge abhängig vom aktiven Medium und
 der Länge des Resonators ist. Durch wiederholtes durchlaufen der Photonen durch
 das aktive Medium kommt es zu einer Verstärkung der Intensität. Dabei ist der
-Resonator durch einen totalreflektierte 
+Resonator durch einen totalreflektierte
 und eine teildurchlässige Spiegel abgegrenzt. Sind die Verluste durch den teilweise
 reflektierenden Spiegel geringer als die Verstärkung, so wird von einem stabilen
 Laserbetrieb gesprochen.
 
-Dieser Aufbau wird auch bei einem Diodenlaser verwendet.
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{images/V61.pdf}
-  \caption{Schematische Darstellung der allgemeinen Laserkomponenten \cite{anleitung2}.}
-  \label{fig:laser}
-\end{figure}
-Die Aufgaben der einzelen Bestandtteile werden in einem Diode-Chip und einen
-äußeren Resonator zusammengefasst.
 
 \subsubsection{Dioden-Chip}
 Der Grundbaustein eines Diodenlasers besteht aus dem Dioden-Chip. Wie in
@@ -212,6 +212,7 @@ nachdem, welche Mode die höchste Verstärkung erfährt.
   Resonator und den externen Resonator mit Gitterrückstreuung \cite{anleitung}.}
   \label{fig:gain_freq}
 \end{figure}
+\newpage
 
 \subsection{Rubidium Absorptionsspektrum}
 Wenn der Lasers bei einer Wellenlänge von $\lambda = \SI{780}{\nano\meter}$ in
