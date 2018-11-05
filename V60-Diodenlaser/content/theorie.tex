@@ -21,7 +21,7 @@ Laser sind optische Geräte, die möglichst kohärentes, monochromatisches Licht
 hoher Intensität emittieren.
 Der allgemeine Aufbau eines Lasers besteht aus einer Pumpquelle, ein Lasermedium
 und einem Resonator, wie in Abbildung \ref{fig:laser} abgebildet.
-Die Aufgaben der einzelen Bestandtteile werden in einem Diode-Chip und einen
+Die Aufgaben der einzelen Bestandtteile werden in einem Dioden-Chip und einen
 äußeren Resonator zusammengefasst.
 
 \begin{figure}[htb]
@@ -31,15 +31,16 @@ Die Aufgaben der einzelen Bestandtteile werden in einem Diode-Chip und einen
   \label{fig:laser}
 \end{figure}
 
-Eine sorgt die Pumpquelle dafür, dass in dem Lasermedium (auch aktives Medium)
+Eine Pumpquelle sorgt dafür, dass in dem Lasermedium (auch aktives Medium)
 eine Besetzungsinversion auftritt. Eine Besetzungsinversion wird dann erreicht,
 wenn mehr Elektronen ein höhergelegenes Energieniveau einnehmen als der
-Grundzustand. Durch Einsetzten dieser Besetzungsinversion durch Absorption werden
-mehr Emissionen von Photonen beobachtet als spontan auftreten würden. Daher wird
-diese Emission induzierte Emission gennant. Das nun erzeugte Licht erzeugt innerhalb
-des Resonators stehende Wellen, deren Wellenlänge abhängig vom aktiven Medium und
-der Länge des Resonators ist. Durch wiederholtes durchlaufen der Photonen durch
-das aktive Medium kommt es zu einer Verstärkung der Intensität. Dabei ist der
+Grundzustand. Bei Einsetzten dieser Besetzungsinversion ist
+die Wahrscheinlichkeit deutlich erhöht, dass ein Photon einen Zustandswechsel
+des Elektrons auslöst und damit ein weiteres Photon selber Wellenlänge
+und Phase emittiert (induzierte Emission). Das nun erzeugte Licht bildet innerhalb
+des Resonators stehende Wellen aus, deren Wellenlänge abhängig vom aktiven Medium und
+der Länge des Resonators sind. Durch wiederholtes Durchlaufen der Photonen durch
+das aktive Medium kommt es zudem zu einer Verstärkung der Intensität. Dabei ist der
 Resonator durch einen totalreflektierte
 und eine teildurchlässige Spiegel abgegrenzt. Sind die Verluste durch den teilweise
 reflektierenden Spiegel geringer als die Verstärkung, so wird von einem stabilen
@@ -63,7 +64,7 @@ beleuchtet.
     \label{fig:chip}
   \end{subfigure}
   \begin{subfigure}[c]{0.5\textwidth}
-    \includegraphics[width=\textwidth]{images/schema.pdf}
+    \includegraphics[width=\textwidth, angle=1, origin=c]{images/schema.pdf}
     \subcaption{Darstellung des Dioden-Chips.}
     \label{fig:struktur}
   \end{subfigure}
@@ -77,7 +78,7 @@ können. Um einen Resonator zu erzeugen, sind zwei planparallele Schichten
 aufgetragen, die vollständig oder teilweise verspiegelt sind. Die anderen
 Grenzflächen sind rau, um ungewünschte Oszillationen in weiteren Schichten der
 Diode zu verhindern. Abgegrenzt zwischen den Elektroden und einer aktiven Schicht
-liegen verschiedene p- und n- dotierte Schichten. Durch ansetzten des
+liegen verschiedene p- und n- dotierte Schichten. Durch Anlegen eines
 Anregungsstroms wird eine Besetzungsinversion hervorgerufen. In der aktiven
 Schicht kommt es zu Elektron-Loch-Rekombinationen, welche Energie (abhängig von der
 Bandlücke) in Form von Photonen emittieren. Dieser Vorgang ist in Abbildung
@@ -95,7 +96,7 @@ Innerhalb des durch die unterschiedlich
 verspiegelten Außenflächen und des höheren Brechungsindezes der aktiven Schicht
 abgegrenzten internen Resonators entstehen dort stehende Wellen. Da die Abmessung
 der Diode nicht größer ist als die Wellenlänge des emittierten Lichtes, ist der
-von der Diode ausgehende Lichtstrahl elliptischund stark divergent. Um diesem
+von der Diode ausgehende Lichtstrahl elliptisch und stark divergent. Um diesem
 Abhilfe zu schaffen, wird zusätlich noch eine Linse werdendet, um den Strahl zu
 kollimieren.
 Der in diesem Experiment verwendete Laser emmittiert Licht
@@ -103,7 +104,7 @@ mit einer Wellenlänge von \SIrange{775}{800}{\nano\meter} bei \SI{70}{\milli\wa
 \cite{Sanyo}.
 Der nun vorhandene Laserstrahl besitzt zwei ungewünschte Eigenschaften. Zum einen
 ist die Linienbreite des Strahls sehr groß ($\Delta\nu \approx \SI{50}{\mega\hertz}$)
-im Gegensatz zur Untersuchung atomarer Gegebenheiten ($ \approx \SI{5}{\mega\hertz}$).
+bei Untersuchung atomarer Gegebenheiten ($ \approx \SI{5}{\mega\hertz}$).
 Zum anderen ist der Strahl sehr empfindlich auf Änderung optischer Begebenheiten,
 was ihn sehr instabil macht. Um diese Effekte anzupassen, wird ein äußerer
 Resonator verwendet.
@@ -119,9 +120,9 @@ zu sehen verwendet.
 \end{figure}
 
 Dabei wird der äußere Resonator durch eine Linse (Collimating Lens)
-und ein Beugungsgitter (Diffraction Grating) realisiert. Die Linse hat wird
+und ein Beugungsgitter (Diffraction Grating) realisiert. Die Linse wird
 verwendet, um den vom Dioden-Chip ausgehenden, stark divergenten Strahl zu
-kollimieren. Das Beugungsgitter ist sowohl horizontal als auch vertikal drehbar,
+kollimieren. Das Beugungsgitter ist sowohl horizontal als auch vertikal drehbar
 und bestreht aus \SI{1800}{Linien\per\milli\meter}.
 Ein Großteil (\SI{75}{\percent}) der Lichtintensität wird durch das Beugungsgitter
 direkt reflektiert ($m=\num{0}$), nur \SI{15}{\percent} werden in den Chip reflektiert
@@ -131,13 +132,13 @@ $\Delta\nu\approx\SI{1}{\mega\hertz}$.
 
 
 \subsection{Laser Verstärkung}
-Um das von Laser emittierte Licht zu abzustimmen, werden Verstärkungen im
+Um die Wellenlänge des vom Laser emittierten Lichts abzustimmen, werden Verstärkungen im
 Dioden-Chip durch das aktive Medium, durch den internen Resonator, der Gitterrückstreuung
-und des externen Resonators verwendet. Dazu ist in Abbildung \ref{fig:net_gain}
+und des externen Resonators näher betrachtet. Dazu ist in Abbildung \ref{fig:net_gain}
 die Wellenlänge in Abhängigkeit der einzelenen Verstärkungsweisen aufgetragen.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.7\textwidth]{images/gain-lambda.pdf}
+  \includegraphics[width=0.7\textwidth, angle=1, origin=c]{images/gain-lambda.pdf}
   \caption{Darstellung der Verstärkungen ("Net Gain") gegenüber der Wellenlängen
   \cite{anleitung}.}
   \label{fig:net_gain}
@@ -152,17 +153,17 @@ erreicht und gehalten wird. Die Abhängigkeit dieser beiden Größen ist in Abbi
 die verschiedenen Lasermoden.
 
 Der interne Resonator, abgegrenzt durch zwei reflektierenden Schichten, formt ein
-Fabr-Perot-Etalon. Dies ist ein optischer Resonator, bei dem viele kohärente Strahlen
-aus dem einfallenden Licht resultieren, indem der Lichtstarhl zwischen den
+Fabry-Perot-Etalon. Dies ist ein optischer Resonator, bei dem viele kohärente Strahlen
+aus dem einfallenden Licht resultieren, indem der Lichtstrahl zwischen den
 Abgrenzungen des aktiven Mediums immer wieder reflektiert wird und somit eine
 Vielstrahlinterferenz hoher Inferferenzordnung entsteht. Die im Lichtspektrum
 entstehende Freuenzänderung $\Delta\nu$ hängt von der Lichtgeschwindigeit $c$,
 sowie antiproportional von der Resonatorlänge $L$ und dem Brechungsindex $n$ ab:
 \begin{equation}
-  \Delta\nu_\text{FSR} = \frac{c}{2Ln}
+  \Delta\nu_\text{FSR} = \frac{c}{2L\:n}
 \end{equation}
 Zudem ist die Wellenlänge des Lichts im internen Resonator auf zwei Arten abhängig
-vom anliegenden Anregungsstrom. Zum einen wird die Diode von de anlilegenden Strom
+vom anliegenden Anregungsstrom. Zum einen wird die Diode von dem anlilegenden Strom
 erwärmt, was wieder auf das ative Medium wirkt. Zum anderen wird durch den Anregungsstrom
 die Ladungsträgerdichte im aktiven Medium und damit der Brechungsindex beeinflusst.
 Damit resultiert eine Änderung der Wellenlänge, die in Abbildung \ref{fig:strom_lambda}
@@ -170,16 +171,16 @@ zu erkennen ist.
 
 \begin{figure}[htb]
   \begin{subfigure}[c]{0.5\textwidth}
-    \includegraphics[width=\textwidth]{images/temp-lambda.pdf}
+    \includegraphics[width=\textwidth, angle=1, origin=c]{images/temp-lambda.pdf}
     \subcaption{Abhängigkeiten: Wellenlänge, Temperatur}
     \label{fig:temp_lambda}
   \end{subfigure}
   \begin{subfigure}[c]{0.5\textwidth}
-    \includegraphics[width=\textwidth]{images/strom-lambda.pdf}
+    \includegraphics[width=\textwidth, angle=1, origin=c]{images/strom-lambda.pdf}
     \subcaption{Abhängigkeit: Wellenlänge, Anregungsstroms}
     \label{fig:strom_lambda}
   \end{subfigure}
-  \caption{Abhängigkeitender Wellenlänge von der Temperatur des aktiven Mediums,
+  \caption{Abhängigkeiten der Wellenlänge von der Temperatur des aktiven Mediums,
   sowie dem angelegten Anregungsstrom \cite{anleitung}.}
 \end{figure}
 
@@ -188,14 +189,14 @@ Durch das Beugungsgitter des äußeren Resonators wird nur ein Peak mit Breite
   \Delta\nu_{\text{Gitter}} = \frac{\nu}{N}
 \end{equation}
 der nullten Beugungsordnung ($m=\num{0}$) verwendet, wobei $\nu$ die Frequenz
-und $N$ die Gitterzahl darstellt. Um das Licht aus dem Intensitätsmaxima 1.Ordnung
+und $N$ die Gitterzahl darstellt. Um das Licht aus dem Intensitätsmaximum 1.Ordnung
 zurück in den Laser zu streuen, kann der horizontale Winkel \theta des Beugungsgitters
 manuell verstellt werden. Hier ergibt sich nun nach der Bragg-Bedingung eine
 Wellenlänge von
 \begin{equation}
     \lambda = 2d\sin{\theta}
 \end{equation}
-mit der Gitterkonstanten $d$. Wird nun der Anregungsstrom, die temperatur und die
+mit der Gitterkonstanten $d$. Wird nun der Anregungsstrom, die Temperatur und die
 Position des Gitters optimal eingestellt, so ist ein Einmodenbetrieb möglich.
 
 
@@ -207,7 +208,7 @@ nachdem, welche Mode die höchste Verstärkung erfährt.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.7\textwidth]{images/gain-freq.pdf}
+  \includegraphics[width=0.7\textwidth, angle=1, origin=c]{images/gain-freq.pdf}
   \caption{Aufzeichnung der Lichtverstärkung gegen die Frequenz für den internen
   Resonator und den externen Resonator mit Gitterrückstreuung \cite{anleitung}.}
   \label{fig:gain_freq}
@@ -218,12 +219,14 @@ nachdem, welche Mode die höchste Verstärkung erfährt.
 Wenn der Lasers bei einer Wellenlänge von $\lambda = \SI{780}{\nano\meter}$ in
 einem gewissen Frequenzbereich Licht emittiert, wird von den
 beiden in diesem Experiment betrachteten Rubidiumisotopen ($^{85}$Rb und $^{87}$Rb)
-derjenige Lichtanteil absorbiert, welcher gleich der Übergangsenergie des jeweiligen
-Isotops passt. Diese Übergänge sind in der Graphik \ref{fig:ueber} dargestellt.
+derjenige Lichtanteil absorbiert, welcher der Übergangsenergie des jeweiligen
+Isotops entspricht. Diese Übergänge sind in der Graphik \ref{fig:ueber} dargestellt.
+Im Intensitätsverlauf nach Durchlauf der Rubidiumisotope lassen sich dann an den
+einzelnen Übergängen Dips erkennen und zuordnen.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics{images/uebergaenge.pdf}
+	\includegraphics[width=\textwidth, angle=1, origin=c]{images/uebergaenge.pdf}
   \caption{Übergänge der Rubidiumisotope $^{85}$Rb und $^{87}$Rb, sowie ein durch
   eine Photodiode aufgenommenes Absorptionsspektrum \cite{anleitung}.}
   \label{fig:ueber}
