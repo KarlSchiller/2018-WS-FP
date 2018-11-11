@@ -7,5 +7,5 @@ build/
 *.blg
 *.run.xml
 *.toc
-__pychache__/
+__pycache__/
 *.vsdx
