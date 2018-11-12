@@ -15,12 +15,13 @@ from scipy.signal import find_peaks
 ureg = pint.UnitRegistry()
 Q_ = ureg.Quantity
 
-#-------------Aufgabenteil a)
-#
+
 #Zur Berechnung der linearen Ausgleichsrechnung der Energieeichung
 def linear(x, m, b):
     return m*x + b
 
+#-------------Aufgabenteil a)
+#
 def eichung():
     print('Eichmessung mit der Eu-Probe')
     ursprung_aktivitaet = Q_(ufloat(4130, 60), 'becquerel')
@@ -35,22 +36,27 @@ def eichung():
     print(f'Die Aktivität der Eu-Probe mit einer Zerfallskonstanten von {eu_zerfallskonstante :e} beträgt {eu_aktivitaet}')
 
     #finde die peaks
+    x_plot = np.linspace(0, 8191, 8192)
     counts = np.genfromtxt("data/Eu.txt", unpack=True)
-    peaks = find_peaks(counts, height=5, distance=10)
-    #print(peaks)
-    indexes = peaks[0]
-    #peak_heights = peaks[1]
-    print(peak_heights)
-    #Ausgleichsrechnung der Energieeichung
-    #plt.plot(indexes, peak_heights, 'b.')
-    #print('Länge von x_plot', x_plot)
-    print('Anzahl an Kanälen', len(counts))
-    plt.hist(counts,bins=4050, range=(0,8191))
+    peaks = find_peaks(counts, height=60, distance=10)
 
-    plt.yscale('log')
-    plt.savefig('build/Eu-gaugespektrum.pdf', bbox_inches='tight')
-    #print('m = ', params[0], '+/-', errors[0])
-    #print('b = ', params[1], '+/-', errors[1])
+    indexes = peaks[0]
+    print(indexes)
+    peak_heights = peaks[1]
+    print(peak_heights)
+
+    
+
+    #Ausgleichsrechnung der Energieeichung
+    print('Anzahl an Kanälen', len(counts))
+    #plt.bar(x_plot, counts, color='blue', label='Eu-Spektrum')
+    #plt.legend()
+    #plt.xlim(0, 8194)
+    #plt.yscale('log')
+    #plt.xlabel(r'Kanäle')
+    #plt.ylabel(r'Ausschläge')
+    #plt.savefig('build/Eu-gaugespektrum.pdf', bbox_inches='tight')
+    #plt.clf()
 
     #Berechnung des Raumwinkels
     r = Q_(22.5, 'mm')
@@ -58,7 +64,17 @@ def eichung():
     a = a + Q_(1.50, 'cm')
     a.to('mm')
     w = 2*np.pi*ureg.rad*(1-a*(a**2+r**2)**(-0.5))
-    print(f'Der vorliegende Raumwinkel mit a = {a} und r = {r} beträgt {w}.')
+    print(f'Der vorliegende Raumwinkel mit a = {a} und r = {r} beträgt Omega = {w}.')
+
+    #params, cov = curve_fit(linear, counts[12], peak_heights[])
+    #errors = np.sqrt(np.diag(cov))
+    #print('Werte zur Energiekallibrierung:')
+    #print('m = ', params[0], '+/-', errors[0])
+    #print('b = ', params[1], '+/-', errors[1])
+
+#----------Aufgabenteil b)
+#
+
 
 if __name__ == '__main__':
 
