@@ -13,9 +13,12 @@ build/main.pdf: FORCE | build
 	latexmk \
 	  --lualatex \
 	  --output-directory=build \
-		--interaction=nonstopmode
+		--interaction=nonstopmode \
 		--halt-on-error
 	main.tex
+
+light: FORCE | build
+	lualatex --output-directory=build --interaction=nonstopmode --halt-on-error main.tex
 
 clean:
 	rm -rf build
