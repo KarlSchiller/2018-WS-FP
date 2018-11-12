@@ -24,6 +24,7 @@ und nach Integration
 	\label{eqn:Intensitaet-Exp}
 \end{equation}
 mit der Schichtdicke $D$ und Anfangsintensität $N_\text{0}$.
+Die Größe $\mu = n\:\sigma$ wird Extinktionskoeffizient genannt.
 Im Anschluss sind die Prinzipien und Wirkungsquerschnitte von drei
 Wechselwirkungen näher betrachtet.
 
@@ -116,10 +117,47 @@ $E_\text{l,max}$.
 \subsection{Paarerzeugung}
 \label{sec:Paarerzeugung}
 
+Bei $\gamma$-Energien größer $2 m_0 c^2$ ist ein Umwandlung des Quants in ein
+Elektron und ein Positron möglich.
+Hierzu muss aus Impulserhaltungsgründen ein Stoßpartner in Form eines Hüllenelektrons
+oder Atoms vorhanden sein.
+Ein Problem stellt das Positron dar, welches mit einem weiteren Elektron rekombinieren
+kann und die zwei daraus entstehenden Photonen nicht ihre Energie im Detektor deponieren
+müssen.
+Weiterhin können Elektron und Positron Energie in Form von Bremsstrahlung verlieren, die dann
+den Detektor verlässt.
 
+Bei der Berechnung des Wirkungsquerschnitts der Paarerzeugung ist die Position des Stoßpartners
+von Bedeutung, da sich das Coulombfeld des Kerns mit größerem Abstand verändert.
+Hüllenelektronen in niedrigen Schalen schirmen das Coulombfeld ab, sodass die
+Angabe des Wirkungsquerschnitts auf zwei Grenzfälle beschränkt ist.
+Bei Paarbildung in Kernnähe ist kaum Abschirmung durch Hüllenelektronen vorhanden
+und es ergibt sich
+\begin{equation*}
+	\sigma_\text{Pa} = \alpha\:r_\text{e}^2\:Z^2
+	\left(\frac{28}{9} \ln2\varepsilon - \frac{218}{27}\right)
+\end{equation*}
+mit der Sommerfeldschen Feinstrukturkonstanten $\alpha$.
+Diese Gleichung ist jedoch nur für $10 < E_\gamma < \SI{25}{\mega\electronvolt}$
+Außerhalb der Elektronenhülle wird das Kernfeld stark abgeschirmt und es gilt
+\begin{equation*}
+	\sigma_\text{Pa} = \alpha\:r_\text{e}^2\:Z^2
+	\left(\frac{28}{9} \ln\frac{183}{\sqrt[\leftroot{-1}\uproot{2}\scriptstyle 3]Z} - \frac{2}{27}\right)
+\end{equation*}
+für $\gamma$-Energien größer \SI{500}{\mega\electronvolt}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.9\textwidth]{images/Wirkungsquerschnitte-gesamt.pdf}
+	\caption{Extinktionskoeffizienten des Photoeffekts, Comptoneffekts und der Paarbildung \cite[9]{anleitung}.}
+	\label{fig:Wirkungsquerschnitte-gesamt}
+\end{figure}
+% TODO: Diese Abbildung noch erklären. Auf die Unstetigkeiten des Photoeffekts eingehen.
 
 \subsection{Funktionsweise eines Halbleiter-Detektors}
 \label{sec:HLDetektor}
+
+* Kupferplatte nach Bleiabschirmung, da Kupfer sehr rein herstellbar und im Blei natürliche Strahlung
 
 \subsection{Spektrum, Aktivität und Energie einer Gamma-Quelle}
 \label{sec:TypischeQuelle}
