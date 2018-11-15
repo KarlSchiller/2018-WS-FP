@@ -35,42 +35,43 @@ def eichung():
     print(f'Zwischen dem Praktikumstag und der Aktivitätenmessung sind {zeitdelta} vergangen.')
     print(f'Die Aktivität der Eu-Probe mit einer Zerfallskonstanten von {eu_zerfallskonstante :e} beträgt {eu_aktivitaet}')
 
-    #finde die peaks
-    x_plot = np.linspace(0, 8191, 8192)
+
+    #finde die peaks mit Energie E, der Binhöhe bH und dem Peakinhalt Z
+    E, bH, pH = np.genfromtxt("data/Eu_sortiert.txt", unpack=True)
     counts = np.genfromtxt("data/Eu.txt", unpack=True)
-    peaks = find_peaks(counts, height=60, distance=10)
+    peaks = find_peaks(counts, height=10, distance=10)
 
     indexes = peaks[0]
-    print(indexes)
+    #print(indexes)
     peak_heights = peaks[1]
-    print(peak_heights)
-
-    
-
-    #Ausgleichsrechnung der Energieeichung
-    print('Anzahl an Kanälen', len(counts))
-    #plt.bar(x_plot, counts, color='blue', label='Eu-Spektrum')
-    #plt.legend()
-    #plt.xlim(0, 8194)
-    #plt.yscale('log')
-    #plt.xlabel(r'Kanäle')
-    #plt.ylabel(r'Ausschläge')
-    #plt.savefig('build/Eu-gaugespektrum.pdf', bbox_inches='tight')
-    #plt.clf()
+    #print(peak_heights)
+    Z = peak_heights
 
     #Berechnung des Raumwinkels
     r = Q_(22.5, 'mm')
     a = Q_(ufloat(7.30, 1), 'mm')
     a = a + Q_(1.50, 'cm')
     a.to('mm')
-    w = 2*np.pi*ureg.rad*(1-a*(a**2+r**2)**(-0.5))
-    print(f'Der vorliegende Raumwinkel mit a = {a} und r = {r} beträgt Omega = {w}.')
+    w = 0.5*(1-a*(a**2+r**2)**(-0.5))
+    print(f'Der vorliegende Raumwinkel mit a = {a} und r = {r} beträgt Omega/4*pi = {w}.')
 
-    #params, cov = curve_fit(linear, counts[12], peak_heights[])
-    #errors = np.sqrt(np.diag(cov))
-    #print('Werte zur Energiekallibrierung:')
-    #print('m = ', params[0], '+/-', errors[0])
-    #print('b = ', params[1], '+/-', errors[1])
+
+    #Ausgleichsrechnung der Energieeichung
+    x_plot = np.linspace(0, 1450)
+    params, cov = curve_fit(linear, E, bH)
+    errors = np.sqrt(np.diag(cov))
+    print('Werte zur Energiekallibrierung:')
+    print('m = ', params[0], '+/-', errors[0])
+    print('b = ', params[1], '+/-', errors[1])
+
+    plt.plot(E, bH, 'bx', label='Eu-Gamma-Spektrum')
+    plt.plot(x_plot, linear(x_plot, params[0], params[1]), 'r-', label='Ausgleichsrechnung')
+    plt.legend()
+    plt.xlabel(r'E$_\gamma$ / keV')
+    plt.ylabel(r'Bineinträge')
+    plt.savefig('build/Referenz.pdf')
+    plt.clf()
+
 
 #----------Aufgabenteil b)
 #
