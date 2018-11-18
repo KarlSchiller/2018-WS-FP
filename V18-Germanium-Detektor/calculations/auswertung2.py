@@ -25,7 +25,7 @@ E, peaks_ind, W = np.genfromtxt('data/2_0/Eu.txt', unpack=True)
 #        places = [1.0, 2.1, 1.0],
 #        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
 #        label = 'tab:anleitung_eu',
-#        filename = 'tables/anleitung_eu.tex'
+#        filename = 'build/tables/anleitung_eu.tex'
 #        )
 
 peaks = find_peaks(data, height=5, distance=10)
@@ -137,7 +137,7 @@ Q=[peakinhalt[i]/(omega_4pi*A_jetzt*W[i]) for i in range(len(W))]
 #    caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Energieoffset.',
 #    label='tab:gauss_parameter',
 #    places=[(1.2, 1.2), (1.2, 1.2), (1.2, 1.2), (1.2, 1.2)],
-#    filename='tables/Gauss-Fit-Parameter.tex'
+#    filename='build/tables/Gauss-Fit-Parameter.tex'
 #    )
 #
 ##Erstellen einer Tabelle der Detektoreffizenz und den dazu wverwendeten Werten
@@ -147,7 +147,7 @@ Q=[peakinhalt[i]/(omega_4pi*A_jetzt*W[i]) for i in range(len(W))]
 #    caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
 #    label = 'tab:det_eff',
 #    places = [ (1.2, 1.2), 1.2, (1.2, 1.2)],
-#    filename = 'tables/det_eff.tex'
+#    filename = 'build/tables/det_eff.tex'
 #    )
 
 
@@ -221,7 +221,7 @@ e_photo=energie_2[-1]
 #    places=[1.2, 1.2, 1.2],
 #    caption='Bestimmte Werte für den Rückstreupeak, den Comptonpeak und des Vollenergiepeaks.',
 #    label='tab:peaks',
-#    filename ='tables/peaks_Cs.tex'
+#    filename ='build/tables/peaks_Cs.tex'
 #    )
 
 #Vergleiche zwischen gemessenen und theoretischen Werten der Peaks

@@ -51,12 +51,12 @@ def eichung():
     #Erstelle Tabelle mit Daten aus der
     print(emis_wahr)
     make_table(
-        header = ['Energie $E / \si{\kilo\electronvolt}$', 'Emis.-Wahr. W', 'Zugeordnete Bin-Index $i$', 'Peakhöhe' ],
+        header = ['Energie $E$ / \kilo\electronvolt', 'Emis.-Wahr. W', 'Zugeordnete Bin-Index $i$', 'Peakhöhe' ],
         data = [E, emis_wahr, Bin_index, pH],
-        places = [1.0, 2.1, 1.0, 2.0],
+        places = [4.0, 2.1, 4.0, 4.0],
         caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
         label = 'tab:anleitung_eu',
-        filename = 'tables/anleitung_eu.tex'
+        filename = 'build/tables/anleitung_eu.tex'
         )
     counts = np.genfromtxt("data/Eu.txt", unpack=True)
     peaks = find_peaks(counts, height=10, distance=10)
@@ -134,7 +134,7 @@ def gauss_fit(Bin_index, counts):
         caption = 'Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Energieoffset.',
         label = 'tab:gauss_parameter',
         places = [(1.2, 1.2), (1.2, 1.2), (1.2, 1.2), (1.2, 1.2)],
-        filename = 'tables/Gauss-Fit-Parameter.tex'
+        filename = 'build/tables/Gauss-Fit-Parameter.tex'
     )
 
 
@@ -159,7 +159,7 @@ def detector_efficiency(Omega, Z, A, W, E, m, b):
         caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
         label = 'tab:det_eff',
         places = [ (1.2, 1.2), 1.2, (1.2, 1.2)],
-        filename = 'tables/det_eff.tex'
+        filename = 'build/tables/det_eff.tex'
     )
 
     #Potenz-fit der Detektoreffizienz mit Energien über 150 keV
@@ -202,6 +202,8 @@ if __name__ == '__main__':
 
     if not os.path.isdir('build'):
         os.mkdir('build')
+    if not os.path.isdir('build/tables'):
+        os.mkdir('build/tables')
     #Teilaufgabe a
     E, Bin_index, peak_height, counts, eu_aktivitaet, emis_wahr, m, b = eichung()
     w = raumwinkel()
