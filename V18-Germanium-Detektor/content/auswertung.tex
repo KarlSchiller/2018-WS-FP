@@ -9,40 +9,74 @@ aufgezeichnet. Dies ist in Abbildung \ref{plt:Eu-Spektrum} zu sehen. Die zu
 erkennenen Peaks dem erwartetem Europium-Spektrum zugeordnet.
 
 \begin{figure}[htb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{build/Eu-gaugespektrum.pdf}
-  \caption{Aufgenommenes ${152}^$Eu-Spektrum abgebildet auf die von Detektor aufgenommenen Ausschläge.}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{build/orginal_Eu.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{build/orginal_Eu_log.pdf}
+  \end{subfigure}
+  \caption{Vom Germanium Detektor aufgenommenes Spektrum der Europium Quelle mit
+  dekadischer und logarithmischer y-Achse.}
   \label{plt:Eu-Spektrum}
 \end{figure}
 
 Anhand der Energien und Bin-Indizes wurde eine lineare Ausgleichsrechnung, in
-Abbildung \ref{plt:Referenz} zu erkennen, mit Hilfe der Formel
+Abbildung \ref{plt:eichung} zu erkennen, mit Hilfe der Formel
 \begin{equation}
   E = m \cdot x + b
 \end{equation}
-durchgeführt. Dabei entspricht $x$ der Bin-Indizes. Für die Parameter $m$ und
-$b$ ergeben sich:
-\begin{equation}
-  m &= \SI{2.369(39)}{\kilo\electronvolt} \\
-  b &= \SI{104.764(32408)}{\kilo\electronvolt}
-\end{equation}
+durchgeführt.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics{build/Referenz.pdf}
-  \caption{Energiekalibrierung am Eu-Spektrum mit linearer Ausgleichsrechnung.}
-  \label{plt:Referenz}
+  \includegraphics[width=0.8\textwidth]{build/kalibation.pdf}
+  \caption{Lineare Regression der zugeordneten Energien, aufgetragen gegen die jeweiligen Bin Indizes.}
+  \label{plt:eichung}
 \end{figure}
+
+Dabei entspricht $x$ der Bin-Indizes. Für die Parameter $m$ und
+$b$ ergeben sich:
+\begin{equation}
+  m &= \SI{0.4204(69)}{\kilo\electronvolt} \\
+  b &= \SI{-41.25(1428)}{\kilo\electronvolt}
+\end{equation}
+
+
 
 \subsection{Effizienzmessung des Detektors}
 \label{sec:Effizienzmessung}
-Zur Berechnung der Detektoreffizienz wurde nach Formel \eqref{} durchgeführt.
-Dafür wurde zuerst der Raumwinkel anhand Formel \eqref{} berechnet. Dabei
+Zur Berechnung der Detektoreffizienz wurde nach Formel ## durchgeführt.
+Dafür wurde zuerst der Raumwinkel anhand Formel ## berechnet. Dabei
 ergibt mit $a=\SI{22.3(10){\milli\meter}}$ und $r=\SI{22.5(1)}{\milli\meter}$
 sich:
 \begin{equation}
-  \frac{\Omega}{4\pi} = \Si{0.14876(8)}
+  \frac{\Omega}{4\pi} = \Si{0.01558(34)}
 \end{equation}
+Dabei wurde $r$ so gewählt, dass der wahrscheinlichste Wechselwirkungspunkt
+\SI{1.5}{\centi\meter} innerhalb des Germaniums liegt und der Abstandshalter
+zwischen Probe und Detektor \SI{7.31}{\centi\meter} lang ist.
+Die Aktivität wurde aus dem Wissen errechnet, dass am 01.10.2000 die Aktivität
+der Europium-Probe bei $A=\SI{4130(60)}{\becquerel}$ beträgt. Mithilfe der
+Halbwertszeit $t_\frac{1}{2}=SI{4943(5)}{\days}$ folgt für den Messtag:
+\begin{equation}
+    A_\text{Messtag}=A_0 \exp{-\frac{\ln{2} \Delta t}{t_\frac{1}{2}}}=\SI{1633(24)}{\becquerel}
+\end{equation}
+Der Peakinhalt wurde mit einem Fit durch eine Gaußfunktion der Form
+\begin{equation}
+  f(x) = h\cdot \exp{\frac{(x-\mu)^2}{2\sigma^2}} + a
+\end{equation}
+für jede Energie durchgeführt. Hierbei beschreibt $h$ die Höhe des Peaks, $\mu$
+den Mittelwert (um Bin-Indizes der Peaks zu korrigieren), $\sigma$ die
+Standardabweichnug und $a$ einen Parameter zur Untergrundberücksichtigung
+bezeichnet.
+Daraus ergibt sich der Peakinhalt $Z_i$ des Peaks $i$ durch Abintegration über
+eine Gaußkurve:
+\begin{equation}
+  Z_i = \sqrt{2\pi} h_i \sigma_i
+\end{equation}
+
 
 \subsection{Bestimmung der Detektoreigenshaften}
 \label{sec:Detektoreigenschaften}
