@@ -3,7 +3,12 @@ all:  build/main.pdf
 build:
 	mkdir -p build
 
-build/main.pdf:
+build/main.pdf: build/tables/Gauss-Fit-Parameter.tex \
+	build/tables/det_eff.tex \
+	build/tables/anleitung_eu.tex | build
+
+build/tables/Gauss-Fit-Parameter.tex build/tables/det_eff.tex build/tables/anleitung_eu.tex: calculations/auswertung.py | build
+	python calculations/auswertung.py
 
 
 build/main.pdf: FORCE | build
