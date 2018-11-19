@@ -1,7 +1,6 @@
 \section{Theorie}
 \label{sec:Theorie}
 
-% TODO: ersten Satz überarbeiten
 In diesem Versuch wird die Funktionsweise eines Reinst-Germanium-Detektors diskutiert
 und verschiedene Proben anhand aufgenommener Spektren charakterisiert.
 Dazu werden im Folgenden die verschiedenen Mechanismen zur Energiedeposition von
@@ -25,6 +24,14 @@ und nach Integration
 \end{equation}
 mit der Schichtdicke $D$ und Anfangsintensität $N_\text{0}$.
 Die Größe $\mu = n\:\sigma$ wird Extinktionskoeffizient genannt.
+Eine weitere wichtige Größe ist die Aktivität $A$ eines $\gamma$-Strahlers,
+welche die Anzahl der Zerfälle oder Emissionen pro Zeit.
+Sie ist gegeben durch
+\begin{equation}
+	A\left(t\right) = A_0 \cdot \exp\left(-\frac{\ln 2}{T_{\sfrac{1}{2}}} t\right)
+	\label{eqn:AktivitaetFormel}
+\end{equation}
+mit der Halbwertszeit $T_{\sfrac{1}{2}}$ und Anfangsintensität $A_0$.
 Im Anschluss sind die Prinzipien und Wirkungsquerschnitte von drei
 Wechselwirkungen näher betrachtet.
 
@@ -88,7 +95,7 @@ welcher durch
 	= \frac{3}{4} \cdot \frac{8}{3} \pi
 	\left(\frac{e_0}{4\:\pi\:\varepsilon_0\:c^2\:m_0}\right)^2
 \end{equation*}
-mit dem Thomsonschen Wirkungsquerschnitt $\sigma_\text{Th}$ gegeben ist.
+mit dem Thomsonschen Wirkungsquerschnitt $\sigma_\text{Th}$ und der Elementarladung $e_0$ gegeben ist.
 Hierbei wurde angenommen, dass sich die Elektronen bei Anregung durch die
 $\gamma$-Quanten wie Hertzsche Dipole verhalten.
 Wird dieser Ausdruck nach der Energie abgeleitet, ergibt sich
@@ -138,7 +145,7 @@ und es ergibt sich
 	\left(\frac{28}{9} \ln2\varepsilon - \frac{218}{27}\right)
 \end{equation*}
 mit der Sommerfeldschen Feinstrukturkonstanten $\alpha$.
-Diese Gleichung ist jedoch nur für $10 < E_\gamma < \SI{25}{\mega\electronvolt}$
+Diese Gleichung ist jedoch nur für $10 < E_\gamma < \SI{25}{\mega\electronvolt}$ gültig.
 Außerhalb der Elektronenhülle wird das Kernfeld stark abgeschirmt und es gilt
 \begin{equation*}
 	\sigma_\text{Pa} = \alpha\:r_\text{e}^2\:Z^2
@@ -152,13 +159,121 @@ für $\gamma$-Energien größer \SI{500}{\mega\electronvolt}.
 	\caption{Extinktionskoeffizienten des Photoeffekts, Comptoneffekts und der Paarbildung \cite[9]{anleitung}.}
 	\label{fig:Wirkungsquerschnitte-gesamt}
 \end{figure}
-% TODO: Diese Abbildung noch erklären. Auf die Unstetigkeiten des Photoeffekts eingehen.
+Abschließend sind in Abbildung \ref{fig:Wirkungsquerschnitte-gesamt} die Extinktionskoeffizienten
+der drei erläuterten Effekte aufgetragen. Es zeigt sich, dass für kleine Energien der Photoeffekt
+dominant ist, während für hohe Energien die Paarbildung einsetzt.
+Weiterhin ist bei ungefähr \SI{0.01}{\mega\electronvolt} eine Unstetigkeit im Koeffizienten des
+Photoeffekts dargestellt, wenn die $\gamma$-Energie genau der Übergangsenergie zweier
+Energieniveaus entspricht.
 
 \subsection{Funktionsweise eines Halbleiter-Detektors}
 \label{sec:HLDetektor}
 
-* Kupferplatte nach Bleiabschirmung, da Kupfer sehr rein herstellbar und im Blei natürliche Strahlung
+Halbleiter-Detektoren ermöglichen eine hohe Energieauflösung bei der Untersuchung von $\gamma$-Strahlung.
+Die Hauptkomponente bildet dabei eine Halbleiterdiode, welche aus zwei angrenzenden \ce{Ge}-Bereichen
+besteht, die unterschiedlich dotiert sind.
+An der Grenzfläche bildet sich durch Rekombination eine ladungsträgerarme Zone aus, welche sensitiv auf
+einfallende $\gamma$-Quanten ist. Diese heben bei einer $\gamma$-Energie oberhalb der Bandlücke ein
+Elektron in das Leitungsband. Das Elektron erfährt wiederum eine Kraft in Richtung der p-dotierten
+Seite der Diode und regt auf dem Weg dorthin weitere Elektronen an.
+Ebenso bewegen sich die so entstandenen Löcher in Richtung der n-dotierten Schicht. Ist die
+Diode an einen Strommesser angeschlossen, so lässt sich bei Einfall eines $\gamma$-Quants ein
+Strompuls messen, dessen Höhe proportional zur im Detektor deponierten Energie ist.
+Außerhalb der Verarmungszone ist das Feld zwischen den Bereichen zu klein, um das erzeugte Elektron-Loch-Paar
+zu trennen, bevor es wieder rekombiniert.
 
-\subsection{Spektrum, Aktivität und Energie einer Gamma-Quelle}
+Um den Potentialsprung $U_\text{D}$ und damit die Breite der Verarmungszone zu vergrößern,
+wird eine äußere Spannung $U$ angelegt.
+Dies ist in Abbildung \ref{fig:SchematischerPotentialverlauf} dargestellt.
+Ein Problem sind dabei thermisch angeregte Ladungsträger aus Restverunreinigungen im Kristall,
+welche die detektionseigenschaften verschlechtern.
+Um den so entstehenden Blindstrom möglichst gering zu halten wird der
+Detektor üblicherweise mit flüssigem Stickstoff auf ungefähr \SI{77}{\kelvin} gekühlt.
+Weiterhin wird die Dotierung so gewählt, dass die Breite $d$ der Verarmungszone möglichst groß ist.
+Für eine deutlich höhere Elektronendichte der n-dotierten Donatorschicht $n_\text{D}$ im
+Vergleich zur p-dotierten Akzeptorschicht $n_\text{A}$ ergibt sich näherungsweise
+\begin{equation}
+	d \approx \sqrt{\frac{2\:\varepsilon\:\varepsilon_0}{e_0} \left(U_\text{D} + U\right) \frac{1}{n_\text{A}}}
+	\label{eqn:BreiteVerarmungszone}
+\end{equation}
+mit der Permittivität des Vakuums $\varepsilon_0$ und der Permittivität von Germanium $\varepsilon$.
+Es zeigt sich, dass für eine möglichst geringe Elektronendichte der Akzeptorschicht und hohe
+Sperrspannungen eine breite Verarmungszone erzeugt werden kann.
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/Schematischer-Potentialverlauf.pdf}
+	\caption{Schematischer Potentialverlauf an der Grenzfläche zwischen n- und p-dotiertem
+	Silizium a) ohne und b) mit angelegter externer Spannung am Beispiel \ce{Si}~\cite[12]{anleitung}.}
+	\label{fig:SchematischerPotentialverlauf}
+\end{figure}
+
+\subsection{Kenngrößen eines Halbleiter-Detektors}
+\label{sec:KenngroessenHLDetektor}
+
+Um zwei Spektrallinien $E_1$ und $E_2$ voneinander unterscheiden zu können, müssen
+sich die Mittelwerte mindestens um die Halbwertsbreite $\increment E_{\sfrac{1}{2}}$
+der Impulshöhenverteilung des Detektors bei monochromatischer $\gamma$-Strahlung unterscheiden.
+Diese Halbwertsbreite ist hauptsächlich von der Anzahl der bei Absorption eines $\gamma$-Quants
+freigesetzten Elektron-Loch-Paare $n$ festgelegt.
+Bei der Bestimmung der Standardabweichung $\sigma$ der Verteilung von $n$ ist zu berücksichtigen, dass die
+Erzeugung der Elektron-Loch-Paare nur unter Beteiligung von Phononen statt findet.
+Die $\gamma$-Anregungsenergie verteilt sich statistisch auf das Elektron und Phononen.
+Somit wird ein Teil der Fluktuationen der Ladungsträgererzeugung durch Fluktuationen der
+Phononenanregung kompensiert und es ergibt sich
+\begin{equation}
+	\sigma = \sqrt{F\:\mean{n}}
+\end{equation}
+mit dem sogenannten Nano-Faktor $F$ und dem Mittelwert der Verteilung $\mean{n}$.
+Da $n >> 1$ geht die Verteilung in eine Gaußverteilung über und es ergibt sich
+\begin{equation}
+	\increment E_{\sfrac{1}{2}} = \sqrt{8 \ln2} \frac{\sigma}{\mean{n}} E_\gamma
+\end{equation}
+und bei einer typischen $\gamma$-Energie von \SI{500}{\kilo\electronvolt} eine
+Halbwetsbreite von $\sim \SI{895}{\electronvolt}$.
+
+Die Energieauflösung des Detektors wird durch weitere Effekte beschränkt, die praktisch unkorrelliert sind.
+Ein Effekt ist das Rauschen aufgrund eines in Abschnitt \ref{sec:HLDetektor} erklärten Leckstroms
+durch thermische Elektronen. Dieser kann durch Abkühlung des Detektors reduziert werden.
+Weiterhin existieren Feldinhomogenitäten aufgrund des Aufbaus des Detektors, die jedoch
+mit steigender angelegter Spannung kleiner werden.
+Schließlich spielt auch das Rauschen des Signalverstärkers eine Rolle. Dieses Rauschen
+kann durch Kühlung der ersten Verstärkerstufe reduziert werden.
+
+Zur Bestimmung der Aktivität einer Probe $A$ spielt eine weiter Kenngröße des Detektors eine
+Rolle, die sogenannte Vollenergie-Nachweiseffizienz $Q$.
+Sie gibt die Effizienz an, mit welcher der Detektor ein einfallendes $\gamma$-Quant
+detektiert, also mit welcher Wahrscheinlichkeit das Quant mit dem Detektor
+wechselwirkt und dabei die gesamte Energie deponiert.
+Das gemessene Zählergebnis einer $\gamma$-Linie $Z$ ist gegeben durch
+\begin{equation}
+	Z = \frac{\Omega}{2\:\pi} A\:W\:Q
+	\label{eqn:Vollenergie-Nachweiseffizienz}
+\end{equation}
+mit der Emissionswahrscheinlichkeit der bestimmten Linie $W$ bei Strahlern mit mehreren
+$\gamma$-Linien und dem Raumwinkel $\Omega$, den der Detektor aus Sicht des Strahlers einnimmt.
+
+\subsection{Spektrum einer monochromatischen Gamma-Quelle}
 \label{sec:TypischeQuelle}
 
+Das Spektrum einer monochromatischen $\gamma$-Quelle ist in Abbildung \ref{fig:typisches-Spektrum}
+dargestellt. Aufgetragen ist die Kanalfüllung gegen die Energie der $\gamma$-Quanten, wobei
+die Kanalfüllung nach Abschnitt \ref{sec:KalibrierungBeschreibung} in eine Intensität umgerechnet werden kann.
+Aufgrund der Abschirmung des \ce{Ge}-Detektors nach Abschnitt \ref{sec:AufbauDetektor} existiert eine
+minimale detektierbare Energie der Photononen, die als Empfindlichkeitsgrenze eingezeichnet ist.
+Der Vollenergiepeak entsteht, wenn das einfallende $\gamma$-Quant seine gesamt Energie im Detektor
+deponiert, also nach möglichen Compton-Streuungen von einem Elektron anhilliert wird oder direkt der
+Photoeffekt auftritt.
+Bei Energien unterhalb des Vollenergiepeaks ist das sogenannte Compton-Kontinuum beobachtbar. Je nach
+Energieübertrag des Photons auf das Elektron wird unterschiedlich viel Energie im Detektor deponiert,
+bis zu einem maximalen Energieübertrag an der Compton-Kante.
+Weiterhin ist ein Rückstreupeak aufgetragen, welcher dadurch entsteht, dass die $\gamma$-Quanten erst
+nach einer Compton-Streuung in den Detektor gelangen.
+Oberhalb der Compton-Kante ist ebenfalls eine Kanalfüllung beobachtbar. Diese lässt sich mit mehrfachen
+Compton-Streuungen eines Photons erklären.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.8\textwidth]{images/typisches-Spektrum.pdf}
+	\caption{Schematische Darstellung eines typischen Spektrums einer $\gamma$-Quelle~\cite[23]{anleitung}.}
+	\label{fig:typisches-Spektrum}
+\end{figure}
