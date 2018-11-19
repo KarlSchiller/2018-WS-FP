@@ -110,7 +110,7 @@ durchzuführen. Dabei wurden nur solche Energien betrachtet, die über
   \label{plt:eff}
 \end{figure}
 
-\input{build/table/det_eff.tex}
+\input{build/tables/det_eff.tex}
 \FloatBarrier
 
 %-------------------------------------------------------------------------------
@@ -138,9 +138,9 @@ identifiziert. Die Zuordnung dieser sind in \ref{tab:Cs_char} nachzulesen. Der
 Theoriwert des Vollenergiepeaks liegt bei \SI{661.59}{\kilo\electronvolt}
 \cite{theorie}.
 \begin{table}[htb]
-  \begin{tabular}{S[table-format=1.2]
-    S[table-format=1.2]
-    S[table-format=1.2]}
+  \begin{tabular}{c
+    S[table-format=4.0]
+    S[table-format=3.2]}
     \toprule
     {} & {Index $i$} & {Energie $E_i$ / keV} \\
     \midrule
@@ -170,8 +170,8 @@ Um zu überprüfen, ob der Vollenergiepeak eine Gaussform annimmt, wird eine
 rechte (r) und eine linke (l) Flanke mithilfe einer linearen Regression
 angenommen. Daraus ergeben sich die Parameter:
 \begin{align*}
-  a_\text{l} &= \Si{0.0042(7)} \ \ \ \ a_\text{r} = \Si{-0.0039(6)} \\
-  b_\text{l} &= \Si{1640.6(6)} \ \ \ \ b_\text{r} = \Si{1655.2(6)} \\
+  a_\text{l} &= \si{0.0042(7)} \ \ \ \ a_\text{r} = \si{-0.0039(6)} \\
+  b_\text{l} &= \si{1640.6(6)} \ \ \ \ b_\text{r} = \si{1655.2(6)} \\
 \end{align*}
 Durch Hinzunahme der Formel
 \begin{align*}
@@ -179,8 +179,8 @@ Durch Hinzunahme der Formel
 \end{align*}
 kann die Halbwerts- und die Zehntelbreite bestimmt werden. Daraus ergab sich:
 \begin{align*}
-  \Delta_{1/2} &= \SI{-38.3(5)}{\kilo\electronvolt} \\
-  \Delta_{!/10} &= \SI{-35.7(4)}{\kilo\electronvolt}
+  \Delta_{1/2} &= \si{-38.3(5)}{\kilo\electronvolt} \\
+  \Delta_{!/10} &= \si{-35.7(4)}{\kilo\electronvolt}
 \end{align*}
 Wird nun das Verhältnis $\Delta_{1/10} = \num{1.823}\Delta_{1/2} = \SI{-35.9(9)}{\kilo\electronvolt}$
 betrachtet, so erhält man hier eine Abweichung zum ermittelten Wert von
@@ -189,12 +189,20 @@ $\Delta_{1/10}$ von \SI{5(19)}{\percent}.
 Im letzten Schritt dieses Auswertungsteils wird der Inhalt des Compton-Kontinuums
 und des Vollenergiepeaks mit der Absorptionswahrscheilichkeit des Compton- und
 Photoeffektes verglichen. Dafür wird die Formel
+
 \begin{align*}
   p = 1 - \exp{-\mu l}
 \end{align*}
+
 mit der Länge des Detektors $l = \SI{3.9}{\centi\meter}$ und dem
 Absorptionskoeffizienten $\mu$ verwendet. Dabei ergeben sich die
-Absorptionskoeffizienten aus Abbildung \ref{plt:Cs_abs}.
+Absorptionskoeffizienten aus Abbildung \ref{plt:Cs_abs} zu:
+
+\begin{align*}
+  \mu_\text{Compton} &= \SI{111}{\per\centi\meter}\ \ \ \ \ p_\text{Compton} = \SI{111}{\percent} \\
+  \mu_\text{Photo} &= \SI{111}{\per\centi\meter}\ \ \ \ \ p_\text{Photo} = \SI{111}{\percent}
+\end{align*}
+
 \begin{figure}
   \begin{subfigure}{0.5\textwidth}
     \centering
@@ -207,6 +215,7 @@ Absorptionskoeffizienten aus Abbildung \ref{plt:Cs_abs}.
   \caption{Vollenergiepeak und Compton-Kontinuum des Cs-Spektrums.}
   \label{plt:Cs_abs}
 \end{figure}
+
 
 
 \subsection{Aktivitätsbestimmung anhand eines Spektrums}

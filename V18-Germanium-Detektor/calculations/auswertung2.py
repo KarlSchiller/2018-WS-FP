@@ -28,7 +28,7 @@ E, peaks_ind, W = np.genfromtxt('data/2_0/Eu.txt', unpack=True)
 make_table(
         header = ['Energie $E$ / \kilo\electronvolt', 'Bin-Index $i$', 'Emis.-Wahr. W'],
         data = [E, W, peaks_ind],
-        places = [4.0, 2.1, 3.0],
+        places = [4.0, 2.1, 4.0],
         caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
         label = 'tab:anleitung_eu',
         filename = 'build/tables/anleitung_eu.tex'
@@ -140,17 +140,17 @@ make_table(
     data=[unter, hoehe, index_f, sigma],
     caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Energieoffset.',
     label='tab:gauss_parameter',
-    places=[(2.2, 1.2), (3.2, 6.2), (4.2, 1.2), (3.2, 3.2)],
+    places=[(2.2, 1.2), (4.2, 6.2), (4.2, 1.2), (3.2, 3.2)],
     filename='build/tables/Gauss-Fit-Parameter.tex'
     )
 
 #Erstellen einer Tabelle der Detektoreffizenz und den dazu wverwendeten Werten
 make_table(
-    header=['$Z_i$', '$E_i$' ,'$Q / \becquerel $'],
+    header=['$Z_i$', '$E_i$' ,'$Q$ / \\becquerel '],
     data=[peakinhalt, E_det, Q],
     caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
     label = 'tab:det_eff',
-    places = [ (3.2, 6.2), 4.2, (2.2, 3.2)],
+    places = [ (4.2, 6.2), (4.2, 3.2), (2.2, 3.2)],
     filename = 'build/tables/det_eff.tex'
     )
 
