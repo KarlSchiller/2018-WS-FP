@@ -25,14 +25,14 @@ if not os.path.isdir('build/tables'):
 #------------------------Aufgabenteil a) {Untersuchung des Eu-Spektrums}
 data = np.genfromtxt('data/Eu.txt', unpack=True)
 E, peaks_ind, W = np.genfromtxt('data/2_0/Eu.txt', unpack=True)
-#make_table(
-#        header = ['Energie $E / \kilo\electronvolt $', 'Bin-Index $i$', 'Emis.-Wahr. W'],
-#        data = [E, W, peaks_ind],
-#        places = [4.0, 2.1, 4.0],
-#        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
-#        label = 'tab:anleitung_eu',
-#        filename = 'build/tables/anleitung_eu.tex'
-#        )
+make_table(
+        header = ['Energie $E$ / \kilo\electronvolt', 'Bin-Index $i$', 'Emis.-Wahr. W'],
+        data = [E, W, peaks_ind],
+        places = [1.0, 2.1, 1.0],
+        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
+        label = 'tab:anleitung_eu',
+        filename = 'build/tables/anleitung_eu.tex'
+        )
 
 peaks = find_peaks(data, height=5, distance=10)
 indexes = peaks[0]
@@ -391,7 +391,7 @@ index_ba, peakinhalt_ba, hoehe_ba, unter_ba, sigma_ba = gaussian_fit_peaks_d(pea
 
 #Fasse Ergebnisse in Tabelle zusammen
 make_table(
-    header= ['$E$ / keV', 'Wahrsch. $W$', 'Index $i', '$E_i$ / keV'],
+    header= ['$E$ / \kilo\electronvolt ', 'Wahrsch. $W$', 'Index $i', '$E_i$ / \kilo\electronvolt '],
     data=[E_ba, W_ba, peaks_ind_ba, lin(peaks_ind_ba, *params)],
     places=[2.2, 1.1, 3.0, 3.2],
     caption ='Werte der zu erwartenden Peaks der Ba-Quelle. Dazu die erwarete Energie $E$, die Emissionswahrscheinlichkeit $W$, der zugeordnete Index $i$ und die gefittete Energie $E_i$.',
@@ -421,7 +421,7 @@ make_table(
 
 #Trage Ergebnisse der Aktivitätsbestimmung in Tabelle ein
 #make_table(
-#    header= ['$Z_i$', '$E_i$ / keV', '$A_i$ / Bq'],
+#    header= ['$Z_i$', '$E_i$ / \kilo\electronvolt ', '$A_i$ / \becquerel '],
 #    data=[unter_ba, peakinhalt_ba, A_det],
 #    places=[(2.1, 1.1), (4.2, 2.1), (4.0, 2)],
 #    caption='Berechnete Aktivitäten für jeden Bin mit dazu benötigten Werten.',
