@@ -8,7 +8,6 @@ Für eine Energiekalibrierung wurde das Spektrum der \ce{^{152} Eu} Quelle
 aufgezeichnet. Dies ist in Abbildung \ref{plt:Eu-Spektrum} zu sehen. Die zu
 erkennenen Peaks dem erwartetem Europium-Spektrum zugeordnet.
 
-
 \begin{figure}[htb]
   \begin{subfigure}{0.5\textwidth}
     \centering
@@ -77,7 +76,7 @@ Standardabweichnug und $a$ einen Parameter zur Untergrundberücksichtigung
 bezeichnet. Die Parameter der Fits für jedes BIn sind in Tabelle
 \ref{tab:gauss_parameter} nachzulesen.
 
-\input{build/tables/Gauß-Fit-Parameter.tex}
+\input{build/tables/Gauss-Fit-Parameter.tex}
 \FloatBarrier
 
 Aus diesen ergibt sich der Peakinhalt $Z_i$ des Peaks $i$ durch Abintegration
@@ -92,19 +91,63 @@ aufgelistet, dazu verwenden einen Fit der Form
   Q(E) = a \cdot (E - b)^e + c
 \end{equation}
 durchzuführen. Dabei wurden nur solche Energien betrachtet, die über
-\SI{150}{\kilo\electronvolt} liegen. Daraus ergeben sich die folgenden Parameter:
+\SI{150}{\kilo\electronvolt} liegen. Daraus ergeben sich die Abbildung
+\ref{plt:eff} die folgenden Parameter:
 \begin{equation}
-  a &= \SI{-0.1(23)}{\kilo\electronvolt\per\becquerel}
-  b &= \SI{2e2(12)}{\kilo\electronvolt}
-  c &= \SI{6(20)}{\raiseto{-1}\becquerel}
+  a &= \SI{-0.1(23)}{\kilo\electronvolt\per\becquerel} \\
+  b &= \SI{2e2(12)}{\kilo\electronvolt} \\
+  c &= \SI{6(20)}{\raiseto{-1}\becquerel} \\
   e &= \num{0.5(20)}
 \end{equation}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{build/efficiency.pdf}
+  \caption{Fit zur Effizienzbestimmung des Detektors anhand der zuvor
+  berechneten Werten der Efizienz anhand der Energien.}
+  \label{plt:eff}
+\end{figure}
 
 \input{build/table/det_eff.tex}
 \FloatBarrier
 
 \subsection{Bestimmung der Detektoreigenshaften}
 \label{sec:Detektoreigenschaften}
+Für diesen Teil der Auswertung wurde das Spektrum eines Cäsium-Strahlers, in
+Abbildung \ref{plt:Cs} zu sehen, aufgenommen. Hier wurden die charakteristischen
+Peaks des Spektrums (Rückstreu- und Vollenergiepeak, sowie die Comptonkante)
+identifiziert. Die Zuordnung dieser sind in \ref{tab:Cs_char} nachzulesen. Der
+Theoriwert des Vollenergiepeaks liegt bei \SI{661.59}{\kilo\electronvolt}
+\cite{theorie}.
+\begin{table}[htb]
+  \begin{tabular}{S[table-format=1.2]
+    S[table-format=1.2]
+    S[table-format=1.2]}
+    \toprule
+    {} & {Index $i$} & {Energie $E_i$ / keV} \\
+    \midrule
+    Rückstreupeak & 511 & 173,59 \\
+    Compton-Kante & 1174 & 452,63 \\
+    Vollenergiepeak & 1648 & 651,63 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Charakteristische Peaks des Cs-Strahlers.}
+  \label{tab:Cs_char}
+\end{table}
+
+Eine Berechnung der Theoriwerte für Rückstreupeak und Comptonkante durch die
+Energie des Vollenergiepeaks ($E_{\text{Voll}}$)  und dem Verhältnis dieser mit
+der Elektronenruhemasse ($\epsilon = \frac{E_\text{Voll}}{m_0 c^2}$) ergibt:
+\begin{equation}
+  E_\text{Compton, Theo} &= \frac{2\epsilon}{1+2\epsilon}\cdot E_\text{Voll} = \SI{1136.32}{\kilo\electronvolt}
+  E_\text{Rück, Theo} &= \frac{1}{1+2\epsilon}\cdot E_\text{Voll} = \SI{659.88}{\kilo\electronvolt}
+\end{equation}
+Diese Werte weichen wie folgt von den gemessenen Werten ab:
+\begin{equation}
+  \Delta E_\text{Compton} = \SI{60.19}{\percent}
+  \Delta E_\text{Rück} &= \SI{73.69}{\percent}
+\end{equation}
+
 
 \subsection{Aktivitätsbestimmung anhand eines Spektrums}
 \label{sec:Aktivitätsbestimmung}

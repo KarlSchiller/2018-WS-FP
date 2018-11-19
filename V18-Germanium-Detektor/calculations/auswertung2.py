@@ -25,14 +25,14 @@ if not os.path.isdir('build/tables'):
 #------------------------Aufgabenteil a) {Untersuchung des Eu-Spektrums}
 data = np.genfromtxt('data/Eu.txt', unpack=True)
 E, peaks_ind, W = np.genfromtxt('data/2_0/Eu.txt', unpack=True)
-make_table(
-        header = ['Energie $E / \kilo\electronvolt$', 'Bin-Index $i$', 'Emis.-Wahr. W'],
-        data = [E, W, peaks_ind],
-        places = [4.0, 2.1, 4.0],
-        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
-        label = 'tab:anleitung_eu',
-        filename = 'build/tables/anleitung_eu.tex'
-        )
+#make_table(
+#        header = ['Energie $E / \kilo\electronvolt $', 'Bin-Index $i$', 'Emis.-Wahr. W'],
+#        data = [E, W, peaks_ind],
+#        places = [4.0, 2.1, 4.0],
+#        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
+#        label = 'tab:anleitung_eu',
+#        filename = 'build/tables/anleitung_eu.tex'
+#        )
 
 peaks = find_peaks(data, height=5, distance=10)
 indexes = peaks[0]
@@ -145,14 +145,14 @@ make_table(
     )
 
 #Erstellen einer Tabelle der Detektoreffizenz und den dazu wverwendeten Werten
-make_table(
-    header=['$Z_i$', '$E_i$' ,'$Q / \si{becquerel}$'],
-    data=[peakinhalt, E_det, Q],
-    caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
-    label = 'tab:det_eff',
-    places = [ (1.2, 1.2), 1.2, (1.2, 1.2)],
-    filename = 'build/tables/det_eff.tex'
-    )
+#make_table(
+#    header=['$Z_i$', '$E_i$' ,'$Q / \becquerel $'],
+#    data=[peakinhalt, E_det, Q],
+#    caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
+#    label = 'tab:det_eff',
+#    places = [ (1.2, 1.2), 1.2, (1.2, 1.2)],
+#    filename = 'build/tables/det_eff.tex'
+#    )
 
 
 #Betrachte Exponential-Fit für Beziehnung zwischen Effizienz und Energie
@@ -217,7 +217,10 @@ energie_2 = lin(indexes_2, *params)
 e_rueck=energie_2[-4]
 e_compton=energie_2[-2]
 e_photo=energie_2[-1]
+print(len(energie_2), len(indexes_2))
 print(e_rueck, e_compton, e_photo)
+print(indexes_2[-4], indexes_2[-2], indexes_2[-1])
+
 #Fasse Ergebnisse der Peaksuche in Tabelle zusammen
 #make_table(
 #    header=['$E_\text{rueck}$', '$E_\text{compton}$', '$E_\text{photo}$'],
@@ -228,14 +231,16 @@ print(e_rueck, e_compton, e_photo)
 #    filename ='build/tables/peaks_Cs.tex'
 #    )
 
+e_photo = 661.59
+m_e = 511000
 #Vergleiche zwischen gemessenen und theoretischen Werten der Peaks
-e_compton_theo = 2*e_photo**2/(con.m_e*(1+2*e_photo/con.m_e))
+e_compton_theo = 2*e_photo*(e_photo**2/m_e*(1+2*e_photo/m_e))
 vgl_compton = 1-e_compton/e_compton_theo
 print(f'Ein Vergleich des theoretischen E_compton {e_compton_theo} mit dem gemessenen E_compton {e_compton}, beträgt: {vgl_compton} ')
 
-e_rueck_theo = e_photo/(1+2*e_photo/con.m_e)
+e_rueck_theo = e_photo/(1+2*e_photo/m_e)
 vgl_rueck = 1-e_rueck/e_rueck_theo
-print(f'Ein Vergleich des theoretischen E_compton {e_rueck_theo} mit dem gemessenen E_compton {e_rueck}, beträgt: {vgl_rueck} ')
+print(f'Ein Vergleich des theoretischen E_rueck {e_rueck_theo} mit dem gemessenen E_compton {e_rueck}, beträgt: {vgl_rueck} ')
 
 #Betrachte Bereich um Vollenergiepeak herum und führe seperat eine lineare Regression von beiden Seiten durch
 left = 1638
@@ -311,7 +316,7 @@ def compton2(E):
     eps2 = noms(eps)
     a_c = data_b[indexes_2[-2]] / (1/eps2**2 *(2+ e_compton**2/(e_compton-e_photo)**2*(1/eps2**2+(e_photo-e_compton)/e_photo-2/eps2*(e_photo-e_compton)/e_photo)))
     return a_c/eps2**2 *(2+ E**2/(E-e_photo)**2*(1/eps2**2+(e_photo-E)/e_photo-2/eps2*(e_compton-e_photo)/e_photo))
-print(eps)
+print('Epsilon betraegt: ',eps)
 
 inhalt_comp = quad(compton2,a=lin(0,*params),b=lin(indexes_2[-2],*params))
 print(inhalt_comp[0])
