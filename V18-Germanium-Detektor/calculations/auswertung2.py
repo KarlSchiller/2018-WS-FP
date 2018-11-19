@@ -26,9 +26,9 @@ if not os.path.isdir('build/tables'):
 data = np.genfromtxt('data/Eu.txt', unpack=True)
 E, peaks_ind, W = np.genfromtxt('data/2_0/Eu.txt', unpack=True)
 make_table(
-        header = ['Energie $E / \si{\kilo\electronvolt}$', 'Bin-Index $i$', 'Emis.-Wahr. W'],
+        header = ['Energie $E / \kilo\electronvolt$', 'Bin-Index $i$', 'Emis.-Wahr. W'],
         data = [E, W, peaks_ind],
-        places = [1.0, 2.1, 1.0],
+        places = [4.0, 2.1, 4.0],
         caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
         label = 'tab:anleitung_eu',
         filename = 'build/tables/anleitung_eu.tex'
@@ -146,7 +146,7 @@ make_table(
 
 #Erstellen einer Tabelle der Detektoreffizenz und den dazu wverwendeten Werten
 make_table(
-    header=['$Z_i$', 'E_i' ,'$Q \ \si{becquerel}$'],
+    header=['$Z_i$', '$E_i$' ,'$Q / \si{becquerel}$'],
     data=[peakinhalt, E_det, Q],
     caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
     label = 'tab:det_eff',
@@ -415,14 +415,14 @@ make_table(
 )
 
 #Trage Ergebnisse der Aktivitätsbestimmung in Tabelle ein
-make_table(
-    header= ['$Z_i$', '$E_i$ / keV', '$A_i$ / Bq'],
-    data=[unter_ba, peakinhalt_ba, A_det],
-    places=[(2.1, 1.1), (4.2, 2.1), (4.0, 2)],
-    caption='Berechnete Aktivitäten für jeden Bin mit dazu benötigten Werten.',
-    label ='plt:aktivitaet_ba',
-    filename ='build/tables/aktivitaet_ba.tex'
-)
+#make_table(
+#    header= ['$Z_i$', '$E_i$ / keV', '$A_i$ / Bq'],
+#    data=[unter_ba, peakinhalt_ba, A_det],
+#    places=[(2.1, 1.1), (4.2, 2.1), (4.0, 2)],
+#    caption='Berechnete Aktivitäten für jeden Bin mit dazu benötigten Werten.',
+#    label ='plt:aktivitaet_ba',
+#    filename ='build/tables/aktivitaet_ba.tex'
+#)
 
 A_gem = ufloat(np.mean(noms(A)),np.mean(sdevs(A)))
 print('gemittelte Aktivität',A_gem)
@@ -435,9 +435,9 @@ peaks_4 = find_peaks(data_e, height=50, distance=15)
 indexes_4 = peaks_4[0]
 peak_heights_4 = peaks_4[1]
 energie_4 = lin(indexes_4,*params)
-ascii.write(
-    [indexes_4,data_e[indexes_4],energie_4],
-    'e.tex', format='latex', overwrite='True')
+#ascii.write(
+#    [indexes_4,data_e[indexes_4],energie_4],
+#    'e.tex', format='latex', overwrite='True')
 print(energie_4)
 
 x=np.linspace(1,8192,8192)

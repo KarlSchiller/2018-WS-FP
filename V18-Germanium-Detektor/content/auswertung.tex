@@ -33,7 +33,9 @@ durchgeführt.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{build/kalibation.pdf}
-  \caption{Lineare Regression der zugeordneten Energien, aufgetragen gegen die jeweiligen Bin Indizes.}
+  \caption{Zugeordnete Energien aufgetragen gegen die Bin-Indizes zur
+  Kalibrierung des Detektors für die beobachteten Peaks (blau). Zudem ist eine
+  lieanre Regressin der Werte (rot) aufgetragen.}
   \label{plt:eichung}
 \end{figure}
 
@@ -44,7 +46,8 @@ $b$ ergeben sich:
   b &= \SI{-41.25(1428)}{\kilo\electronvolt}
 \end{align}
 
-
+\input{build/tables/anleitung_eu.tex}
+\FloatBarrier
 
 \subsection{Effizienzmessung des Detektors}
 \label{sec:Effizienzmessung}
@@ -71,13 +74,34 @@ Der Peakinhalt wurde mit einem Fit durch eine Gaußfunktion der Form
 für jede Energie durchgeführt. Hierbei beschreibt $h$ die Höhe des Peaks, $\mu$
 den Mittelwert (um Bin-Indizes der Peaks zu korrigieren), $\sigma$ die
 Standardabweichnug und $a$ einen Parameter zur Untergrundberücksichtigung
-bezeichnet.
-Daraus ergibt sich der Peakinhalt $Z_i$ des Peaks $i$ durch Abintegration über
-eine Gaußkurve:
+bezeichnet. Die Parameter der Fits für jedes BIn sind in Tabelle
+\ref{tab:gauss_parameter} nachzulesen.
+
+\input{build/tables/Gauß-Fit-Parameter.tex}
+\FloatBarrier
+
+Aus diesen ergibt sich der Peakinhalt $Z_i$ des Peaks $i$ durch Abintegration
+über eine Gaußkurve:
 \begin{equation}
   Z_i = \sqrt{2\pi} h_i \sigma_i
 \end{equation}
 
+Nun kann aus den gerade berechneten Werten, in Tabelle \ref{tab:det_eff}
+aufgelistet, dazu verwenden einen Fit der Form
+\begin{equation}
+  Q(E) = a \cdot (E - b)^e + c
+\end{equation}
+durchzuführen. Dabei wurden nur solche Energien betrachtet, die über
+\SI{150}{\kilo\electronvolt} liegen. Daraus ergeben sich die folgenden Parameter:
+\begin{equation}
+  a &= \SI{-0.1(23)}{\kilo\electronvolt\per\becquerel}
+  b &= \SI{2e2(12)}{\kilo\electronvolt}
+  c &= \SI{6(20)}{\raiseto{-1}\becquerel}
+  e &= \num{0.5(20)}
+\end{equation}
+
+\input{build/table/det_eff.tex}
+\FloatBarrier
 
 \subsection{Bestimmung der Detektoreigenshaften}
 \label{sec:Detektoreigenschaften}
@@ -88,7 +112,7 @@ eine Gaußkurve:
 \subsection{Identifizierung eines aktiven Nuklids per Spektrum}
 \label{sec:Nuklidbestimmung}
 
-\input{build/tables/anleitung_eu.tex}
+
 % \subsection{Unterkapiel}
 % \label{sec:Unterkapitel}
 
