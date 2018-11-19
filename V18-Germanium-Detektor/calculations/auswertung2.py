@@ -26,7 +26,7 @@ if not os.path.isdir('build/tables'):
 data = np.genfromtxt('data/Eu.txt', unpack=True)
 E, peaks_ind, W = np.genfromtxt('data/2_0/Eu.txt', unpack=True)
 make_table(
-        header = ['Energie $E / \si{\kilo\electronvolt}$', 'Bin-Index $i$', 'Emis.-Wahr. W'],
+        header = ['Energie $E$ / \kilo\electronvolt', 'Bin-Index $i$', 'Emis.-Wahr. W'],
         data = [E, W, peaks_ind],
         places = [1.0, 2.1, 1.0],
         caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
