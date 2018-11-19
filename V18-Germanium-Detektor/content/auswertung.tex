@@ -2,6 +2,7 @@
 \section{Auswertung}
 \label{sec:Auswertung}
 
+%-------------------------------------------------------------------------------
 \subsection{Energiekallibrierung}
 \label{sec:Energiekallibrierung}
 Für eine Energiekalibrierung wurde das Spektrum der \ce{^{152} Eu} Quelle
@@ -24,9 +25,9 @@ erkennenen Peaks dem erwartetem Europium-Spektrum zugeordnet.
 
 Anhand der Energien und Bin-Indizes wurde eine lineare Ausgleichsrechnung, in
 Abbildung \ref{plt:eichung} zu erkennen, mit Hilfe der Formel
-\begin{equation}
+\begin{align*}
   E = m \cdot x + b
-\end{equation}
+\end{align*}
 durchgeführt.
 
 \begin{figure}[htb]
@@ -40,36 +41,37 @@ durchgeführt.
 
 Dabei entspricht $x$ der Bin-Indizes. Für die Parameter $m$ und
 $b$ ergeben sich:
-\begin{align}
-  m &= \SI{0.4204(69)}{\kilo\electronvolt} \\
+\begin{align*}
+  m = \SI{0.4204(69)}{\kilo\electronvolt} \\
   b &= \SI{-41.25(1428)}{\kilo\electronvolt}
-\end{align}
+\end{align*}
 
 \input{build/tables/anleitung_eu.tex}
 \FloatBarrier
 
+%-------------------------------------------------------------------------------
 \subsection{Effizienzmessung des Detektors}
 \label{sec:Effizienzmessung}
 Zur Berechnung der Detektoreffizienz wurde nach Formel xy durchgeführt.  % TODO: Formel einfügen
 Dafür wurde zuerst der Raumwinkel anhand Formel xy berechnet. Dabei  % TODO: Formel einfügen
 ergibt mit $a = \SI{22.3(10)}{\milli\meter}$ und $r = \SI{22.5(1)}{\milli\meter}$
 sich:
-\begin{equation}
+\begin{align*}
   \frac{\Omega}{4\pi} = \num{0.01558(34)}
-\end{equation}
+\end{align*}
 Dabei wurde $r$ so gewählt, dass der wahrscheinlichste Wechselwirkungspunkt
 \SI{1.5}{\centi\meter} innerhalb des Germaniums liegt und der Abstandshalter
 zwischen Probe und Detektor \SI{7.31}{\centi\meter} lang ist.
 Die Aktivität wurde aus dem Wissen errechnet, dass am 01.10.2000 die Aktivität
 der Europium-Probe bei $A = \SI{4130(60)}{\becquerel}$ beträgt. Mithilfe der
 Halbwertszeit $t_\frac{1}{2} = \SI{4943(5)}{\day}$ folgt für den Messtag:
-\begin{equation}
+\begin{align*}
     A_\text{Messtag} = A_0 \exp{-\frac{\ln{2} \Delta t}{t_\frac{1}{2}}}=\SI{1633(24)}{\becquerel}
-\end{equation}
+\end{align*}
 Der Peakinhalt wurde mit einem Fit durch eine Gaußfunktion der Form
-\begin{equation}
+\begin{align*}
   f(x) = h\cdot \exp{\frac{(x-\mu)^2}{2\sigma^2}} + a
-\end{equation}
+\end{align*}
 für jede Energie durchgeführt. Hierbei beschreibt $h$ die Höhe des Peaks, $\mu$
 den Mittelwert (um Bin-Indizes der Peaks zu korrigieren), $\sigma$ die
 Standardabweichnug und $a$ einen Parameter zur Untergrundberücksichtigung
@@ -81,24 +83,24 @@ bezeichnet. Die Parameter der Fits für jedes BIn sind in Tabelle
 
 Aus diesen ergibt sich der Peakinhalt $Z_i$ des Peaks $i$ durch Abintegration
 über eine Gaußkurve:
-\begin{equation}
+\begin{align*}
   Z_i = \sqrt{2\pi} h_i \sigma_i
-\end{equation}
+\end{align*}
 
 Nun kann aus den gerade berechneten Werten, in Tabelle \ref{tab:det_eff}
 aufgelistet, dazu verwenden einen Fit der Form
-\begin{equation}
+\begin{align*}
   Q(E) = a \cdot (E - b)^e + c
-\end{equation}
+\end{align*}
 durchzuführen. Dabei wurden nur solche Energien betrachtet, die über
 \SI{150}{\kilo\electronvolt} liegen. Daraus ergeben sich die Abbildung
 \ref{plt:eff} die folgenden Parameter:
-\begin{equation}
-  a &= \SI{-0.1(23)}{\kilo\electronvolt\per\becquerel} \\
-  b &= \SI{2e2(12)}{\kilo\electronvolt} \\
+\begin{align*}
+  a &= -\SI{0.1(23)}{\kilo\electronvolt\per\becquerel} \\
+  b &= \SI{2(12)}{\kilo\electronvolt} \\
   c &= \SI{6(20)}{\raiseto{-1}\becquerel} \\
   e &= \num{0.5(20)}
-\end{equation}
+\end{align*}
 
 \begin{figure}[htb]
   \centering
@@ -111,10 +113,26 @@ durchzuführen. Dabei wurden nur solche Energien betrachtet, die über
 \input{build/table/det_eff.tex}
 \FloatBarrier
 
+%-------------------------------------------------------------------------------
 \subsection{Bestimmung der Detektoreigenshaften}
 \label{sec:Detektoreigenschaften}
 Für diesen Teil der Auswertung wurde das Spektrum eines Cäsium-Strahlers, in
-Abbildung \ref{plt:Cs} zu sehen, aufgenommen. Hier wurden die charakteristischen
+Abbildung \ref{plt:Cs} zu sehen, aufgenommen.
+
+\begin{figure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{build/spektrum_Cs.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{build/spektrum_Cs_log.pdf}
+  \end{subfigure}
+  \caption{Vom Detektor aufgenomenes Spektrum der Cäsium-Quelle, dargestellt
+  mit dekadischer und logarithmischer y-Achse.}
+  \label{plt:Cs}
+\end{figure}
+Hier wurden die charakteristischen
 Peaks des Spektrums (Rückstreu- und Vollenergiepeak, sowie die Comptonkante)
 identifiziert. Die Zuordnung dieser sind in \ref{tab:Cs_char} nachzulesen. Der
 Theoriwert des Vollenergiepeaks liegt bei \SI{661.59}{\kilo\electronvolt}
@@ -138,15 +156,57 @@ Theoriwert des Vollenergiepeaks liegt bei \SI{661.59}{\kilo\electronvolt}
 Eine Berechnung der Theoriwerte für Rückstreupeak und Comptonkante durch die
 Energie des Vollenergiepeaks ($E_{\text{Voll}}$)  und dem Verhältnis dieser mit
 der Elektronenruhemasse ($\epsilon = \frac{E_\text{Voll}}{m_0 c^2}$) ergibt:
-\begin{equation}
+\begin{align*}
   E_\text{Compton, Theo} &= \frac{2\epsilon}{1+2\epsilon}\cdot E_\text{Voll} = \SI{1136.32}{\kilo\electronvolt}
   E_\text{Rück, Theo} &= \frac{1}{1+2\epsilon}\cdot E_\text{Voll} = \SI{659.88}{\kilo\electronvolt}
-\end{equation}
+\end{align*}
 Diese Werte weichen wie folgt von den gemessenen Werten ab:
-\begin{equation}
-  \Delta E_\text{Compton} = \SI{60.19}{\percent}
+\begin{align*}
+  \Delta E_\text{Compton} &= \SI{60.19}{\percent}
   \Delta E_\text{Rück} &= \SI{73.69}{\percent}
-\end{equation}
+\end{align*}
+
+Um zu überprüfen, ob der Vollenergiepeak eine Gaussform annimmt, wird eine
+rechte (r) und eine linke (l) Flanke mithilfe einer linearen Regression
+angenommen. Daraus ergeben sich die Parameter:
+\begin{align*}
+  a_\text{l} &= \Si{0.0042(7)} \ \ \ \ a_\text{r} = \Si{-0.0039(6)} \\
+  b_\text{l} &= \Si{1640.6(6)} \ \ \ \ b_\text{r} = \Si{1655.2(6)} \\
+\end{align*}
+Durch Hinzunahme der Formel
+\begin{align*}
+  \Delta_\text{x} = m_\text{r}xh + b_\text{r} - (m_\text{l}xh + b_\text{l})\ \text{mit}\ h \in \left{0,1, 0,5 \right}
+\end{align*}
+kann die Halbwerts- und die Zehntelbreite bestimmt werden. Daraus ergab sich:
+\begin{align*}
+  \Delta_{1/2} &= \SI{-38.3(5)}{\kilo\electronvolt} \\
+  \Delta_{!/10} &= \SI{-35.7(4)}{\kilo\electronvolt}
+\end{align*}
+Wird nun das Verhältnis $\Delta_{1/10} = \num{1.823}\Delta_{1/2} = \SI{-35.9(9)}{\kilo\electronvolt}$
+betrachtet, so erhält man hier eine Abweichung zum ermittelten Wert von
+$\Delta_{1/10}$ von \SI{5(19)}{\percent}.
+
+Im letzten Schritt dieses Auswertungsteils wird der Inhalt des Compton-Kontinuums
+und des Vollenergiepeaks mit der Absorptionswahrscheilichkeit des Compton- und
+Photoeffektes verglichen. Dafür wird die Formel
+\begin{align*}
+  p = 1 - \exp{-\mu l}
+\end{align*}
+mit der Länge des Detektors $l = \SI{3.9}{\centi\meter}$ und dem
+Absorptionskoeffizienten $\mu$ verwendet. Dabei ergeben sich die
+Absorptionskoeffizienten aus Abbildung \ref{plt:Cs_abs}.
+\begin{figure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{build/Cs.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{build/Cs_log.pdf}
+  \end{subfigure}
+  \caption{Vollenergiepeak und Compton-Kontinuum des Cs-Spektrums.}
+  \label{plt:Cs_abs}
+\end{figure}
 
 
 \subsection{Aktivitätsbestimmung anhand eines Spektrums}

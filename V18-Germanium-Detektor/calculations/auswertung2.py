@@ -28,7 +28,7 @@ E, peaks_ind, W = np.genfromtxt('data/2_0/Eu.txt', unpack=True)
 make_table(
         header = ['Energie $E$ / \kilo\electronvolt', 'Bin-Index $i$', 'Emis.-Wahr. W'],
         data = [E, W, peaks_ind],
-        places = [1.0, 2.1, 1.0],
+        places = [4.0, 2.1, 3.0],
         caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
         label = 'tab:anleitung_eu',
         filename = 'build/tables/anleitung_eu.tex'
@@ -140,19 +140,19 @@ make_table(
     data=[unter, hoehe, index_f, sigma],
     caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Energieoffset.',
     label='tab:gauss_parameter',
-    places=[(1.2, 1.2), (1.2, 1.2), (1.2, 1.2), (1.2, 1.2)],
+    places=[(2.2, 1.2), (3.2, 6.2), (4.2, 1.2), (3.2, 3.2)],
     filename='build/tables/Gauss-Fit-Parameter.tex'
     )
 
 #Erstellen einer Tabelle der Detektoreffizenz und den dazu wverwendeten Werten
-#make_table(
-#    header=['$Z_i$', '$E_i$' ,'$Q / \becquerel $'],
-#    data=[peakinhalt, E_det, Q],
-#    caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
-#    label = 'tab:det_eff',
-#    places = [ (1.2, 1.2), 1.2, (1.2, 1.2)],
-#    filename = 'build/tables/det_eff.tex'
-#    )
+make_table(
+    header=['$Z_i$', '$E_i$' ,'$Q / \becquerel $'],
+    data=[peakinhalt, E_det, Q],
+    caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
+    label = 'tab:det_eff',
+    places = [ (3.2, 6.2), 4.2, (2.2, 3.2)],
+    filename = 'build/tables/det_eff.tex'
+    )
 
 
 #Betrachte Exponential-Fit für Beziehnung zwischen Effizienz und Energie
@@ -217,19 +217,10 @@ energie_2 = lin(indexes_2, *params)
 e_rueck=energie_2[-4]
 e_compton=energie_2[-2]
 e_photo=energie_2[-1]
-print(len(energie_2), len(indexes_2))
-print(e_rueck, e_compton, e_photo)
-print(indexes_2[-4], indexes_2[-2], indexes_2[-1])
+#print(len(energie_2), len(indexes_2))
+#print(e_rueck, e_compton, e_photo)
+#print(indexes_2[-4], indexes_2[-2], indexes_2[-1])
 
-#Fasse Ergebnisse der Peaksuche in Tabelle zusammen
-#make_table(
-#    header=['$E_\text{rueck}$', '$E_\text{compton}$', '$E_\text{photo}$'],
-#    data=[e_rueck, e_compton, e_photo],
-#    places=[3.2, 3.2, 3.2],
-#    caption='Bestimmte Werte für den Rückstreupeak, den Comptonpeak und des Vollenergiepeaks.',
-#    label='tab:peaks',
-#    filename ='build/tables/peaks_Cs.tex'
-#    )
 
 e_photo = 661.59
 m_e = 511000
@@ -245,19 +236,19 @@ print(f'Ein Vergleich des theoretischen E_rueck {e_rueck_theo} mit dem gemessene
 #Betrachte Bereich um Vollenergiepeak herum und führe seperat eine lineare Regression von beiden Seiten durch
 left = 1638
 right = 1658
-print(data_b[left], data_b[right])
+#print(data_b[left], data_b[right])
 
 params_l, cov_l = curve_fit(lin, data_b[left:indexes_2[-1]+1], np.arange(left, indexes_2[-1]+1))
 errors_l = np.sqrt(np.diag(cov_l))
 m_l = ufloat(params_l[0], errors_l[0])
 b_l = ufloat(params_l[1], errors_l[1])
-print(f'Für die Betrachtung der linken Seite des Vollenergiepeaks beträgt die Steigung {params_l[0]} +/-{errors_l[0]} und der Setoff {params_l[1]} +/- {params_l[1]}')
+print(f'Für die Betrachtung der linken Seite des Vollenergiepeaks beträgt die Steigung {m_l} und der Setoff {b_l}')
 
 params_r, cov_r = curve_fit(lin,data_b[indexes_2[-1]:right+1],np.arange(indexes_2[-1],right+1))
 errors_r = np.sqrt(np.diag(cov_r))
 m_r = ufloat(params_r[0], errors_r[0])
 b_r = ufloat(params_r[1], errors_r[1])
-print(f'Für die Betrachtung der rechten Seite des Vollenergiepeaks beträgt die Steigung {params_r[0]} +/-{errors_r[0]} und der Setoff {params_r[1]} +/- {params_r[1]}')
+print(f'Für die Betrachtung der rechten Seite des Vollenergiepeaks beträgt die Steigung {m_r} und der Setoff {b_r}')
 
 #Berechne die Halbwertes und Zehntelbreite des Vollenergiepeaks und gebe Ergebnisse aus
 halb = m_r*1/2*data_b[indexes_2[-1]]+b_r - (m_l*1/2*data_b[indexes_2[-1]]+b_l)
@@ -265,9 +256,9 @@ zehntel = m_r*1/10*data_b[indexes_2[-1]]+b_r - (m_l*1/10*data_b[indexes_2[-1]]+b
 
 print('Vergleich Halb- zu Zehntelwertsbreite:')
 #lin beschreibt noch die lineare Regression vom beginn der Auswertung
-print('Halbwertsbreite', lin(halb,*params))
-print('Zehntelbreite', lin(zehntel,*params))
-print('Zehntel- nach Halbwertsbreit', lin(1.823*halb,*params))
+print('Halbwertsbreite: ', lin(halb,*params))
+print('Zehntelbreite: ', lin(zehntel,*params))
+print('Halbwertes- nach Zehntelbreite : ', lin(1.823*halb,*params))
 print('Verhältnis der beiden:', 1- lin(zehntel,*params)/lin((1.823*halb),*params))
 
 #Plotte das zugeordnete Cs-Spektrum und setze Horizontale bei Zehntel- und Harlbwertsbreite
@@ -316,7 +307,7 @@ def compton2(E):
     eps2 = noms(eps)
     a_c = data_b[indexes_2[-2]] / (1/eps2**2 *(2+ e_compton**2/(e_compton-e_photo)**2*(1/eps2**2+(e_photo-e_compton)/e_photo-2/eps2*(e_photo-e_compton)/e_photo)))
     return a_c/eps2**2 *(2+ E**2/(E-e_photo)**2*(1/eps2**2+(e_photo-E)/e_photo-2/eps2*(e_compton-e_photo)/e_photo))
-print('Epsilon betraegt: ',eps)
+
 
 inhalt_comp = quad(compton2,a=lin(0,*params),b=lin(indexes_2[-2],*params))
 print(inhalt_comp[0])
@@ -408,6 +399,9 @@ A=peakinhalt_ba[4:]/(omega_4pi*W_ba[4:]*potenz(E_ba_det[4:],*params2)) #nur die 
 A_det = [0,0,0,0]
 for i in A:
     A_det.append(i)
+#print(A_det)
+#print(unter_ba)
+#print(peakinhalt_ba)
 
 #Fasse Fit-Parameter in Tabelle zusammen
 make_table(
@@ -421,9 +415,9 @@ make_table(
 
 #Trage Ergebnisse der Aktivitätsbestimmung in Tabelle ein
 #make_table(
-#    header= ['$Z_i$', '$E_i$ / \kilo\electronvolt ', '$A_i$ / \becquerel '],
+#    header= ['$Z_i$', '$E_i$ / \kilo\electronvolt ', '$A_i$ / \\becquerel '],
 #    data=[unter_ba, peakinhalt_ba, A_det],
-#    places=[(2.1, 1.1), (4.2, 2.1), (4.0, 2)],
+#    places=[(2.2, 2.2), (4.2, 3.1), (4.0, 2.2)],
 #    caption='Berechnete Aktivitäten für jeden Bin mit dazu benötigten Werten.',
 #    label ='plt:aktivitaet_ba',
 #    filename ='build/tables/aktivitaet_ba.tex'
