@@ -8,21 +8,20 @@ Für eine Energiekalibrierung wurde das Spektrum der \ce{^{152} Eu} Quelle
 aufgezeichnet. Dies ist in Abbildung \ref{plt:Eu-Spektrum} zu sehen. Die zu
 erkennenen Peaks dem erwartetem Europium-Spektrum zugeordnet.
 
-% TODO: Woher kommt die Datei original_EU.pdf und original_EU_log.pdf? Wenn nicht in der Auswertung
-% generiert, bitte in den images-Odner packen und mit git add -f hinzufuegen.
-% \begin{figure}[htb]
-  % \begin{subfigure}{0.5\textwidth}
-    % \centering
-    % \includegraphics[width=\textwidth]{build/orginal_Eu.pdf}
-  % \end{subfigure}
-  % \begin{subfigure}{0.5\textwidth}
-    % \centering
-    % \includegraphics[width=\textwidth]{build/orginal_Eu_log.pdf}
-  % \end{subfigure}
-  % \caption{Vom Germanium Detektor aufgenommenes Spektrum der Europium Quelle mit
-  % dekadischer und logarithmischer y-Achse.}
-  % \label{plt:Eu-Spektrum}
-% \end{figure}
+
+\begin{figure}[htb]
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{build/orginal_Eu.pdf}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{build/orginal_Eu_log.pdf}
+  \end{subfigure}
+  \caption{Vom Germanium Detektor aufgenommenes Spektrum der Europium Quelle mit
+  dekadischer und logarithmischer y-Achse.}
+  \label{plt:Eu-Spektrum}
+\end{figure}
 
 Anhand der Energien und Bin-Indizes wurde eine lineare Ausgleichsrechnung, in
 Abbildung \ref{plt:eichung} zu erkennen, mit Hilfe der Formel
@@ -31,13 +30,12 @@ Abbildung \ref{plt:eichung} zu erkennen, mit Hilfe der Formel
 \end{equation}
 durchgeführt.
 
-% TODO: Woher kommt kalibration.pdf? Wird bei auswertung.py und auswertung2.py nicht generiert!
-% \begin{figure}[htb]
-  % \centering
-  % \includegraphics[width=0.8\textwidth]{build/kalibation.pdf}
-  % \caption{Lineare Regression der zugeordneten Energien, aufgetragen gegen die jeweiligen Bin Indizes.}
-  % \label{plt:eichung}
-% \end{figure}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{build/kalibation.pdf}
+  \caption{Lineare Regression der zugeordneten Energien, aufgetragen gegen die jeweiligen Bin Indizes.}
+  \label{plt:eichung}
+\end{figure}
 
 Dabei entspricht $x$ der Bin-Indizes. Für die Parameter $m$ und
 $b$ ergeben sich:
@@ -55,7 +53,7 @@ Dafür wurde zuerst der Raumwinkel anhand Formel xy berechnet. Dabei  % TODO: Fo
 ergibt mit $a = \SI{22.3(10)}{\milli\meter}$ und $r = \SI{22.5(1)}{\milli\meter}$
 sich:
 \begin{equation}
-  \frac{\Omega}{4\pi} = \num{0.01558(34)}  % TODO: Hat das Dingens keine Einheit?
+  \frac{\Omega}{4\pi} = \num{0.01558(34)}
 \end{equation}
 Dabei wurde $r$ so gewählt, dass der wahrscheinlichste Wechselwirkungspunkt
 \SI{1.5}{\centi\meter} innerhalb des Germaniums liegt und der Abstandshalter

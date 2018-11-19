@@ -7,8 +7,8 @@ build/main.pdf: build/tables/Gauss-Fit-Parameter.tex \
 	build/tables/det_eff.tex \
 	build/tables/anleitung_eu.tex | build
 
-build/tables/Gauss-Fit-Parameter.tex build/tables/det_eff.tex build/tables/anleitung_eu.tex: calculations/auswertung.py | build
-	python calculations/auswertung.py
+build/tables/Gauss-Fit-Parameter.tex build/tables/det_eff.tex build/tables/anleitung_eu.tex: calculations/auswertung2.py | build
+	python calculations/auswertung2.py
 
 
 build/main.pdf: FORCE | build

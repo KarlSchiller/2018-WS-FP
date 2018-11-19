@@ -1,4 +1,5 @@
 # coding=utf-8
+import os
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -16,17 +17,22 @@ from scipy.signal import find_peaks
 from astropy.io import ascii
 from tab2tex import make_table
 
+if not os.path.isdir('build'):
+    os.mkdir('build')
+if not os.path.isdir('build/tables'):
+    os.mkdir('build/tables')
+
 #------------------------Aufgabenteil a) {Untersuchung des Eu-Spektrums}
 data = np.genfromtxt('data/Eu.txt', unpack=True)
 E, peaks_ind, W = np.genfromtxt('data/2_0/Eu.txt', unpack=True)
-#make_table(
-#        header = ['Energie $E / \si{\kilo\electronvolt}$', 'Bin-Index $i$', 'Emis.-Wahr. W'],
-#        data = [E, W, peaks_ind],
-#        places = [1.0, 2.1, 1.0],
-#        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
-#        label = 'tab:anleitung_eu',
-#        filename = 'build/tables/anleitung_eu.tex'
-#        )
+make_table(
+        header = ['Energie $E / \si{\kilo\electronvolt}$', 'Bin-Index $i$', 'Emis.-Wahr. W'],
+        data = [E, W, peaks_ind],
+        places = [1.0, 2.1, 1.0],
+        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
+        label = 'tab:anleitung_eu',
+        filename = 'build/tables/anleitung_eu.tex'
+        )
 
 peaks = find_peaks(data, height=5, distance=10)
 indexes = peaks[0]
@@ -49,31 +55,29 @@ m=ufloat(params[0],errors[0])
 b=ufloat(params[1],errors[1])
 
 #Plotten des vom Detektor aufgenommenen Spektrums + logarithmische y-Achse
-#x=np.linspace(1,8192,8192)
-#plt.bar(lin(x,*params), data, label='Messdaten' )
-#plt.bar(lin(indexes,*params),data[indexes])
-#plt.xlim(0, 3450)
-#plt.xlabel(r'Kanäle')
-#plt.ylabel(r'Zählrate $N$')
-#plt.legend(loc='best')
-#plt.tight_layout()
-#plt.savefig('build/orginal_Eu.pdf')
-#plt.yscale('log')
-#plt.savefig('build/orginal_Eu_log.pdf')
-#plt.clf()
-#
+x=np.linspace(1,8192,8192)
+plt.bar(lin(x,*params), data, label='Messdaten' )
+plt.bar(lin(indexes,*params),data[indexes])
+plt.xlim(0, 3450)
+plt.xlabel(r'Kanäle')
+plt.ylabel(r'Zählrate $N$')
+plt.legend(loc='best')
+plt.savefig('build/orginal_Eu.pdf')
+plt.yscale('log')
+plt.savefig('build/orginal_Eu_log.pdf')
+plt.clf()
+
 #Plotten der Eichung/Kalibrierung am Eu-Spektrum
-#x=np.linspace(1,8192,8192)
-#plt.plot(x, lin(x,*params),'r-',label='Fit')
-#plt.plot(peaks_ind,E,'bx',label='Daten')
-#plt.xlim(0,4000)
-#plt.tight_layout()
-#plt.xlabel(r'Bin-Index')
-#plt.grid()
-#plt.ylabel(r'E$_\gamma\:/\: \mathrm{keV}$')
-#plt.legend()
-#plt.savefig('build/kalibation.pdf')
-#plt.clf()
+x=np.linspace(1,8192,8192)
+plt.plot(x, lin(x,*params),'r-',label='Fit')
+plt.plot(peaks_ind,E,'bx',label='Daten')
+plt.xlim(0,4000)
+plt.xlabel(r'Bin-Index')
+plt.grid()
+plt.ylabel(r'E$_\gamma\:/\: \mathrm{keV}$')
+plt.legend()
+plt.savefig('build/kalibation.pdf')
+plt.clf()
 
 #------------Berechnen der Detektoreffizenz
 #Berechnung der Aktivität am Messtag
@@ -130,25 +134,25 @@ print('Raumwinkel',omega_4pi)
 #Berechnung Detektoreffizienz für jeden Energiepeak
 Q=[peakinhalt[i]/(omega_4pi*A_jetzt*W[i]) for i in range(len(W))]
 
-##Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
-#make_table(
-#    header= ['$a$', '$h_i$', '$\mu_i$', '$\sigma_i$'],
-#    data=[unter, hoehe, index_f, sigma],
-#    caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Energieoffset.',
-#    label='tab:gauss_parameter',
-#    places=[(1.2, 1.2), (1.2, 1.2), (1.2, 1.2), (1.2, 1.2)],
-#    filename='build/tables/Gauss-Fit-Parameter.tex'
-#    )
-#
-##Erstellen einer Tabelle der Detektoreffizenz und den dazu wverwendeten Werten
-#make_table(
-#    header=['$Z_i$', 'E_i' ,'$Q \ \si{becquerel}$'],
-#    data=[peakinhalt, E_det, Q],
-#    caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
-#    label = 'tab:det_eff',
-#    places = [ (1.2, 1.2), 1.2, (1.2, 1.2)],
-#    filename = 'build/tables/det_eff.tex'
-#    )
+#Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
+make_table(
+    header= ['$a$', '$h_i$', '$\mu_i$', '$\sigma_i$'],
+    data=[unter, hoehe, index_f, sigma],
+    caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Energieoffset.',
+    label='tab:gauss_parameter',
+    places=[(1.2, 1.2), (1.2, 1.2), (1.2, 1.2), (1.2, 1.2)],
+    filename='build/tables/Gauss-Fit-Parameter.tex'
+    )
+
+#Erstellen einer Tabelle der Detektoreffizenz und den dazu wverwendeten Werten
+make_table(
+    header=['$Z_i$', 'E_i' ,'$Q \ \si{becquerel}$'],
+    data=[peakinhalt, E_det, Q],
+    caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
+    label = 'tab:det_eff',
+    places = [ (1.2, 1.2), 1.2, (1.2, 1.2)],
+    filename = 'build/tables/det_eff.tex'
+    )
 
 
 #Betrachte Exponential-Fit für Beziehnung zwischen Effizienz und Energie
@@ -177,29 +181,29 @@ print(f'Verschiebung c = {c}')
 print(f'Exponent e = {e}')
 
 #Plotten der Effizenz gegen die Energie mit Exponential-Fit-Funktion
-#x=np.linspace(200,1600,10000)
-#plt.plot(x, potenz(x,*params2),'r-',label='Fit')
-#plt.plot(E,noms(Q),'b.',label='Daten')
-#plt.legend()
-#plt.xlabel(r'$E \:/\: keV$')
-#plt.grid()
-#plt.ylabel(r'$Q(E)$')
-#plt.savefig('build/efficiency.pdf')
-#plt.clf()
+x=np.linspace(200,1600,10000)
+plt.plot(x, potenz(x,*params2),'r-',label='Fit')
+plt.plot(E,noms(Q),'b.',label='Daten')
+plt.legend()
+plt.xlabel(r'$E \:/\: keV$')
+plt.grid()
+plt.ylabel(r'$Q(E)$')
+plt.savefig('build/efficiency.pdf')
+plt.clf()
 
 #-----------------------Teilaufgabe b) {Untersuchung des Cs-Spektrums}
 data_b = np.genfromtxt('data/Cs.txt', unpack=True)
 x_plot = np.linspace(0, len(data_b), len(data_b))
 
-##Plotten des vom Detektor aufgenommenen Cs-Spektrums + logarithmische y_Achse
-#plt.bar(x_plot, data_b)
-#plt.xlim(0, 1800)
-#plt.xlabel(r'Kanäle')
-#plt.ylabel(r'Ausschläge')
-#plt.tight_layout()
-#plt.savefig('build/spektrum_Cs.pdf')
-#plt.yscale('log')
-#plt.savefig('build/spektrum_Cs_log.pdf')
+#Plotten des vom Detektor aufgenommenen Cs-Spektrums + logarithmische y_Achse
+plt.bar(x_plot, data_b)
+plt.xlim(0, 1800)
+plt.xlabel(r'Kanäle')
+plt.ylabel(r'Ausschläge')
+plt.savefig('build/spektrum_Cs.pdf')
+plt.yscale('log')
+plt.savefig('build/spektrum_Cs_log.pdf')
+plt.clf()
 
 #Finde Peaks in Spektrum und ordne sie der Energie zu
 peaks_2 = find_peaks(data_b, height=60, distance=20)
@@ -213,12 +217,12 @@ energie_2 = lin(indexes_2, *params)
 e_rueck=energie_2[-4]
 e_compton=energie_2[-2]
 e_photo=energie_2[-1]
-
-##Fasse Ergebnisse der Peaksuche in Tabelle zusammen
+print(e_rueck, e_compton, e_photo)
+#Fasse Ergebnisse der Peaksuche in Tabelle zusammen
 #make_table(
 #    header=['$E_\text{rueck}$', '$E_\text{compton}$', '$E_\text{photo}$'],
 #    data=[e_rueck, e_compton, e_photo],
-#    places=[1.2, 1.2, 1.2],
+#    places=[3.2, 3.2, 3.2],
 #    caption='Bestimmte Werte für den Rückstreupeak, den Comptonpeak und des Vollenergiepeaks.',
 #    label='tab:peaks',
 #    filename ='build/tables/peaks_Cs.tex'
@@ -261,24 +265,23 @@ print('Zehntelbreite', lin(zehntel,*params))
 print('Zehntel- nach Halbwertsbreit', lin(1.823*halb,*params))
 print('Verhältnis der beiden:', 1- lin(zehntel,*params)/lin((1.823*halb),*params))
 
-##Plotte das zugeordnete Cs-Spektrum und setze Horizontale bei Zehntel- und Harlbwertsbreite
-#x=np.linspace(1,8192,8192)
-#plt.plot(x, data_b,'r-',label='Fit')
-#plt.plot(indexes_2,data_b[indexes_2],'bx',label='Peaks')
-#plt.axhline(y=0.5*data_b[indexes_2[-1]], color='g',linestyle='dashed')
-#print('Halbwertshöhe', 0.5*data_b[indexes_2[-1]])
-#print('Zehntelwertshöhe', 0.1*data_b[indexes_2[-1]])
-#plt.axhline(y=0.1*data_b[indexes_2[-1]], color='r',linestyle='dashed')
-#plt.xlim(0,2000)
-#plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
-#plt.ylabel(r'Zählrate $N$')
-#plt.grid()
-#plt.legend()
-#plt.tight_layout()
-#plt.savefig('build/Cs.pdf')
-#plt.yscale('log')
-#plt.savefig('build/Cs_log.pdf')
-#plt.clf()
+#Plotte das zugeordnete Cs-Spektrum und setze Horizontale bei Zehntel- und Harlbwertsbreite
+x=np.linspace(1,8192,8192)
+plt.plot(x, data_b,'r-',label='Fit')
+plt.plot(indexes_2,data_b[indexes_2],'bx',label='Peaks')
+plt.axhline(y=0.5*data_b[indexes_2[-1]], color='g',linestyle='dashed')
+print('Halbwertshöhe', 0.5*data_b[indexes_2[-1]])
+print('Zehntelwertshöhe', 0.1*data_b[indexes_2[-1]])
+plt.axhline(y=0.1*data_b[indexes_2[-1]], color='r',linestyle='dashed')
+plt.xlim(0,2000)
+plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
+plt.ylabel(r'Zählrate $N$')
+plt.grid()
+plt.legend()
+plt.savefig('build/Cs.pdf')
+plt.yscale('log')
+plt.savefig('build/Cs_log.pdf')
+plt.clf()
 
 #Führe wieder Gausß-Fit für den Vollenergiepeak durch, um Peakhöhe bestimmen zu können
 a=indexes_2[-1].astype('int')-50
@@ -322,27 +325,28 @@ print(f'Die absolute Wahrscheinlichkeit eine Vollenergiepeaks liegt bei: {abs_wa
 print(f'Die absolute Wahrscheinlichkeit eine Comptonpeaks liegt bei: {abs_wahrsch_comp} Prozent')
 
 
-#Aufgabenteil d)
-data_d = np.genfromtxt('data/Sb_Ba.txt', unpack=True) #Das sollte Barium sein
-#x_plot = np.linspace(1, 8192, 8192)
-#plt.bar(x_plot, data_d)
-#plt.savefig('build/Ba_Sb_orginal.pdf')
-#plt.yscale('log')
-#plt.savefig('build/Ba_Sb_orginal_log.pdf')
-#plt.clf()
+#------------------Aufgabenteil d) {Barium oder Antimon? Wir werden es erfahren.}
+#Betrachte zuerst Orginalaufnahmen des Detektors
+data_d = np.genfromtxt('data/Sb_Ba.txt', unpack=True)
+x_plot = np.linspace(1, 8192, 8192)
+plt.bar(x_plot, data_d)
+plt.savefig('build/Ba_Sb_orginal.pdf')
+plt.yscale('log')
+plt.savefig('build/Ba_Sb_orginal_log.pdf')
+plt.clf()
 
-peaks_3 = find_peaks(data_d, height=90, distance=15)
+#Finde höchste Peaks und ordne sie den passenden Energien des Spektrums zu
+peaks_3 = find_peaks(data_d, height=70, distance=15)
 indexes_3 = peaks_3[0]
 peak_heights_3 = peaks_3[1]
 energie_3 = lin(indexes_3,*params)
 print(indexes_3)
 print(energie_3)
 
-
 x=np.linspace(1,8192,8192)
 plt.plot(x, data_d,'r-',label='Detektor')
 plt.plot(indexes_3,data_d[indexes_3],'bx',label='Peaks')
-plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
+plt.xlabel(r'Kanäle$')
 plt.ylabel(r'Zählrate $N$')
 plt.xlim(0, 1800)
 plt.grid()
@@ -376,56 +380,72 @@ def gaussian_fit_peaks_d(test_ind):
         peak_inhalt.append(h_fit*sigma_fit*np.sqrt(2*np.pi))
     return index_fit,peak_inhalt, hoehe, unter, sigma
 
-#E_ba, W_ba, peaks_ind_ba = np.genfromtxt('Ba.txt', unpack=True)
-#index_ba, peakinhalt_ba, hoehe_ba, unter_ba, sigma_ba = gaussian_fit_peaks_d(peaks_ind_ba.astype('int'))
-#ascii.write(
-#    [E_ba,W_ba,peaks_ind_ba,lin(peaks_ind_ba,*params)],
-#    'ba.tex', format='latex',overwrite='True')
-#
-#E_ba_det = []
-#for i in range(len(index_ba)):
-#    E_ba_det.append(lin(index_ba[i],*params))
-#
-#A=peakinhalt_ba[4:]/(omega_4pi*W_ba[4:]*potenz(E_ba_det[4:],*params2)) #nur die mit E>150keV mitnehmen
-#A_det = [0,0,0,0]
-#for i in A:
-#    A_det.append(i)
-#
-#make_table(
-#    header=,
-#    data=[index_ba, E_ba_det, hoehe_ba, sigma_ba],
-#    places=,
-#    caption =,
-#    label =,
-#    filename =
-#)
-##ascii.write(
-##    [index_ba,E_ba_det,hoehe_ba, sigma_ba],
-##    'd.tex', format='latex',overwrite='True')
-##ascii.write(
-##    [unter_ba, peakinhalt_ba, A_det],
-##    'd2.tex', format='latex',overwrite='True')
-#A_gem = ufloat(np.mean(noms(A)),np.mean(sdevs(A)))
-#print('gemittelte Aktivität',A_gem)
-#
-##Aufgabenteil e)
-#data_e = np.genfromtxt('Daten/04.txt', unpack=True)
-#
-#peaks_4 = find_peaks(data_e, height=100, distance=15)
-#indexes_4 = peaks_4[0]
-#peak_heights_4 = peaks_4[1]
-#energie_4 = lin(indexes_4,*params)
-#ascii.write(
-#    [indexes_4,data_e[indexes_4],energie_4],
-#    'e.tex', format='latex', overwrite='True')
-#print(energie_4)
-#
-#x=np.linspace(1,8192,8192)
-#plt.plot(lin(x,*params), data_e,'b--',label='Fit Bins - Energien')
-#plt.plot(lin(indexes_4,*params),data_e[indexes_4],'rx',label='Detektierte Peaks')
-#plt.xlabel(r'E $\:/\: \mathrm{keV}$')
-#plt.ylabel(r'Zählrate $N$')
-#plt.legend()
-#plt.savefig('e.pdf')
-#plt.clf()
-#
+#Führe wieder einen Gauß-Fit in den Bins durch um den Peakinhalt zu bestimmen
+E_ba, W_ba, peaks_ind_ba = np.genfromtxt('data/Sb_Ba_sortiert.txt', unpack=True)
+index_ba, peakinhalt_ba, hoehe_ba, unter_ba, sigma_ba = gaussian_fit_peaks_d(peaks_ind_ba.astype('int'))
+
+#Fasse Ergebnisse in Tabelle zusammen
+make_table(
+    header= ['$E$ / keV', 'Wahrsch. $W$', 'Index $i', '$E_i$ / keV'],
+    data=[E_ba, W_ba, peaks_ind_ba, lin(peaks_ind_ba, *params)],
+    places=[2.2, 1.1, 3.0, 3.2],
+    caption ='Werte der zu erwartenden Peaks der Ba-Quelle. Dazu die erwarete Energie $E$, die Emissionswahrscheinlichkeit $W$, der zugeordnete Index $i$ und die gefittete Energie $E_i$.',
+    label ='tab:Ba_erwartet',
+    filename ='build/tables/Ba_erwartet.tex'
+)
+
+E_ba_det = []
+for i in range(len(index_ba)):
+    E_ba_det.append(lin(index_ba[i],*params))
+
+#Berechne aktivität der Quelle am Messtag
+A=peakinhalt_ba[4:]/(omega_4pi*W_ba[4:]*potenz(E_ba_det[4:],*params2)) #nur die mit E>150keV mitnehmen
+A_det = [0,0,0,0]
+for i in A:
+    A_det.append(i)
+
+#Fasse Fit-Parameter in Tabelle zusammen
+make_table(
+    header= ['Bin-Index $i$', '$E_\gamma$', '$h_i$', '$\sigma_i$'],
+    data=[index_ba, E_ba_det, hoehe_ba, sigma_ba],
+    places=[4.3, 3.2, 3.0, 2.2],
+    caption='Parameter des Gauß-Fits. Dabei ist $\sigma_i$ die Standardabweichung.',
+    label='tab:Ba',
+    filename='build/tables/Ba.tex'
+)
+
+#Trage Ergebnisse der Aktivitätsbestimmung in Tabelle ein
+make_table(
+    header= ['$Z_i$', '$E_i$ / keV', '$A_i$ / Bq'],
+    data=[unter_ba, peakinhalt_ba, A_det],
+    places=[(2.1, 1.1), (4.2, 2.1), (4.0, 2)],
+    caption='Berechnete Aktivitäten für jeden Bin mit dazu benötigten Werten.',
+    label ='plt:aktivitaet_ba',
+    filename ='build/tables/aktivitaet_ba.tex'
+)
+
+A_gem = ufloat(np.mean(noms(A)),np.mean(sdevs(A)))
+print('gemittelte Aktivität',A_gem)
+
+
+#-------------Aufgabenteil e) {Was das? Gucken wir mal}
+data_e = np.genfromtxt('data/unbekannt.txt', unpack=True)
+
+peaks_4 = find_peaks(data_e, height=50, distance=15)
+indexes_4 = peaks_4[0]
+peak_heights_4 = peaks_4[1]
+energie_4 = lin(indexes_4,*params)
+ascii.write(
+    [indexes_4,data_e[indexes_4],energie_4],
+    'e.tex', format='latex', overwrite='True')
+print(energie_4)
+
+x=np.linspace(1,8192,8192)
+plt.plot(lin(x,*params), data_e,'r-',label='Fit')
+plt.plot(lin(indexes_4,*params),data_e[indexes_4],'bx',label='Peaks')
+plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
+plt.ylabel(r'Zählrate $N$')
+plt.legend()
+plt.grid()
+plt.savefig('build/unbekannt.pdf')
+plt.clf()
