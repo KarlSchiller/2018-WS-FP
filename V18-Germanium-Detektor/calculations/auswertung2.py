@@ -140,7 +140,7 @@ make_table(
     data=[unter, hoehe, index_f, sigma],
     caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Energieoffset.',
     label='tab:gauss_parameter',
-    places=[(2.2, 1.2), (4.2, 6.2), (4.2, 1.2), (3.2, 3.2)],
+    places=[(2.2, 1.2), (4.2, 6.2), (4.2, 3.2), (3.2, 3.2)],
     filename='build/tables/Gauss-Fit-Parameter.tex'
     )
 
