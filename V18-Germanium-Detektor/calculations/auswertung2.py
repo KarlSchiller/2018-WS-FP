@@ -58,7 +58,7 @@ b=ufloat(params[1],errors[1])
 x=np.linspace(1,8192,8192)
 plt.bar(lin(x,*params), data, label='Messdaten' )
 plt.bar(lin(indexes,*params),data[indexes])
-plt.xlim(0, 3450)
+plt.xlim(0, 3300)
 plt.xlabel(r'Kanäle')
 plt.ylabel(r'Zählrate $N$')
 plt.legend(loc='best')
@@ -71,7 +71,8 @@ plt.clf()
 x=np.linspace(1,8192,8192)
 plt.plot(x, lin(x,*params),'r-',label='Fit')
 plt.plot(peaks_ind,E,'bx',label='Daten')
-plt.xlim(0,4000)
+plt.ylim(0,1500)
+plt.xlim(0, 4000)
 plt.xlabel(r'Bin-Index')
 plt.grid()
 plt.ylabel(r'E$_\gamma\:/\: \mathrm{keV}$')
@@ -302,6 +303,7 @@ def compton(E,eps):
 params_compton,covariance_compton=curve_fit(compton,lin(np.arange(1,indexes_2[-2]+1),*params),data_b[0:indexes_2[-2]])
 errors_compton = np.sqrt(np.diag(covariance_compton))
 
+
 eps=ufloat(params_compton[0],errors_compton[0])
 def compton2(E):
     eps2 = noms(eps)
@@ -310,7 +312,7 @@ def compton2(E):
 
 
 inhalt_comp = quad(compton2,a=lin(0,*params),b=lin(indexes_2[-2],*params))
-print(inhalt_comp[0])
+print(f'Der Inhalt des Compton-Kontinuums, liegt bei: {inhalt_comp[0]}')
 
 mu_ph = 0.002 #in cm^-1
 mu_comp = 0.38
@@ -326,6 +328,7 @@ print(f'Die absolute Wahrscheinlichkeit eine Comptonpeaks liegt bei: {abs_wahrsc
 data_d = np.genfromtxt('data/Sb_Ba.txt', unpack=True)
 x_plot = np.linspace(1, 8192, 8192)
 plt.bar(x_plot, data_d)
+plt.xlim(0, 8192)
 plt.savefig('build/Ba_Sb_orginal.pdf')
 plt.yscale('log')
 plt.savefig('build/Ba_Sb_orginal_log.pdf')
@@ -382,7 +385,7 @@ index_ba, peakinhalt_ba, hoehe_ba, unter_ba, sigma_ba = gaussian_fit_peaks_d(pea
 
 #Fasse Ergebnisse in Tabelle zusammen
 make_table(
-    header= ['$E$ / \kilo\electronvolt ', 'Wahrsch. $W$', 'Index $i', '$E_i$ / \kilo\electronvolt '],
+    header= ['$E$ / \kilo\electronvolt ', 'Wahrsch. $W$', 'Index $i$', '$E_i$ / \kilo\electronvolt '],
     data=[E_ba, W_ba, peaks_ind_ba, lin(peaks_ind_ba, *params)],
     places=[2.2, 1.1, 3.0, 3.2],
     caption ='Werte der zu erwartenden Peaks der Ba-Quelle. Dazu die erwarete Energie $E$, die Emissionswahrscheinlichkeit $W$, der zugeordnete Index $i$ und die gefittete Energie $E_i$.',
@@ -407,7 +410,7 @@ for i in A:
 make_table(
     header= ['Bin-Index $i$', '$E_\gamma$', '$h_i$', '$\sigma_i$'],
     data=[index_ba, E_ba_det, hoehe_ba, sigma_ba],
-    places=[4.3, 3.2, 3.0, 2.2],
+    places=[(4.2, 1.2), (3.2, 1.2), (3.2, 2.2), (1.2, 1.2)],
     caption='Parameter des Gauß-Fits. Dabei ist $\sigma_i$ die Standardabweichung.',
     label='tab:Ba',
     filename='build/tables/Ba.tex'
@@ -434,9 +437,14 @@ peaks_4 = find_peaks(data_e, height=50, distance=15)
 indexes_4 = peaks_4[0]
 peak_heights_4 = peaks_4[1]
 energie_4 = lin(indexes_4,*params)
-#ascii.write(
-#    [indexes_4,data_e[indexes_4],energie_4],
-#    'e.tex', format='latex', overwrite='True')
+make_table(
+    header=['Index $i$', '$Z_\\text{i}$', '$E_\\text{i}$'],
+    data= [indexes_4, data_e[indexes_4], energie_4],
+    places=[4.0, 3.1, 4.2],
+    caption ='Zugeordnete Indizes, Zählrate $Z_\\text{i}$ und Energie $E_\\text{i}$ der gefundenen Peaks.',
+    label='tab:last',
+    filename ='build/tables/last.tex'
+)
 print(energie_4)
 
 x=np.linspace(1,8192,8192)
@@ -444,6 +452,7 @@ plt.plot(lin(x,*params), data_e,'r-',label='Fit')
 plt.plot(lin(indexes_4,*params),data_e[indexes_4],'bx',label='Peaks')
 plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
 plt.ylabel(r'Zählrate $N$')
+plt.xlim(0, 3300)
 plt.legend()
 plt.grid()
 plt.savefig('build/unbekannt.pdf')
