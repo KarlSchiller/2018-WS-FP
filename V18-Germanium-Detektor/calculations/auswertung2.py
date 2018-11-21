@@ -147,7 +147,7 @@ make_table(
 
 #Erstellen einer Tabelle der Detektoreffizenz und den dazu wverwendeten Werten
 make_table(
-    header=['$Z_i$', '$E_i$' ,'$Q$ / \\becquerel '],
+    header=['$Z_i$', '$E_i$' ,'$Q_i$ / \\becquerel '],
     data=[peakinhalt, E_det, Q],
     caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
     label = 'tab:det_eff',
@@ -259,7 +259,7 @@ print('Vergleich Halb- zu Zehntelwertsbreite:')
 #lin beschreibt noch die lineare Regression vom beginn der Auswertung
 print('Halbwertsbreite: ', lin(halb,*params))
 print('Zehntelbreite: ', lin(zehntel,*params))
-print('Halbwertes- nach Zehntelbreite : ', lin(1.823*halb,*params))
+print('Halbwertes- nach Zehntelbreite : ', 1.823*lin(halb,*params))
 print('Verhältnis der beiden:', 1- lin(zehntel,*params)/lin((1.823*halb),*params))
 
 #Plotte das zugeordnete Cs-Spektrum und setze Horizontale bei Zehntel- und Harlbwertsbreite
@@ -396,13 +396,18 @@ make_table(
 E_ba_det = []
 for i in range(len(index_ba)):
     E_ba_det.append(lin(index_ba[i],*params))
-
+#print(E_ba_det)
 #Berechne aktivität der Quelle am Messtag
+print(f'Daten zur berechnung der akivität: {E_ba_det[4:]}, {params2}')
 A=peakinhalt_ba[4:]/(omega_4pi*W_ba[4:]*potenz(E_ba_det[4:],*params2)) #nur die mit E>150keV mitnehmen
-A_det = [0,0,0,0]
+
+A_det = []
+for i in range(0,4):
+    A_det.append(0)
+
 for i in A:
     A_det.append(i)
-#print(A_det)
+print('A_det', A_det)
 #print(unter_ba)
 #print(peakinhalt_ba)
 
@@ -417,6 +422,7 @@ make_table(
 )
 
 #Trage Ergebnisse der Aktivitätsbestimmung in Tabelle ein
+print(unter_ba, peakinhalt_ba, A_det)
 #make_table(
 #    header= ['$Z_i$', '$E_i$ / \kilo\electronvolt ', '$A_i$ / \\becquerel '],
 #    data=[unter_ba, peakinhalt_ba, A_det],
