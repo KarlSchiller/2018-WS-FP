@@ -151,7 +151,7 @@ make_table(
     data=[peakinhalt, E_det, Q],
     caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
     label = 'tab:det_eff',
-    places = [ (4.2, 6.2), (4.2, 3.2), (2.2, 3.2)],
+    places = [ (5.2, 6.2), (4.2, 3.2), (3.2, 3.2)],
     filename = 'build/tables/det_eff.tex'
     )
 
@@ -387,7 +387,7 @@ index_ba, peakinhalt_ba, hoehe_ba, unter_ba, sigma_ba = gaussian_fit_peaks_d(pea
 make_table(
     header= ['$E$ / \kilo\electronvolt ', 'Wahrsch. $W$', 'Index $i$', '$E_i$ / \kilo\electronvolt '],
     data=[E_ba, W_ba, peaks_ind_ba, lin(peaks_ind_ba, *params)],
-    places=[2.2, 1.1, 3.0, 3.2],
+    places=[3.2, 2.1, 3.0, 3.2],
     caption ='Werte der zu erwartenden Peaks der Ba-Quelle. Dazu die erwarete Energie $E$, die Emissionswahrscheinlichkeit $W$, der zugeordnete Index $i$ und die gefittete Energie $E_i$.',
     label ='tab:Ba_erwartet',
     filename ='build/tables/Ba_erwartet.tex'
@@ -416,7 +416,7 @@ print('A_det', A_det)
 make_table(
     header= ['Bin-Index $i$', '$E_\gamma$', '$h_i$', '$\sigma_i$'],
     data=[index_ba, E_ba_det, hoehe_ba, sigma_ba],
-    places=[(4.2, 1.2), (3.2, 1.2), (3.2, 2.2), (1.2, 1.2)],
+    places=[(4.2, 1.2), (3.2, 1.2), (4.2, 2.2), (1.2, 1.2)],
     caption='Parameter des Gauß-Fits. Dabei ist $\sigma_i$ die Standardabweichung.',
     label='tab:Ba',
     filename='build/tables/Ba.tex'

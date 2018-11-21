@@ -1,14 +1,17 @@
 \newpage
 \section{Auswertung}
 \label{sec:Auswertung}
+% TODO: Bei Tabellen insgesamt noch einmal schauen, ob überall Einheiten heraus dividiert
 
 %-------------------------------------------------------------------------------
 \subsection{Energiekallibrierung}
 \label{sec:Energiekallibrierung}
 
 Für eine Energiekalibrierung wurde das Spektrum der \ce{^{152}Eu}-Quelle
-aufgezeichnet. Dies ist in Abbildung \ref{plt:Eu-Spektrum} zu sehen. Die zu
-erkennenen Peaks wurden dem erwartetem Europium-Spektrum zugeordnet.
+aufgezeichnet. Dies ist in Abbildung \ref{plt:Eu-Spektrum} zu dargestellt. Die zu
+erkennenen Peaks wurden dem erwartetem Europium-Spektrum zugeordnet,
+die wiederum in Tabelle \ref{tab:anleitung_eu} dargestellt sind.
+% TODO: Welches Spektrum wurde denn erwartet? Referenz auf Anleitung!
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{build/orginal_Eu_log.pdf}
@@ -16,12 +19,12 @@ erkennenen Peaks wurden dem erwartetem Europium-Spektrum zugeordnet.
   logarithmischer y-Achse.}
   \label{plt:Eu-Spektrum}
 \end{figure}
-Anhand der Energien und Bin-Indizes wurde eine lineare Ausgleichsrechnung, in
-Abbildung \ref{plt:eichung} zu erkennen, mit Hilfe der Formel
+Anhand der Energien und Bin-Indizes wurde eine lineare Ausgleichsrechnung
+mit Hilfe der Formel
 \begin{align*}
   E = m \cdot x + b
 \end{align*}
-durchgeführt.
+durchgeführt. Sie ist in Abbildung \ref{plt:Eu-Spektrum} dargestellt.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{build/kalibation.pdf}
@@ -36,7 +39,8 @@ $b$ ergeben sich:
 	m &= \SI{0.4204(69)}{\kilo\electronvolt} \\
   b &= \SI{-41.25(1428)}{\kilo\electronvolt}
 \end{align*}
-\input{build/tables/anleitung_eu.tex}
+\input{build/tables/anleitung_eu.tex}  % TODO: Nachschauen, etwas passt da mit
+% dem Header und den wErten nicht. Vermutlich i und W in der Überschrift verwechselt.
 \FloatBarrier
 
 %-------------------------------------------------------------------------------
@@ -45,46 +49,46 @@ $b$ ergeben sich:
 
 Zur Berechnung der Detektoreffizienz wurde Formel
 \eqref{eqn:Vollenergie-Nachweiseffizienz} verwendet. Dafür wurde zuerst der
-Raumwinkel anhand Formel \eqref{eqn:Raumwinkel} berechnet. Dabei ergibt mit
-$a = \SI{22.3(10)}{\milli\meter}$ und $r = \SI{22.5(1)}{\milli\meter}$ sich:
+Raumwinkel anhand Formel \eqref{eqn:Raumwinkel} berechnet. Mit
+$a = \SI{22.3(10)}{\milli\meter}$ und $r = \SI{22.5(1)}{\milli\meter}$ ergibt sich
 \begin{align*}
   \frac{\Omega}{4\pi} = \num{0.01558(34)}
+	.
 \end{align*}
 Dabei wurde $r$ so gewählt, dass der wahrscheinlichste Wechselwirkungspunkt
 \SI{1.5}{\centi\meter} innerhalb des Germaniums liegt und der Abstandshalter
 zwischen Probe und Detektor \SI{7.31}{\centi\meter} lang ist.
 Die Aktivität wurde aus dem Wissen errechnet, dass am 01.10.2000 die Aktivität
 der Europium-Probe bei $A = \SI{4130(60)}{\becquerel}$ beträgt. Mithilfe der
-Halbwertszeit $t_{\sfrac{1}{2}} = \SI{4943(5)}{\day}$ folgt für den Messtag:
+Halbwertszeit $t_{\sfrac{1}{2}} = \SI{4943(5)}{\day}$ folgt für den Messtag
 \begin{align*}
-    A_\text{Messtag} = A_0 \exp{\left(-\frac{\ln{2} \cdot\Delta t}{t_{1/2}}\right)}=\SI{1633(24)}{\becquerel}
+	A_\text{Messtag} = A_0 \exp\left(-\frac{\ln{2} \cdot\Delta t}{t_{\sfrac{1}{2}}}\right)=\SI{1633(24)}{\becquerel}
+	.
 \end{align*}
 Der Peakinhalt wurde mit einem Fit durch eine Gaußfunktion der Form
 \begin{align*}
 	f\left(x\right) = h\cdot \exp{\frac{(x-\mu)^2}{2\sigma^2}} + a
 \end{align*}
 für jede Energie durchgeführt. Hierbei beschreibt $h$ die Höhe des Peaks, $\mu$
-den Mittelwert (um Bin-Indizes der Peaks zu korrigieren), $\sigma$ die
-Standardabweichnug und $a$ einen Parameter zur Untergrundberücksichtigung
+den (um Bin-Indizes der Peaks zu korrigieren) Mittelwert, $\sigma$ die
+Standardabweichnug und $a$ einen Parameter zur Berücksichtigung des Untergrunds.
 bezeichnet. Die Parameter der Fits für jedes Bin sind in Tabelle
 \ref{tab:gauss_parameter} nachzulesen.
-
 \input{build/tables/Gauss-Fit-Parameter.tex}
 \FloatBarrier
 
-Aus diesen ergibt sich der Peakinhalt $Z_i$ des Peaks $i$ durch Abintegration
+Aus diesen ergibt sich der Peakinhalt $Z_i$ des Peaks $i$ durch Integration
 über eine Gaußkurve:
 \begin{align*}
   Z_i = \sqrt{2\pi} h_i \sigma_i
 \end{align*}
-Nun kann aus den gerade berechneten Werten, in Tabelle \ref{tab:det_eff}
-aufgelistet, dazu verwenden einen Fit der Form
+An diese in Tabelle \ref{tab:det_eff} dargestellten Werte wird ein Fit der Form
 \begin{align*}
   Q(E) = a \cdot (E - b)^e + c
 \end{align*}
-durchzuführen. Dabei wurden nur solche Energien betrachtet, die über
-\SI{150}{\kilo\electronvolt} liegen. Daraus ergeben sich die Abbildung
-\ref{plt:eff} die folgenden Parameter:
+durchgeführt. Dabei wurden nur solche Energien betrachtet, die über
+\SI{150}{\kilo\electronvolt} liegen.
+Der Fit ist in Abbildung \ref{plt:eff} dargestellt und ergab die Parameter:
 \begin{align*}
   a &= -\SI{0.1(23)}{\kilo\electronvolt\per\becquerel} \\
   b &= \SI{2(12)}{\kilo\electronvolt} \\
@@ -110,8 +114,7 @@ Abbildung \ref{plt:Cs} zu sehen, aufgenommen.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{build/spektrum_Cs_log.pdf}
-  \caption{Vom Detektor aufgenommenes Spektrum der Cäsium-Quelle, dargestellt
-  mit dekadischer und logarithmischer y-Achse.}
+  \caption{Vom Detektor aufgenommenes Spektrum der Cäsium-Quelle.}
   \label{plt:Cs}
 \end{figure}
 Hier wurden die charakteristischen
@@ -121,7 +124,7 @@ Theoriwert des Vollenergiepeaks liegt bei \SI{661.59}{\kilo\electronvolt}
 \cite{theorie}.
 \begin{table}[htb]
 	\centering
-  \caption{Charakteristische Peaks des Cs-Strahlers ahnand der Bin-Indizes und der Energie $E$.}
+  \caption{Experimentell bestimmte charakteristische Peaks des Cs-Strahlers ahnand der Bin-Indizes und der Energie $E$.}
   \label{tab:Cs_char}
   \begin{tabular}{c
     S[table-format=4.0]
@@ -151,10 +154,10 @@ Um zu überprüfen, ob der Vollenergiepeak eine Gaussform annimmt, wird eine
 rechte (r) und eine linke (l) Flanke mithilfe einer linearen Regression
 angenommen. Daraus ergeben sich die Parameter:
 \begin{align*}
-  a_\text{l} &= \num{0.0042(7)} \quad a_\text{r} = \num{-0.0039(6)} \\
-  b_\text{l} &= \num{1640.6(6)} \quad b_\text{r} = \num{1655.2(6)}
+	a_\text{l} &= \num{0.0042(7)} & a_\text{r} &= \num{-0.0039(6)} \\
+	b_\text{l} &= \num{1640.6(6)} & b_\text{r} &= \num{1655.2(6)}
 \end{align*}
-Durch Hinzunahme der Formel
+Mit Hilfe der Formel
 \begin{align*}
 	\Delta_\text{x} = m_\text{r}xh + b_\text{r} - \left(m_\text{l}xh + b_\text{l}\right)\ \text{mit}\ h \in \left\{\num{0.1}; \num{0.5}\right\}
 \end{align*}
@@ -164,8 +167,10 @@ kann die Halbwerts- und die Zehntelbreite bestimmt werden. Daraus ergab sich:
 	\num{1.823} \cdot \Delta_{1/2} &= \SI{-35.9(9)}{\kilo\electronvolt} \\
   \Delta_{1/10} &= \SI{-35.7(4)}{\kilo\electronvolt}
 \end{align*}
-Wird nun das Verhältnis zwischen den beiden unteren asdf  % TODO
-betrachtet, so erhält man hier eine Abweichung zum ermittelten Wert von
+Bei einer Gaußkurve beträgt die Zehntelbreite das \num{1.823}-fache der
+Halbwertsbreite.
+Wird nun das Verhältnis zwischen den beiden unteren Werten
+betrachtet, so erhält man hier eine Abweichung von
 $\Delta_{1/10}$ von \SI{5}{\percent}.
 
 Im letzten Schritt dieses Auswertungsteils wird der Inhalt des Compton-Kontinuums
@@ -198,15 +203,17 @@ Fit durchgeführt. Als Fit-Funktion wird bei dem Compton-Kontinuum eine
 Gaußfunktion angesetzt, während beim Vollenergiepeak eine Funktion der Form von
 Formel \eqref{eqn:Compton-Wirkungsquerschnitt} verwendet wurde. Bei Durchführung
 es Fits ergibt sich damei ein Parameter $\epsilon = \num{111}$. Die Peakhöhe des
-untersuchten Compton-Kontinuums und des Vollenergiepeaks wird durch ein
-Aufintegrieren dieser Formel bestimmt auf:
+untersuchten Compton-Kontinuums und des Vollenergiepeaks wird durch
+Integration dieser Formel auf
 \begin{align*}
   Z_\text{Compton} &= \num{10580(9)} \\
   Z_\text{Voll} &= \num{19697.88}
 \end{align*}
+bestimmt.
+% TODO: Diesen folgenden Text nicht vielleicht in die Diskussion?
 Zu erkennen ist ganz klar, dass der Vollenergiepeak wesentlich höher liegt als
-das Compton-Kontinuum. Dies entsteht dadurch trotz der geringeren
-Absorptinoswahrscheinlichkeit dadurch, dass der Vollenergiepeak nicht durch den
+das Compton-Kontinuum. Dieser Effekt ergibt sich trotz der geringeren
+Absorptionswahrscheinlichkeit dadurch, dass der Vollenergiepeak nicht durch den
 Photoeffekt alleine hervorgerufen wird, sondern auch durch Elektronen, die ihre
 Energie mehrfach durch den Comptoneffekt abgeben und dann dann erst durch den
 Photoeffekt ihre Energie vollständig verlieren. Durch diesen Prozess resultiert
@@ -215,9 +222,9 @@ ein höherer Extinktionskoeffizient als durch den Photoeffekt allein.
 %-------------------------------------------------------------------------------
 \subsection{Aktivitätsbestimmung anhand eines Spektrums}
 \label{sec:Aktivitätsbestimmung}
-Hier sollte anhand eines Spektrums zwischen Barium(\ce{^{133}Ba}) und Antimon(\ce{^{125}Sb})
-unterschieden werden. Hierfür wurde das in Abbildung \ref{plt:bar} zu sehende
-Spektrum verwendet um wie in den Auswertungsteilen zuvor die Peaks den jeweiligen
+Im Folgenden wird anhand eines Spektrums zwischen Barium(\ce{^{133}Ba}) und Antimon(\ce{^{125}Sb})
+unterschieden. Hierfür wurde das in Abbildung \ref{plt:bar} zu sehende
+Spektrum verwendet, um wie in den Auswertungsteilen zuvor die Peaks den jeweiligen
 Energien zugeordnet. Diese Zuordnungen sind in Tabelle \ref{tab:Ba_erwartet} zu
 finden.
 \begin{figure}[htb]
@@ -230,8 +237,8 @@ finden.
 \FloatBarrier
 Daraus ist dem Spektrum die \ce{^{152}Ba}-Quelle zuzuordnen, da die Energien der
 Peaks gut zu dem von Barium zu erwartenden Spektrum passen. Einige Peaks, welche
-charakteristisch für barium sind, sind allerdings nicht gefunden worden. Jene
-Peaks jedoch, die klar zu erkennen sind, aber nicht zugeordnet wurden, sind auf
+charakteristisch für Barium sind, sind allerdings nicht gefunden worden.
+Weitere Peaks, die klar zu erkennen sind und nicht zugeordnet wurden, sind auf
 Untergrundstrahlung oder Verschmnutzungen der Probe zurückzuführen. Nach
 Zuordnung der Peaks wurde ein Gauß-Fit verwendet, um die Peakhöhen der einzelnen
 Bins zu erhalten. Nun wurde die Formel \eqref{eqn:Vollenergie-Nachweiseffizienz}
@@ -239,23 +246,25 @@ verwendet, um die Aktivität der Probe am Messtag zu bestimmen. Diese Berechnung
 wird unter der Premisse durchgeführt, das alle Werte für die Energie überhalb
 von $E_\text{i} = $\SI{150}{\kilo\electronvolt} liegt. Aus den Parametern des
 Fits aus Tabelle \ref{tab:Ba} und den daraus Berechneten Werten in Tabelle
-\ref{plt:aktivitaet_ba} wurde dann durch bildung eines Mittelwertes die
-Aktivität bestimmt auf:
+\ref{plt:aktivitaet_ba} wurde die Aktivität durch Bildung eines Mittelwertes
+auf
 \begin{align*}
   A = \SI{1417(32)}{\becquerel}
 \end{align*}
+bestimmt.
 \input{build/tables/Ba.tex}
-\input{build/tables/aktivitaet_ba.tex}
+% \input{build/tables/aktivitaet_ba.tex}  TODO Diese Tabelle muss irgendwie erstellt werden
 \FloatBarrier
 
 %-------------------------------------------------------------------------------
 \subsection{Identifizierung eines aktiven Nuklids per Spektrum}
 \label{sec:Nuklidbestimmung}
-Im letzten Schritt der Auswertung geht es darum ein aktives Nuklid anhand eines
+% TODO: Den ersten Satz schreibt man eigentlich so nicht. Besser zusammen umformulieren
+Im letzten Schritt der Auswertung geht es darum, ein aktives Nuklid anhand eines
 Spektrums zu identifizieren. Dabei besteht keine Entscheidungsmöglichkeit zwischen
 zwei gegebenen, wie in dem vorherigen Schritt.
-Hier wurde das in Abbildung \ref{plt:unbekannt} dazu genutzt die Peaks zu
-herauszusuchen. Anschließend wurden deren Höhe und Energie bestimmt. Die daraus
+Das in Abbildung \ref{plt:unbekannt} dargestellte Spektrum wurde dazu genutzt, die Peaks herauszusuchen.
+Anschließend wurden deren Höhe und Energie bestimmt. Die daraus
 resultierenden Werte sind in Tabelle \ref{tab:last} zu finden.
 \begin{figure}[htb]
   \centering
@@ -267,9 +276,10 @@ resultierenden Werte sind in Tabelle \ref{tab:last} zu finden.
 \FloatBarrier
 Diese Peaks wurden mit den in der Anleitung \cite{anleitung} gegebenen Werten
 verschiedener aktiver Nukliden verglichen.
-Dort gibt es nun zwei Nuklide, die hier vorkommen könnten, \ce{^{214}Bi} und
+Dort gibt es zwei Nuklide, die hier vorkommen könnten, \ce{^{214}Bi} und
 \ce{^{210}Ti}. Bei Wismut würden die gefundenen Peaks zu den Emissionslinien
 bei \SI{1120}{\kilo\electronvolt} und \SI{1378}{\kilo\electronvolt}. Bei Titan
-entsprächen die gefundenen Emissionslinien denLinien bei \SI{1210}{\kilo\electronvolt}
+entsprächen die gefundenen Emissionslinien den Linien bei \SI{1210}{\kilo\electronvolt}
 und \SI{1310}{\kilo\electronvolt}. Diese Annahme wird dadurch die höheren
 Emissionswahrscheilichkeiten an den Stellen dieser Peaks zusätzlich bekräftigt.
+% TODO: Was soll der letzte Satz aussagen? Sinn und Grammatik unklar...
