@@ -396,13 +396,14 @@ make_table(
 E_ba_det = []
 for i in range(len(index_ba)):
     E_ba_det.append(lin(index_ba[i],*params))
+
 #print(E_ba_det)
 #Berechne aktivität der Quelle am Messtag
-print(f'Daten zur berechnung der akivität: {E_ba_det[4:]}, {params2}')
-A=peakinhalt_ba[4:]/(omega_4pi*W_ba[4:]*potenz(E_ba_det[4:],*params2)) #nur die mit E>150keV mitnehmen
+print(f'Daten zur Berechnung der Akivität: {E_ba_det}, {params2}')
+A=peakinhalt_ba[2:]/(omega_4pi*W_ba[2:]*potenz(E_ba_det[2:],*params2)) #nur die mit E>150keV mitnehmen
 
 A_det = []
-for i in range(0,4):
+for i in range(0,2):
     A_det.append(0)
 
 for i in A:
