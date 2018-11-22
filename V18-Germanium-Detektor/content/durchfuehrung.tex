@@ -6,7 +6,7 @@
 \label{sec:AufbauDetektor}
 
 Der verwendete Detektor ist ein sogenannter koaxialer \ce{Ge}-Detektor.
-Er besteht aus einem zylinderförmigen \ce{Ge}-Kristall mit einer Bohrung in
+Er besteht aus einem zylinderförmigen \ce{Ge}-Kristall mit einer Bohrung im
 Inneren, auf welche ein Kontakt aufgedampft ist. Von außen sind \ce{Li}-Atome
 eindiffundiert, sodass die äußere Schicht von \SI{0.5}{\milli\meter} Dicke
 stark n-dotiert ist.
@@ -42,7 +42,7 @@ ist, gilt der Zusammenhang
 mit dem Radius $r$ nach Abbildung \ref{fig:Raumwinkel}.
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\textwidth]{images/Raumwinkel.pdf}
+	\includegraphics[width=.65\textwidth]{images/Raumwinkel.pdf}
 	\caption{Skizze zur Berechnung des Raumwinkels $\Omega$~\cite[25]{anleitung}.}
 	\label{fig:Raumwinkel}
 \end{figure}
@@ -63,7 +63,7 @@ Wie in Abschnitt \ref{sec:KenngroessenHLDetektor} angedeutet befindet sich ein V
 innerhalb des Dewargefäßes, welchen den Detektor kühlt, um Rauschspannungen zu minimieren.
 Ein Temperaturfühler im Inneren des Dewargefäßes ist mit einem Temperaturwächter verbunden,
 welcher das Anlegen einer Hochspannung an einen warmen Detektorkristall verhindert.
-Der Vorverstärker besteht aus einem kapazitiv rückgekoppleten Operationsverstärker, sodass
+Der Vorverstärker besteht aus einem kapazitiv rückgekoppelten Operationsverstärker, sodass
 das Ausgangspotential proportional zum integrierten Eingangsstrom ist.
 Dies führt beim Einfall mehrerer $\gamma$-Quanten zu einem stufenförmigen Anstieg der Ausgangsspannung.
 Aus diesem Signal ist eine Analyse der Pulshöhen schwierig,
@@ -76,7 +76,7 @@ des Operationsverstärkers mit Rückkopplung dargestellt.
 	\caption{Schematisches Schaltbild des Vorverstärkers mit optoelektronischer Rückkopplung~\cite[19]{anleitung}.}
 	\label{fig:Optoelektronische-Rueckkopplung}
 \end{figure}
-Nach einem Impuls scheint eine LED auf den Eingangs-Feldeffekttransistor, welcher so kurzzeitig
+Nach einem Impuls scheint eine LED auf den Eingangs-Feldeffekttransistor (FET), welcher so kurzzeitig
 leitend wird und eine Entladung des Kondensators ermöglicht.
 Der Vorvertärker ist über einen Hochpass an den Hauptverstärker gekoppelt, um Gleichspannungsdriften
 und Offsetspannung nicht zu verstärken. Aufgrund unterschiedlicher Abklingkoeffizienten des
@@ -86,7 +86,7 @@ wird durch sogenannte Zero-Pole-Kompensation unterbunden, also das geben eines g
 Bruchteils der Ausgangsspannung des Vorverstärkers auf den Hauptverstärker bei Umgehung
 des Hochpasses.
 Im Hauptverstärker selbst wird das Signal mehrfach elektronisch integriert und differenziert,
-um eine optimale Bandbreite des Verstärkers zu gewährleisten. Bei zu kleiner Bandbreite werden
+um eine optimale Bandbreite des Verstärkers zu gewährleisten. Bei zu kleiner Bandbreite
 werden nicht alle Komponenten des Eingangssignals übertragen und bei zu großer Bandbreite
 ist das Signal zu Rauschverhältnis zu klein.
 
@@ -132,7 +132,7 @@ Hier beträgt die Messzeit ebenfalls eine Stunde.
 \subsection{Charakterisierung unbekannter Proben}
 \label{sec:CharakterisierungBeschreibung}
 
-Die dritte Probe ist entweder eine \ce{^125Sb}- oder eine \ce{^133}-Quelle.
+Die dritte Probe ist entweder eine \ce{^125Sb}- oder eine \ce{^133Ba}-Quelle.
 Das Spektrum wird wie auch bei der vierten Probe für eine Stunde aufgenommen
 und daraus im Anschluss das vorliegende Material bestimmt.
 Hierzu werden Tabellen mit verschiedenen $\gamma$-Linien und den zugehörigen

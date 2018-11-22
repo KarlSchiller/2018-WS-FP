@@ -1,7 +1,6 @@
 \newpage
 \section{Auswertung}
 \label{sec:Auswertung}
-% TODO: Bei Tabellen insgesamt noch einmal schauen, ob überall Einheiten heraus dividiert
 
 %-------------------------------------------------------------------------------
 \subsection{Energiekallibrierung}
@@ -11,7 +10,6 @@ Für eine Energiekalibrierung wurde das Spektrum der \ce{^{152}Eu}-Quelle
 aufgezeichnet. Dies ist in Abbildung \ref{plt:Eu-Spektrum} zu dargestellt. Die zu
 erkennenen Peaks wurden dem erwartetem Europium-Spektrum zugeordnet,
 die wiederum in Tabelle \ref{tab:anleitung_eu} dargestellt sind.
-% TODO: Welches Spektrum wurde denn erwartet? Referenz auf Anleitung!
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{build/orginal_Eu_log.pdf}
@@ -39,8 +37,7 @@ $b$ ergeben sich:
 	m &= \SI{0.4204(69)}{\kilo\electronvolt} \\
   b &= \SI{-41.25(1428)}{\kilo\electronvolt}
 \end{align*}
-\input{build/tables/anleitung_eu.tex}  % TODO: Nachschauen, etwas passt da mit
-% dem Header und den wErten nicht. Vermutlich i und W in der Überschrift verwechselt.
+\input{build/tables/anleitung_eu.tex}
 \FloatBarrier
 
 %-------------------------------------------------------------------------------
@@ -164,14 +161,14 @@ Mit Hilfe der Formel
 kann die Halbwerts- und die Zehntelbreite bestimmt werden. Daraus ergab sich:
 \begin{align*}
   \Delta_{1/2} &= \SI{-38.3(5)}{\kilo\electronvolt} \\
-	\num{1.823} \cdot \Delta_{1/2} &= \SI{-35.9(9)}{\kilo\electronvolt} \\
+	\num{1.823} \cdot \Delta_{1/2} &= \SI{-69.9(9)}{\kilo\electronvolt} \\
   \Delta_{1/10} &= \SI{-35.7(4)}{\kilo\electronvolt}
 \end{align*}
 Bei einer Gaußkurve beträgt die Zehntelbreite das \num{1.823}-fache der
 Halbwertsbreite.
 Wird nun das Verhältnis zwischen den beiden unteren Werten
 betrachtet, so erhält man hier eine Abweichung von
-$\Delta_{1/10}$ von \SI{5}{\percent}.
+$\Delta_{1/10}$ von \SI{49.1}{\percent}.
 
 Im letzten Schritt dieses Auswertungsteils wird der Inhalt des Compton-Kontinuums
 und des Vollenergiepeaks mit der Absorptionswahrscheilichkeit des Compton- und
@@ -210,14 +207,7 @@ Integration dieser Formel auf
   Z_\text{Voll} &= \num{19697.88}
 \end{align*}
 bestimmt.
-% TODO: Diesen folgenden Text nicht vielleicht in die Diskussion?
-Zu erkennen ist ganz klar, dass der Vollenergiepeak wesentlich höher liegt als
-das Compton-Kontinuum. Dieser Effekt ergibt sich trotz der geringeren
-Absorptionswahrscheinlichkeit dadurch, dass der Vollenergiepeak nicht durch den
-Photoeffekt alleine hervorgerufen wird, sondern auch durch Elektronen, die ihre
-Energie mehrfach durch den Comptoneffekt abgeben und dann dann erst durch den
-Photoeffekt ihre Energie vollständig verlieren. Durch diesen Prozess resultiert
-ein höherer Extinktionskoeffizient als durch den Photoeffekt allein.
+
 
 %-------------------------------------------------------------------------------
 \subsection{Aktivitätsbestimmung anhand eines Spektrums}
@@ -253,13 +243,12 @@ auf
 \end{align*}
 bestimmt.
 \input{build/tables/Ba.tex}
-% \input{build/tables/aktivitaet_ba.tex}  TODO Diese Tabelle muss irgendwie erstellt werden
+\input{calculations/aktivitaet_ba.tex}
 \FloatBarrier
 
 %-------------------------------------------------------------------------------
 \subsection{Identifizierung eines aktiven Nuklids per Spektrum}
 \label{sec:Nuklidbestimmung}
-% TODO: Den ersten Satz schreibt man eigentlich so nicht. Besser zusammen umformulieren
 Im letzten Schritt der Auswertung geht es darum, ein aktives Nuklid anhand eines
 Spektrums zu identifizieren. Dabei besteht keine Entscheidungsmöglichkeit zwischen
 zwei gegebenen, wie in dem vorherigen Schritt.
@@ -278,8 +267,6 @@ Diese Peaks wurden mit den in der Anleitung \cite{anleitung} gegebenen Werten
 verschiedener aktiver Nukliden verglichen.
 Dort gibt es zwei Nuklide, die hier vorkommen könnten, \ce{^{214}Bi} und
 \ce{^{210}Ti}. Bei Wismut würden die gefundenen Peaks zu den Emissionslinien
-bei \SI{1120}{\kilo\electronvolt} und \SI{1378}{\kilo\electronvolt}. Bei Titan
+bei \SI{1120}{\kilo\electronvolt} und \SI{1378}{\kilo\electronvolt} passen. Bei Titan
 entsprächen die gefundenen Emissionslinien den Linien bei \SI{1210}{\kilo\electronvolt}
-und \SI{1310}{\kilo\electronvolt}. Diese Annahme wird dadurch die höheren
-Emissionswahrscheilichkeiten an den Stellen dieser Peaks zusätzlich bekräftigt.
-% TODO: Was soll der letzte Satz aussagen? Sinn und Grammatik unklar...
+und \SI{1310}{\kilo\electronvolt}.

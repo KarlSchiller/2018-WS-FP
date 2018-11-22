@@ -26,10 +26,10 @@ if not os.path.isdir('build/tables'):
 data = np.genfromtxt('data/Eu.txt', unpack=True)
 E, peaks_ind, W = np.genfromtxt('data/2_0/Eu.txt', unpack=True)
 make_table(
-        header = ['Energie $E$ / \kilo\electronvolt', 'Bin-Index $i$', 'Emis.-Wahr. W'],
+        header = [' $E$ / \kilo\electronvolt', ' $W$ / \%', 'Bin-Index $i$'],
         data = [E, W, peaks_ind],
         places = [4.0, 2.1, 4.0],
-        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}.',
+        caption = 'Gegebene Werte zur Kalibrierung des Germanium-Detektors \cite{anleitung}. Aufgelistet sind die jeweilige Energie, die Emissionswahrscheinlichkeit $W$ und der Bin Index $i$.',
         label = 'tab:anleitung_eu',
         filename = 'build/tables/anleitung_eu.tex'
         )
@@ -137,9 +137,9 @@ Q=[peakinhalt[i]/(omega_4pi*A_jetzt*W[i]) for i in range(len(W))]
 
 #Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
 make_table(
-    header= ['$a$', '$h_i$', '$\mu_i$', '$\sigma_i$'],
+    header= ['$a$', '$h_i$', '$\mu_i$ / \kilo\electronvolt', '$\sigma_i$ / \kilo\electronvolt'],
     data=[unter, hoehe, index_f, sigma],
-    caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Energieoffset.',
+    caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Zählraten-Offset.',
     label='tab:gauss_parameter',
     places=[(2.2, 1.2), (4.2, 6.2), (4.2, 3.2), (3.2, 3.2)],
     filename='build/tables/Gauss-Fit-Parameter.tex'
@@ -147,7 +147,7 @@ make_table(
 
 #Erstellen einer Tabelle der Detektoreffizenz und den dazu wverwendeten Werten
 make_table(
-    header=['$Z_i$', '$E_i$' ,'$Q_i$ / \\becquerel '],
+    header=['$Z_i$', '$E_i$ / \kilo\electronvolt' ,'$Q_i$ / \\becquerel '],
     data=[peakinhalt, E_det, Q],
     caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
     label = 'tab:det_eff',
@@ -260,7 +260,7 @@ print('Vergleich Halb- zu Zehntelwertsbreite:')
 print('Halbwertsbreite: ', lin(halb,*params))
 print('Zehntelbreite: ', lin(zehntel,*params))
 print('Halbwertes- nach Zehntelbreite : ', 1.823*lin(halb,*params))
-print('Verhältnis der beiden:', 1- lin(zehntel,*params)/lin((1.823*halb),*params))
+print('Verhältnis der beiden:', 1- lin(zehntel,*params)/(1.832*lin((halb),*params)))
 
 #Plotte das zugeordnete Cs-Spektrum und setze Horizontale bei Zehntel- und Harlbwertsbreite
 x=np.linspace(1,8192,8192)
@@ -385,7 +385,7 @@ index_ba, peakinhalt_ba, hoehe_ba, unter_ba, sigma_ba = gaussian_fit_peaks_d(pea
 
 #Fasse Ergebnisse in Tabelle zusammen
 make_table(
-    header= ['$E$ / \kilo\electronvolt ', 'Wahrsch. $W$', 'Index $i$', '$E_i$ / \kilo\electronvolt '],
+    header= ['$E$ / \kilo\electronvolt ', '$W$ / \%', 'Index $i$', '$E_i$ / \kilo\electronvolt '],
     data=[E_ba, W_ba, peaks_ind_ba, lin(peaks_ind_ba, *params)],
     places=[3.2, 2.1, 3.0, 3.2],
     caption ='Werte der zu erwartenden Peaks der Ba-Quelle. Dazu die erwarete Energie $E$, die Emissionswahrscheinlichkeit $W$, der zugeordnete Index $i$ und die gefittete Energie $E_i$.',
@@ -414,7 +414,7 @@ print('A_det', A_det)
 
 #Fasse Fit-Parameter in Tabelle zusammen
 make_table(
-    header= ['Bin-Index $i$', '$E_\gamma$', '$h_i$', '$\sigma_i$'],
+    header= ['Bin-Index $i$', '$E_\gamma$ / \kilo\electronvolt', '$h_i$', '$\sigma_i$ / \kilo\electronvolt'],
     data=[index_ba, E_ba_det, hoehe_ba, sigma_ba],
     places=[(4.2, 1.2), (3.2, 1.2), (4.2, 2.2), (1.2, 1.2)],
     caption='Parameter des Gauß-Fits. Dabei ist $\sigma_i$ die Standardabweichung.',
@@ -445,14 +445,14 @@ indexes_4 = peaks_4[0]
 peak_heights_4 = peaks_4[1]
 energie_4 = lin(indexes_4,*params)
 make_table(
-    header=['Index $i$', '$Z_\\text{i}$', '$E_\\text{i}$'],
+    header=['Index $i$', '$Z_\\text{i}$', '$E_\\text{i}$ / \kilo\electronvolt'],
     data= [indexes_4, data_e[indexes_4], energie_4],
     places=[4.0, 3.1, 4.2],
     caption ='Zugeordnete Indizes, Zählrate $Z_\\text{i}$ und Energie $E_\\text{i}$ der gefundenen Peaks.',
     label='tab:last',
     filename ='build/tables/last.tex'
 )
-print(energie_4)
+
 
 x=np.linspace(1,8192,8192)
 plt.plot(lin(x,*params), data_e,'r-',label='Fit')
