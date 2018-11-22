@@ -1,13 +1,13 @@
 \section{Zielsetzung}
 \label{sec:Zielsetzung}
 In diesem Versuch wird die Funktionsweise eines Diodenlaser betrachtet und
-mithilfe dieses verschiedene Resonanzlinien von Rubidium aufgenommen.
+mithilfe dessen verschiedene Resonanzlinien von Rubidium aufgenommen.
 
 \section{Theorie}
 \label{sec:Theorie}
 
 \subsection{Hintergrund}
-Vor der Entwicklung des Diodenlasers wurden Laser zumeist verstellbare Farbstoff-Laser
+Vor der Entwicklung des Diodenlasers wurden als Laser zumeist verstellbare Farbstoff-Laser
 verwendet, welche einen chemischen Farbstoff als aktives Medium verwendeten.
 Dabei wurde eine externe Pumpquelle verwendet, um eine Bestzungsinversion zu
 erzeugen. Diese Art von Laser hatte aber einige ungewollten Limitationen in
@@ -30,7 +30,6 @@ Die Aufgaben der einzelnen Bestandtteile werden in einem Dioden-Chip und einen
   \caption{Schematische Darstellung der allgemeinen Laserkomponenten \cite{anleitung2}.}
   \label{fig:laser}
 \end{figure}
-
 Eine Pumpquelle sorgt dafür, dass in dem Lasermedium (auch aktives Medium)
 eine Besetzungsinversion auftritt. Eine Besetzungsinversion wird dann erreicht,
 wenn mehr Elektronen ein höhergelegenes Energieniveau einnehmen als den
@@ -41,7 +40,7 @@ und Phase emittiert (induzierte Emission). Das nun erzeugte Licht bildet innerha
 des Resonators stehende Wellen aus, deren Wellenlänge abhängig vom aktiven Medium und
 der Länge des Resonators sind. Durch wiederholtes Durchlaufen der Photonen durch
 das aktive Medium kommt es zudem zu einer Verstärkung der Intensität. Dabei ist der
-Resonator durch einen totalreflektierte
+Resonator durch einen fast vollständig
 und eine teildurchlässige Spiegel abgegrenzt. Sind die Verluste durch den teilweise
 reflektierenden Spiegel geringer als die Verstärkung, so wird von einem stabilen
 Laserbetrieb gesprochen.
@@ -55,7 +54,6 @@ optischer Wellenleiter dient. Um
 einen Laserlicht erhalten zu können soll es in einer der Lagen zur Rekombination
 eines Elektron-Loch-Paares kommen. Dazu wird nun der Aufbau dieser Diode näher
 beleuchtet.
-
 \begin{figure}
   \begin{subfigure}[c]{0.5\textwidth}
     \centering
@@ -71,9 +69,8 @@ beleuchtet.
   \caption{Darstellung des Lasers und des Dioden-Chips mit Kennzeichnung der
   Halbeiter-Heterostruktur\cite{anleitung}.}
 \end{figure}
-
 Das obere und untere Ende der Dioden wird durch Elektroden abgegrenzt um einen
-Anregungsstrom an dem Chip anlegen und ihn somit als Pumpquelle verwenden zu
+Anregungsstrom an dem Chip anlegen und die Diode somit als Pumpquelle verwenden zu
 können. Um einen Resonator zu erzeugen, sind zwei planparallele Schichten
 aufgetragen, die vollständig oder teilweise verspiegelt sind. Die anderen
 Grenzflächen sind rau, um ungewünschte Oszillationen in weiteren Schichten der
@@ -91,12 +88,12 @@ Bandlücke) in Form von Photonen emittieren. Dieser Vorgang ist in Abbildung
   Schichten innerhalb der Laserdiode \cite{recomb}.}
   \label{fig:recombition}
 \end{figure}
-
 Innerhalb des durch die unterschiedlich
 verspiegelten Außenflächen und des höheren Brechungsindezes der aktiven Schicht
 abgegrenzten internen Resonators entstehen dort stehende Wellen. Da die Abmessung
 der Diode nicht größer ist als die Wellenlänge des emittierten Lichtes, ist der
-von der Diode ausgehende Lichtstrahl elliptisch und stark divergent. Um diesem
+von der Diode ausgehende Lichtstrahl elliptisch und stark divergent. Die elliptische
+Form ist der rechteckigen Austrittsöffnung zu verdanken. Um diesem
 Abhilfe zu schaffen, wird zusätlich noch eine Linse verwendet, um den Strahl zu
 kollimieren.
 Der in diesem Experiment verwendete Laser emmittiert Licht
@@ -105,7 +102,8 @@ mit einer Wellenlänge von \SIrange{775}{800}{\nano\meter} bei \SI{70}{\milli\wa
 Der nun vorhandene Laserstrahl besitzt zwei ungewünschte Eigenschaften. Zum einen
 ist die Linienbreite des Strahls sehr groß ($\Delta\nu \approx \SI{50}{\mega\hertz}$)
 und damit ungeeignet zur Untersuchung atomarer Gegebenheiten ($ \approx \SI{5}{\mega\hertz}$).
-Zum Anderen ist der Strahl sehr empfindlich gegenüber Änderungen der optischer Begebenheiten,
+Zum Anderen ist der Strahl sehr empfindlich gegenüber Änderungen der umliegenden
+Lichtverhältnisse,
 was ihn sehr instabil werden lässt. Um diese Effekte anzupassen, wird ein äußerer
 Resonator verwendet.
 
@@ -124,7 +122,7 @@ und ein Beugungsgitter realisiert. Die Linse wird
 verwendet, um den vom Dioden-Chip ausgehenden, stark divergenten Strahl zu
 kollimieren. Das Beugungsgitter ist sowohl horizontal als auch vertikal drehbar
 und besteht aus \SI{1800}{Linien\per\milli\meter}.
-Ein Großteil (\SI{75}{\percent}) der Lichtintensität wird durch das Beugungsgitter
+Ein Großteil (\SI{85}{\percent}) der Lichtintensität wird durch das Beugungsgitter
 direkt reflektiert ($m=\num{0}$), nur \SI{15}{\percent} werden in den Chip reflektiert
 ($m=\num{1}$). Dies sorgt für zwar für einen kleinen Leistungsverlust, aber einen
 wesentlich stabileren Laserstrahl und einer verringerten Linienbreite auf
@@ -145,19 +143,19 @@ die Wellenlänge in Abhängigkeit der einzelenen Verstärkungsweisen aufgetragen
 \end{figure}
 
 Das aktive Medium besitzt eine vom Material abhängige Bandlücke. Daraus resultiert
-ein breiter Peak in der Wellenlänge \lambda, welcher abhängig von der
+ein breiter Peak in der Wellenlängenverteilung der Verstärkung, welcher abhängig von der
 Materialtemperatur ist. Um eine Resonanz in der Rubidiumprobe zu erhalten, muss
 die Temperatur so eingestellt werden, dass eine Wellenlänge von $\lambda = \SI{780}{\nano\meter}$
 erreicht und gehalten wird. Die Abhängigkeit dieser beiden Größen ist in Abbildung
 \ref{fig:temp_lambda} dargestellt. Die durchgezogenen Linien repräsentieren hier
 die verschiedenen Lasermoden.
 
-Der interne Resonator, abgegrenzt durch zwei reflektierenden Schichten, formt ein
+Der interne Resonator, abgegrenzt durch die zwei reflektierenden Schichten, formt ein
 Fabry-Perot-Etalon. Dies ist ein optischer Resonator, bei dem viele kohärente Strahlen
 aus dem einfallenden Licht resultieren, indem der Lichtstrahl zwischen den
 Abgrenzungen des aktiven Mediums immer wieder reflektiert wird und somit eine
 Vielstrahlinterferenz hoher Inferferenzordnung entsteht. Die im Lichtspektrum
-entstehende Frequenzänderung $\Delta\nu$ hängt von der konstanten Lichtgeschwindigeit $c$,
+entstehende freie Spektralbereichs $\Delta\nu$ hängt von der konstanten Lichtgeschwindigeit $c$,
 antiproportional von der Resonatorlänge $L$ und von dem Brechungsindex $n$ ab:
 \begin{equation}
   \Delta\nu_\text{FSR} = \frac{c}{2L\:n}
@@ -197,7 +195,8 @@ Wellenlänge von
     \lambda = 2d\sin{\theta}
 \end{equation}
 mit der Gitterkonstanten $d$. Wird nun der Anregungsstrom, die Temperatur und die
-Position des Gitters optimal eingestellt, so ist ein Einmodenbetrieb möglich.
+Position des Gitters optimal eingestellt um die Mode und damit die Wellenlänge
+wählen zu können.
 
 
 In Abbildung \ref{fig:gain_freq} ist die Verstärkung des Lichtes durch den internen
