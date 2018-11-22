@@ -1,0 +1,21 @@
+\section{Fehlerrechnung}
+\label{Fehlerrechnung}
+
+Der Mittelwert ergibt sich nach
+\begin{equation}
+  \bar{x}_i = \frac{1}{N} \sum_{i=1}^N x_i .
+  \label{eqn:Mittelwert}
+\end{equation}
+Mit dem zugehörigen Standardfehler des Mittelwertes
+\begin{equation}
+  \increment\bar{x} = \sqrt{\frac{1} {N\cdot (N-1)}
+    \sum_{i=1}^N (x_i - \bar{x})^2} .
+  \label{eqn:Mittelwertfehler}
+\end{equation}
+Wenn in einer Formel fehlerbehaftete Größen verwendet werden, wird der sich
+ergebende Fehler mit der Gauß'schen Fehlerfortpflanzung berechnet.
+\begin{equation}
+  \increment f = \sqrt{\sum_{i=1}^N \left(\frac{\partial f} {\partial x_i}\right)^2
+    \cdot (\increment x_i)^2}
+  \label{eqn:Fehlerfortpflanzung}
+\end{equation}
