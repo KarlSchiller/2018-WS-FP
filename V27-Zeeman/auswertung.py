@@ -19,6 +19,18 @@ def aufloesung(wellenlaenge, L, n):
     return L / wellenlaenge * (n**2 -1)
 
 
+def lande(S, L, J):
+    return (3*J*(J+1) + S*(S+1) - L*(L+1)) / (2*J*(J+1))
+
+
+def lande_factors():
+    print('Lande-Faktoren')
+    print(f'\t1D_2  {lande(0, 2, 2)}')
+    print(f'\t1P_1  {lande(0, 1, 1)}')
+    print(f'\t3S_1  {lande(1, 0, 1)}')
+    print(f'\t3P_1  {lande(1, 1, 1)}')
+
+
 def lummer_gehrcke_platte():
     d = Q_(4, 'mm')  # Durchmesser der Platte
     L = Q_(120, 'mm')  # Laenge der Platte
@@ -43,4 +55,5 @@ if __name__ == '__main__':
     if not os.path.isdir('build'):
         os.mkdir('build')
 
+    lande_factors()
     lummer_gehrcke_platte()
