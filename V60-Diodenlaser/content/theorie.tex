@@ -8,7 +8,7 @@ mithilfe dessen verschiedene Resonanzlinien von Rubidium aufgenommen.
 
 \subsection{Hintergrund}
 Vor der Entwicklung des Diodenlasers wurden als Laser zumeist verstellbare Farbstoff-Laser
-verwendet, welche einen chemischen Farbstoff als aktives Medium verwendeten.
+verwendet, welche einen chemischen Farbstoff als aktives Medium verwenden.
 Dabei wurde eine externe Pumpquelle verwendet, um eine Bestzungsinversion zu
 erzeugen. Diese Art von Laser hatte aber einige ungewollten Limitationen in
 der Anwendung. Sie waren Groß im Vergleich mit den Diodenlasern, waren nur über
@@ -40,8 +40,8 @@ und Phase emittiert (induzierte Emission). Das nun erzeugte Licht bildet innerha
 des Resonators stehende Wellen aus, deren Wellenlänge abhängig vom aktiven Medium und
 der Länge des Resonators sind. Durch wiederholtes Durchlaufen der Photonen durch
 das aktive Medium kommt es zudem zu einer Verstärkung der Intensität. Dabei ist der
-Resonator durch einen fast vollständig
-und eine teildurchlässige Spiegel abgegrenzt. Sind die Verluste durch den teilweise
+Resonator durch einen fast vollständig reflektierenden
+und einen teildurchlässigen Spiegel abgegrenzt. Sind die Verluste durch den teilweise
 reflektierenden Spiegel geringer als die Verstärkung, so wird von einem stabilen
 Laserbetrieb gesprochen.
 
@@ -51,7 +51,7 @@ Der Grundbaustein eines Diodenlasers besteht aus dem Dioden-Chip. Wie in
 Abbildung \ref{fig:chip} zu sehen, besteht der quaderförmige Chip aus einer
 Halbleiter-Heterostuktur (Abbildung \ref{fig:struktur}), welche ebenso als
 optischer Wellenleiter dient. Um
-einen Laserlicht erhalten zu können soll es in einer der Lagen zur Rekombination
+Laserlicht erhalten zu können soll es in einer der Lagen zur Rekombination
 eines Elektron-Loch-Paares kommen. Dazu wird nun der Aufbau dieser Diode näher
 beleuchtet.
 \begin{figure}
@@ -88,10 +88,11 @@ Bandlücke) in Form von Photonen emittieren. Dieser Vorgang ist in Abbildung
   Schichten innerhalb der Laserdiode \cite{recomb}.}
   \label{fig:recombition}
 \end{figure}
+
 Innerhalb des durch die unterschiedlich
 verspiegelten Außenflächen und des höheren Brechungsindezes der aktiven Schicht
-abgegrenzten internen Resonators entstehen dort stehende Wellen. Da die Abmessung
-der Diode nicht größer ist als die Wellenlänge des emittierten Lichtes, ist der
+abgegrenzten internen Resonators entstehen dort stehende Wellen. Da die Form
+der Austrittsöffnung bzw. des leicht durchlässigen Spiegels rechteckig ist, ist der
 von der Diode ausgehende Lichtstrahl elliptisch und stark divergent. Die elliptische
 Form ist der rechteckigen Austrittsöffnung zu verdanken. Um diesem
 Abhilfe zu schaffen, wird zusätlich noch eine Linse verwendet, um den Strahl zu
@@ -102,9 +103,9 @@ mit einer Wellenlänge von \SIrange{775}{800}{\nano\meter} bei \SI{70}{\milli\wa
 Der nun vorhandene Laserstrahl besitzt zwei ungewünschte Eigenschaften. Zum einen
 ist die Linienbreite des Strahls sehr groß ($\Delta\nu \approx \SI{50}{\mega\hertz}$)
 und damit ungeeignet zur Untersuchung atomarer Gegebenheiten ($ \approx \SI{5}{\mega\hertz}$).
-Zum Anderen ist der Strahl sehr empfindlich gegenüber Änderungen der umliegenden
-Lichtverhältnisse,
-was ihn sehr instabil werden lässt. Um diese Effekte anzupassen, wird ein äußerer
+Zum Anderen ist die Frequenzstabilität sehr empfindlich gegenüber
+Streuung des ausgesendeten Lichts zurück in die Diode.
+Um diese Effekte anzupassen, wird ein äußerer
 Resonator verwendet.
 
 \subsubsection{Äußerer Resonator}
@@ -127,6 +128,11 @@ direkt reflektiert ($m=\num{0}$), nur \SI{15}{\percent} werden in den Chip refle
 ($m=\num{1}$). Dies sorgt für zwar für einen kleinen Leistungsverlust, aber einen
 wesentlich stabileren Laserstrahl und einer verringerten Linienbreite auf
 $\Delta\nu\approx\SI{1}{\mega\hertz}$.
+Aufgrund der Beugungsbedingung hat das in die Diode reflektierte Licht eine geringe
+Linienbreite und trägt innerhalb der Diode zuätzlich zur induzierten Emission bei (zusätzliche Stabilität).
+Des Weiteren bilden die stark reflektierenden Seite der Diode und das
+Gitter einen externen Resonator großer Länge, sodass sich stehende Wellen
+ausbilden und die Linienbreite des emittierten Lichts wesentlich geringer ist.
 
 
 \subsection{Laser Verstärkung}
@@ -154,8 +160,8 @@ Der interne Resonator, abgegrenzt durch die zwei reflektierenden Schichten, form
 Fabry-Perot-Etalon. Dies ist ein optischer Resonator, bei dem viele kohärente Strahlen
 aus dem einfallenden Licht resultieren, indem der Lichtstrahl zwischen den
 Abgrenzungen des aktiven Mediums immer wieder reflektiert wird und somit eine
-Vielstrahlinterferenz hoher Inferferenzordnung entsteht. Die im Lichtspektrum
-entstehende freie Spektralbereichs $\Delta\nu$ hängt von der konstanten Lichtgeschwindigeit $c$,
+Vielstrahlinterferenz hoher Inferferenzordnung entsteht. Der im Lichtspektrum
+entstehende freie Spektralbereich $\Delta\nu$ hängt von der konstanten Lichtgeschwindigeit $c$,
 antiproportional von der Resonatorlänge $L$ und von dem Brechungsindex $n$ ab:
 \begin{equation}
   \Delta\nu_\text{FSR} = \frac{c}{2L\:n}
@@ -194,9 +200,12 @@ Wellenlänge von
 \begin{equation}
     \lambda = 2d\sin{\theta}
 \end{equation}
-mit der Gitterkonstanten $d$. Wird nun der Anregungsstrom, die Temperatur und die
-Position des Gitters optimal eingestellt um die Mode und damit die Wellenlänge
-wählen zu können.
+mit der Gitterkonstanten $d$.
+% Wird nun der Anregungsstrom, die Temperatur und die
+% Position des Gitters optimal eingestellt um die Mode und damit die Wellenlänge
+% wählen zu können.
+Unter Anpassung des Anregungsstroms, der Temperatur und der Position des Gitters
+lässt sich somit die Wellenlänge einstellen.
 
 
 In Abbildung \ref{fig:gain_freq} ist die Verstärkung des Lichtes durch den internen
@@ -204,6 +213,8 @@ Resonator, sowie durch den äußeren Resonator und die Gitterrückstreuung gegen
 die Frequenz aufgetragen. Bei Veränderung des Winkels am Beugungsgitter verschiebt
 sich das Maximum des externen Resonators und es kommt zu einem Modensprung, je
 nachdem, welche Mode die höchste Verstärkung erfährt.
+% TODO: Um Erklärung des Modensprungs der ext+int Moden ergänzen, das ist elementar
+% für den Laserbetrieb und damit für den Versuch
 
 \begin{figure}[htb]
   \centering
@@ -215,7 +226,7 @@ nachdem, welche Mode die höchste Verstärkung erfährt.
 \newpage
 
 \subsection{Rubidium Absorptionsspektrum}
-Wenn der Lasers bei einer Wellenlänge von $\lambda = \SI{780}{\nano\meter}$ in
+Wenn der Laser bei einer Wellenlänge von $\lambda = \SI{780}{\nano\meter}$ in
 einem gewissen Frequenzbereich Licht emittiert, wird von den
 beiden in diesem Experiment betrachteten Rubidiumisotopen ($^{85}$Rb und $^{87}$Rb)
 derjenige Lichtanteil absorbiert, welcher der Übergangsenergie des jeweiligen
