@@ -1,23 +1,21 @@
 \section{Zielsetzung}
 \label{sec:Zielsetzung}
-In diesem Versuch soll der Lande-Faktor $g_i$, die Aufspaltung $\Delta E$ der
-Zeeman-Linien, sowie die Dispersionsgebiete und Auflösevermögen der
-Lummer-Gehrcke-Platte bei den Wellenlängen $\lambda = \SI{643.8}{\nano\meter}$
-und $\lambda = \SI{480.0}{\nano\meter}$.
+In diesem Versuch soll der normale und anormale Zeeman-Effekt nachgemessen und
+die Lande-Faktoren der jeweiligen Zustände bestimmt werden.
 
 \section{Theorie}
 \label{sec:Theorie}
 \subsection{Berechnung der magnetischen Momente}
 \label{sec:Berechnung_magnetischer_Momente}
-Die Hüllenelektronen besitzen zwei Drehimpulse, den Bahndrehimpuls ($\vec{l}$)
-und den
-Spin ($\vec{s}$) mit ihren Quantenzahlen
+Die Hüllenelektronen besitzen in ihrer quantenmechanischer Beschreibung zwei
+Drehimpulse, den Bahndrehimpuls $\vec{l}$ und den
+Spin $\vec{s}$ mit ihren Quantenzahlen
 \begin{align}
   \mid\vec{l}\mid &= \sqrt{l\left(l+1\right)}\hbar \\
   \mid\vec{s}\mid &= \sqrt{s\left(s+1\right)}\hbar
   \label{eqn:Quantenzahlen}
 \end{align}
-Das magnetische Moment der Drehimpulseinheit \hbar
+Das magnetische Moment pro Drehimpulseinheit \hbar
 \begin{equation}
   \mu_\text{B} := \frac{1}{2}\text{e}_0 \frac{\hbar}{m_0}
   \label{eqn:bohr}
@@ -29,12 +27,14 @@ Momente der Drehimpulse ableiten zu
   \vec{\mu}_s &= -\text{g}_\text{S} \cdot \frac{\mu_\text{B}}{\hbar} \vec{s} = -\text{g}_\text{S} \mu_\text{B}\sqrt{s\left(s+1 \right)} \vec{s}_\text{e}.
   \label{eqn:momente}
 \end{align}
-Dabei sind $\vec{l}_\text{e}$ und $\vec{s}_\text{e}$ Einheitsvektoren in die Richtung
+Hier sind $\vec{l}_\text{e}$ und $\vec{s}_\text{e}$ Einheitsvektoren in die Richtung
 des jeweiligen Drehimpulses.
-Der Lande-Faktor g$_\text{S}$ eines Elektrons hat dabei den Wert 2. Daraus resultiert die
-magnetomechanische Anomalie des Elektrons. Dabei ist das magnetische Moment des
-Spins ($s = \sfrac{\num{1}}{\num{2}}$) doppelt so groß wie für den Bahndrehimpuls
-($l = \num{1}$).
+Der Lande-Faktor, auch gyromagnetischer Faktor, g$_\text{S}$ eines Elektrons hat
+den Wert 2. Der Lande-Faktor beschreibt dabei den Quotienten aus dem gemessenen
+magnetischen Moment und dem theoretisch berechneten. Durch diesen Faktor
+resultiert die magnetomechanische Anomalie des Elektrons. Das
+magnetische Moment des Spins ($s = \sfrac{\num{1}}{\num{2}}$) ist doppelt so groß
+wie für den Bahndrehimpuls ($l = \num{1}$).
 
 \subsection{Wechselwirkung magnetischer Momente und Drehimpulse}
 \label{sec:Wechselwirkungen}
@@ -71,7 +71,7 @@ Auf die selbe Art und Weise koppeln die Spins zu einem Gesamtspin
   \label{eqn:gesamtspin}
 \end{equation}
 Dabei kann dieser Gesamtspin Werte annehmen von $\frac{N}{2}$ über $\frac{N}{2}-1$
-weiter bis $\num{0}$. $N$ beschreibt dabei die Gesamtzahl der Hüllenelektronen in
+weiter bis $\num{0}$. $N$ beschreibt  die Gesamtzahl der Hüllenelektronen in
 der unabgeschlossenen Schale.
 Genauso besitzen Bahndrehimpuls der Hülle und der Gesamtspin magnetische Momente
 der Form
@@ -92,7 +92,7 @@ geschrieben. Als oberer Index wird die Multiplizität mit
 \begin{equation}
   M = 2\cdot S + 1
 \end{equation}
-bezeichnet.
+bezeichnet. Daraus ergibt sich eine Kurzschreibweise wie z.B. ${2*S+1}^P_J$.
 
 Als zweiter Grenzfall werden die Atome mit hoher Kernladungszahl betrachtet.
 Da hier die Kopplung der Bahndrehimpulse und der Spins untereinander kleiner sind
@@ -118,12 +118,12 @@ Daraus ergibt sich
   \vec{\mu} = \vec{\mu}_\text{L} + \vec{\mu}_\text{S}.
   \label{eqn:gesamtmoment}
 \end{equation}
-Obwohl die Gleichungen \ref{eqn:Gesamtdrehimpuls} und \ref{eqn:gesamtmoment}
+Obwohl die Gleichungen \ref{eqn:gesamtdrehimpuls} und \ref{eqn:gesamtmoment}
 auf gleiche Weise berechnet und beide Terme den Gesamtdrehimpuls der Hülle und
 den Gesamtspin enthalten, fallen die Richtungen von $\vec{\mu}$ und $\vec{L}$
 nicht zusammen. Daher wird das gesamtmagnetische Moment und in eine zu $\vec{J}$
 parallele Komponente $\mu_{\parallel}$ und eine senkrechte Komponente $\mu_{\bot}$
-aufgeteilt. Betrachtet man eine klassische Herangehensweise, so präzessiert das
+aufgeteilt. Betrachtet man eine klassische Herangehensweise, so präzediert das
 $\mu$ um die gegebene Feldlinie und verschwindet somit im zeitlichen Mittel. Damit
 verschwindet ebenso der quantenmechanische Erwartungswert. Wird der Betrag von
 $\mu_\text{J}$
@@ -137,9 +137,9 @@ Hierbei stellt $\text{g}_\text{J}$ den Lande-Faktor des Atoms dar und wird durch
 \end{equation}
 beschrieben.
 Bei Einschalten eines äußeren Magnetfeldes $\vec{B}$ wird bei quantenmechanischer
-Betrachtung eine Richtungsquantelung beobachtet. Dies resultiert aus dem Winkel
-zwischen $\vec{\mu}$ und $\vec{B}$ und wird durch die
-Orientierunngsquantenzahl $m$ aus der Bedingung
+Betrachtung eine Richtungsquantelung beobachtet. Somit sind nur diskrete Werte für
+den Winkel zwischen $\vec{\mu}$ und $\vec{B}$ durch die
+Orientierunngsquantenzahl $m$ nach der Bedingung
 \begin{equation}
   \mu \cdot J_\text{z} = - m \cdot \text{g}_\text{J}\cdot \mu_\text{B}
   \label{eqn:bedingung}
@@ -156,11 +156,11 @@ im eingeschalteten äußeren Magnetfeld erhält:
 \end{align}
 Für ein Energieniveau $E_0$ mit einem Gesamtdrehimpuls $J = \num{2}$ ist in Abbildung
 \ref{abb:aufspaltung} eine Aufspaltung der Energieniveaus bei äußerem Magnetfeld
-verbildlicht. Eine solche Aufspaltung der entarteten Zustände wird als Zeemann-Effekt
+verbildlicht. Eine solche Aufspaltung der entarteten Zustände wird als Zeeman-Effekt
 bezeichnet.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.8\textwidth]{images/V27_1.pdf}
+  \includegraphics[width=0.6\textwidth]{images/V27_1.pdf}
   \caption{Energieaufspaltung bei einem Gesamtdrehimpuls $J = \num{2}$ \cite{anleitung}.}
   \label{abb:aufspaltung}
 \end{figure}
@@ -176,12 +176,14 @@ Schrödinger-Gleichung
 \end{equation}
 durch den Ansatz ebener Wellen kann bei einem Strahlungsübergang zwischen \alpha
 und \beta eine Linearkbination der Lösungen mit den Normierungsbedingungen $C_\alpha$
-und $C_\beta$ gebildet werden.
+und $C_\beta$ gebildet werden. Es ist zu beachten, das diese Gesamtwellenfunktion
+zeitabhängig ist.
 \begin{equation}
   \Phi_\text{ges} = C_\alpha \Phi_\alpha\left(\vec{r}\right)\exp{\left(-\frac{i}{\hbar}E_\alpha t\right)} + C_\beta \Phi_\beta\left(\vec{r}\right)\exp{\left(-\frac{i}{\hbar}E_\beta t\right)}
   \label{eqn:ebenewelle}
 \end{equation}
-Im Weiteren wird mittels Poynting-Vektor der Emitierten Strahlung die Auswahlregel
+Über das zugehörige Dipolmoment kann gezeigt werden, dass nur diejenige Strahlung
+emittiert wird, weche die Auswahlregel
 \begin{equation}
   \Delta m = 0, \pm 1
   \label{eqn:auswahl}
@@ -192,36 +194,40 @@ und $\Delta m = \pm 1$ unterschieden. Beim ersten Fall ist die Stralung linear z
 Magnetfeld polarisiert, während im zweiten Fall eine zirkulare Polarisation vorliegt.
 
 
-\subsection{Normaler-/Anormaler Zeemann-Effekt}
-\label{sec:Zeemann}
+\subsection{Normaler-/Anormaler Zeeman-Effekt}
+\label{sec:Zeeman}
 Bei ausgeschaltetem Magnetfeld und Vernachlässigung des Spins ($S = \num{0}$) wird
-der Effekt der Aufspaltung von Spektrallinien normaler Zeemann-Effekt genannt.
+der Effekt der Aufspaltung von Spektrallinien normaler Zeeman-Effekt genannt.
 Ein Beispiel für die Aufspaltung der Energieniveaus mit $J = 1$ ist in Abbildung
 \ref{abb:normal} zu sehen. Nach Formel \ref{eqn:lande} folgt, dass die Aufspaltungen
 unabhängig von den Quantnzahlen sind und damit für alle Gesamtdrehimpulse $\text{g}_\text{J} = 1$
 gilt. Daraus folgt, dass die zuvor aufgespaltenen Energieniveaus äquidistant sind.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.8\textwidth]{images/V27_3.pdf}
-  \caption{Linienaufspaltung der Spektrallinien beim normalen Zeemann-Effekt
+  \includegraphics[width=0.6\textwidth]{images/V27_3.pdf}
+  \caption{Linienaufspaltung der Spektrallinien beim normalen Zeeman-Effekt
   \cite{anleitung}.}
   \label{abb:normal}
 \end{figure}
 In Abbildung \ref{abb:normal} sind die Auswahlregeln den Linien der Aufspaltung
 zugeordnet.
-Dabei sind Aufspaltungslinien mit $\Delta m = \num{0}$, sog. \pi-Linien, nur in
+Hier sind Aufspaltungslinien mit $\Delta m = \num{0}$, sog. $\pi$-Linien, nur in
 einer Beobachtungsrichtung senkrecht zu den Feldlinien des Magnetfeldes liegt.
 Gilt im anderen Fall $\Delta m = \pm 1$, so sind die Linien bei transversaler
-Beobachtung linear polarisiert. Diese Beziehung der Beobachtungsweisen, sind
-in Abbildung \ref{abb:spektral} zu erkennen.
+Beobachtung linear polarisiert. Sie werden als $\sigma$-Linien bezeichnet.
+Diese Beziehung der Beobachtungsweisen, sind
+in Abbildung \ref{abb:spektral} zu erkennen. Es wird hier unterschieden, welche
+Emissionslinien zu erkennen sind. Zum einen die entartete Emissionslinie ohne
+äußeres Magnetfeld. Zum anderen eine longitudinale und eine transversale Beobachtung,
+jeweils mit einem Magnetfeld.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.8\textwidth]{images/V27_4.pdf}
-  \caption{Spektrallinienaufspaltung beim normalen Zeemann-Effekt \cite{anleitung}.}
+  \includegraphics[width=0.6\textwidth]{images/V27_4.pdf}
+  \caption{Spektrallinienaufspaltung beim normalen Zeeman-Effekt \cite{anleitung}.}
   \label{abb:spektral}
 \end{figure}
 
-Im Falle des Anormalen Zeemann-Effektes wird der Spin mit in Betracht gezogen, es
+Im Falle des Anormalen Zeeman-Effektes wird der Spin mit in Betracht gezogen, es
 gilt also ($S \neq \num{0}$). Hier wird nicht die zeitabhängige Schrödingergleichung,
 sondern die Dirac-Gleichung betrachtet. Es folgt, dass auch in diesem Fall, die
 zuvor erwähnten Auswahlregeln noch gültig sind.
@@ -232,11 +238,4 @@ der beiden Übergangsniveaus $L_1, S_1, J_1$ sowie $L_2, S_2, J_2$  die Energie
 \end{align}
 emittert. $E_0$ beschreibt hier die Energie ohne angelegtes Magnetfeld ($\vec{B} = \num{0}$).
 Durch die Hinzunahme der Quantenzahlen $L, S$ und $J$ weren mehr Aufspaltungslinien
-sichtbar. Dies ist in Abbildung \ref{abb:anormal} aufgezeichnet.
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{images/V27_5.pdf}
-  \caption{Linienaufspaltung der Spektrallinien beim annormalen Zeemann-Effekt
-  am Beispiel eines Alkali-Dubletts \cite{anleitung}.}
-  \label{abb:anormal}
-\end{figure}
+sichtbar.
