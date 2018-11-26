@@ -150,7 +150,7 @@ Nun kann die Energie berechnet werden, welche das magnetische Moment $\vec{\mu}$
 im eingeschalteten äußeren Magnetfeld erhält:
 \begin{align}
   E_\text{mag} &= -\vec{\mu}_\text{J} \cdot \vec{B} \\
-  E_\text{mag} &= m \text{g}_\text{J} \mu_\text{B} \quad \text{ für } -J\leqm\leq+J
+  E_\text{mag} &= m \text{g}_\text{J} \mu_\text{B}\vec{B} \quad \text{ für } -J\leqm\leq+J
   \label{eqn:energie}
 \end{align}
 Für ein Energieniveau $E_0$ mit einem Gesamtdrehimpuls $J = \num{2}$ ist in Abbildung
@@ -167,7 +167,19 @@ bezeichnet.
 \subsection{Auswahlregeln}
 \label{sec:Auswahlregeln}
 Durch die sogennanten Auswahlregeln, wird beschrieben, welche Übergänge zwischen
-Energieniveaus möglich sind und welche nicht.
+Energieniveaus möglich sind und welche nicht. Dazu wird die zeitabhängige
+Schrödinger-Gleichung
+\begin{align}
+  \left( -\frac{\hbar^2}{2m}\Delta+U-i\hbar \frac{\delta}{\delta t} \right)\Phi\left(\vec{r}, t \right) = 0
+  \label{eqn:schroedinger}
+\end{align}
+durch den Ansatz ebener Wellen kann bei einem Strahlungsübergang zwischen \alpha
+und \beta eine Linearkbination der Lösungen mit den Normierungsbedingungen $C_\alpha$
+und $C_\beta$ gebildet werden.
+\begin{align}
+  \Phi
+  \label{eqn:ebenewelle}
+\end{align}
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{images/V27_2.pdf}
