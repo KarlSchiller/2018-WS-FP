@@ -106,7 +106,7 @@ Daraus ergibt sich im Gegensatz zum Grenzfall der geringen Kernladungszahlen nur
 ein einziger Gesamtdrehimpuls
 \begin{align}
   \vec{J} = \sum_i \vec{j}_i.
-  \label{eqn:gesamtdrehimpuls}
+  \label{eqn:Gesamtdrehimpuls}
 \end{align}
 
 \subsection{Aufspaltung der Energieniveus im homogenen Magnetfeld}
@@ -118,7 +118,7 @@ Daraus ergibt sich
   \vec{\mu} = \vec{\mu}_\text{L} + \vec{\mu}_\text{S}.
   \label{eqn:gesamtmoment}
 \end{align}
-Obwohl die Gleichungen \ref{eqn:gesamtdrehimpuls} und \ref{eqn:gesamtmoment}
+Obwohl die Gleichungen \ref{eqn:Gesamtdrehimpuls} und \ref{eqn:gesamtmoment}
 auf gleiche Weise berechnet und beide Terme den Gesamtdrehimpuls der Hülle und
 den Gesamtspin enthalten, fallen die Richtungen von $\vec{\mu}$ und $\vec{L}$
 nicht zusammen. Daher wird das gesamtmagnetische Moment und in eine zu $\vec{J}$
@@ -143,14 +143,14 @@ Orientierunngsquantenzahl $m$ aus der Bedingung
   \mu \cdot J_\text{z} = - m \cdot \text{g}_\text{J}\cdot \mu_\text{B}
   \label{eqn:bedingung}
 \end{align}
-beschrieben. $J_\txt{z}$ ist dabei die z-Richtungskomponente des Gesamtdrehimpulses
+beschrieben. $J_\text{z}$ ist dabei die z-Richtungskomponente des Gesamtdrehimpulses
 $J$. Die Orientierunngsquantenzahl kann $2J+1$ ganzzahlige Werte im Bereich von
 $-J$ bis $J$.
 Nun kann die Energie berechnet werden, welche das magnetische Moment $\vec{\mu}$
 im eingeschalteten äußeren Magnetfeld erhält:
 \begin{align}
   E_\text{mag} &= -\vec{\mu}_\text{J} \cdot \vec{B} \\
-  E_\text{mag} &= m \text{g}_\text{J} \mu_\text{B}\vec{B} \quad \text{ für } -J\leqm\leq+J
+  E_\text{mag} &= m \text{g}_\text{J} \mu_\text{B}\vec{B} \quad \text{ für } -J\leq m\leq+J
   \label{eqn:energie}
 \end{align}
 Für ein Energieniveau $E_0$ mit einem Gesamtdrehimpuls $J = \num{2}$ ist in Abbildung
@@ -177,25 +177,32 @@ durch den Ansatz ebener Wellen kann bei einem Strahlungsübergang zwischen \alph
 und \beta eine Linearkbination der Lösungen mit den Normierungsbedingungen $C_\alpha$
 und $C_\beta$ gebildet werden.
 \begin{align}
-  \Phi
+  \Phi_\text{ges} = C_\alpha \Phi_\alpha\left(\vec{r}\right)\exp{\left(-\frac{i}{\hbar}E_\alpha t\right)} + C_\beta \Phi_\beta\left(\vec{r}\right)\exp{\left(-\frac{i}{\hbar}E_\beta t\right)}
   \label{eqn:ebenewelle}
 \end{align}
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{images/V27_2.pdf}
-  \caption{Graphische Darstellung des Verhältnisses zwischen Kartesischen- und Polarkoordniaten \cite{anleitung}.}
-  \label{abb:polar}
-\end{figure}
+Im Weiteren wird mittels Poynting-Vektor der Emitierten Strahlung die Auswahlregel
+\begin{align}
+  \Delta m = 0, \pm 1
+  \label{eqn:auswahl}
+\end{align}
+verwendet. Dabei bezieht sich $\Delta m$ auf die Differenz der Orientierungsquantenzahlen
+$m_\alpha$ und $m_\beta$ . Wird diese Bedingung erfüllt, so wird zwischen $\Delta m = 0$
+und $\Delta m = \pm 1$ unterschieden. Beim ersten Fall ist die Stralung linear zum
+Magnetfeld polarisiert, während im zweiten Fall eine zirkulare Polarisation vorliegt.
+
 
 \subsection{Normaler-/Annormaler Zeemann-Effekt}
 \label{sec:Zeemann}
-Bei ausgeschaltetem Magnetfeld und Vernachlässigung des Spins wird der Effekt der
-Aufspaltung von Spektrallinien normaler Zeemann-Effekt genannt.
+Bei ausgeschaltetem Magnetfeld und Vernachlässigung des Spins ($S = \num{0}$) wird
+der Effekt der Aufspaltung von Spektrallinien normaler Zeemann-Effekt genannt.
+Ein Beispiel für die Aufspaltung der Energieniveaus
+
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{images/V27_3.pdf}
-  \caption{Linienaufspaltung der Spektrallinien beim normalen Zeemann-Effekt \cite{anleitung}.pdf}
+  \caption{Linienaufspaltung der Spektrallinien beim normalen Zeemann-Effekt
+  \cite{anleitung}.pdf.}
   \label{abb:normal}
 \end{figure}
 
@@ -209,6 +216,7 @@ Aufspaltung von Spektrallinien normaler Zeemann-Effekt genannt.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{images/V27_5.pdf}
-  \caption{Linienaufspaltung der Spektrallinien beim annormalen Zeemann-Effekt am Beispiel eines Alkali-Dubletts \cite{anleitung}.}
+  \caption{Linienaufspaltung der Spektrallinien beim annormalen Zeemann-Effekt
+  am Beispiel eines Alkali-Dubletts \cite{anleitung}.}
   \label{abb:annormal}
 \end{figure}
