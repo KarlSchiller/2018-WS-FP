@@ -19,14 +19,14 @@ Spin ($\vec{s}$) mit ihren Quantenzahlen
 \end{align}
 Das magnetische Moment der Drehimpulseinheit \hbar
 \begin{align}
-  \mu_\text{B} := -\frac{1}{2}\text{e}_0 \frac{\hbar}{m_0}
+  \mu_\text{B} := \frac{1}{2}\text{e}_0 \frac{\hbar}{m_0}
   \label{eqn:bohr}
 \end{align}
 wird als Bohrsches Magneton bezeichnet. Daraus lassen sich die magnetischen
 Momente der Drehimpulse ableiten zu
 \begin{align}
   \vec{\mu}_l &= -\mu_\text{B} \frac{\vec{l}}{\hbar} = -\mu_\text{B} \sqrt{l\left(l+1 \right)} \vec{l}_\text{e}\\
-  \vec{\mu}_s &= -\text{g}_\text{S} \cdot \frac{\mu_\text{B}}{\hbar} \vec{s} = -\text{g}_\text{S} \sqrt{s\left(s+1 \right)} \vec{s}_\text{e}.
+  \vec{\mu}_s &= -\text{g}_\text{S} \cdot \frac{\mu_\text{B}}{\hbar} \vec{s} = -\text{g}_\text{S} \mu_\text{B}\sqrt{s\left(s+1 \right)} \vec{s}_\text{e}.
   \label{eqn:momente}
 \end{align}
 Dabei sind $\vec{l}_\text{e}$ und $\vec{s}_\text{e}$ Einheitsvektoren in die Richtung
@@ -77,7 +77,7 @@ Genauso besitzen Bahndrehimpuls der Hülle und der Gesamtspin magnetische Moment
 der Form
 \begin{align}
   \mid \vec{\mu}_\text{L} \mid &= \mu_\text{B} \sqrt{L\left(L+1 \right)} \\
-  \mid \vec{\mu}_\text{S} \mid &= \text{g}_\text{S} \mu_\text{B} \sqrt{S\left(S+1 \right)}
+  \mid \vec{\mu}_\text{S} \mid &= \text{g}_\text{S}\cdot \mu_\text{B} \sqrt{S\left(S+1 \right)}
   \label{eqn:gesamtmomente}
 \end{align}
 Weiter setzen sich Gesamtdrehimpuls und Gesamtspin zu einem Gesamtdrehimpuls
@@ -128,14 +128,35 @@ $\mu$ um die gegebene Feldlinie und verschwindet somit im zeitlichen Mittel. Dam
 verschwindet ebenso der quantenmechanische Erwartungswert. Wird der Betrag von
 $\mu_\text{J}$
 \begin{align}
-  \mid \vec{\mu}_\text{J} \mid = \mu_\text{B} \text{g}_\text{J} \sqrt{J\left(J+i \right)}.
+  \mid \vec{\mu}_\text{J} \mid = \mu_\text{B}\cdot \text{g}_\text{J} \sqrt{J\left(J+1 \right)}.
 \end{align}
 Hierbei stellt $\text{g}_\text{J}$ den Lande-Faktor des Atoms dar und wird durch
 \begin{align}
   \text{g}_\text{J} := \frac{3J\left(J+1 \right) + S\left(S+1 \right) - L\left(L+1 \right)}{2J\left(J+1 \right)}
 \end{align}
 beschrieben.
-
+Bei Einschalten eines äußeren Magnetfeldes $\vec{B}$ wird bei quantenmechanischer
+Betrachtung eine Richtungsquantelung beobachtet. Dies resultiert aus dem Winkel
+zwischen $\vec{\mu}$ und $\vec{B}$ und wird durch die
+Orientierunngsquantenzahl $m$ aus der Bedingung
+\begin{align}
+  \mu \cdot J_\text{z} = - m \cdot \text{g}_\text{J}\cdot \mu_\text{B}
+  \label{eqn:bedingung}
+\end{align}
+beschrieben. $J_\txt{z}$ ist dabei die z-Richtungskomponente des Gesamtdrehimpulses
+$J$. Die Orientierunngsquantenzahl kann $2J+1$ ganzzahlige Werte im Bereich von
+$-J$ bis $J$.
+Nun kann die Energie berechnet werden, welche das magnetische Moment $\vec{\mu}$
+im eingeschalteten äußeren Magnetfeld erhält:
+\begin{align}
+  E_\text{mag} &= -\vec{\mu}_\text{J} \cdot \vec{B} \\
+  E_\text{mag} &= m \text{g}_\text{J} \mu_\text{B} \quad \text{ für } -J\leqm\leq+J
+  \label{eqn:energie}
+\end{align}
+Für ein Energieniveau $E_0$ mit einem Gesamtdrehimpuls $J = \num{2}$ ist in Abbildung
+\ref{abb:aufspaltung} eine Aufspaltung der Energieniveaus bei äußerem Magnetfeld
+verbildlicht. Eine solche Aufspaltung der entarteten Zustände wird als Zeemann-Effekt
+bezeichnet.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{images/V27_1.pdf}
@@ -145,7 +166,8 @@ beschrieben.
 
 \subsection{Auswahlregeln}
 \label{sec:Auswahlregeln}
-
+Durch die sogennanten Auswahlregeln, wird beschrieben, welche Übergänge zwischen
+Energieniveaus möglich sind und welche nicht.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{images/V27_2.pdf}
@@ -153,7 +175,7 @@ beschrieben.
   \label{abb:polar}
 \end{figure}
 
-\subsection{normaler-/annormaler Zeemann-Effekt}
+\subsection{Normaler-/Annormaler Zeemann-Effekt}
 \label{sec:Zeemann}
 Bei ausgeschaltetem Magnetfeld und Vernachlässigung des Spins wird der Effekt der
 Aufspaltung von Spektrallinien normaler Zeemann-Effekt genannt.
