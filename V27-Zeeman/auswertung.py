@@ -5,6 +5,7 @@ import uncertainties.unumpy as unp
 from uncertainties.unumpy import nominal_values as noms
 from uncertainties.unumpy import std_devs as stds
 from uncertainties import ufloat
+import scipy.constants as const
 import pint
 from tab2tex import make_table
 ureg = pint.UnitRegistry(auto_reduce_dimensions = True)
@@ -23,6 +24,11 @@ def lande(S, L, J):
     return (3*J*(J+1) + S*(S+1) - L*(L+1)) / (2*J*(J+1))
 
 
+def bestB(lam, d_lam, m_1, g_1, m_2, g_2):
+    x = 0.25*const.value('Planck constant')*const.c/(lam**2 *const.value('Bohr magneton'))
+    return x * d_lam / (m_1 * g_1 - m_2 * g_2)
+
+
 def lande_factors():
     print('Lande-Faktoren')
     print(f'\t1D_2  {lande(0, 2, 2)}')
@@ -31,7 +37,7 @@ def lande_factors():
     print(f'\t3P_1  {lande(1, 1, 1)}')
 
 
-def lummer_gehrcke_platte():
+def auswertung():
     d = Q_(4, 'mm')  # Durchmesser der Platte
     L = Q_(120, 'mm')  # Laenge der Platte
     lambda_1 = Q_(644, 'nm')
@@ -48,6 +54,19 @@ def lummer_gehrcke_platte():
     print(f'Wellenlänge {lambda_2}')
     print(f'\tDispersionsgebiet  {d_lambda_2}')
     print(f'\tAuflösung          {A_2}')
+    print('Rote Linie')
+    print(f'delta_m = +1    {bestB(lambda_1, d_lambda_1, 2, 1, 1, 1)}')
+    #  print(f'delta_m = 0  {bestB(lambda_1, d_lambda_1, 1, 1, 1, 1)}')
+    print(f'delta_m = -1    {bestB(lambda_1, d_lambda_1, 0, 1, 1, 1)}')
+    print('Blaue Linie')
+    print(f'delta_m = -0.5  {bestB(lambda_2, d_lambda_2, 1, 1.5, 1, 2)}')
+    print(f'delta_m = 1.5   {bestB(lambda_2, d_lambda_2, 1, 1.5, 0, 2)}')
+    print(f'delta_m = -2    {bestB(lambda_2, d_lambda_2, 0, 1.5, 1, 2)}')
+    print(f'delta_m = 2     {bestB(lambda_2, d_lambda_2, 0, 1.5, -1, 2)}')
+    print(f'delta_m = -1.5  {bestB(lambda_2, d_lambda_2, -1, 1.5, 0, 2)}')
+    print(f'delta_m = 0.5   {bestB(lambda_2, d_lambda_2, -1, 1.5, -1, 2)}')
+    mittel = 0.5 * (bestB(lambda_2, d_lambda_2, 1, 1.5, 0, 2) - bestB(lambda_2, d_lambda_2, 0, 1.5, 1, 2))
+    print(f'{mittel}')
 
 
 if __name__ == '__main__':
@@ -56,4 +75,4 @@ if __name__ == '__main__':
         os.mkdir('build')
 
     lande_factors()
-    lummer_gehrcke_platte()
+    auswertung()
