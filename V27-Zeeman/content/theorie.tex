@@ -133,6 +133,7 @@ $\mu_\text{J}$
 Hierbei stellt $\text{g}_\text{J}$ den Lande-Faktor des Atoms dar und wird durch
 \begin{align}
   \text{g}_\text{J} := \frac{3J\left(J+1 \right) + S\left(S+1 \right) - L\left(L+1 \right)}{2J\left(J+1 \right)}
+  \label{eqn:lande}
 \end{align}
 beschrieben.
 Bei Einschalten eines äußeren Magnetfeldes $\vec{B}$ wird bei quantenmechanischer
@@ -191,13 +192,14 @@ und $\Delta m = \pm 1$ unterschieden. Beim ersten Fall ist die Stralung linear z
 Magnetfeld polarisiert, während im zweiten Fall eine zirkulare Polarisation vorliegt.
 
 
-\subsection{Normaler-/Annormaler Zeemann-Effekt}
+\subsection{Normaler-/Anormaler Zeemann-Effekt}
 \label{sec:Zeemann}
 Bei ausgeschaltetem Magnetfeld und Vernachlässigung des Spins ($S = \num{0}$) wird
 der Effekt der Aufspaltung von Spektrallinien normaler Zeemann-Effekt genannt.
-Ein Beispiel für die Aufspaltung der Energieniveaus
-
-
+Ein Beispiel für die Aufspaltung der Energieniveaus mit $J = 1$ ist in Abbildung
+\ref{abb:normal} zu sehen. Nach Formel \ref{eqn:lande} folgt, dass die Aufspaltungen
+unabhängig von den Quantnzahlen sind und damit für alle Gesamtdrehimpulse $\text{g}_\text{J} = 1$
+gilt. Daraus folgt, dass die zuvor aufgespaltenen Energieniveaus äquidistant sind.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{images/V27_3.pdf}
@@ -205,7 +207,13 @@ Ein Beispiel für die Aufspaltung der Energieniveaus
   \cite{anleitung}.pdf.}
   \label{abb:normal}
 \end{figure}
-
+In Abbildung \ref{abb:normal} sind die Auswahlregeln den Linien der Aufspaltung
+zugeordnet.
+Dabei sind Aufspaltungslinien mit $\Delta m = \num{0}$, sog. \pi-Linien, nur in
+einer Beobachtungsrichtung senkrecht zu den Feldlinien des Magnetfeldes liegt.
+Gilt im anderen Fall $\Delta m = \pm 1$, so sind die Linien bei transversaler
+Beobachtung linear polarisiert. Diese Beziehung der Beobachtungsweisen, sind
+in Abbildung \ref{abb:spektral} zu erkennen.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{images/V27_4.pdf}
@@ -213,10 +221,22 @@ Ein Beispiel für die Aufspaltung der Energieniveaus
   \label{abb:spektral}
 \end{figure}
 
+Im Falle des Anormalen Zeemann-Effektes wird der Spin mit in Betracht gezogen, es
+gilt also ($S \neq \num{0}$). Hier wird nicht die zeitabhängige Schrödingergleichung,
+sondern die Dirac-Gleichung betrachtet. Es folgt, dass auch in diesem Fall, die
+zuvor erwähnten Auswahlregeln noch gültig sind.
+bei einem Übergang zwischen den Spektrallinien wird durch Hinzunahme der Quantenzahlen
+der beiden Übergangsniveaus $L_1, S_1, J_1$ sowie $L_2, S_2, J_2$  die Energie
+\begin{align}
+  E = \left(m_1 g(L_1, S_1, J_1) - m_2 g(L_2, S_2, J_2) \right)\mu_\text{B} B + E_0
+\end{align}
+emittert. $E_0$ beschreibt hier die Energie ohne angelegtes Magnetfeld ($\vec{B} = \num{0}$).
+Durch die Hinzunahme der Quantenzahlen $L, S$ und $J$ weren mehr Aufspaltungslinien
+sichtbar. Dies ist in Abbildung \ref{abb:anormal} aufgezeichnet.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{images/V27_5.pdf}
   \caption{Linienaufspaltung der Spektrallinien beim annormalen Zeemann-Effekt
   am Beispiel eines Alkali-Dubletts \cite{anleitung}.}
-  \label{abb:annormal}
+  \label{abb:anormal}
 \end{figure}
