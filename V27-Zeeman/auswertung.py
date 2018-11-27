@@ -153,6 +153,44 @@ def auswertung_blau(params, erros):
     plt.clf()
 
 
+def auswertung_rot(params, erros):
+    lower = 1800
+    upper = 3000
+    ## Image 0
+    im_0 = imageio.imread('rohdaten/rot_pi_10,5A-2.JPG')
+    im_0 = im_0[:,:,0]  # r g b  also ist blau an position 2
+    mitte_0 = im_0[len(im_0) // 2]
+    peaks_0 = find_peaks(mitte_0[lower:upper], height=20, distance=50, prominence=20)
+    peak_indices_0 = peaks_0[0] + lower
+    peak_diffs_0 = np.diff(peak_indices_0)
+    print(peak_indices_0)
+    print(peak_diffs_0)
+
+    # plot
+    x_plot_0 = np.array(range(len(mitte_0)))
+    plt.plot(x_plot_0, mitte_0, 'k.')
+    plt.plot(peak_indices_0, mitte_0[peak_indices_0], 'rx')
+    plt.savefig('build/rot_pi_10,5A.pdf')
+    plt.clf()
+
+    ## Image 1
+    im_1 = imageio.imread('rohdaten/rot_sigma_10,5A.JPG')
+    im_1 = im_1[:,:,0]  # r g b  also ist blau an position 2
+    mitte_1 = im_1[len(im_1) // 2]
+    peaks_1 = find_peaks(mitte_1[lower:upper], height=20, distance=50, prominence=10)
+    peak_indices_1 = peaks_1[0] + lower
+    peak_diffs_1 = np.diff(peak_indices_1)
+    print(peak_indices_1)
+    print(peak_diffs_1)
+
+    # plot
+    x_plot_1 = np.array(range(len(mitte_1)))
+    plt.plot(x_plot_1, mitte_1, 'k.')
+    plt.plot(peak_indices_1, mitte_1[peak_indices_1], 'rx')
+    plt.savefig('build/rot_sigma_10,5A.pdf')
+    plt.clf()
+
+
 if __name__ == '__main__':
 
     if not os.path.isdir('build'):
@@ -161,4 +199,5 @@ if __name__ == '__main__':
     lande_factors()
     lummer_gehrke_platte()
     p, e = eichung()
-    auswertung_blau(p, e)
+    #  auswertung_blau(p, e)
+    auswertung_rot(p, e)
