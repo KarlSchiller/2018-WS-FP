@@ -62,6 +62,7 @@ def lande_factors():
 
 
 def lummer_gehrke_platte():
+    '''Auflösung und Dispersionsgebiet Lummer-Gehrke-Platte'''
     d = 4 * 1e-3  # Durchmesser der Platte in m
     L = 120 * 1e-3  # Laenge der Platte in m
     n_1 = 1.4567  # Brechungsindex bei 644nm
@@ -80,6 +81,7 @@ def lummer_gehrke_platte():
 
 
 def eichung():
+    '''Eichung der Magnetischen Flussdichte'''
     # Eichung des Elektromagneten
     I, B = np.genfromtxt('rohdaten/eichung.txt', unpack=True)
     params, covariance = curve_fit(eichfunktion, I, B)
@@ -150,6 +152,14 @@ def auswertung_blau(params, d_lambda_D):
     #  print(f'\tDelta_mg:  {delta_mg_sigma}')
     print(f'\tMittelwert Delta_mg:  {sum(delta_mg_sigma)/len(delta_mg_sigma)}')
 
+    # save results
+    make_table(header= ['$\delta s$ / \pixel', '$\Delta s$ / \pixel', '$\delta\lambda$ / \pico\meter', '$\zeta$'],
+            places= [3.0, 2.0, 1.2, (1.2, 1.2)],
+            data = [delta_s_sigma, del_s_sigma, d_lambda_sigma*1e12, delta_mg_sigma],
+            caption = 'Werte zur Bestimmung des Lande-Faktors für die Sigma-Aufspaltung der blauen Spektrallinie.',
+            label = 'tab:blau_sigma',
+            filename = 'build/blau_sigma.tex')
+
     # plot - Sigma 6A
     x_plot_1 = np.array(range(len(mitte_1)))
     plt.plot(x_plot_1, mitte_1, 'k.')
@@ -209,6 +219,14 @@ def auswertung_blau(params, d_lambda_D):
     #  print(f'\tWellenlängenänderung:  {d_lambda_pi}')
     #  print(f'\tDelta_mg:  {delta_mg_pi}')
     print(f'\tMittelwert Delta_mg:  {sum(delta_mg_pi)/len(delta_mg_pi)}')
+
+    # save results
+    make_table(header= ['$\delta s$ / \pixel', '$\Delta s$ / \pixel', '$\delta\lambda$ / \pico\meter', '$\zeta$'],
+            places= [3.0, 2.0, 1.2, (1.2, 1.2)],
+            data = [delta_s_pi, del_s_pi, d_lambda_pi*1e12, delta_mg_pi],
+            caption = 'Werte zur Bestimmung des Lande-Faktors für die Pi-Aufspaltung der blauen Spektrallinie.',
+            label = 'tab:blau_pi',
+            filename = 'build/blau_pi.tex')
 
     # plot - Pi 0A
     x_plot_2 = np.array(range(len(mitte_2)))
@@ -288,6 +306,14 @@ def auswertung_rot(params, d_lambda_D):
     print(f'\tDelta_mg:  {delta_mg}')
     print(f'\tMittelwert:  {sum(delta_mg)/len(delta_mg)}')
 
+    # save results
+    make_table(header= ['$\delta s$ / \pixel', '$\Delta s$ / \pixel', '$\delta\lambda$ / \pico\meter', '$\zeta$'],
+            places= [3.0, 3.0, 2.2, (1.2, 1.2)],
+            data = [delta_s, del_s, d_lambda*1e12, delta_mg],
+            caption = 'Werte zur Bestimmung des Lande-Faktors für die rote Spektrallinie.',
+            label = 'tab:rot_sigma',
+            filename = 'build/rot_sigma.tex')
+
 
 if __name__ == '__main__':
 
@@ -302,4 +328,4 @@ if __name__ == '__main__':
     p, e = eichung()
     params = unp.uarray(p, e)
     auswertung_blau(params, d_lambda_2)
-    #  auswertung_rot(params, d_lambda_1)
+    auswertung_rot(params, d_lambda_1)
