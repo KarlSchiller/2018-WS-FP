@@ -113,55 +113,121 @@ def eichung():
     return params, errors
 
 
-def auswertung_blau(params, erros):
-    ## Image 0
+def auswertung_blau(params, d_lambda_D):
+    print('Auswertung blaue Linie')
+    lower_sigma = 1800
+    upper_sigma = 3250
+
+    ## Image 0 - Sigma 0A
     im_0 = imageio.imread('rohdaten/blau_sigma_0A.JPG')
     im_0 = im_0[:,:,2]  # r g b  also ist blau an position 2
     mitte_0 = im_0[len(im_0) // 2]
-    peaks_0 = find_peaks(mitte_0, height=20, distance=50, prominence=20)
-    peak_indices_0 = peaks_0[0]
-    peak_diffs_0 = np.diff(peak_indices_0)
-    print(peak_indices_0)
-    print(peak_diffs_0)
+    peaks_0 = find_peaks(mitte_0[2000:3450], height=20, distance=50, prominence=20)
+    peak_indices_0 = peaks_0[0] + 2000
+    delta_s_sigma = np.diff(peak_indices_0)
+    print(f'\t#peak-indices:  {len(peak_indices_0)}')
+    print(f'\t#Delta_s_sigma: {len(delta_s_sigma)}')
 
-    # plot
-    x_plot_0 = np.array(range(len(mitte_0)))
-    plt.plot(x_plot_0, mitte_0, 'k.')
-    plt.plot(peak_indices_0, mitte_0[peak_indices_0], 'rx')
-    plt.savefig('build/blau_sigma_0A.pdf')
-    plt.clf()
-
-    ## Image 1
+    ## Image 1 - Sigma 6A
     im_1 = imageio.imread('rohdaten/blau_sigma_6A.JPG')
     im_1 = im_1[:,:,2]  # r g b  also ist blau an position 2
     mitte_1 = im_1[len(im_1) // 2]
-    peaks_1 = find_peaks(mitte_1, height=20, distance=5, prominence=10)
-    peak_indices_1 = peaks_1[0]
+    peaks_1 = find_peaks(mitte_1[lower_sigma:upper_sigma], height=20, distance=10, prominence=10)
+    peak_indices_1 = peaks_1[0] + lower_sigma
     peak_diffs_1 = np.diff(peak_indices_1)
-    print(peak_indices_1)
-    print(peak_diffs_1)
+    del_s_sigma = peak_diffs_1[::2]
+    print(f'\t#peak-indices:  {len(peak_indices_1)}')
+    #  print(f'\tdiffs: {peak_diffs_1}')
+    print(f'\t#Del_s:  {len(del_s_sigma)}')
 
-    # plot
+    # Berechnung Delta mg
+    current_sigma = 6  # angelegter Strom in ampere
+    B_sigma = eichfunktion(current_sigma, *params)*1e-3
+    print(f'\tB:  {B_sigma}')
+    d_lambda_sigma = wellenlaengenAenderung(del_s_sigma, delta_s_sigma, d_lambda_D)
+    delta_mg_sigma = g_factor(d_lambda_sigma, B_sigma, lambda_2)
+    #  print(f'\tWellenlängenänderung:  {d_lambda_sigma}')
+    #  print(f'\tDelta_mg:  {delta_mg_sigma}')
+    print(f'\tMittelwert Delta_mg:  {sum(delta_mg_sigma)/len(delta_mg_sigma)}')
+
+    # plot - Sigma 6A
     x_plot_1 = np.array(range(len(mitte_1)))
     plt.plot(x_plot_1, mitte_1, 'k.')
     plt.plot(peak_indices_1, mitte_1[peak_indices_1], 'rx')
+    plt.xlabel('Pixel (horizontale Richtung)')
+    plt.ylabel('Blauwert')
+    plt.grid()
     plt.savefig('build/blau_sigma_6A.pdf')
     plt.clf()
 
-    ## Image 2
+    # plot - Sigma 0A
+    x_plot_0 = np.array(range(len(mitte_0)))
+    plt.plot(x_plot_0, mitte_0, 'k.')
+    plt.plot(peak_indices_0, mitte_0[peak_indices_0], 'rx')
+    plt.xlabel('Pixel (horizontale Richtung)')
+    plt.ylabel('Blauwert')
+    plt.grid()
+    plt.savefig('build/blau_sigma_0A.pdf')
+    plt.clf()
+
+    print('\n\tPi-Linie')
+    lower_pi = 800
+    upper_pi = 3300
+
+    ## Image 2 - Pi 0A
     im_2 = imageio.imread('rohdaten/blau_pi_0A.JPG')
     im_2 = im_2[:,:,2]  # r g b  also ist blau an position 2
     mitte_2 = im_2[len(im_2) // 2]
-    peaks_2 = find_peaks(mitte_2, height=20, distance=50, prominence=20)
-    peak_indices_2 = peaks_2[0]
-    print(peak_indices_2)
-    print(np.diff(peak_indices_2))
+    peaks_2 = find_peaks(mitte_2[lower_pi:upper_pi], height=20, distance=50, prominence=20)
+    peak_indices_2 = peaks_2[0] + lower_pi
+    delta_s_pi = np.diff(peak_indices_2)
+    #  delta_s_pi =  delta_s_pi[:-1]
+    print(f'\t#peak-indices:  {len(peak_indices_2)}')
+    #  print(f'\tDelta_s_pi:  {delta_s_pi}, Numer {len(delta_s_pi)}')
+    print(f'\t#Delta_s_pi:  {len(delta_s_pi)}')
 
-    # plot
+    ## Image 3 - Pi 18A
+    im_3 = imageio.imread('rohdaten/blau_pi_18A.JPG')
+    im_3 = im_3[:,:,2]  # r g b  also ist blau an position 2
+    mitte_3 = im_3[len(im_3) // 2]
+    peaks_3 = find_peaks(mitte_3[lower_pi:upper_pi], height=20, distance=30, prominence=10)
+    peak_indices_3 = peaks_3[0] + lower_pi
+    peak_indices_3 = peak_indices_3[:-2]
+    peak_diffs_3 = np.diff(peak_indices_3)
+    del_s_pi = peak_diffs_3[::2]
+    print(f'\t#peak-indices:  {len(peak_indices_3)}')
+    #  print(f'\tdiffs: {peak_diffs_3}')
+    #  print(f'\tDel_s:  {del_s_pi}, Number {len(del_s_pi)}')
+    print(f'\t#Del_s:  {len(del_s_pi)}')
+
+    # Berechnung Delta mg
+    current_pi = 18  # angelegter Strom in ampere
+    B_pi = eichfunktion(current_pi, *params)*1e-3
+    print(f'\tB:  {B_pi}')
+    d_lambda_pi = wellenlaengenAenderung(del_s_pi, delta_s_pi, d_lambda_D)
+    delta_mg_pi = g_factor(d_lambda_pi, B_pi, lambda_2)
+    #  print(f'\tWellenlängenänderung:  {d_lambda_pi}')
+    #  print(f'\tDelta_mg:  {delta_mg_pi}')
+    print(f'\tMittelwert Delta_mg:  {sum(delta_mg_pi)/len(delta_mg_pi)}')
+
+    # plot - Pi 0A
     x_plot_2 = np.array(range(len(mitte_2)))
     plt.plot(x_plot_2, mitte_2, 'k.')
     plt.plot(peak_indices_2, mitte_2[peak_indices_2], 'rx')
+    plt.xlabel('Pixel (horizontale Richtung)')
+    plt.ylabel('Blauwert')
+    plt.grid()
     plt.savefig('build/blau_pi_0A.pdf')
+    plt.clf()
+
+    # plot - Pi 18A
+    x_plot_3 = np.array(range(len(mitte_3)))
+    plt.plot(x_plot_3, mitte_3, 'k.')
+    plt.plot(peak_indices_3, mitte_3[peak_indices_3], 'rx')
+    plt.xlabel('Pixel (horizontale Richtung)')
+    plt.ylabel('Blauwert')
+    plt.grid()
+    plt.savefig('build/blau_pi_18A.pdf')
     plt.clf()
 
 
@@ -235,5 +301,5 @@ if __name__ == '__main__':
     d_lambda_1, d_lambda_2 = lummer_gehrke_platte()
     p, e = eichung()
     params = unp.uarray(p, e)
-    #  auswertung_blau(p, e, d_lambda_2)
-    auswertung_rot(params, d_lambda_1)
+    auswertung_blau(params, d_lambda_2)
+    #  auswertung_rot(params, d_lambda_1)
