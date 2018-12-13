@@ -262,7 +262,7 @@ def auswertung_rot(params, d_lambda_D):
     peak_indices_0 = peaks_0[0] + 1500
     delta_s = np.diff(peak_indices_0)
     #  print(peak_indices_0)
-    print(f'\tDelta_s:  {delta_s}')
+    print(f'\t#Delta_s:  {len(delta_s)}')
 
     # plot
     x_plot_0 = np.array(range(len(mitte_0)))
@@ -284,7 +284,7 @@ def auswertung_rot(params, d_lambda_D):
     del_s = peak_diffs_1[::2]
     #  print(peak_indices_1)
     #  print(peak_diffs_1)
-    print(f'\tDel_s:  {del_s}')
+    print(f'\t#Del_s:  {len(del_s)}')
 
     # plot
     x_plot_1 = np.array(range(len(mitte_1)))
@@ -302,9 +302,10 @@ def auswertung_rot(params, d_lambda_D):
     print(f'\tB:  {B_1}')
     d_lambda = wellenlaengenAenderung(del_s, delta_s, d_lambda_D)
     delta_mg = g_factor(d_lambda, B_1, lambda_1)
-    print(f'\tWellenlängenänderung:  {d_lambda}')
-    print(f'\tDelta_mg:  {delta_mg}')
-    print(f'\tMittelwert:  {sum(delta_mg)/len(delta_mg)}')
+    #  print(f'\tWellenlängenänderung:  {d_lambda}')
+    #  print(f'\tDelta_mg:  {delta_mg}')
+    #  print(f'\tMittelwert:  {sum(delta_mg)/len(delta_mg)}')
+    print(f'\tMittelwert Delta_mg:  {sum(delta_mg)/len(delta_mg)}')
 
     # save results
     make_table(header= ['$\delta s$ / \pixel', '$\Delta s$ / \pixel', '$\delta\lambda$ / \pico\meter', '$\zeta$'],
