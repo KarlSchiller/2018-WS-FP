@@ -14,21 +14,21 @@ from tab2tex import make_table
 ureg = pint.UnitRegistry(auto_reduce_dimensions = True)
 Q_ = ureg.Quantity
 
-#  c = Q_(const.value('speed of light in vacuum'), const.unit('speed of light in vacuum'))
-#  h = Q_(const.value('Planck constant'), const.unit('Planck constant'))
-c = const.c
-h = const.h
+c = Q_(const.value('speed of light in vacuum'), const.unit('speed of light in vacuum'))
+h = Q_(const.value('Planck constant'), const.unit('Planck constant'))
+#  c = const.c
+#  h = const.h
 muB = const.value('Bohr magneton')
 
 def messung_T1():
     tau, M = np.genfromtxt('rohdaten/t1.txt', unpack=True)
 
     plt.plot(tau, -M, 'kx', label='Messwerte')
-    plt.ylabel(r'$M\:/\:\mathrm{mV}$')
-    plt.xlabel(r'$\tau\:/\:\mathrm{s}$')
+    plt.ylabel(r'$M\:/\:\si{\milli\volt}$')
+    plt.xlabel(r'$\tau\:/\:\si{\second}$')
     plt.xscale('log')
     plt.tight_layout()
-    plt.savefig('build/t1.pdf', bbox='tight')
+    plt.savefig('build/t1')
     plt.clf()
 
 
@@ -36,11 +36,11 @@ def diffusion():
     tau, M = np.genfromtxt('rohdaten/diffusion.txt', unpack=True)
 
     plt.plot(tau, M, 'kx', label='Messwerte')
-    plt.ylabel(r'$M\:/\:\mathrm{mV}$')
-    plt.xlabel(r'$\tau\:/\:\mathrm{s}$')
+    plt.ylabel(r'$M\:/\:\si{\milli\volt}$')
+    plt.xlabel(r'$\tau\:/\:\si{\second}$')
     #  plt.xscale('log')
     plt.tight_layout()
-    plt.savefig('build/difussion.pdf', bbox='tight')
+    plt.savefig('build/diffussion')
     plt.clf()
 
 

@@ -1,10 +1,25 @@
+# Windows-freundliche Übersetzung in MSys2/Cydwin
+ifeq (,$(shell sh -c 'cygpath --version 2> /dev/null'))
+  # Unix
+  pwd := $$(pwd)
+  translate = $1
+else
+  # Windows mit MSys2/Cygwin
+  pwd := $$(cygpath -m "$$(pwd)")
+  translate = $(shell echo '$1' | sed 's/:/;/g')
+endif
+
 all:  build/main.pdf
 
-build:
-	mkdir -p build
+# further dependencies of auswertung.py
+calc:
 
+# python script
+calc: auswertung.py matplotlibrc header-matplotlib.tex | build
+	TEXINPUTS=$$(pwd): python auswertung.py
+
+# further dependencies of build/main.pdf
 build/main.pdf:
-
 
 build/main.pdf: FORCE | build
 	  TEXINPUTS="$(call translate,build:)" \
@@ -13,9 +28,12 @@ build/main.pdf: FORCE | build
 	latexmk \
 	  --lualatex \
 	  --output-directory=build \
-		--interaction=nonstopmode
-		--halt-on-error
+		--interaction=nonstopmode \
+		--halt-on-error \
 	main.tex
+
+build:
+	mkdir -p build
 
 clean:
 	rm -rf build

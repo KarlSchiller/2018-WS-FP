@@ -11,11 +11,18 @@ endif
 
 all:  build/main.pdf
 
-build:
-	mkdir -p build
+# further dependencies of auswertung.py
+calc: rohdaten/diffusion.txt rohdaten/t1.txt
 
-build/main.pdf:
+# python script
+calc: auswertung.py matplotlibrc header-matplotlib.tex | build
+	TEXINPUTS=$$(pwd): python auswertung.py
 
+build/t1.pdf: calc
+build/diffusion.pdf: calc
+
+# further dependencies of build/main.pdf
+build/main.pdf: build/t1.pdf build/diffusion.pdf
 
 build/main.pdf: FORCE | build
 	  TEXINPUTS="$(call translate,build:)" \
@@ -24,9 +31,12 @@ build/main.pdf: FORCE | build
 	latexmk \
 	  --lualatex \
 	  --output-directory=build \
-		--interaction=nonstopmode
-		--halt-on-error
+		--interaction=nonstopmode \
+		--halt-on-error \
 	main.tex
+
+build:
+	mkdir -p build
 
 clean:
 	rm -rf build
