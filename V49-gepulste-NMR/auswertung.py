@@ -19,11 +19,26 @@ h = Q_(const.value('Planck constant'), const.unit('Planck constant'))
 #  c = const.c
 #  h = const.h
 muB = const.value('Bohr magneton')
+gyro_faktor = 2.6752219 #rad/(sT)
+max_gradient = -9
+
+def formel_T1(tau, m0, T1):
+    return m0 * (1 - 2*np.exp(-tau / T1)) # T1 = 2
+
+def diffusionskonstante(tau, D):
+    return np.exp(-2/3 * D * gyro_faktor**2 * max_gradient**2 * tau**3)
 
 def messung_T1():
     tau, M = np.genfromtxt('rohdaten/t1.txt', unpack=True)
 
+    params, cov = curve_fit(formel_T1, tau, M, p0 = [-640, 2])
+    errors = np.sqrt(np.diag(cov))
+    print('Anfangsbedingung der Magnetisierung M0 = ', params[0] , ' +/- ', errors[0])
+    print('Relaxationszeit T1 = ', params[1], ' +/- ', errors[1])
+
+    x_range = np.linspace(min(tau), max(tau), 100000)
     plt.plot(tau, -M, 'kx', label='Messwerte')
+    plt.plot(x_range, -formel_T1(x_range, *params), 'b-', label='Fit')
     plt.ylabel(r'$M\:/\:\si{\milli\volt}$')
     plt.xlabel(r'$\tau\:/\:\si{\second}$')
     plt.xscale('log')
@@ -32,16 +47,24 @@ def messung_T1():
     plt.clf()
 
 
+
 def diffusion():
     tau, M = np.genfromtxt('rohdaten/diffusion.txt', unpack=True)
 
+    params, cov = curve_fit(diffusionskonstante, tau, M)
+    errors = np.sqrt(np.diag(cov))
+    print('Diffusionskonstante: D = ', params, ' +/- ',  errors)
+
+    x_range = np.linspace(min(tau), max(tau))
     plt.plot(tau, M, 'kx', label='Messwerte')
+    plt.plot(x_range, diffusionskonstante(x_range, params), 'b-', label='Fit')
     plt.ylabel(r'$M\:/\:\si{\milli\volt}$')
     plt.xlabel(r'$\tau\:/\:\si{\second}$')
     #  plt.xscale('log')
     plt.tight_layout()
     plt.savefig('build/diffussion')
     plt.clf()
+
 
 
 #  def eichfunktion(I, a0, a1, a2, a3, a4):
