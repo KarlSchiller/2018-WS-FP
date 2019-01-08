@@ -5,7 +5,7 @@ In diesem Versuch wird die Funktionsweise eines Reinst-Germanium-Detektors disku
 und verschiedene Proben anhand aufgenommener Spektren charakterisiert.
 Dazu werden im Folgenden die verschiedenen Mechanismen zur Energiedeposition von
 $\gamma$-Strahlung in Materie erläutert, der Aufbau eines Halbleiter-Detektors
-dargestellt und ein typisches Spektrum einer $\gamma$-Quelle diskutiert.
+dargestellt und ein typisches Spektrum einer monochromatischen $\gamma$-Quelle diskutiert.
 
 Der Intensitätsverlust eines $\gamma$-Strahls in Materie ist abhängig von
 der Schichtdicke des Materials, der Elektronendichte $n$ und dem
@@ -38,12 +38,12 @@ Wechselwirkungen näher betrachtet.
 \subsection{Photo-Effekt}
 \label{sec:Photo-Effekt}
 
-Beim Photo-Effekt wechselwirkt ein Photon mit einem Hüllenelektron. Dabei
-wird das Photon anhiliert und das Elektron verlässt die Atomhülle.
-Hierzu muss die Energie des Photons also mindestens die Bindungsenergie des
+Beim Photo-Effekt wechselwirkt ein $\gamma$-Quant mit einem Hüllenelektron. Dabei
+wird das Quant absorbiert und das Elektron verlässt die Atomhülle.
+Hierzu muss die Energie des Quants also mindestens die Bindungsenergie des
 Elektrons betragen.
 Der nun unbesetzte Zustand in der Atomhülle wird durch ein Elektron aus
-einem höheren Orbital besetzt, das dabei ein Photon mit charakteristischer
+einem höheren Orbital besetzt, das dabei ein $\gamma$-Quant mit charakteristischer
 Energie emittiert. Die Lücke in dem höheren Orbital wird dann wiederum durch
 ein Elektron aus einem noch höheren Orbital aufgefüllt und so weiter.
 
@@ -55,7 +55,7 @@ Bei natürlichen Strahlern ergibt sich eine Abhängigkeit von
 \end{equation*}
 mit $4 < \alpha < 5$ und $\delta \approx \num{-3.5}$.
 Für niedrige $\gamma$-Energien sind zudem Unstetigkeiten im Wirkungsquerschnitt
-erkennbar, wenn die Energie genau der Ionisationsenergie einer Schale entspricht.
+erkennbar, wenn die Energie genau der Bindungsenergie einer Schale entspricht.
 
 \subsection{Compton-Effekt}
 \label{sec:Compton-Effekt}
@@ -82,9 +82,11 @@ Bei einem Streuwinkel von \SI{180}{\degree} ist der Energieübertrag
 \end{equation*}
 an das Elektron maximal.
 Im Unterschied zum Photo-Effekt wird nur ein Teil der $\gamma$-Energie übertragen,
-sodass nicht die gesamte Energie des Photons im Detektor deponiert werden muss und
-das Photon den Detektor nach dem Compton-Effekt wieder verlassen kann.
-Somit stellt der Compton-Effekt einen Störfaktor dar.
+sodass nicht die gesamte Energie des $\gamma$-Quants im Detektor deponiert werden kann und
+das Quant den Detektor nach dem Compton-Effekt wieder verlassen kann.
+Der im Detektor deponierte variable Anteil der $\gamma$-Energie lässt keine
+Bestimmung dieser zu, sodass der Compton-Effekt im Detektor einen Störfaktor
+darstellt.
 
 Von Interesse ist der differentielle Wirkungsquerschnitt nach der Energie der
 Elektronen, da nur diese an den Detektor abgegeben wird. Hierzu
@@ -102,13 +104,14 @@ Wird dieser Ausdruck nach der Energie abgeleitet, ergibt sich
 \begin{equation}
 	\frac{\symup{d}\sigma}{\symup{d}E} =
 	\frac{3}{8} \sigma_\text{Th} \frac{1}{m_0\:c^2\:\varepsilon^2}
+  B
 	\left\{2 + \left(\frac{E}{h \nu - E}\right)^2
 	\left(\frac{1}{\varepsilon^2} + \frac{h \nu - E}{h \nu} - \frac{2}{\varepsilon}
 	\left(\frac{h \nu - E}{h \nu}\right)\right)\right\}
 	\label{eqn:Compton-Wirkungsquerschnitt}
 \end{equation}
 mit dem Planck'schen Wirkungsquantum $h$ und der Frequenz des $\gamma$-Quants $\nu$.
-Der Verlauf dieses Wirkungsquerschnitts ist in Abbildung \ref{fig:Compton-Wirkungsquerschnitt}
+Der Verlauf dieses Wirkungsquerschnitts ist beispielhaft in Abbildung \ref{fig:Compton-Wirkungsquerschnitt}
 dargestellt. Die sogenannte Compton-Kante kennzeichnet den maximalen Energieübertrag
 $E_\text{l,max}$.
 
@@ -124,15 +127,19 @@ $E_\text{l,max}$.
 \subsection{Paarerzeugung}
 \label{sec:Paarerzeugung}
 
-Bei $\gamma$-Energien größer $2 m_0 c^2$ ist ein Umwandlung des Quants in ein
+Bei $\gamma$-Energien größer als $2 m_0 c^2$ ist ein Umwandlung des $\gamma$-Quants in ein
 Elektron und ein Positron möglich.
 Hierzu muss aus Impulserhaltungsgründen ein Stoßpartner in Form eines Hüllenelektrons
 oder Atoms vorhanden sein.
-Ein Problem stellt das Positron dar, welches mit einem weiteren Elektron rekombinieren
-kann und die zwei daraus entstehenden Photonen nicht ihre Energie im Detektor deponieren
-müssen.
+Aufgrund der geringen Masse des Elektrons ist dessen Rückstoßenergie
+bei der Paarerzeugung groß, sodass die Schwellwertenergie $4 m_0 c^2$ beträgt.
+Einen möglichen Effekt nach der Paarerzeugung stellt die Rekombination des Positrons
+mit einem weiteren Elektron dar. Die zwei daraus entstehenden $\gamma$-Quanten können
+ihre gesamte Energie, oder auch nur einen Teil ihrer Energie im Detektor deponieren.
+% TODO: Was bedeutet SEP/DEP?
 Weiterhin können Elektron und Positron Energie in Form von Bremsstrahlung verlieren, die dann
 den Detektor verlässt.
+Die Energie des $\gamma$-Quants würde folglich zu gering rekonstruiert.
 
 Bei der Berechnung des Wirkungsquerschnitts der Paarerzeugung ist die Position des Stoßpartners
 von Bedeutung, da sich das Coulombfeld des Kerns mit größerem Abstand verändert.
@@ -172,9 +179,10 @@ Energieniveaus entspricht.
 Halbleiter-Detektoren ermöglichen eine hohe Energieauflösung bei der Untersuchung von $\gamma$-Strahlung.
 Die Hauptkomponente bildet dabei eine Halbleiterdiode, welche aus zwei angrenzenden \ce{Ge}-Bereichen
 besteht, die unterschiedlich dotiert sind.
-An der Grenzfläche bildet sich durch Rekombination eine ladungsträgerarme Zone aus, welche sensitiv auf
-einfallende $\gamma$-Quanten ist. Diese heben bei einer $\gamma$-Energie oberhalb der Bandlücke ein
-Elektron in das Leitungsband. Das Elektron erfährt wiederum eine Kraft in Richtung der p-dotierten
+An der Grenzfläche bildet sich durch Rekombination eine ladungsträgerarme Zone aus.
+Fallen $\gamma$-Quanten in diese Zone, heben sie bei einer $\gamma$-Energie oberhalb
+der Bandlücke ein Elektron in das Leitungsband.
+Das Elektron erfährt wiederum eine Kraft in Richtung der p-dotierten
 Seite der Diode und regt auf dem Weg dorthin weitere Elektronen an.
 Ebenso bewegen sich die so entstandenen Löcher in Richtung der n-dotierten Schicht. Ist die
 Diode an einen Strommesser angeschlossen, so lässt sich bei Einfall eines $\gamma$-Quants ein
@@ -185,10 +193,10 @@ zu trennen, bevor es wieder rekombiniert.
 Um den Potentialsprung $U_\text{D}$ und damit die Breite der Verarmungszone zu vergrößern,
 wird eine äußere Spannung $U$ angelegt.
 Dies ist in Abbildung \ref{fig:SchematischerPotentialverlauf} dargestellt.
-Ein Problem sind dabei thermisch angeregte Ladungsträger aus Restverunreinigungen im Kristall,
-welche die Detektionseigenschaften verschlechtern.
+Thermisch angeregte Ladungsträger aus Restverunreinigungen im Kristall verschlechtern
+jedoch die Detektionseigenschaften.
 Um den so entstehenden Blindstrom möglichst gering zu halten wird der
-Detektor üblicherweise mit flüssigem Stickstoff auf ungefähr \SI{77}{\kelvin} gekühlt.
+Detektor üblicherweise mit siedendem Stickstoff auf ungefähr \SI{77}{\kelvin} gekühlt.
 Weiterhin wird die Dotierung so gewählt, dass die Breite $d$ der Verarmungszone möglichst groß ist.
 Für eine deutlich höhere Elektronendichte der n-dotierten Donatorschicht $n_\text{D}$ im
 Vergleich zur p-dotierten Akzeptorschicht $n_\text{A}$ ergibt sich näherungsweise
@@ -198,7 +206,7 @@ Vergleich zur p-dotierten Akzeptorschicht $n_\text{A}$ ergibt sich näherungswei
 \end{equation}
 mit der Permittivität des Vakuums $\varepsilon_0$ und der Permittivität von Germanium $\varepsilon$.
 Es zeigt sich, dass für eine möglichst geringe Elektronendichte der Akzeptorschicht und hohe
-Sperrspannungen eine breite Verarmungszone erzeugt werden kann.
+Sperrspannungen die Verarmungszone von einigen \si{\micro\meter} auf \SI{3}{\centi\meter} vergrößert werden kann.
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/Schematischer-Potentialverlauf.pdf}
@@ -212,10 +220,14 @@ Sperrspannungen eine breite Verarmungszone erzeugt werden kann.
 
 Um zwei Spektrallinien $E_1$ und $E_2$ voneinander unterscheiden zu können, müssen
 sich die Mittelwerte mindestens um die Halbwertsbreite $\increment E_{\sfrac{1}{2}}$
-der Impulshöhenverteilung des Detektors bei monochromatischer $\gamma$-Strahlung unterscheiden.
-Diese Halbwertsbreite ist hauptsächlich von der Anzahl der bei Absorption eines $\gamma$-Quants
+der Impulshöhenverteilung des Detektors bei $\gamma$-Strahlung unterscheiden.
+Diese Halbwertsbreite ist von der Anzahl der bei Absorption eines $\gamma$-Quants
 freigesetzten Elektron-Loch-Paare $n$ festgelegt.
-Bei der Bestimmung der Standardabweichung $\sigma$ der Verteilung von $n$ ist zu berücksichtigen, dass die
+Für die benötigte Energie zur Bildung eines Elektron-Loch-Paares wurde im Mittel
+$E_\text{EL} = \SI{2.9}{\electronvolt}$ bei \SI{77}{\kelvin} gemessen,
+obwohl die Bandlücke zwischen Valenz- und Leitungsband lediglich
+$E_\text{B} = \SI{0.67}{\electronvolt}$ beträgt.
+Folglich muss bei der Bestimmung der Standardabweichung $\sigma$ der Verteilung von $n$ berücksichtigt werden, dass die
 Erzeugung der Elektron-Loch-Paare nur unter Beteiligung von Phononen statt findet.
 Die $\gamma$-Anregungsenergie verteilt sich statistisch auf das Elektron und Phononen.
 Somit wird ein Teil der Fluktuationen der Ladungsträgererzeugung durch Fluktuationen der
@@ -223,51 +235,70 @@ Phononenanregung kompensiert und es ergibt sich
 \begin{equation}
 	\sigma = \sqrt{F\:\mean{n}}
 \end{equation}
-mit dem sogenannten Nano-Faktor $F$ und dem Mittelwert der Verteilung $\mean{n}$.
-Da $n >> 1$ geht die Verteilung in eine Gaußverteilung über und es ergibt sich
+mit dem sogenannten Fano-Faktor $F$ und dem Mittelwert der Verteilung $\mean{n}$.
+Da $n >> 1$ geht die Poissonverteilung in eine Gaußverteilung über und es ergibt sich
 \begin{equation}
 	\increment E_{\sfrac{1}{2}} = \sqrt{8 \ln2} \frac{\sigma}{\mean{n}} E_\gamma
+  \sim \sqrt{E_\text{EL}}
 \end{equation}
 und bei einer typischen $\gamma$-Energie von \SI{500}{\kilo\electronvolt} eine
 Halbwertsbreite von $\sim \SI{895}{\electronvolt}$.
+Diese ist im Vergleich zu anderen auf dem Ionisationsprizip beruhenden
+Detektorarten sehr gering.
+Beispielhaft beträgt $E_\text{EL}$ für Proportionalzählrohre
+\SIrange[range-phrase=\text{ bis }]{20}{30}{\electronvolt} und für Szintillationszähler
+\SIrange[range-phrase=\text{ bis }]{500}{600}{\electronvolt} bei $F = \num{1}$.
 
 Die Energieauflösung des Detektors wird durch weitere Effekte beschränkt, die praktisch unkorrelliert sind.
 Ein Effekt ist das Rauschen aufgrund eines in Abschnitt \ref{sec:HLDetektor} erklärten Leckstroms
-durch thermische Elektronen. Dieser kann durch Abkühlung des Detektors reduziert werden.
-Weiterhin existieren Feldinhomogenitäten aufgrund des Aufbaus des Detektors, die jedoch
+durch thermische Elektronen, welcher in einer zusätzlichen Halbwertsbreite $H_\text{R}$ der Energieverteilungskurve resultiert.
+Dieser kann durch Abkühlung des Detektors reduziert werden.
+Weiterhin existieren Feldinhomogenitäten aufgrund des Aufbaus des Detektors ($H_\text{I}$), die jedoch
 mit steigender angelegter Spannung kleiner werden.
-Schließlich spielt auch das Rauschen des Signalverstärkers eine Rolle. Dieses Rauschen
+Schließlich spielt auch das Rauschen des Signalverstärkers ($H_\text{E}$) eine Rolle. Dieses Rauschen
 kann durch Kühlung der ersten Verstärkerstufe reduziert werden.
+Die Halbwertsbreite unter Berücksichtigung aller Störeffekte $H_\text{ges}$
+ist schließlich durch
+\begin{equation}
+  H_\text{ges}^2 = \increment E_{\sfrac{1}{2}}^2 + H_\text{R}^2
+  + H_\text{I}^2 + H_\text{E}^2
+\end{equation}
+gegeben.
 
-Zur Bestimmung der Aktivität einer Probe $A$ spielt eine weiter Kenngröße des Detektors eine
+Zur Bestimmung der Aktivität einer Probe $A$ spielt eine weitere Kenngröße des Detektors eine
 Rolle, die sogenannte Vollenergie-Nachweiseffizienz $Q$.
-Sie gibt die Effizienz an, mit welcher der Detektor ein einfallendes $\gamma$-Quant
-detektiert, also mit welcher Wahrscheinlichkeit das Quant mit dem Detektor
+Sie gibt die Effizienz an, mit welcher Wahrscheinlichkeit das Quant mit dem Detektor
 wechselwirkt und dabei die gesamte Energie deponiert.
 Das gemessene Zählergebnis einer $\gamma$-Linie $Z$ ist gegeben durch
 \begin{equation}
-	Z = \frac{\Omega}{2\:\pi} A\:W\:Q
+	Z = \frac{\Omega}{4\:\pi} A\:W\:Q
 	\label{eqn:Vollenergie-Nachweiseffizienz}
 \end{equation}
-mit der Emissionswahrscheinlichkeit der bestimmten Linie $W$ bei Strahlern mit mehreren
-$\gamma$-Linien und dem Raumwinkel $\Omega$, den der Detektor aus Sicht des Strahlers einnimmt.
+mit der Emissionswahrscheinlichkeit der bestimmten Linie $W$
+und dem Raumwinkel $\Omega$, den der Detektor aus Sicht des Strahlers einnimmt.
 
 \subsection{Spektrum einer monochromatischen Gamma-Quelle}
 \label{sec:TypischeQuelle}
 
 Das Spektrum einer monochromatischen $\gamma$-Quelle ist in Abbildung \ref{fig:typisches-Spektrum}
-dargestellt. Aufgetragen ist die Kanalfüllung gegen die Energie der $\gamma$-Quanten, wobei
-die Kanalfüllung nach Abschnitt \ref{sec:KalibrierungBeschreibung} in eine Intensität umgerechnet werden kann.
-Aufgrund der Abschirmung des \ce{Ge}-Detektors nach Abschnitt \ref{sec:AufbauDetektor} existiert eine
-minimale detektierbare Energie der Photononen, die als Empfindlichkeitsgrenze eingezeichnet ist.
+dargestellt. Aufgetragen ist die Kanalfüllung gegen die Energie der $\gamma$-Quanten.
+Aufgrund der Aluminium-Abschirmung des \ce{Ge}-Detektors nach Abschnitt \ref{sec:AufbauDetektor} existiert eine
+minimale detektierbare Energie der $\gamma$-Quanten, die als Empfindlichkeitsgrenze eingezeichnet ist.
 Der Vollenergiepeak entsteht, wenn das einfallende $\gamma$-Quant seine gesamt Energie im Detektor
-deponiert, also nach möglichen Compton-Streuungen von einem Elektron anhiliert wird oder direkt der
-Photoeffekt auftritt.
+deponiert. Es wird also nach möglichen Compton-Streuungen Photo-absorbiert
+oder es tritt direkt der Photoeffekt auf.
 Bei Energien unterhalb des Vollenergiepeaks ist das sogenannte Compton-Kontinuum beobachtbar. Je nach
-Energieübertrag des Photons auf das Elektron wird unterschiedlich viel Energie im Detektor deponiert,
+Energieübertrag des $\gamma$-Quants auf das Elektron wird unterschiedlich viel Energie im Detektor deponiert,
 bis zu einem maximalen Energieübertrag an der Compton-Kante.
 Weiterhin ist ein Rückstreupeak aufgetragen, welcher dadurch entsteht, dass die $\gamma$-Quanten erst
 nach einer Compton-Streuung in den Detektor gelangen.
+Hierbei treten große Streuwinkel auf, sodas sich die Position des Rückstreupeaks im
+Spektrums durch Einsetzen eines Winkels von \SI{180}{\degree} in Formel
+\eqref{eqn:Compton-Energy} zu
+\begin{equation}
+  E_{\gamma'} = E_\gamma \frac{\varepsilon}{1 + 2 \varepsilon}
+\end{equation}
+abgeschätzt werden kann.
 Oberhalb der Compton-Kante ist ebenfalls eine Kanalfüllung beobachtbar. Diese lässt sich mit mehrfachen
 Compton-Streuungen eines Photons erklären.
 
