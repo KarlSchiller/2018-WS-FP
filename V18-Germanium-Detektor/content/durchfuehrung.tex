@@ -60,7 +60,7 @@ Diese Schaltung ist schematisch in Abbildung \ref{fig:Gesamtschaltbild} dargeste
 	\label{fig:Gesamtschaltbild}
 \end{figure}
 Wie in Abschnitt \ref{sec:KenngroessenHLDetektor} angedeutet befindet sich ein Vorverstärker
-zusammen mit dem Detektorkristall im Inneren des in Abschnitt \label{sec:AufbauDetektor}
+zusammen mit dem Detektorkristall im Inneren des in Abschnitt \ref{sec:AufbauDetektor}
 beschriebenen Aluminiumgehäuses.
 Somit wird der Vorverstärker mit gekühlt, um Rauschspannungen zu minimieren.
 Ein im Detektorgehäuse eingebauter Temperaturfühler ist mit einem Temperaturwächter verbunden,
@@ -68,8 +68,7 @@ welcher das Anlegen einer Hochspannung an einen warmen Detektorkristall verhinde
 Der Vorverstärker besteht aus einem kapazitiv rückgekoppelten Operationsverstärker, sodass
 das Ausgangspotential proportional zum integrierten Eingangsstrom ist.
 Dies führt beim Einfall mehrerer $\gamma$-Quanten zu einem stufenförmigen Anstieg der Ausgangsspannung.
-Aus diesem Signal ist eine Analyse der Pulshöhen schwierig,
-% TODO: Genauer spezifizieren: Was bedeutet schwierig?
+Aus diesem Signal ist eine Analyse der einzelnen Pulshöhen nicht möglich,
 sodass der Integrationskondensator $C_\text{k}$ durch eine optoelektronische Rückkopplung
 entladen wird. In Abbildung \ref{fig:Optoelektronische-Rueckkopplung} ist das Schaltbild
 des Operationsverstärkers mit Rückkopplung dargestellt.
@@ -89,9 +88,8 @@ Unterschwingern kommen, durch welche das Ausgangssignal zeitweise kleiner als Nu
 wird durch eine sogenannte Pole-Zero-Kompensation unterbunden, also das Geben eines geeigneten
 Bruchteils der Ausgangsspannung des Vorverstärkers auf den Hauptverstärker bei Umgehung
 des Hochpasses.
-% TODO: Noch einmal nachschauen, ob präzise genug formuliert
 
-Im Hauptverstärker selbst wird das Signal mehrfach integriert und differenziert,
+Im Hauptverstärker selbst wird das Signal integriert und differenziert,
 um eine optimale Bandbreite des Verstärkers zu gewährleisten. Bei zu kleiner Bandbreite
 werden nicht alle Komponenten des Eingangssignals übertragen und bei zu großer Bandbreite
 ist das Signal zu Rauschverhältnis zu klein.
@@ -112,7 +110,10 @@ hochstabilen Quarz-Oszillators bestimmt, sodass die Zahl des Binärzählers prop
 Pulshöhe des Eingangsimpulses ist.
 Während der Entladezeit ist die Aufnahme eines weiteren Eingangsimpulses nicht möglich,
 sodass der Konverter eine Totzeit von typischerweise $\sim \SI{40}{\micro\second}$ aufweist.
-% TODO: Parameter zur Abschätzung der Totzeit angeben, also K und R
+Diese Totzeit ergibt sich aus der Summe einer konstanten Grundzeit $t_0$ und einer variablen
+Zeit $\sfrac{K}{\nu}$ mit der Oszillatorfrequenz $\nu$
+(typischerweise \SI{200}{\mega\hertz}) und der Nummer des Kanals $K$,
+in welchen der Impuls sortiert wurde (typischerweise \num{8100}).
 Die erhaltene Binärzahl wird an einen Vielkanal-Analysator weiter gegeben, welcher
 die Anzahl an Pulsen in Abhängigkeit von den Pulshöhen speichert und auf einem angeschlossenem
 Bildschirm ausgibt.
@@ -143,8 +144,7 @@ Die dritte Probe ist entweder eine \ce{^125Sb}- oder eine \ce{^133Ba}-Quelle.
 Das Spektrum wird wie auch bei der vierten Probe für eine Stunde aufgenommen
 und daraus im Anschluss das vorliegende Material bestimmt.
 Hierzu werden Tabellen mit verschiedenen $\gamma$-Linien und den zugehörigen
-Emissionswahrscheinlichkeiten für Barium und Antimon aus \cite[28]{anleitung}
-% TODO: Zahlen vor Barium und Antimon, zur Kennzeichnung der Isotope
+Emissionswahrscheinlichkeiten für \ce{^133Barium} und \ce{^125Antimon} aus \cite[28]{anleitung}
 verwendet.
 Die vierte Quelle ist ein unbekannter Strahler, dessen Zusammensetzung
 aus dem Spektrum ermittelt werden soll.
