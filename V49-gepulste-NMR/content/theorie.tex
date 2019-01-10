@@ -1,8 +1,59 @@
 \section{Zielsetzung}
 \label{sec:Zielsetzung}
 
+Ziel des Versuches ist die Bestimmung der Diffusionskonstante von Wasser.
+Diese wird mittels gepulster Kernspinresonanz (NMR) ermittelt,
+indem also der zeitliche Verlauf einer Magnetisierung der Probe unter
+Einstrahlung eines Hochfrequenzfeldes untersucht wird.
+Dabei treten Relaxationsprozesse auf, die unter Verwendung zweier
+Relaxationszeiten charakterisiert werden.
+
 \section{Theorie}
 \label{sec:Theorie}
+
+\subsection{Magnetisierung einer Probe}
+\label{sec:TheoMagnetisierung}
+
+Im Folgenden wird die Magnetisierung einer Probe erläutert, die im thermischen
+Gleichgewicht mit ihrer Umgebung steht.
+Anschließend wird auf die Larmor-Präzession näher eingegangen.
+
+Beim Anlegen eines externen Magnetfelds $\vec{B} = B_0 \vec{e}_\text{B}$ eines ansonsten
+feldfreien Raums spalten die Kernspinzustände der Probe in $2S+1$ Unterniveaus auf.
+Dabei zeige das Magnetfeld in $z$-Richtung und $S$ bezeichne die Spinquantenzahl der
+Zustände, die mittels der Orientierungsquantenzahl $m$ unterschieden werden.
+Im thermischen Gleichgewicht sind die Zustände nach der Maxwell-Boltzmann-Verteilung
+und damit ungleichmäßig besetzt.
+Aufgrund der Orientierung der einzelnen Spins ergibt sich daraus eine Kernspinpolarisation
+$\left<S_\text{z}\right>$.
+Bei der Betrachtung von Protonen mit $S = \frac{1}{2}$ und der Abschätzung
+$m \gamma B_0 \ll k_\text{B} T$ ergibt sich in linearer Näherung
+\begin{equation*}
+  \left<I_\text{z}\right> = -\frac{\hbar^2}{4}\frac{\gamma B_0}{k_\text{B} T}.
+\end{equation*}
+Dabei bezeichnet $\gamma$ das gyromagnetische Verhältnis des Kerns,
+$k_\text{B}$ die Boltzmann-Konstante, $T$ die Temperatur
+und $\hbar$ das reduzierte Plancksche Wirkungsquantum.
+% TODO: Überlegen, ob hier ein Satz zu m=+-0.5 mit Energieaufspaltung eingefügt werden könnte
+Aufgrund der Verknüpfung der Kernspinpolarisationen der Kerne
+mit dem magnetischen Moment $\vec{\mu_\text{S}}$ wird so eine makroskopische
+Magnetisierung $\vec{M_0}$ erzeugt,
+deren Erwartungswert in Richtung des äußeren Feldes
+\begin{equation*}
+  M_0 = \frac{1}{4} \mu_0 \gamma^2 \frac{\hbar^2}{k_\text{B}} N \frac{B_0}{T}
+\end{equation*}
+beträgt.
+Dabei bezeichnet $\mu_0$ die Permeabilität des Vakuums und
+$N$ die Anzahl der Momente pro Volumeneinheit.
+
+Für die NMR-Spektroskopie ist interessant, wie sich die Magnetisierung $\vec{M}$
+der Probe nach einer Auslenkung aus der Gleichgewichtslage $\vec{M_0}$
+zeitlich entwickelt.
+Aufgrund der großen Anzahl von Einzelmomenten
+($N$ in Größenordnung \SI[retain-unity-mantissa=false]{1e28}{\per\cubic\meter})
+lässt sich diese Entwicklung klassisch behandeln.
+
+
 
 - Störungen/Verunreinigungen der Probe nicht resonant mit eingestellter Frequenz
   -> gamma anders, also nicht sichtbar, kernselektve Methode
@@ -13,11 +64,3 @@
 %   \caption{Bilduterschrift}
 %   \label{fig:Bild}
 % \end{figure}
-
-% \subsection{Unterkapitel}
-% \label{sec:UnterKapitel}
-
-% \begin{equation}
-% Für Formeln
-%   \label{eqn:Formel}
-% \end{equation}
