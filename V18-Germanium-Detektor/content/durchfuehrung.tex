@@ -7,12 +7,12 @@
 
 Der verwendete Detektor ist ein sogenannter koaxialer \ce{Ge}-Detektor.
 Er besteht aus einem zylinderförmigen \ce{Ge}-Kristall mit einer Bohrung im
-Inneren, auf welche ein Kontakt aufgedampft ist. Von außen sind \ce{Li}-Atome
+Inneren, auf welche ein Goldkontakt aufgedampft ist. Von außen sind \ce{Li}-Atome
 eindiffundiert, sodass die äußere Schicht von \SI{0.5}{\milli\meter} Dicke
 stark n-dotiert ist.
-Zwischen den Goldkontakt und die äußere dotierte Schicht lässt sich eine äußere
+Zwischen dem Goldkontakt und der äußeren dotierten Schicht lässt sich eine äußere
 Spannung $U$ anlegen.
-Zur Abschirmung des Detektors ist dieser Aufbau von einer Aluminium-Schutzhaube
+Zum physischen Schutz der weiter unten beschriebenen Isolation des Detektors ist dieser Aufbau von einer Aluminium-Schutzhaube
 umgeben. Als Konsequenz existiert eine untere Nachweisgrenze für $\gamma$-Quanten
 von \SIrange{40}{50}{\kilo\electronvolt}.
 Dieser Aufbau ist in Abbildung \ref{fig:Versuchsaufbau} dargestellt.
@@ -22,7 +22,7 @@ Stickstoff gefülltem Dewargefäß. Die Kühlung erfolgt über einen wärmeleite
 Kühlfinger, über welchen das Stickstoffreservoir und der Kristall in Verbindung stehen.
 Der gesamte Aufbau befindet sich in einer Bleiverkleidung, um die Detektion
 von Hintergrundstrahlung zu verhindern. Innerhalb befindet sich weiterhin eine
-Platte aus hochreinem Kupfer, welche die natürliche Strahlung des Bleis vor dem
+Platte aus hochreinem Kupfer, welche die radioaktive Verunreinigung des Bleis vor dem
 Detektor abschirmt.
 \begin{figure}
 	\centering
@@ -60,13 +60,16 @@ Diese Schaltung ist schematisch in Abbildung \ref{fig:Gesamtschaltbild} dargeste
 	\label{fig:Gesamtschaltbild}
 \end{figure}
 Wie in Abschnitt \ref{sec:KenngroessenHLDetektor} angedeutet befindet sich ein Vorverstärker
-innerhalb des Dewargefäßes, welchen den Detektor kühlt, um Rauschspannungen zu minimieren.
-Ein Temperaturfühler im Inneren des Dewargefäßes ist mit einem Temperaturwächter verbunden,
+zusammen mit dem Detektorkristall im Inneren des in Abschnitt \label{sec:AufbauDetektor}
+beschriebenen Aluminiumgehäuses.
+Somit wird der Vorverstärker mit gekühlt, um Rauschspannungen zu minimieren.
+Ein im Detektorgehäuse eingebauter Temperaturfühler ist mit einem Temperaturwächter verbunden,
 welcher das Anlegen einer Hochspannung an einen warmen Detektorkristall verhindert.
 Der Vorverstärker besteht aus einem kapazitiv rückgekoppelten Operationsverstärker, sodass
 das Ausgangspotential proportional zum integrierten Eingangsstrom ist.
 Dies führt beim Einfall mehrerer $\gamma$-Quanten zu einem stufenförmigen Anstieg der Ausgangsspannung.
 Aus diesem Signal ist eine Analyse der Pulshöhen schwierig,
+% TODO: Genauer spezifizieren: Was bedeutet schwierig?
 sodass der Integrationskondensator $C_\text{k}$ durch eine optoelektronische Rückkopplung
 entladen wird. In Abbildung \ref{fig:Optoelektronische-Rueckkopplung} ist das Schaltbild
 des Operationsverstärkers mit Rückkopplung dargestellt.
@@ -78,19 +81,22 @@ des Operationsverstärkers mit Rückkopplung dargestellt.
 \end{figure}
 Nach einem Impuls scheint eine LED auf den Eingangs-Feldeffekttransistor (FET), welcher so kurzzeitig
 leitend wird und eine Entladung des Kondensators ermöglicht.
+
 Der Vorvertärker ist über einen Hochpass an den Hauptverstärker gekoppelt, um Gleichspannungsdriften
 und Offsetspannung nicht zu verstärken. Aufgrund unterschiedlicher Abklingkoeffizienten des
 Hochpasses und der kapazitiven Rückkopplung des Operationsverstärkers kann es zu sogenannten
 Unterschwingern kommen, durch welche das Ausgangssignal zeitweise kleiner als Null ist. Dies
-wird durch sogenannte Zero-Pole-Kompensation unterbunden, also das geben eines geeigneten
+wird durch eine sogenannte Pole-Zero-Kompensation unterbunden, also das Geben eines geeigneten
 Bruchteils der Ausgangsspannung des Vorverstärkers auf den Hauptverstärker bei Umgehung
 des Hochpasses.
-Im Hauptverstärker selbst wird das Signal mehrfach elektronisch integriert und differenziert,
+% TODO: Noch einmal nachschauen, ob präzise genug formuliert
+
+Im Hauptverstärker selbst wird das Signal mehrfach integriert und differenziert,
 um eine optimale Bandbreite des Verstärkers zu gewährleisten. Bei zu kleiner Bandbreite
 werden nicht alle Komponenten des Eingangssignals übertragen und bei zu großer Bandbreite
 ist das Signal zu Rauschverhältnis zu klein.
 
-Nach Verstärkung des Signals wird die Pulshöhe mit einem Wilkinson-Analog-Digital-Konverter
+Nach der Verstärkung des Signals wird die Pulshöhe mit einem Wilkinson-Analog-Digital-Konverter
 gemessen, dessen Schaltbild in Abbildung \ref{fig:Wilkinson-Analog-Digital-Konverter} dargestellt ist.
 \begin{figure}
 	\centering
@@ -98,7 +104,7 @@ gemessen, dessen Schaltbild in Abbildung \ref{fig:Wilkinson-Analog-Digital-Konve
 	\caption{Schaltbild eines Wilkinson-Analog-Digital-Konverters~\cite[21]{anleitung}.}
 	\label{fig:Wilkinson-Analog-Digital-Konverter}
 \end{figure}
-Ein Eingangsimpuls lädt einen Kondensator auf. Im Anschluss schließt verhindert eine Steuereinheit
+Ein Eingangsimpuls lädt einen Kondensator auf. Im Anschluss verhindert eine Steuereinheit
 das Aufladen durch weitere Impulse, bis dieser Impuls ausgelesen wurde.
 Währenddessen wird der Kondensator über eine Stromquelle entladen, bis ein Null-Detektor eine
 Entladung des Kondensators feststellt. In der Entladezeit wird die Anzahl an Impulsen eines
@@ -106,6 +112,7 @@ hochstabilen Quarz-Oszillators bestimmt, sodass die Zahl des Binärzählers prop
 Pulshöhe des Eingangsimpulses ist.
 Während der Entladezeit ist die Aufnahme eines weiteren Eingangsimpulses nicht möglich,
 sodass der Konverter eine Totzeit von typischerweise $\sim \SI{40}{\micro\second}$ aufweist.
+% TODO: Parameter zur Abschätzung der Totzeit angeben, also K und R
 Die erhaltene Binärzahl wird an einen Vielkanal-Analysator weiter gegeben, welcher
 die Anzahl an Pulsen in Abhängigkeit von den Pulshöhen speichert und auf einem angeschlossenem
 Bildschirm ausgibt.
@@ -114,11 +121,11 @@ Bildschirm ausgibt.
 \label{sec:KalibrierungBeschreibung}
 
 Zuerst wird der Verstärker eingeschaltet und geprüft, ob der Detektor gekühlt ist.
-Im Anschluss wird langsam die eine äußere Spannung von \SI{5}{\kilo\volt} angelegt
+Im Anschluss wird langsam eine äußere Spannung von \SI{5}{\kilo\volt} angelegt
 und der Abstandshalter mit einer Schieblehre vermessen,
 welcher den Abstand zwischen Probe und Detektor festlegt.
 Im Anschluss wird das Spektrum eines kalibrierten \ce{^125Eu}-Strahlers für eine Stunde aufgenommen.
-Hieraus lässt sich die Energieeichung und Vollenergie-Nachweiseffizienz
+Hieraus lässt sich die Energie und Vollenergie-Nachweiseffizienz
 des Detektors bestimmen.
 Die theoretischen Emissionswahrscheinlichkeiten sind dazu in \cite[28]{anleitung} angegeben.
 Die Aufnahme des Spektrums erfolgt mit Hilfe des Computerprogramms
@@ -137,6 +144,7 @@ Das Spektrum wird wie auch bei der vierten Probe für eine Stunde aufgenommen
 und daraus im Anschluss das vorliegende Material bestimmt.
 Hierzu werden Tabellen mit verschiedenen $\gamma$-Linien und den zugehörigen
 Emissionswahrscheinlichkeiten für Barium und Antimon aus \cite[28]{anleitung}
+% TODO: Zahlen vor Barium und Antimon, zur Kennzeichnung der Isotope
 verwendet.
 Die vierte Quelle ist ein unbekannter Strahler, dessen Zusammensetzung
 aus dem Spektrum ermittelt werden soll.
