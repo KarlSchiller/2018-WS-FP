@@ -18,7 +18,7 @@ Im Folgenden wird die Magnetisierung einer Probe erläutert, die im thermischen
 Gleichgewicht mit ihrer Umgebung steht.
 Anschließend wird auf die Larmor-Präzession näher eingegangen.
 
-Beim Anlegen eines externen Magnetfelds $\vec{B} = B_0 \vec{e}_\text{B}$ eines ansonsten
+Beim Anlegen eines externen Magnetfelds $\vec{B}_0 = B_0 \vec{e}_\text{B}$ eines ansonsten
 feldfreien Raums spalten die Kernspinzustände der Probe in $2S+1$ Unterniveaus auf.
 Dabei zeige das Magnetfeld in $z$-Richtung und $S$ bezeichne die Spinquantenzahl der
 Zustände, die mittels der Orientierungsquantenzahl $m$ unterschieden werden.
@@ -53,17 +53,118 @@ zeitlich entwickelt.
 Aufgrund der großen Anzahl von Einzelmomenten
 ($N$ in Größenordnung \SI[retain-unity-mantissa=false]{1e28}{\per\cubic\meter})
 lässt sich diese Entwicklung klassisch behandeln.
-Auf die Magnetisierung der Probe wirkt im externen Magnetfeld ein Drehmoment,
+Auf die Magnetisierung der Probe wirkt im externen Magnetfeld ein Drehmoment
+$\sim \vec{M} \times \vec{B}$,
 welches zu einer Präzessionsbewegung der Magnetisierung um die Achse des
 Magnetfelds führt.
 Diese Präzession wird Larmor-Präzession und die zugehörige Kreisfrequenz
 \begin{equation}
   \omega_\text{L} = \gamma B_0
 \end{equation}
-Larmor-Frequenz genannt.
+wird Larmor-Frequenz genannt.
 
-% 
+% Relaxation
+Neben der Präzession um das externe Magnetfeld treten Relaxationseffekte auf.
+Wird die Magnetisierung aus der Gleichgewichtslage $\vec{M}_0$ entfernt,
+strebt sie nach dem Verschwinden der auslösenden Störung wieder zu dieser zurück.
+Diese Relaxationseffekte können durch zwei Zeitkonstanten $T_1$ und
+$T_2$ charakterisiert werden.
+% Beschrieben wird dieser Vorgang mit den Differentialgleichungen
+% \begin{align*}
+  % \frac{\symup{d} M_\text{z}}{\symup{d} t} &= \frac{M_0 - M_\text{z}}{T_1} \\
+  % \frac{\symup{d} M_\text{x}}{\symup{d} t} &= -\frac{M_\text{x}}{T_2} \\
+  % \frac{\symup{d} M_\text{y}}{\symup{d} t} &= -\frac{M_\text{y}}{T_2}.
+% \end{align*}
+Dabei bezeichnet die Zeitkonstante $T_1$ die sogenannte longitudinale oder
+Spin-Gitter-Relaxationszeit parallel zur Richtung des externen magnetischen Feldes.
+Sie charakterisiert die Zeit, in welcher Energie zwischen dem Kernspinsystem
+und Gitterschwingungen ausgetauscht wird. Auch bei flüssigen Proben wird
+diese Bezeichnung beibehalten.
+Die Größe $T_2$ beschreibt die transversale oder Spin-Spin-Relaxationszeit
+senkrecht zur Richtung des externen magnetischen Feldes.
+Sie beschreibt die Abnahme der Magnetisierung senkrecht zu $\vec{B}$
+durch Wechselwirkungen der Spins mit ihren nächsten Nachbarn.
 
+Werden die Relaxationseffekte und Präzession zusammengefasst, ergeben sich
+die sogenannten Blochschen Gleichungen
+\begin{equation}
+  \begin{split}
+    \frac{\symup{d} M_\text{z}}{\symup{d} t} &= \frac{M_0 - M_\text{z}}{T_1} \\
+    \frac{\symup{d} M_\text{x}}{\symup{d} t} &= 
+      \gamma B_0 M_\text{y} - \frac{M_\text{x}}{T_2} \\
+    \frac{\symup{d} M_\text{y}}{\symup{d} t} &=
+      \gamma B_0 M_\text{x} - \frac{M_\text{y}}{T_2},
+  \end{split}
+  \label{eqn:Bloch-Gleichungen}
+\end{equation}
+welche die zeitliche Entwicklung der Probenmagnetisierung beschreiben.
+
+
+\subsection{Hochfrequent-Einstrahlungsvorgänge}
+\label{sec:HF-Einstrahlung}
+
+Als Auslenkung der Probenmagnetisierung aus ihrer Gleichgewichtslage wird
+% ein Hochfrequenzfeld $\vec{B}_\text{HF}$ der Form
+% \begin{equation*}
+  % \vec{B}_\text{HF} = 2 \vec{B}_1 \cos\!\left(\omega t\right)
+  % \quad\quad (\text{mit } \vec{B}_1 \perp \vec{e}_\text{B})
+% \end{equation*}
+% verwendet.
+ein Hochfrequenzfeld $\vec{B}_\text{HF}$ senkrecht zu $\vec{e}_\text{B}$ verwendet.
+Es kann als Überlagerung zweier zirkular polarisierten Felder der
+Frequenzen $+\omega$ und $-\omega$ aufgefasst werden.
+Liegt $+\omega$ in der Nähe der Larmor-Frequenz $\omega_\text{L}$,
+lässt sich das Feld zu $-\omega$ vernachlässigen.
+Das Hochfrequenzfeld lässt sich somit durch
+\begin{equation*}
+  B_\text{x} = B_1 \cos\!\left(\omega t\right) \quad\quad
+  B_\text{y} = B_1 \sin\!\left(\omega t\right)
+\end{equation*}
+darstellen.
+Zur Lösung der Differentialgleichungen \eqref{eqn:Bloch-Gleichungen} wird in ein
+Koordinatensystem transformiert, das mit der Frequenz $\omega$ um $\vec{B}_0$
+rotiert. Im neuen System $\left\{x', y', z'\right\}$
+ist $\vec{B}_\text{HF}$ zwar konstant (o.B.d.A. in $x'$-Richtung),
+jedoch sind die Einheitsvektoren zeitabhängig,
+sodass die Differentialgleichung zur Präzession die Gestalt
+% \begin{equation*}
+  % \frac{\symup{d} \vec{M}}{\symup{d} t} =
+  % \gamma \left(\vec{M} \times \vec{B}_\text{ges}\right)
+  % -\vec{\omega} \times \vec{M}
+% \end{equation*}
+% oder
+% \begin{equation*}
+  % \frac{\symup{d} \vec{M}}{\symup{d} t} =
+  % \gamma \left[\vec{M} \times \left(\vec{B}_\text{ges}
+  % + \frac{\vec{\omega}}{\gamma}\right)\right]
+% \end{equation*}
+\begin{equation*}
+  \frac{\symup{d} \vec{M}}{\symup{d} t} =
+  \gamma \left(\vec{M} \times \vec{V}_\text{eff}\right)
+\end{equation*}
+mit einem eingeführten effektivem Magnetfeld
+\begin{equation*}
+  \vec{B}_\text{eff} = \vec{B}_0 + \vec{B}_1 + \frac{\vec{\omega}}{\gamma}
+\end{equation*}
+hat.
+Dies entspricht einer Präzession von $\vec{M}$ um $\vec{B}_\text{eff}$,
+was eine Änderung der $z$-Komponente von $\vec{M}$ bedeutet.
+Für $\vec{B}_\text{eff} = \vec{B}_1$ präzierdiert die Magnetisierung um $\vec{B}_1$
+mit $\sphericalangle\!\left(\vec{M}, \vec{B}_1\right) = \SI{90}{\degree}$.
+Wird das Hochfrequenzfeld für die Zeit
+\begin{equation}
+  \Delta t_{90} = \frac{\pi}{2 \gamma B_1}
+  \quad\quad (\text{mit } \Delta t_{90} \ll T_1, T_2)
+  \label{eqn:t90}
+\end{equation}
+eingeschaltet, dreht sich die Magnetisierung aus der $z$-Richtung in die
+$y$-Richtung.
+Ebenso lässt sich ein \SI{180}{\degree}-Impuls realisieren, der die Magnetisierung
+in die negative $z$-Richtung dreht.
+
+
+\subsection{Der freie Induktionszerfall}
+\label{sec:FID}
 
 
 - Störungen/Verunreinigungen der Probe nicht resonant mit eingestellter Frequenz
