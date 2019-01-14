@@ -26,7 +26,7 @@ Im thermischen Gleichgewicht sind die Zustände nach der Maxwell-Boltzmann-Verte
 und damit ungleichmäßig besetzt.
 Aufgrund der Orientierung der einzelnen Spins ergibt sich daraus eine Kernspinpolarisation
 $\left<S_\text{z}\right>$.
-Bei der Betrachtung von Protonen mit $S = \frac{1}{2}$ und der Abschätzung
+Bei der Betrachtung von Protonen mit $S = \sfrac{1}{2}$ und der Abschätzung
 $m \gamma B_0 \ll k_\text{B} T$ ergibt sich in linearer Näherung
 \begin{equation*}
   \left<I_\text{z}\right> = -\frac{\hbar^2}{4}\frac{\gamma B_0}{k_\text{B} T}.
@@ -36,8 +36,8 @@ $k_\text{B}$ die Boltzmann-Konstante, $T$ die Temperatur
 und $\hbar$ das reduzierte Plancksche Wirkungsquantum.
 % TODO: Überlegen, ob hier ein Satz zu m=+-0.5 mit Energieaufspaltung eingefügt werden könnte
 Aufgrund der Verknüpfung der Kernspinpolarisationen der Kerne
-mit dem magnetischen Moment $\vec{\mu_\text{S}}$ wird so eine makroskopische
-Magnetisierung $\vec{M_0}$ erzeugt,
+mit dem magnetischen Moment $\vec{\mu_\text{S}}$ folgt aus der ungleichmäßigen
+Besetzung eine makroskopische Magnetisierung $\vec{M_0}$,
 deren Erwartungswert in Richtung des äußeren Feldes
 \begin{equation*}
   M_0 = \frac{1}{4} \mu_0 \gamma^2 \frac{\hbar^2}{k_\text{B}} N \frac{B_0}{T}
@@ -46,12 +46,23 @@ beträgt.
 Dabei bezeichnet $\mu_0$ die Permeabilität des Vakuums und
 $N$ die Anzahl der Momente pro Volumeneinheit.
 
+% Larmor-Präzession
 Für die NMR-Spektroskopie ist interessant, wie sich die Magnetisierung $\vec{M}$
 der Probe nach einer Auslenkung aus der Gleichgewichtslage $\vec{M_0}$
 zeitlich entwickelt.
 Aufgrund der großen Anzahl von Einzelmomenten
 ($N$ in Größenordnung \SI[retain-unity-mantissa=false]{1e28}{\per\cubic\meter})
 lässt sich diese Entwicklung klassisch behandeln.
+Auf die Magnetisierung der Probe wirkt im externen Magnetfeld ein Drehmoment,
+welches zu einer Präzessionsbewegung der Magnetisierung um die Achse des
+Magnetfelds führt.
+Diese Präzession wird Larmor-Präzession und die zugehörige Kreisfrequenz
+\begin{equation}
+  \omega_\text{L} = \gamma B_0
+\end{equation}
+Larmor-Frequenz genannt.
+
+% 
 
 
 
