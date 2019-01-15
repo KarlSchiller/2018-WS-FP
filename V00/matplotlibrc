@@ -133,7 +133,8 @@ text.usetex         : True  # use latex for all text handling. The following fon
                               # If another font is desired which can loaded using the
                               # LaTeX \usepackage command, please inquire at the
                               # matplotlib mailing list
-text.latex.unicode : True # use "ucs" and "inputenc" LaTeX packages for handling
+# Deprecated in matplotlib 2.2 and removed in 3.1
+# text.latex.unicode : True # use "ucs" and "inputenc" LaTeX packages for handling
                             # unicode strings.
 
 

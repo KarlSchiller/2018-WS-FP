@@ -35,6 +35,12 @@ build/main.pdf: FORCE | build
 		--halt-on-error \
 	main.tex
 
+fast: FORCE | build
+	lualatex --output-directory=build --interaction=nonstopmode --halt-on-error main.tex
+	biber --output-directory=build main.bcf
+	lualatex --output-directory=build --interaction=nonstopmode --halt-on-error main.tex
+	lualatex --output-directory=build --interaction=nonstopmode --halt-on-error main.tex
+
 build:
 	mkdir -p build
 
