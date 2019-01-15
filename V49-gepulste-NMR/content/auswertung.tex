@@ -2,6 +2,45 @@
 \section{Auswertung}
 \label{sec:Auswertung}
 
+\subsection{Justage der Apparatur}
+Um ein möglichst homogenes Magnetfeld erzeugen zu dürfen, wurden zunächst die
+Shim-Parameter optimiert. Die somit eingestellten Parameter sind:
+\begin{align*}
+  x &= -\num{1.77}  \\
+  y &= -\num{4.94}  \\
+  z &= +\num{3.44}  \\
+  z^2 &= \num{3.15} \\
+\end{align*}
+Neben den Shim-Parametern wurden die Lamor-Frequenz $\omega_\text{L}$, die
+Pulslänge $\Delta t_\text{90}$ und die Referenzphase $\phi$ eingestellt auf:
+\begin{align*}
+  \omega_\text{L} &= \SI{21.71}{\mega\hertz} \\
+  \Delta t_\text{90} &= \SI{4.40}{\mu\second} \\
+  \phi &= \SI{60}{\degree} \\
+\end{align*}
+Diese Parameter wurden bei den einzelnen Versuchsteilen nachgeprüft und
+verändert. Die Nachjustierten Parameter sind jeweils angegeben.
+
+\subsection{Bestimmung der lonitudinalen Relaxationszeit}
+Zur Bestimmung der longitudinalen Relaxationszeit $T_1$ wurde die in die
+Spule induzierte Spannung und der Pulsabstand $\tau$ zwischen \SI{180}{\degree}-
+und \SI{90}{\degree}-Puls gemessen. Die aufgenommenen Daten sind in Tabelle
+\ref{tab:T1} aufgeführt. Als Regression ist eine Formel der Form
+\begin{align*}
+  U(t) = U_0 \cdot \left(1- 2\text{e}^{-\frac{\tau}{T_1}}\right) + U_1
+\end{align*}
+verwendet worden. Da die Werte eine Asymmetrie aufweisen, muss der Parameter
+$U_1$ hinzugefügt werden.
+
+\subsection{Meiboom-Gill-Methode}
+
+\subsection{Carr-Purcell-Methode}
+
+\subsection{Bestimmung der Diffusionskonstante}
+
+\subsection{Bestimmung der Halbwertsbreite}
+
+
 Carr-Purcell diskutieren, warum quantitativ nicht auswertbar
 Oszillationen bei höheren Zeiten: Winkeldelta addiert sich iwann
 wieder auf 180°, damit wieder Signal

@@ -33,8 +33,8 @@ k = const.physical_constants["Boltzmann constant"]
 print("Boltzmann-Konstante: k = ", k)
 
 #-------------------------Verwendete Funktionen--------------------
-def formel_T1(tau, m0, T1):
-    return m0 * (1 - 2*np.exp(-tau / T1)) # T1 = 2
+def formel_T1(tau, m0, m1 , T1):
+    return m0 * (1 - 2*np.exp(-tau / T1)) + m1# T1 = 2
 
 def formel_T2(t, m0, T2):
     return m0 * np.exp(-t/T2)
@@ -62,34 +62,36 @@ def viskos():
     plt.legend(loc='best')
     plt.savefig('build/test.pdf')
     plt.clf()
-    print(delta_real)
+    #print(delta_real)
     return rho*alpha*(t-delta_real)
 
 def G(t12):
-    return (4 * 2.2) /(440* gp[0] * t12)
+    return (4 * 2.2) /(4.4* gp[0] * t12) # 0.0044 in mm, gp in 1/(sT) und t12 in s
 
 def diff_konst(x, m0, D):
     t = 2 * x
     #print(T2, g)
 
     #print('Variablen des Fits: ', T2, gp[0], g)
-    return m0 * np.exp(-t / T2[0]) * np.exp(-D * gp[0]**2 * g**2 * t**3 / 12)
+    return m0 * np.exp(-t / T2[0]) * np.exp(-D * gp[0]**2 * g**2 * t**3 / 12) # m0 in V, D in m^2/s, gp in 1/Ts, g in T/m, T2=t in s
 
 #----------------------------Auswertungen---------------------------
 
 def messung_T1():
-    tau, M = np.genfromtxt('rohdaten/t1.txt', unpack=True)
+    tau, M = np.genfromtxt('rohdaten/t1.txt', unpack=True) # tau in s und M in V
 
-    params, cov = curve_fit(formel_T1, tau, M, p0 = [-640, 2])
+    params, cov = curve_fit(formel_T1, tau, M, p0 = [-640, 1, 2])
     errors = np.sqrt(np.diag(cov))
     #print('Anfangsbedingung der Magnetisierung M0 = ', params[0] , ' +/- ', errors[0])
     print('Relaxationszeit T1 = ', np.round(params[1], 3), ' +/- ', np.round(errors[1], 3))
+    print('Parameter M0 = ', np.round(params[0], 3), '+/-', np.round(errors[0], 3))
+    print('Parameter M1 = ', np.round(params[2], 3), '+/_', np.round(errors[2], 3))
 
     x_range = np.linspace(min(tau), max(tau), 100000)
-    plt.plot(tau, -M, 'bx', label='Messwerte')
-    plt.plot(x_range, -formel_T1(x_range, *params), 'r-', label='Fit')
-    plt.ylabel(r'$M\:/\:\si{\milli\volt}$')
-    plt.xlabel(r'$\tau\:/\:\si{\second}$')
+    plt.plot(tau*1000, M, 'bx', label='Messwerte')
+    plt.plot(x_range*1000, formel_T1(x_range, *params), 'r-', label='Fit')
+    plt.ylabel(r'$M\:/\:\si{\volt}$')
+    plt.xlabel(r'$\tau\:/\:\si{\milli\second}$')
     plt.xscale('log')
     plt.tight_layout()
     plt.legend(loc='best')
@@ -99,7 +101,7 @@ def messung_T1():
 
 
 def T2_Meiboom_Gill():
-    tau, M = np.genfromtxt('rohdaten/mg_2.csv', unpack=True)
+    tau, M = np.genfromtxt('rohdaten/mg_2.csv', unpack=True) # tau in s und M in V
     #find Minima for regression by using the negative values of M
     _, peaks = find_peaks(-M, height=0.13)
     peak_tau = []
@@ -111,16 +113,17 @@ def T2_Meiboom_Gill():
     errors = np.sqrt(np.diag(cov))
     T2 = [params[1], errors[1]]
     print('Zeitkonstante T2 ist gegeben durch: T2 = ', np.round(params[1], 3), '+/-', np.round(errors[1],3))
+    print('Parameter M0 = ', np.round(params[0], 3), '+/-', np.round(errors[0], 3))
 
     #print(len(peaks["peak_heights"]), len(peak_tau))
     plt.plot(peak_tau, -peaks["peak_heights"], 'bx', label='Peaks')
     plt.plot(tau, formel_T2(tau, *params), 'r-', label='Messwerte')
-    plt.ylabel(r'$M\:/\:\si{\milli\volt}$')
+    plt.ylabel(r'$M\:/\:\si{\volt}$')
     plt.xlabel(r'$\tau\:/\:\si{\second}$')
     plt.legend(loc='best')
     plt.savefig('build/MG.pdf')
     plt.clf()
-    return T2
+    return T2 # in s
 
 
 def T2_Carr_purcell():
@@ -145,10 +148,10 @@ def T2_Carr_purcell():
 
 
 def t1_2():
-    tau, M = np.genfromtxt('rohdaten/halbwertsbreite.csv', unpack=True)
+    tau, M = np.genfromtxt('rohdaten/halbwertsbreite.csv', unpack=True) # tau in s und M in V
     peak_index, peaks = find_peaks(M, height=0.6)
     #print(peaks["peak_heights"][4])
-    FWHM = (2.0545-1.969)*10**(-3)
+    FWHM = (2.0545-1.969)*10**(-3) # FWHM in s
 
     plt.plot(tau*10**3, M, 'b.', label='Messdaten')
     plt.vlines(2.0545, -0.1, 0.7, linestyle='dashed')
@@ -161,25 +164,25 @@ def t1_2():
     plt.savefig('build/halbwertsbreite.pdf')
     plt.clf()
 
-    g = G(FWHM)
+    g = G(FWHM) # in T/m
     print('Der Faktor G zur Berechnung der Diffusionskonstante: G = ', np.round(g, 9))
-    return g, FWHM
+    return g, FWHM # g in T und FWHM in s
 
 
 
 def diffusion(T2, g):
-    tau, M = np.genfromtxt('rohdaten/diffusion.txt', unpack=True)
+    tau, M = np.genfromtxt('rohdaten/diffusion.txt', unpack=True) # tau in s und M in V
 
     params, cov = curve_fit(diff_konst, tau, M)
     errors = np.sqrt(np.diag(cov))
-    D = [params[1], errors[1]]
-    print('Diffusionskonstante: D = ', np.round(params[1], 3), ' +/- ',  np.round(errors[1], 3))
+    D = [params[1], errors[1]] #In m^2/s
+    print('Diffusionskonstante: D = ', np.round(params[1], 5), ' +/- ',  np.round(errors[1], 5))
 
     x_range = np.linspace(min(tau), max(tau))
-    plt.plot(tau, M, 'bx', label='Messwerte')
-    plt.plot(x_range, diff_konst(x_range, *params), 'r-', label='Fit')
-    plt.ylabel(r'$M\:/\:\si{\milli\volt}$')
-    plt.xlabel(r'$\tau\:/\:\si{\second}$')
+    plt.plot(tau*1000, M, 'bx', label='Messwerte')
+    plt.plot(x_range*1000, diff_konst(x_range, *params), 'r-', label='Fit')
+    plt.ylabel(r'$M\:/\:\si{\volt}$')
+    plt.xlabel(r'$\tau\:/\:\si{\milli\second}$')
     #  plt.xscale('log')
     plt.tight_layout()
     plt.savefig('build/diffussion')
@@ -190,11 +193,12 @@ def diffusion(T2, g):
 
 def r_molekuel(D, FWHM):
     T = 25 # celsius
-    T = 273.15 + T
+    T = 273.15 + T # in Kelvin
     eta = viskos()
-    g = G(FWHM)
+    g = G(FWHM) # in 1/sT
+
     #Berechnung des Molekülradius aus vorheriger Auswertung
-    r_berechnet = k[0]*T/(6*np.pi)/(g*D[0]*np.pi*eta)
+    r_berechnet = k[0]*T/(6*np.pi*D[0]*10**(-3)*eta) #in m
     print("Aus der voherigen Analyse berechnete Molekülredius: r = ", r_berechnet)
 
     #Berechnung des Molekülradius zum Vergleich
@@ -220,4 +224,4 @@ if __name__ == '__main__':
     g , FWHM = t1_2()
     D = diffusion(T2, g)
     r_molekuel(D, FWHM)
-    T2_Carr_purcell()
+    #T2_Carr_purcell()
