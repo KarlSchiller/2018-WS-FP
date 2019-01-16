@@ -33,8 +33,8 @@ k = const.physical_constants["Boltzmann constant"]
 print("Boltzmann-Konstante: k = ", k)
 
 #-------------------------Verwendete Funktionen--------------------
-def formel_T1(tau, m0, m1 , T1):
-    return m0 * (1 - 2*np.exp(-tau / T1)) + m1# T1 = 2
+def formel_T1(tau, m0, T1):
+    return m0 * (1 - 2*np.exp(-tau / T1)) # T1 = 2
 
 def formel_T2(t, m0, T2):
     return m0 * np.exp(-t/T2)
@@ -66,7 +66,7 @@ def viskos():
     return rho*alpha*(t-delta_real)
 
 def G(t12):
-    return (4 * 2.2) /(4.4* gp[0] * t12) # 0.0044 in mm, gp in 1/(sT) und t12 in s
+    return (4 * 2.2) /(4.4* gp[0] * t12) # 0.0044 in m, gp in 1/(sT) und t12 in s
 
 def diff_konst(x, m0, D):
     t = 2 * x
@@ -80,12 +80,12 @@ def diff_konst(x, m0, D):
 def messung_T1():
     tau, M = np.genfromtxt('rohdaten/t1.txt', unpack=True) # tau in s und M in V
 
-    params, cov = curve_fit(formel_T1, tau, M, p0 = [-640, 1, 2])
+    params, cov = curve_fit(formel_T1, tau, M, p0 = [-640, 2])
     errors = np.sqrt(np.diag(cov))
     #print('Anfangsbedingung der Magnetisierung M0 = ', params[0] , ' +/- ', errors[0])
     print('Relaxationszeit T1 = ', np.round(params[1], 3), ' +/- ', np.round(errors[1], 3))
     print('Parameter M0 = ', np.round(params[0], 3), '+/-', np.round(errors[0], 3))
-    print('Parameter M1 = ', np.round(params[2], 3), '+/_', np.round(errors[2], 3))
+    #print('Parameter M1 = ', np.round(params[2], 3), '+/_', np.round(errors[2], 3))
 
     x_range = np.linspace(min(tau), max(tau), 100000)
     plt.plot(tau*1000, M, 'bx', label='Messwerte')
@@ -177,6 +177,7 @@ def diffusion(T2, g):
     errors = np.sqrt(np.diag(cov))
     D = [params[1], errors[1]] #In m^2/s
     print('Diffusionskonstante: D = ', np.round(params[1], 5), ' +/- ',  np.round(errors[1], 5))
+    print('Parameter M0 = ', params[0], '+/-', errors[0])
 
     x_range = np.linspace(min(tau), max(tau))
     plt.plot(tau*1000, M, 'bx', label='Messwerte')
@@ -195,7 +196,6 @@ def r_molekuel(D, FWHM):
     T = 25 # celsius
     T = 273.15 + T # in Kelvin
     eta = viskos()
-    g = G(FWHM) # in 1/sT
 
     #Berechnung des Molekülradius aus vorheriger Auswertung
     r_berechnet = k[0]*T/(6*np.pi*D[0]*10**(-3)*eta) #in m

@@ -14,7 +14,7 @@ Shim-Parameter optimiert. Die somit eingestellten Parameter sind:
 Neben den Shim-Parametern wurden die Lamor-Frequenz $\omega_\text{L}$, die
 Pulslänge $\Delta t_\text{90}$ und die Referenzphase $\phi$ eingestellt auf:
 \begin{align*}
-  \omega_\text{L} &= \SI{21.71}{\mega\hertz} \\
+  \omega_\text{L} &= \SI{21.71198}{\mega\hertz} \\
   \Delta t_\text{90} &= \SI{4.40}{\mu\second} \\
   \phi &= \SI{60}{\degree} \\
 \end{align*}
@@ -29,22 +29,165 @@ und \SI{90}{\degree}-Puls gemessen. Die aufgenommenen Daten sind in Tabelle
 \begin{align*}
   U(t) = U_0 \cdot \left(1- 2\text{e}^{-\frac{\tau}{T_1}}\right) + U_1
 \end{align*}
-verwendet worden. Da die Werte eine Asymmetrie aufweisen, muss der Parameter
-$U_1$ hinzugefügt werden.
+verwendet worden. Da die Werte eine Asymmetrie aufweisen, und somit nicht von
+$-U_0$ bis $U_=$ gehen, muss der Parameter $U_1$ hinzugefügt werden. Daraus
+folgen die Paraeter
+\begin{align*}
+  U_0 &= -\SI{631(4)}{\milli\volt} \\
+  T_1 &= \SI{15(4)}{\milli\second} \\
+  U_1 &= \SI{2.149(41)}{\volt}
+\end{align*}
+In Abbildung \ref{plt:T1} sind Messwerte, sowie die Regression graphisch dargestellt.
+\begin{figure}[htb]
+  \centering
+  \includegraphics{build/t1.pdf}
+  \caption{Graphische Abbildung der Meswerte und der Regression der longitudinalen Relaxationszeit.}
+  \label{plt:T1}
+\end{figure}
 
-\subsection{Meiboom-Gill-Methode}
 
-\subsection{Carr-Purcell-Methode}
+\subsection{Bestimmung der transversalen Relaxationszeit}
+Bei Bestimmung der transversalen Relaxationszeit $T_2$ werden zwei Methoden
+betrachtet. Zuvor wurden die Shim-Parameter neu angepasst. Nun betragen die Werte:
+\begin{align*}
+  x &= -\num{1.44} \\
+  y &= -\num{4.95} \\
+  z &= +\num{3.43} \\
+  z^2 &= +\num{3.06}
+\end{align*}
+Zudem beträgt die Lamor-Frequenz $\omega_\text{L} = \SI{21.71179}{\mega\hertz}$, während die
+Referenzphase und die \SI{90}{\degree}-Pullslänge
+\begin{align*}
+  \phi &= \SI{60}{\degree} \\
+  \Delta t_{90} &= \SI{4.40}{\micro\second}
+\end{align*}
+Im Weiteren werden die Meiboom-Gill-Methode, sowie die Carr-Purcell-Methode
+einzeln betrachtet.
+\newpage
 
-\subsection{Bestimmung der Diffusionskonstante}
+\subsubsection{Meiboom-Gill-Methode}
+Bei der Meiboom-Gil-Mehode wurde eine Periodendauer von \SI{10}{\second}
+verwendet, da so keine Effekte der longitudinalen Relaxationszeit $T_1$ die
+Messung beeinflussen kann. In Abbildung \ref{fig:MG} ist die Sequenz der Messung
+aufgeführt.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{rohdaten/mg_2.png}
+  \caption{Aufnahme der Meiboom-Gill-Methode mit eingestelltem Pulsabstand.}
+  \label{fig:MG}
+\end{figure}
+Um die transversale Relaxatinoszeit $T_2$ zu berechnen werden die Minima mit der
+Funktion $find\_peaks$ des Pythonpakets $scipy\.signal$ bestimmt und
+sind in Tabelle \ref{tab:MG} aufgelistet. Eine Regression ist mit einer Formel
+der Form
+\begin{align*}
+  U(t) = U_0 \cdot \text{e}^{-\frac{t}{T_2}}
+\end{align*}
+mit $t = 2\tau$ durchgeführt worden. Die daraus erhaltenen Parameter sind
+\begin{align*}
+  U_0 &= -\SI{588}{\milli\volt} \\
+  T_2 &= \SI{1.657(17)}{\second}.
+\end{align*}
+Dieser Zusammenhang zwischen der induzierten Spannung und dem Zeitabstand der
+Pulse ist in Abbildung \ref{plt:MG} zu erkennen.
+\begin{figure}[htb]
+  \centering
+  \includegraphics{build/MG.pdf}
+  \caption{Graphische Darstellung der Minima der $\SI{180}{\degree}$-Peaks.}
+  \label{plt:MG}
+\end{figure}
+\FloatBarrier
+
+\subsubsection{Carr-Purcell-Methode}
+Für die Aufnahme der Cerr-Purcell-Methode wurden die Shim-Parameter auf der
+folgenden Werte eingestellt:
+\begin{align*}
+  x &= -\num{0.84} \\
+  y &= -\num{4.92} \\
+  z &= +\num{3.72} \\
+  z^2 &= +\num{2.84}
+\end{align*}
+Zudem wurde die Lamor-Frequenz auf $\omega_\text{L} = \SI{21.71223}{\mega\hertz}$
+verwendet. Die aufgenommene Sequenz ist in Abbildung \ref{feg:CP} dargestellt.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{rohdaten/cp_2.png}
+  \caption{Am Oszilloskop aufgenommene Sequenz der Carr-Purcell-Methode.}
+  \label{fig:CP}
+\end{figure}
+Die aufgenomenen Daten können nicht zur Bestimmung der transversalen
+Relaxationszeit verwendet werden, da bei jeder Pulsgebung eine Phasenverschiebung
+auftritt. Nach wenigen Iterationen tritt somit der Effekt einer Oszillation auf,
+wie in Abbildung \ref{fig:CP2} bei kleinerer Pulslänge des \SI{180}{\degree}-Pulses
+zu erkennen ist.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{rohdaten/cp_3.png}
+  \caption{Am Oszilloskop aufgenommene Carr-Purcell-Methode mit geringer
+  \SI{180}{\degree}-Pulslänge}
+  \label{fig:CP2}
+\end{figure}
+\FloatBarrier
+
 
 \subsection{Bestimmung der Halbwertsbreite}
+Zur Bestimmung der Halbwertsbreite $t_\sfrac{1}{2}$ eines Spin-Echos wird das
+Maxima des Spin Echos bestimmt. Bei halber Höhe des Maximums wird die Differenz
+der entsprechenden $\tau$ Werte berechnet. Graphisch ist die durch die Messung
+bestimmte Halbwertsbreite in Abbildung \ref{plt:t12} durch die rote gestrichelte
+Linie gekennzeichnet. Zur Referenz ist in \ref{fig:t12} das zugehörige Bild der Sequenz am Oszilloskop zu sehen. Dabei beträgt der Wert für die Halbwertsbreite
+\begin{align*}
+  t_\sfrac{1}{2} = \SI{}{\second}
+\end{align*}
+\begin{figure}[htb]
+  \centering
+  \includegraphics{build/halbwertsbreite.pdf}
+  \caption{Messung eines Spin-Echos und Bestimmung der Halbwertsbreite.}
+  \label{plt:t12}
+\end{figure}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{rohdaten/halbwertsbreite.png}
+  \caption{Sequenzbild des Spin-Echos zur Bestimmung der Halbwertsbreite.}
+  \label{fig:t12}
+\end{figure}
+\FloatBarrier
+
+\subsection{Bestimmung der Diffusionskonstante}
+Die Diffusionskonstante wurde mittels Spin-Echo-Verfahren bestimmt. Dabei wurde
+ein maimaler Gradient des Magnetfeldes in z-Richtung eingestellt. Dieser beträgt
+$z = -\num{9.00}$. Durch diese Anpassung wird ein möglichst inhomogenes Magnetfeld
+erzeugt und somit ein Diffusionseffekt messbar.
+Um die Diffusionskonstante $D$ berechnen zu können, müssen zunächst der Faktor
+$G$ berechnet werden. Dazu wird $G$ mittels der Formel
+\begin{align*}
+  G = \frac{4\cdot 2,2}{d \gamma t_\sfrac{1}{2}}
+\end{align*}
+mit $d = \SI{4.4}{\milli\meter}$ berechnet.
+Daraus ergibt sich
+\begin{align*}
+  G = \SI{8.7e-5}{\frac{\tesla}{\meter}}
+\end{align*}
+Dazu wird der erste Echo-Puls bei $t = 2\tau$ für verschiedene Pulslängen
+verwendet. Die Regression wird mit Hilfe
+einer Funktion der Form von Gleichung \eqref{} durchgeführt. Verwendet wurden die
+Messdaten aus Tabelle \ref{tab:dif}.
+
+Als Fitparameter ergeben sich:
+\begin{align*}
+  U_0 &= \SI{628(6)}{\milli\volt} \\
+  D &= \SI{0.00174(5)}{\frac{\meter}{\seond}}
+\end{align*}
+
+\subsection{Bestimmung der Viskosität}
+
+
+\subsection{Bestimmung des Molekülradius}
 
 
 Carr-Purcell diskutieren, warum quantitativ nicht auswertbar
 Oszillationen bei höheren Zeiten: Winkeldelta addiert sich iwann
 wieder auf 180°, damit wieder Signal
-
 T1-Messung
 Anstelle des Fits in der Anleitung (bei dem M0 quasi zufällig gewählt werden muss):
 Nichtlinearer Fit an logarithmierte Messwerte
