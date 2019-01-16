@@ -9,7 +9,7 @@ else
   translate = $(shell echo '$1' | sed 's/:/;/g')
 endif
 
-all:  build/main.pdf
+all:  build/main.pdf | build
 
 # further dependencies of auswertung.py
 calc: rohdaten/diffusion.txt rohdaten/t1.txt
@@ -18,11 +18,11 @@ calc: rohdaten/diffusion.txt rohdaten/t1.txt
 calc: auswertung.py matplotlibrc header-matplotlib.tex | build
 	TEXINPUTS=$$(pwd): python auswertung.py
 
-build/t1.pdf: calc
-build/diffusion.pdf: calc
+build/t1.pdf: calc | build
+build/diffusion.pdf: calc | build
 
 # further dependencies of build/main.pdf
-build/main.pdf: build/t1.pdf build/diffusion.pdf
+build/main.pdf: build/t1.pdf build/diffusion.pdf | build
 
 build/main.pdf: FORCE | build
 	  TEXINPUTS="$(call translate,build:)" \

@@ -2,7 +2,7 @@
 \label{sec:Zielsetzung}
 
 Ziel des Versuches ist die Bestimmung der Diffusionskonstante von Wasser.
-Diese wird mittels gepulster Kernspinresonanz (NMR) ermittelt,
+Diese wird mittels gepulster \emph{Kernspinresonanz} (NMR) ermittelt,
 indem also der zeitliche Verlauf einer Magnetisierung der Probe unter
 Einstrahlung eines Hochfrequenzfeldes untersucht wird.
 Dabei treten Relaxationsprozesse auf, die unter Verwendung zweier
@@ -60,6 +60,7 @@ Magnetfelds führt.
 Diese Präzession wird Larmor-Präzession und die zugehörige Kreisfrequenz
 \begin{equation}
   \omega_\text{L} = \gamma B_0
+  \label{eqn:LarmorFrequenz}
 \end{equation}
 wird Larmor-Frequenz genannt.
 
@@ -161,18 +162,99 @@ eingeschaltet, dreht sich die Magnetisierung aus der $z$-Richtung in die
 $y$-Richtung.
 Ebenso lässt sich ein \SI{180}{\degree}-Impuls realisieren, der die Magnetisierung
 in die negative $z$-Richtung dreht.
+Im Folgenden werden verschiedene Methoden beschrieben, um die Relaxationszeiten
+$T_1$ und $T_2$ mit einer Kombination der eben erläuterten Pulsen zu bestimmen.
 
 
 \subsection{Der freie Induktionszerfall}
 \label{sec:FID}
 
+Wird die Magnetisierung der Probe wie im vorherigen Abschnitt beschrieben um \SI{90}{\degree}
+aus der $\vec{B}_0$-Richtung gedreht, präzediert sie in der Ebene senkrecht zu
+$\vec{B}_0$ und relaxiert im Laufe der Zeit wieder in ihren Gleichgewichtszustand
+zurück. Dieser Vorgang wird \emph{freier Induktionszerfall} (FID) genannt.
 
-- Störungen/Verunreinigungen der Probe nicht resonant mit eingestellter Frequenz
-  -> gamma anders, also nicht sichtbar, kernselektve Methode
+Die Relaxation bzw. der Zerfall dieser transversalen Magnetisierung hat zwei Ursachen,
+welche beide eine Variation des statischen Feldes $\vec{B}_0$ innerhalb der
+Probe bewirken.
+Zum einen ist bei einer realen Apparatur ein erzeugtes statisches Magnetfeld
+zwangsweise inhomogen.
+Zum anderen wirken weitere Felder auf die einzelnen Kernspins,
+die z.B. aus den Dipolfeldern der nächsten Nachbarn resultieren oder von den
+Spins der Elektronenhülle resultieren.
+Aufgrund dieser Verteilung des statischen Magnetfeldes $\vec{B}_0$ existiert eine
+Verteilung der Larmorfrequenzen \eqref{eqn:LarmorFrequenz}.
+Dies führt zu einer Dephasierung der Spins untereinander und infolge dessen
+zu einem Zerfall der transversalen Magnetisierung.
+Unter Verwendung der Relaxationszeit $T_2^*$ nach
+\begin{equation*}
+  \frac{1}{T_2^*} = \frac{1}{T_2} + \frac{1}{T_{\Delta B}}
+\end{equation*}
+lässt sich der Zerfall charakterisieren.
+Dabei entpricht $T_2$ der in Abschnitt \ref{sec:TheoMagnetisierung} beschriebenen
+transversalen Relaxationszeit und $T_{\Delta B}$ einer Relaxationszeit aufgrund
+lokaler Inhomogenitäten des statischen Magnetfeldes der Größenordnung
+$\left(\gamma d G\right)^{-1}$
+(mit Probendurchmesser $d$ und Feldgradient $G$).
+Somit lässt sich $T_2$ aus dem FID bestimmen, solange $T_2 \ll T_{\Delta B}$
+gilt.
 
-% \begin{figure}
-%   \centering
-%   \includegraphics[height=5.5cm]{content/Bild.png}
-%   \caption{Bilduterschrift}
-%   \label{fig:Bild}
-% \end{figure}
+\subsection{Das Spin-Echo-Verfahren}
+\label{sec:Spin-Echo-Verfahren}
+
+Die im vorherigen Abschnitt beschriebene Inhomogenität des Magnetfelds kann
+mit Hilfe des \emph{Spin-Echo-Verfahrens} (SEV) als Störeffekt korrigiert werden.
+Es zeige $\vec{B}_0$ o.B.d.A. in $z$-Richtung.
+Dann drehe ein hochfrequenter \SI{90}{\degree}-Puls die Magnetisierung in
+die $\vec{y}'$-Richtung des rotierenden Koordinatensystems
+wie in Abbildung \ref{fig:Spin-Echo-Schema} a) dargestellt.
+\begin{figure}
+  \centering
+  \includegraphics[width=.7\textwidth]{images/spin-echo-schema.pdf}
+  \caption{Schematische Darstellung des Spin-Echo-Verfahrens im zeitlichen Verlauf \cite[9]{anleitung}.}
+  \label{fig:Spin-Echo-Schema}
+\end{figure}
+Wie in den vorherigen Kapiteln beschrieben dephasieren die einzelnen Spins
+aufgrund der Inhomogenität des statischen Magnetfeldes.
+Im rotierenden Koordinatensystem rotieren die Spins mit größerer Larmorfrequenz als
+das System im Uhrzeigersinn und die Spins mit kleinerer Larmorfrequenz
+in die andere Richtung.
+Dies ist durch zwei Zeiger in Abbildung \ref{fig:Spin-Echo-Schema} b) angedeutet.
+Nach der Zeit $T_{\Delta B}$ ist praktisch keine transversale Magnetisierung messbar.
+Aus diesem Grund wird nach einer einstellbaren Zeit $\tau$ ein
+\SI{180}{\degree}-Puls auf die Probe gegeben, welcher die Spins wieder in die
+$\vec{x}' \vec{y}'$-Ebene dreht, wie in Abbildung \ref{fig:Spin-Echo-Schema} c) dargestellt.
+Aufgrund dieser Drehung laufen die Spins nun in der selben Geschwindigkeit aufeinander
+zu, mit der sie zuvor dephasiert sind.
+So lässt sich nach der Zeit $2 \tau$ eine transversale Magnetisierung in die
+entgegengesetzte Richtung messen (siehe Abbildung \ref{fig:Spin-Echo-Schema} d)).
+Dieses Echo wird Hahn-Echo genannt.
+In Abbildung \ref{fig:Hahn-Echo} ist der gesamte erwartete Signalverlauf dargestellt.
+\begin{figure}
+  \centering
+  \includegraphics[width=.7\textwidth]{images/hahn-echo.pdf}
+  \caption{Darstellung des Signalverlaufs des SEV \cite[9]{anleitung}.}
+  \label{fig:Hahn-Echo}
+\end{figure}
+Da die transversale Magnetisierung wie in Abschnitt \ref{sec:TheoMagnetisierung}
+beschrieben mit der Relaxationszeit $T_2$ zerfällt, hat das Spin-Echo nicht die
+selbe Höhe wie der Eingangsimpuls bei $t = \SI{0}{\second}$.
+Beschrieben wird dieser irreversible Zerfall durch
+\begin{equation*}
+  \frac{\symup{d} M_\text{y}}{\symup{d} t} = - \frac{M_\text{y}}{T_2}
+\end{equation*}
+mit den Anfangsbedingungen
+\begin{equation*}
+  M_\text{x} = M_\text{z} = 0 \quad \text{und} \quad M_\text{x} = M_0.
+\end{equation*}
+Diese Bedingung sind durch den Beginn des Zerfalls unmittelbar nach dem
+\SI{90}{\degree}-Puls motiviert und führen auf den Zusammenhang
+\begin{equation}
+  M_\text{y}\!\left(t\right) = M_0 \exp\!\left(- \frac{t}{T_2}\right),
+\end{equation}
+nach welchem sich aus der Höhe des Spin-Echos in Abhängigkeit der
+Zeit $\tau$ die Relaxationszeit $T_2$ bestimmen lässt.
+
+
+\subsection{Die Carr-Purcell und Meilboom-Gill Methode}
+\label{sec:CP-und-MG}
