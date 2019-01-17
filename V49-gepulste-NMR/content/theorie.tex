@@ -258,3 +258,86 @@ Zeit $\tau$ die Relaxationszeit $T_2$ bestimmen lässt.
 
 \subsection{Die Carr-Purcell und Meilboom-Gill Methode}
 \label{sec:CP-und-MG}
+
+Die \emph{Carr-Purcell-Methode} (CPM) verwendet nach einem \SI{90}{\degree}-Impuls
+eine Reihe von \SI{180}{\degree}-Impulsen im Abstand $2 \tau$, die jeweils
+zu einer nachfolgenden Fokussierung der transversalen Magnetisierung führen.
+Ein schematischer Signalverlauf ist in Abbildung \ref{fig:Carr-Purcell-Methode}
+dargestellt.
+\begin{figure}
+  \centering
+  \includegraphics[width=.9\textwidth]{images/carr-purcell.pdf}
+  \caption{Darstellung des Signalverlaufs bei der CPM \cite[11]{anleitung}.}
+  \label{fig:Carr-Purcell-Methode}
+\end{figure}
+Diese Methode hat im Vergleich zum einfachen Spin-Echo
+(Abschnitt \ref{sec:Spin-Echo-Verfahren}) den Vorteil, dass mehrere
+Echos pro Messung vermessen werden können.
+Wie im vorherigen Abschnitt beschrieben sinkt die Amplitude dieser Echos im
+Laufe der Zeit aufgrund von Relaxationsprozessen.
+Eine Schwierigkeit dieser Methode ist die exakte Einstellung der
+\SI{180}{\degree}-Impulse.
+Ist diese nicht gegeben, werden die einzelnen Spins nicht genau in die
+$\vec{x}' \vec{y}'$-Ebene gedreht und die gemessene Magnetisierung
+der $\vec{x}' \vec{y}'$-Ebene ist zu klein (und damit auch das erhaltene $T_2$).
+
+Diese Problematik wird in der \emph{Meilboom-Gill-Methode} (MGM)
+umgangen.
+Wie bei der CPM folgen auf einen \SI{90}{\degree}-Impuls mehrere \SI{180}{\degree}-Impulse.
+Hier wird jedoch die Schwingung in den \SI{180}{\degree}-Impulsen
+um \SI{90}{\degree} gegen die \SI{90}{\degree}-Impulse phasenverschoben.
+Folglich werden die einzelnen Spins nicht um die $\vec{x}'$-Achse,
+sondern um die $\vec{y}'$-Achse gedreht, da $\vec{B}_1$ nun in die $\vec{y}'$-Achse zeigt.
+Sind die \SI{180}{\degree}-Impulse nun nicht exakt eingestellt,
+wird der Fehler $\delta$ durch den darauf folgenden Impuls wieder ausgeglichen.
+In Abbildung \ref{fig:Meilboom-Gill-Methode} ist dieser Ausgleichprozess schematisch
+dargestellt.
+Abbildung \ref{fig:Meilboom-Gill-Methode} a) zeigt zwei exemplarische Spins,
+die nach dem ersten \SI{180}{\degree}-Impuls
+nicht exakt in die $\vec{x}' \vec{y}'$-Ebene gedreht wurden.
+Somit ist gemessene transversale Magnetisierung
+nach Abbildung \ref{fig:Meilboom-Gill-Methode} b) zu klein.
+Werden die Spins in Abbildung \ref{fig:Meilboom-Gill-Methode} c) bei einem zweiten
+\SI{180}{\degree}-Impuls wiederum gedreht, so gleicht sich der Fehler
+wieder aus und die Refokussierung liegt wieder in der $\vec{x}' \vec{y}'$-Ebene.
+Folglich besitzen anders als bei der CPM alle Echos das selbe Vorzeichen.
+\begin{figure}
+  \centering
+  \includegraphics[width=.7\textwidth]{images/meilboom-gill.pdf}
+  \caption{Schematische Darstellung der Refokussierung bei der MGM \cite[12]{anleitung}.}
+  \label{fig:Meilboom-Gill-Methode}
+\end{figure}
+
+
+\subsection{Spinrelaxation einer flüssigen Probe}
+\label{sec:DiffusionTheo}
+
+TODO
+
+
+\subsection{Bestimmung der Relaxationszeit $T_1$}
+\label{sec:T1Theo}
+
+Die longitudinale Relaxationszeit $T_1$ kann auf eine ähnliche Weise wie die
+transversale Relaxationszeit bestimmt werden.
+Ein \SI{180}{\degree}-Impuls dreht alle Spins aus der $\vec{z}$-Richtung in
+die negative $\vec{z}$-Richtung. Im zeitlichen Verlauf relaxieren die Spins zurück
+in die $\vec{z}$-Richtung (Gleichgewichtslage).
+Nach der Zeit $\tau$ dreht ein \SI{90}{\degree}-Impuls die verbliebene Magnetisierung
+der $-\vec{z}$-Richtung in die $\vec{x}'\vec{y}'$-Ebene.
+Dort präzedieren die einzelnen Spin und induzieren damit eine Spannung, die
+proportional zur Magnetisierung ist.
+Aus den Blochschen Gleichung ergibt sich mit den Anfangsbedingungen
+\begin{equation*}
+  M_\text{x}\!\left(0\right) = M_\text{y}\!\left(0\right) = 0
+  \quad \text{und} \quad M_\text{z}\!\left(0\right) = M_0
+\end{equation*}
+für die Magnetisierung in $\vec{z}$-Richtung
+\begin{equation}
+  M_\text{z}\!\left(\tau\right) =
+  M_0 \left(1 - 2 \exp\!\left[-\frac{\tau}{T_1}\right]\right)
+  \label{eqn:T1-Vermessung}
+\end{equation}
+durch Integration.
+Wird $M_\text{z}$ für verschiedene Zeiten $\tau$ gemessen, lässt sich aus diesem
+Zusammenhang $T_1$ bestimmen.
