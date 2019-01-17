@@ -251,6 +251,7 @@ Diese Bedingung sind durch den Beginn des Zerfalls unmittelbar nach dem
 \SI{90}{\degree}-Puls motiviert und führen auf den Zusammenhang
 \begin{equation}
   M_\text{y}\!\left(t\right) = M_0 \exp\!\left(- \frac{t}{T_2}\right),
+  \label{eqn:Spin-Echo-Statisch}
 \end{equation}
 nach welchem sich aus der Höhe des Spin-Echos in Abhängigkeit der
 Zeit $\tau$ die Relaxationszeit $T_2$ bestimmen lässt.
@@ -312,10 +313,72 @@ Folglich besitzen anders als bei der CPM alle Echos das selbe Vorzeichen.
 \subsection{Spinrelaxation einer flüssigen Probe}
 \label{sec:DiffusionTheo}
 
-TODO
+In einer flüssigen Probe bewegen sich die Spins aufgrund der Brownschen
+Molekularbewegung.
+Dies hat zur Folge, dass das von den Spins wahrgenommene Magnetfeld
+zeitlich veränderlich ist und Gleichung \eqref{eqn:Spin-Echo-Statisch} nicht mehr
+anwendbar ist.
+Eine adequate Beschreibung ist nur durch Ergänzung eines zusätzlichen Diffusionsterms
+zu den Blochschen Gleichungen möglich.
+Die Diffusionsstromdichte $\vec{j}$ (Anzahl Teilchen, die pro Zeiteinheit eine
+Flächeneinheit durchqueren) ist gegeben durch
+\begin{equation*}
+  \vec{j} = - D\:\nabla\!\left(\frac{N}{V}\right)
+\end{equation*}
+mit der Diffusionskonstante $D$, der Teilchenzahl $N$ und dem Volumen $V$.
+% Bei den hier betrachteten Protonen mit $S = \sfrac{1}{2}$ können die einzelnen
+% Spins zwei Einstellungen haben (\textuparrow oder \textdownarrow).
+Mit jedem Teilchen, dass das betrachtete Volumenelement verlässt und hinein kommt,
+ändert sich die Magnetisierung.
+Unter Verwendung des Gaußschen Integralsatzes lässt sich zeigen, dass
+\begin{equation*}
+  \frac{\partial M}{\partial t} = D\:\Delta M
+\end{equation*}
+gilt, wenn die Diffusionskonstante ortsunabhängig ist.
+In Verbindung mit den Blochschen Gleichungen gilt dann
+\begin{equation*}
+  \frac{\partial M}{\partial t} =
+  \underbrace{\gamma \left(\vec{M} \times \vec{B}\right)}_{\text{Präzession}}
+  \underbrace{- \frac{M_\text{x} \vec{x} + M_\text{y} \vec{y}}{T_2}
+  - \frac{\left(M_\text{z} - M_0\right) \vec{z}}{T_1}}_{\text{Relaxation}}
+  \underbrace{+ \left(\vec{x} + \vec{y} + \vec{z}\right) D\:\Delta M}_{\text{Diffusion}}
+\end{equation*}
+für die Zeitentwicklung der Magnetisierung.
+Für das gesamte Volumen der Probe wird
+\begin{equation*}
+  B_\text{z} = B_0 + G z
+\end{equation*}
+angesetzt, mit dem Feldgradienten des externen Magnetfelds $G$.
+Dieser Feldgradient sei innerhalb der Probe konstant.
+Unter diesen Annahmen lässt sich der Ausdruck
+\begin{equation*}
+  M_\text{y}\!\left(t\right) = M_0
+  \exp\!\left(- \frac{t}{T_2}\right)
+  \exp\!\left(- \frac{t}{T_\text{D}}\right)
+\end{equation*}
+mit
+\begin{equation*}
+  T_\text{D} = \frac{3}{D \gamma^2 G^2 \tau^2}
+\end{equation*}
+für die $y$-Komponente der Magnetisierung gewinnen.
+Hierbei ist $\tau$ die in Abschnitt \ref{sec:CP-und-MG} eingeführte Zeit zwischen
+dem \SI{90}{\degree}- und dem \SI{180}{\degree}-Impuls.
+Aufgrund der Diffusion ergibt sich also ein zweiter exponentieller Faktor, der
+zum Zerfall der Magnetisierung beiträgt.
+Die CPM und die MGM aus Abschnitt \ref{sec:CP-und-MG} können weiterhin
+angewandt werden, wenn $T_\text{D}$ groß gegen $T_2$ ist.
+Des Weiteren gilt bei Betrachtung der Signalhöhe des ersten Spin-Echos
+\begin{equation}
+  M_\text{y}\!\left(t\right) = M_0
+  \exp\!\left(-\frac{t}{T_2}\right)
+  \exp\!\left(-\frac{1}{12} D \gamma^2 G^2 t^3\right)
+  \label{eqn:DiffusionsBestimmung}
+\end{equation}
+mit $t = 2\tau$,
+woraus sich bei Variation von $t$ die Diffusionskonstante ermitteln lässt.
 
 
-\subsection{Bestimmung der Relaxationszeit $T_1$}
+\subsection{Bestimmung der Relaxationszeit \texorpdfstring{$T_1$}{T1}}
 \label{sec:T1Theo}
 
 Die longitudinale Relaxationszeit $T_1$ kann auf eine ähnliche Weise wie die
