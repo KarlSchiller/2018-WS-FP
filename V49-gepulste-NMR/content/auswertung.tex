@@ -3,13 +3,13 @@
 \label{sec:Auswertung}
 
 \subsection{Justage der Apparatur}
-Um ein möglichst homogenes Magnetfeld erzeugen zu dürfen, wurden zunächst die
+Um ein möglichst homogenes Magnetfeld zu erzeugen, wurden zunächst die
 Shim-Parameter optimiert. Die somit eingestellten Parameter sind:
 \begin{align*}
-  x &= -\num{1.77}  \\
-  y &= -\num{4.94}  \\
-  z &= +\num{3.44}  \\
-  z^2 &= \num{3.15} \\
+  x &= \num{-1.77}  \\
+  y &= \num{-4.94}  \\
+  z &= \num{+3.44}  \\
+  z^2 &= \num{+3.15} \\
 \end{align*}
 Neben den Shim-Parametern wurden die Lamor-Frequenz $\omega_\text{L}$, die
 Pulslänge $\Delta t_\text{90}$ und die Referenzphase $\phi$ eingestellt auf:
@@ -21,8 +21,8 @@ Pulslänge $\Delta t_\text{90}$ und die Referenzphase $\phi$ eingestellt auf:
 Diese Parameter wurden bei den einzelnen Versuchsteilen nachgeprüft und
 verändert. Die Nachjustierten Parameter sind jeweils angegeben.
 
-\subsection{Bestimmung der lonitudinalen Relaxationszeit}
-Zur Bestimmung der longitudinalen Relaxationszeit $T_1$ wurde die in die
+\subsection{Bestimmung der longitudinalen Relaxationszeit}
+Zur Bestimmung der longitudinalen Relaxationszeit $T_1$ wurde die in der
 Spule induzierte Spannung und der Pulsabstand $\tau$ zwischen \SI{180}{\degree}-
 und \SI{90}{\degree}-Puls gemessen. Die aufgenommenen Daten sind in Tabelle
 \ref{tab:T1} aufgeführt.
@@ -31,9 +31,9 @@ Als Regression ist eine Formel der Form
 \begin{align*}
   U(t) = U_0 \cdot \left(1- 2\text{e}^{-\frac{\tau}{T_1}}\right) + U_1
 \end{align*}
-verwendet worden. Da die Werte eine Asymmetrie aufweisen, und somit nicht von
-$-U_0$ bis $U_=$ gehen, muss der Parameter $U_1$ hinzugefügt werden. Daraus
-folgen die Paraeter
+verwendet worden. Da die Werte eine Asymmetrie aufweisen und somit nicht von
+$-U_0$ bis $U_0$ gehen, muss der Parameter $U_1$ hinzugefügt werden.
+Aus der Regression folgen die Parameter
 \begin{align*}
   U_0 &= -\SI{631(4)}{\milli\volt} \\
   T_1 &= \SI{15(4)}{\milli\second} \\
@@ -43,7 +43,7 @@ In Abbildung \ref{plt:T1} sind Messwerte, sowie die Regression graphisch dargest
 \begin{figure}[htb]
   \centering
   \includegraphics{build/t1.pdf}
-  \caption{Graphische Abbildung der Meswerte und der Regression der longitudinalen Relaxationszeit.}
+  \caption{Graphische Abbildung der Messwerte und der Regression der longitudinalen Relaxationszeit.}
   \label{plt:T1}
 \end{figure}
 
@@ -58,14 +58,14 @@ betrachtet. Zuvor wurden die Shim-Parameter neu angepasst. Nun betragen die Wert
   z^2 &= +\num{3.06}
 \end{align*}
 Zudem beträgt die Lamor-Frequenz $\omega_\text{L} = \SI{21.71179}{\mega\hertz}$, während die
-Referenzphase und die \SI{90}{\degree}-Pullslänge
+Referenzphase und die \SI{90}{\degree}-Pullslänge auf
 \begin{align*}
   \phi &= \SI{60}{\degree} \\
   \Delta t_{90} &= \SI{4.40}{\micro\second}
 \end{align*}
+eingestellt wurden.
 Im Weiteren werden die Meiboom-Gill-Methode, sowie die Carr-Purcell-Methode
-einzeln betrachtet.
-\newpage
+einzelnd betrachtet.
 
 \subsubsection{Meiboom-Gill-Methode}
 Bei der Meiboom-Gil-Mehode wurde eine Periodendauer von \SI{10}{\second}
@@ -78,8 +78,8 @@ aufgeführt.
   \caption{Aufnahme der Meiboom-Gill-Methode mit eingestelltem Pulsabstand.}
   \label{fig:MG}
 \end{figure}
-Um die transversale Relaxatinoszeit $T_2$ zu berechnen werden die Minima mit der
-Funktion $find\_peaks$ des Pythonpakets $scipy\_signal$ bestimmt und
+Um die transversale Relaxationszeit $T_2$ zu berechnen werden die Minima mit der
+Funktion \texttt{find\_peaks} des Pythonpakets \texttt{scipy.signal} bestimmt und
 sind in Tabelle \ref{tab:MG} aufgelistet.
 Eine Regression ist mit einer Formel
 der Form
@@ -173,11 +173,11 @@ Daraus ergibt sich
 \end{align*}
 Dazu wird der erste Echo-Puls bei $t = 2\tau$ für verschiedene Pulslängen
 verwendet. Die Regression wird mit Hilfe
-einer Funktion der Form von Gleichung \eqref{} durchgeführt. Verwendet wurden die
+einer Funktion der Form von Gleichung \eqref{eqn:DiffusionsBestimmung} durchgeführt. Verwendet wurden die
 Messdaten aus Tabelle \ref{tab:dif}.
-\input{build/dif.tex}
+\input{build/diff.tex}
 Grapisch dargestellt ist in Abbildung
-\ref{plt:dif} das erste Echo in Abhängigkeit der Pulsabstände und Regression
+\ref{plt:diff} das erste Echo in Abhängigkeit der Pulsabstände und Regression
 zur Bestimmung der Diffusionskonstante.
 \begin{figure}[htb]
   \centering
