@@ -78,6 +78,7 @@ aufgeführt.
   \caption{Aufnahme der Meiboom-Gill-Methode mit eingestelltem Pulsabstand.}
   \label{fig:MG}
 \end{figure}
+\input{build/MG.tex}
 Um die transversale Relaxationszeit $T_2$ zu berechnen werden die Minima mit der
 Funktion \texttt{find\_peaks} des Pythonpakets \texttt{scipy.signal} bestimmt und
 sind in Tabelle \ref{tab:MG} aufgelistet.
@@ -91,8 +92,8 @@ mit $t = 2\tau$ durchgeführt worden. Die daraus erhaltenen Parameter sind
   U_0 &= -\SI{588}{\milli\volt} \\
   T_2 &= \SI{1.657(17)}{\second}.
 \end{align*}
-Dieser Zusammenhang zwischen der induzierten Spannung und dem Zeitabstand der
-Pulse ist in Abbildung \ref{plt:MG} zu erkennen.
+Regression und ermittelte Extrema der induzierten Spannung in Abhängigkeit des
+Zeitabstands der Pulse ist in Abbildung \ref{plt:MG} dargestellt.
 \begin{figure}[htb]
   \centering
   \includegraphics{build/MG.pdf}
@@ -102,7 +103,7 @@ Pulse ist in Abbildung \ref{plt:MG} zu erkennen.
 \FloatBarrier
 
 \subsubsection{Carr-Purcell-Methode}
-Für die Aufnahme der Cerr-Purcell-Methode wurden die Shim-Parameter auf der
+Für die Aufnahme der Cerr-Purcell-Methode wurden die Shim-Parameter auf die
 folgenden Werte eingestellt:
 \begin{align*}
   x &= -\num{0.84} \\
@@ -134,13 +135,15 @@ zu erkennen ist.
 
 
 \subsection{Bestimmung der Halbwertsbreite}
-Zur Bestimmung der Halbwertsbreite $t_\frac{1}{2}$ eines Spin-Echos wird das
-Maxima des Spin Echos bestimmt. Bei halber Höhe des Maximums wird die Differenz
+Zur Bestimmung der Halbwertsbreite $t_{\sfrac{1}{2}}$ eines Spin-Echos wird das
+Maximum des Spin Echos bestimmt. Bei halber Höhe des Maximums wird die Differenz
 der entsprechenden $\tau$ Werte berechnet. Graphisch ist die durch die Messung
 bestimmte Halbwertsbreite in Abbildung \ref{plt:t12} durch die rote gestrichelte
-Linie gekennzeichnet. Zur Referenz ist in \ref{fig:t12} das zugehörige Bild der Sequenz am Oszilloskop zu sehen. Dabei beträgt der Wert für die Halbwertsbreite
+Linie gekennzeichnet.
+Zur Referenz ist in \ref{fig:t12} das zugehörige Bild der Sequenz am Oszilloskop zu sehen.
+Dabei beträgt der Wert für die Halbwertsbreite
 \begin{align*}
-  t_\frac{1}{2} = \SI{8.55e-5}{\second}
+  t_{\sfrac{1}{2}} = \SI{8.55e-5}{\second}
 \end{align*}
 \begin{figure}[htb]
   \centering
@@ -158,26 +161,26 @@ Linie gekennzeichnet. Zur Referenz ist in \ref{fig:t12} das zugehörige Bild der
 
 \subsection{Bestimmung der Diffusionskonstante}
 Die Diffusionskonstante wurde mittels Spin-Echo-Verfahren bestimmt. Dabei wurde
-ein maimaler Gradient des Magnetfeldes in z-Richtung eingestellt. Dieser beträgt
+ein maximaler Gradient des Magnetfeldes in $z$-Richtung eingestellt. Dieser beträgt
 $z = -\num{9.00}$. Durch diese Anpassung wird ein möglichst inhomogenes Magnetfeld
 erzeugt und somit ein Diffusionseffekt messbar.
-Um die Diffusionskonstante $D$ berechnen zu können, müssen zunächst der Faktor
+Um die Diffusionskonstante $D$ berechnen zu können, muss zunächst der Faktor
 $G$ berechnet werden. Dazu wird $G$ mittels der Formel
 \begin{align*}
   G = \frac{4\cdot 2.2}{d \gamma t_\frac{1}{2}}
 \end{align*}
-mit $d = \SI{4.4}{\milli\meter}$ berechnet.
-Daraus ergibt sich
+mit $d = \SI{4.4}{\milli\meter}$ zu
 \begin{align*}
   G = \SI{0.0874}{\tesla\per\meter}
 \end{align*}
+berechnet.
 Dazu wird der erste Echo-Puls bei $t = 2\tau$ für verschiedene Pulslängen
 verwendet. Die Regression wird mit Hilfe
 einer Funktion der Form von Gleichung \eqref{eqn:DiffusionsBestimmung} durchgeführt. Verwendet wurden die
 Messdaten aus Tabelle \ref{tab:dif}.
 \input{build/diff.tex}
 Grapisch dargestellt ist in Abbildung
-\ref{plt:diff} das erste Echo in Abhängigkeit der Pulsabstände und Regression
+\ref{plt:diff} das erste Echo in Abhängigkeit der Pulsabstände und die Regression
 zur Bestimmung der Diffusionskonstante.
 \begin{figure}[htb]
   \centering
@@ -186,7 +189,6 @@ zur Bestimmung der Diffusionskonstante.
   zur Bestimmung der Diffusionskonstanten $D$.}
   \label{plt:diff}
 \end{figure}
-
 Als Fitparameter ergeben sich:
 \begin{align*}
   U_0 &= \SI{628(6)}{\milli\volt} \\
@@ -198,6 +200,7 @@ Die Viskosität wird durch die Funktion
 \begin{align*}
   \eta(T) = \rho \alpha \left(t - \delta\right)
 \end{align*}
+\input{build/viskos.tex}
 verwendet. Es wurden die Werte $\rho = \SI{1000}{\kilo\gram\per\cubic\meter}$
 und $\alpha = \SI{1.2024d-9}{\square\meter\per\square\second}$ verwendet. Mit
 Hilfe der gegebenen Werte aus Tabelle \ref{tab:viskos} ist durch eine lineare
@@ -206,8 +209,8 @@ Regression ein Wert von
   \delta = \SI{0.48}{\second}
 \end{align*}
 bestimmt worden. Wird dieser Wert mit dem gemessenen Zeitintervall
-$t = \SI{930}{\second}$ in die Formel für die Viskosität eingesetzt, so wird ein
-Wert von
+$t = \SI{930}{\second}$ in die Formel für die Viskosität eingesetzt,
+so ergibt sich ein Wert von
 \begin{align*}
   \eta = \SI{9.4d4}{\kilo\gram\per\meter\per\second}.
 \end{align*}
@@ -215,12 +218,12 @@ Wert von
 \subsection{Bestimmung des Molekülradius}
 Der Molekülradius $r$ wird durch die Stockesschen Formel
 \begin{align*}
-  r = \frac{kT}{6\pi\eta D}
+  r = \frac{k_\text{B} T}{6\pi\eta D}
 \end{align*}
-mit der Boltzmann-Konstante $k$, der Viskosität bei Raumtemperatur $T = \SI{25}{\degree}$
+mit der Boltzmann-Konstante $k_\text{B}$, der Viskosität bei Raumtemperatur $T = \SI{25}{\degree}$
 und der zuvor berechneten Diffusionskonstante $D$. Daraus ergibt sich ein Wert von
 \begin{align*}
-  r = \SI{1.33d-10}{\meter}
+  r = \SI{1.33}{\angstrom}
 \end{align*}
 Um diesen Wert einordnen zu können, wird zum Vergleich ein Referenzwert berechnet.
 Dazu wird zum einen die Annahmen verwendet, dass die Moleküle in einer
@@ -230,12 +233,12 @@ $m_{H_2O} = \SI{28.89d-27}{\kilo\gram}$ und der Dichte von
 $\rho = \SI{997.04}{\kilo\gram\per\cubic\meter}$ \cite{hcp} ergibt sich der
 Molekülradius
 \begin{align*}
-  r_{hcp} = \SI{1.44}{\meter}.
+  r_\text{hcp} = \SI{1.44}{\angstrom}.
 \end{align*}
 Als zweite Annahme wird ein van-der-Waals Gas am kristischen Punkt angenommen,
 daraus ergibt sich
 \begin{align*}
-  r_\text{VdW} = \left(\frac{3kT_\text{k}}{128\pi P_\text{k}}\right)^\frac{1}{3} = \SI{2.11e-10}{\meter}.
+  r_\text{VdW} = \left(\frac{3kT_\text{k}}{128\pi P_\text{k}}\right)^\frac{1}{3} = \SI{2.11}{\angstrom}.
 \end{align*}
 Dabei ist $T_\text{k} = \SI{647.05}{\kelvin}$ und $P_\text{k} = \SI{22.04e6}{\pascal}$ \cite{VdW}.
 

@@ -68,7 +68,7 @@ def viskos():
             data = [t2[0:3], delta[0:3]],
             caption = 'Werte zur Bestimmung der Referenzzeit $\delta$.',
             label = 'tab:viskos',
-            filename = 'build/delta.tex')
+            filename = 'build/viskos.tex')
     print(delta_real)
     return rho*alpha*(t-delta_real)
 
@@ -106,7 +106,7 @@ def messung_T1():
     plt.clf()
 
     make_table(header= ['$t$ / \\milli\\second', '$U$ / \\milli\\volt', '$t$ / \\milli\\second', '$U$ / \\milli\\volt', '$t$ / \\milli\\second', '$U$ / \\milli\\volt'],
-            places= [4.1, 4.3, 4.1, 4.3, 4.1, 4.3],
+            places= [2.1, 3.2, 3.2, 3.2, 4.1, 4.2],
             data = [tau[0:9]*1000, M[0:9]*1000, tau[10:20]*1000, M[10:20]*1000, tau[21:31]*1000, M[21:31]*1000],
             caption = 'Werte zur Bestimmung der longitudinalen Relaxationszeit $T_1$.',
             label = 'tab:T1',
@@ -142,7 +142,7 @@ def T2_Meiboom_Gill():
 
 
     make_table(header= ['$t$ /  \\milli\\second', '$U$ /  \\milli \\volt', '$t$ /  \\milli\\second', '$U$ /  \\milli \\volt','$t$ /  \\milli\\second', '$U$ /  \\milli \\volt'],
-            places= [4.1, 4.2, 4.1, 4.2, 4.1, 4.2],
+            places= [1.1, 4.2, 2.1, 3.2, 2.1, 4.2],
             data = [tau[0:6]*1000, M[0:6]*1000, tau[7:13]*1000, M[7:13]*1000, tau[14:20]*1000, M[14:20]*1000],
             caption = 'Werte zur Bestimmung der longitudinalen Relaxationszeit $T_1$.',
             label = 'tab:MG',
