@@ -26,7 +26,7 @@ Zur Bestimmung der longitudinalen Relaxationszeit $T_1$ wurde die in die
 Spule induzierte Spannung und der Pulsabstand $\tau$ zwischen \SI{180}{\degree}-
 und \SI{90}{\degree}-Puls gemessen. Die aufgenommenen Daten sind in Tabelle
 \ref{tab:T1} aufgeführt.
-%\input{build/T1.tex}
+\input{build/T1.tex}
 Als Regression ist eine Formel der Form
 \begin{align*}
   U(t) = U_0 \cdot \left(1- 2\text{e}^{-\frac{\tau}{T_1}}\right) + U_1
@@ -81,7 +81,7 @@ aufgeführt.
 Um die transversale Relaxatinoszeit $T_2$ zu berechnen werden die Minima mit der
 Funktion $find\_peaks$ des Pythonpakets $scipy\.signal$ bestimmt und
 sind in Tabelle \ref{tab:MG} aufgelistet.
-%\input{build/MG.pdf}
+\input{build/MG.pdf}
 Eine Regression ist mit einer Formel
 der Form
 \begin{align*}
@@ -141,7 +141,7 @@ der entsprechenden $\tau$ Werte berechnet. Graphisch ist die durch die Messung
 bestimmte Halbwertsbreite in Abbildung \ref{plt:t12} durch die rote gestrichelte
 Linie gekennzeichnet. Zur Referenz ist in \ref{fig:t12} das zugehörige Bild der Sequenz am Oszilloskop zu sehen. Dabei beträgt der Wert für die Halbwertsbreite
 \begin{align*}
-  t_\frac{1}{2} = \SI{}{\second}
+  t_\frac{1}{2} = \SI{8.55e-5}{\second}
 \end{align*}
 \begin{figure}[htb]
   \centering
@@ -175,7 +175,9 @@ Daraus ergibt sich
 Dazu wird der erste Echo-Puls bei $t = 2\tau$ für verschiedene Pulslängen
 verwendet. Die Regression wird mit Hilfe
 einer Funktion der Form von Gleichung \eqref{} durchgeführt. Verwendet wurden die
-Messdaten aus Tabelle \ref{tab:dif}. Grapisch dargestellt ist in Abbildung
+Messdaten aus Tabelle \ref{tab:dif}.
+\input{build/dif.tex}
+Grapisch dargestellt ist in Abbildung
 \ref{plt:dif} das erste Echo in Abhängigkeit der Pulsabstände und Regression
 zur Bestimmung der Diffusionskonstante.
 \begin{figure}[htb]
@@ -239,15 +241,15 @@ daraus ergibt sich
 Dabei ist $T_\text{k} = \SI{647.05}{\kelvin}$ und $P_\text{k} = \SI{22.04e6}{\pascal}$ \cite{VdW}.
 
 
-Carr-Purcell diskutieren, warum quantitativ nicht auswertbar
-Oszillationen bei höheren Zeiten: Winkeldelta addiert sich iwann
-wieder auf 180°, damit wieder Signal
-T1-Messung
-Anstelle des Fits in der Anleitung (bei dem M0 quasi zufällig gewählt werden muss):
-Nichtlinearer Fit an logarithmierte Messwerte
-Fit der Form M0 * (1 - 2*exp(-t/tau)) + M1
-mit Offset M1
-Bitte Form noch einmal genauer überprüfen
+%Carr-Purcell diskutieren, warum quantitativ nicht auswertbar
+%Oszillationen bei höheren Zeiten: Winkeldelta addiert sich iwann
+%wieder auf 180°, damit wieder Signal
+%T1-Messung
+%Anstelle des Fits in der Anleitung (bei dem M0 quasi zufällig gewählt werden muss):
+%Nichtlinearer Fit an logarithmierte Messwerte
+%Fit der Form M0 * (1 - 2*exp(-t/tau)) + M1
+%mit Offset M1
+%Bitte Form noch einmal genauer überprüfen
 
 % \subsection{Unterkapiel}
 % \label{sec:Unterkapitel}

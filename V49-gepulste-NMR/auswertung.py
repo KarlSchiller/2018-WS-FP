@@ -63,7 +63,7 @@ def viskos():
     plt.savefig('build/test.pdf')
     plt.clf()
 
-    make_table(header= ['$t$ / \second', '\delta / \second'],
+    make_table(header= ['$t$ / \\second', '\\delta / \\second'],
             places= [4.0, 1.1],
             data = [t2[0:3], delta[0:3]],
             caption = 'Werte zur Bestimmung der Referenzzeit $\delta$.',
@@ -105,12 +105,12 @@ def messung_T1():
     plt.savefig('build/t1')
     plt.clf()
 
-    #make_table(header= ['$t$ / \milli\second', '$U$ / \milli\volt', '$t$ / \milli\second', '$U$ / \milli\volt', '$t$ / \milli\second', '$U$ / \milli\volt'],
-    #        places= [4.1, 4.3, 4.1, 4.3, 4.1, 4.3],
-    #        data = [tau[0:9]*1000, M[0:9]*1000, tau[10:20]*1000, M[10:20]*1000, tau[21:31]*1000, M[21:31]*1000],
-    #        caption = 'Werte zur Bestimmung der longitudinalen Relaxationszeit $T_1$.',
-    #        label = 'tab:T1',
-    #        filename = 'build/T1.tex')
+    make_table(header= ['$t$ / \\milli\\second', '$U$ / \\milli\\volt', '$t$ / \\milli\\second', '$U$ / \\milli\\volt', '$t$ / \\milli\\second', '$U$ / \\milli\\volt'],
+            places= [4.1, 4.3, 4.1, 4.3, 4.1, 4.3],
+            data = [tau[0:9]*1000, M[0:9]*1000, tau[10:20]*1000, M[10:20]*1000, tau[21:31]*1000, M[21:31]*1000],
+            caption = 'Werte zur Bestimmung der longitudinalen Relaxationszeit $T_1$.',
+            label = 'tab:T1',
+            filename = 'build/T1.tex')
 
 
 
@@ -141,12 +141,12 @@ def T2_Meiboom_Gill():
     print('Länge des Arrays: ', len(peaks), len(peak_tau))
 
 
-    #make_table(header= ['$t$ /  \milli\second', '$U$ /  \milli \volt', '$t$ /  \milli\second', '$U$ /  \milli \volt','$t$ /  \milli\second', '$U$ /  \milli \volt'],
-    #        places= [4.1, 4.2, 4.1, 4.2, 4.1, 4.2],
-    #        data = [tau[0:6]*1000, M[0:6]*1000, tau[7:13]*1000, M[7:13]*1000, tau[14:20]*1000, M[14:20]*1000],
-    #        caption = 'Werte zur Bestimmung der longitudinalen Relaxationszeit $T_1$.',
-    #        label = 'tab:MG',
-    #        filename = 'build/MG.tex')
+    make_table(header= ['$t$ /  \\milli\\second', '$U$ /  \\milli \\volt', '$t$ /  \\milli\\second', '$U$ /  \\milli \\volt','$t$ /  \\milli\\second', '$U$ /  \\milli \\volt'],
+            places= [4.1, 4.2, 4.1, 4.2, 4.1, 4.2],
+            data = [tau[0:6]*1000, M[0:6]*1000, tau[7:13]*1000, M[7:13]*1000, tau[14:20]*1000, M[14:20]*1000],
+            caption = 'Werte zur Bestimmung der longitudinalen Relaxationszeit $T_1$.',
+            label = 'tab:MG',
+            filename = 'build/MG.tex')
 
     return T2 # in s
 
@@ -177,7 +177,7 @@ def t1_2():
     peak_index, peaks = find_peaks(M, height=0.6)
     #print(peaks["peak_heights"][4])
     FWHM = (2.0545-1.969)*10**(-3) # FWHM in s
-
+    print('Halbwertsbreite: t12 = ', FWHM)
     plt.plot(tau*10**3, M, 'b.', label='Messdaten')
     plt.vlines(2.0545, -0.1, 0.7, linestyle='dashed')
     plt.vlines(1.969, -0.1, 0.7, linestyle='dashed')
@@ -214,12 +214,12 @@ def diffusion(T2, g):
     plt.savefig('build/diffussion')
     plt.clf()
 
-     #make_table(header= ['$t$ / \milli\second', '$U$ / \milli\volt', '$t$ / \milli\second', '$U$ / \milli\volt', '$t$ / \milli\second', '$U$ / \milli\volt'],
-    #         places= [2.0, 3.2, 2.0, 3.2, 2.0, 3.2],
-    #         data = [tau[0:6]* 1000, M[0:6]* 1000, tau[7:13]* 1000, M[7:13]* 1000, tau[14:20]* 1000, M[14:20]* 1000],
-    #         caption = 'Werte zur Bestimmung der Diffusionskonstante.',
-    #         label = 'tab:dif',
-    #         filename = 'build/diff.tex')
+    make_table(header= ['$t$ / \\milli\\second', '$U$ / \\milli\\volt', '$t$ / \\milli\\second', '$U$ / \\milli\\volt', '$t$ / \\milli\\second', '$U$ / \\milli\\volt'],
+            places= [2.0, 3.2, 2.0, 3.2, 2.0, 3.2],
+            data = [tau[0:6]* 1000, M[0:6]* 1000, tau[7:13]* 1000, M[7:13]* 1000, tau[14:20]* 1000, M[14:20]* 1000],
+            caption = 'Werte zur Bestimmung der Diffusionskonstante.',
+            label = 'tab:dif',
+            filename = 'build/diff.tex')
 
     return D
 
