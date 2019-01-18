@@ -44,7 +44,7 @@ def linear(x, m, b):
 
 def viskos():
     alpha = 1.024*10**(-9) #m**2/s**2
-    rho = 1 #Dichte von Wasser
+    rho = 1000 #Dichte von Wasser in kg/m³
     t = 920
     delta = [1.2, 0.9, 0.7, 0.5, 0.4]
     t2 = [600, 700, 800, 900, 1000]
@@ -62,11 +62,18 @@ def viskos():
     plt.legend(loc='best')
     plt.savefig('build/test.pdf')
     plt.clf()
-    #print(delta_real)
+
+    make_table(header= ['$t$ / \second', '\delta / \second'],
+            places= [4.0, 1.1],
+            data = [t2[0:3], delta[0:3]],
+            caption = 'Werte zur Bestimmung der Referenzzeit $\delta$.',
+            label = 'tab:viskos',
+            filename = 'build/delta.tex')
+    print(delta_real)
     return rho*alpha*(t-delta_real)
 
 def G(t12):
-    return (4 * 2.2) /(4.4* gp[0] * t12) # 0.0044 in m, gp in 1/(sT) und t12 in s
+    return (4 * 2.2) /(0.0044* gp[0] * t12)# 0.0044 in m, gp in 1/(sT) und t12 in s
 
 def diff_konst(x, m0, D):
     t = 2 * x
@@ -88,8 +95,8 @@ def messung_T1():
     #print('Parameter M1 = ', np.round(params[2], 3), '+/_', np.round(errors[2], 3))
 
     x_range = np.linspace(min(tau), max(tau), 100000)
-    plt.plot(tau*1000, M, 'bx', label='Messwerte')
-    plt.plot(x_range*1000, formel_T1(x_range, *params), 'r-', label='Fit')
+    plt.plot(tau*1000, -M, 'bx', label='Messwerte')
+    plt.plot(x_range*1000, -formel_T1(x_range, *params), 'r-', label='Fit')
     plt.ylabel(r'$M\:/\:\si{\volt}$')
     plt.xlabel(r'$\tau\:/\:\si{\milli\second}$')
     plt.xscale('log')
@@ -97,6 +104,13 @@ def messung_T1():
     plt.legend(loc='best')
     plt.savefig('build/t1')
     plt.clf()
+
+    #make_table(header= ['$t$ / \milli\second', '$U$ / \milli\volt', '$t$ / \milli\second', '$U$ / \milli\volt', '$t$ / \milli\second', '$U$ / \milli\volt'],
+    #        places= [4.1, 4.3, 4.1, 4.3, 4.1, 4.3],
+    #        data = [tau[0:9]*1000, M[0:9]*1000, tau[10:20]*1000, M[10:20]*1000, tau[21:31]*1000, M[21:31]*1000],
+    #        caption = 'Werte zur Bestimmung der longitudinalen Relaxationszeit $T_1$.',
+    #        label = 'tab:T1',
+    #        filename = 'build/T1.tex')
 
 
 
@@ -123,6 +137,17 @@ def T2_Meiboom_Gill():
     plt.legend(loc='best')
     plt.savefig('build/MG.pdf')
     plt.clf()
+
+    print('Länge des Arrays: ', len(peaks), len(peak_tau))
+
+
+    #make_table(header= ['$t$ /  \milli\second', '$U$ /  \milli \volt', '$t$ /  \milli\second', '$U$ /  \milli \volt','$t$ /  \milli\second', '$U$ /  \milli \volt'],
+    #        places= [4.1, 4.2, 4.1, 4.2, 4.1, 4.2],
+    #        data = [tau[0:6]*1000, M[0:6]*1000, tau[7:13]*1000, M[7:13]*1000, tau[14:20]*1000, M[14:20]*1000],
+    #        caption = 'Werte zur Bestimmung der longitudinalen Relaxationszeit $T_1$.',
+    #        label = 'tab:MG',
+    #        filename = 'build/MG.tex')
+
     return T2 # in s
 
 
@@ -173,10 +198,10 @@ def t1_2():
 def diffusion(T2, g):
     tau, M = np.genfromtxt('rohdaten/diffusion.txt', unpack=True) # tau in s und M in V
 
-    params, cov = curve_fit(diff_konst, tau, M)
+    params, cov = curve_fit(diff_konst, tau, M, p0=[0.6, 1*10**(-9)])
     errors = np.sqrt(np.diag(cov))
     D = [params[1], errors[1]] #In m^2/s
-    print('Diffusionskonstante: D = ', np.round(params[1], 5), ' +/- ',  np.round(errors[1], 5))
+    print('Diffusionskonstante: D = ', params[1], ' +/- ', errors[1])
     print('Parameter M0 = ', params[0], '+/-', errors[0])
 
     x_range = np.linspace(min(tau), max(tau))
@@ -189,6 +214,13 @@ def diffusion(T2, g):
     plt.savefig('build/diffussion')
     plt.clf()
 
+     #make_table(header= ['$t$ / \milli\second', '$U$ / \milli\volt', '$t$ / \milli\second', '$U$ / \milli\volt', '$t$ / \milli\second', '$U$ / \milli\volt'],
+    #         places= [2.0, 3.2, 2.0, 3.2, 2.0, 3.2],
+    #         data = [tau[0:6]* 1000, M[0:6]* 1000, tau[7:13]* 1000, M[7:13]* 1000, tau[14:20]* 1000, M[14:20]* 1000],
+    #         caption = 'Werte zur Bestimmung der Diffusionskonstante.',
+    #         label = 'tab:dif',
+    #         filename = 'build/diff.tex')
+
     return D
 
 
@@ -196,9 +228,10 @@ def r_molekuel(D, FWHM):
     T = 25 # celsius
     T = 273.15 + T # in Kelvin
     eta = viskos()
+    print('Wert für die Viskosität: eta =  ', eta)
 
     #Berechnung des Molekülradius aus vorheriger Auswertung
-    r_berechnet = k[0]*T/(6*np.pi*D[0]*10**(-3)*eta) #in m
+    r_berechnet = k[0]*T/(6*np.pi*D[0]*eta) #in m
     print("Aus der voherigen Analyse berechnete Molekülredius: r = ", r_berechnet)
 
     #Berechnung des Molekülradius zum Vergleich
@@ -213,6 +246,17 @@ def r_molekuel(D, FWHM):
             #  filename = 'build/rot_sigma.tex')
 
 
+    #   theoriewert Van-der Waal
+    rVdW = (3*k[0]*647.05/(128*np.pi*22.04*10**6))**(1/3)
+    print('Theoriewert für die Van-der-Waals Annahme: r = ', rVdW)
+
+    # Theoriewert hcp
+    rhcp = (28.87*10**(-27)/(4/3*np.pi*0.74*997.04))**(1/3)
+    print('Theoriewert für die hcp Annahme: r = ', rhcp)
+
+
+    print('Vergleich mit r_VdW: ', (r_berechnet-rVdW)/rVdW)
+    print('Vergleich mit r_VdW: ', (r_berechnet-rhcp)/rhcp)
 
 if __name__ == '__main__':
 

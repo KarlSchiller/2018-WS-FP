@@ -1,10 +1,46 @@
 \section{Diskussion}
 \label{sec:Diskussion}
 
-- T1 wichtig um zu wissen, wann Probe wieder im thermischen Gleichgewicht.
-  Deshalb zuerst gemessen
-- Bei richtiger Probe (ohne Paramagnetische Zentren) deltaT90 noch einmal justiert,
-  da die param. Probe zu groß ist. Sie reicht damit nicht nur in den homogenen
-  Bereich des Magnetfelds, sondern auch noch darüber hinaus.
-- Probe sitzt nicht fest, ein Wackeln an der Probe verändert die Position dieser im
-  Magnetfeld und das ändert (durch experimentelle Inhomogenität) das Signal DRASTISCH!
+Zuerst ist zu erwähnen, dass zusätzlich zu der Justage durch eine Probe ohne
+paramagnetische Zentren eine Justage nach einlegen der paramagnetischen Probe
+erforderlich ist, da diese aus dem homogenen Magnetfeld herausragt und somit die
+Messungen beeinflusst. Dieser Einfluss ist bei der Betrachtung allerdings nicht
+berücksichtigt worden.
+
+Ebenso sitzt die Probe nicht fest in einer Halterung, sondern ist bewegbar, was
+dazu führt, dass die Position der Probe im Magnetfeld geändert wird und somit durch
+eine experimentelle Inhomogenität das Signal stört.
+
+Eine weitere Quelle für Unsicherheiten ist, dass häufige Neujustage die Messungen
+beinflusst haben und nur annähernd konsistent sind.
+
+Die Messungen von $T_1$ und $T_2$ lieferten folgende Ergebnisse:
+\begin{align*}
+  T_1 &= \SI{2.037(29)}{\second} \\
+  T_2 &= \SI{1.657(17)}{\second}
+\end{align*}
+Dabei entspricht dieses Ergebniss genau der Erwartung $T_1 > T_2$, da die longitudinale
+Relaxations $T_1$ länger andauern sollte als die transversale. Dabei wurde von der
+Reihenfolge der Messungen in der Anleitung abgewichen und $T_1$ zuerst gemessen.
+Dies bezieht sich darauf, dass die Probe während der Messung wieder in ein thermisches
+Gleichgewicht gelangen soll, was durch Erwärmung des Magneten durch einen eintretenden
+Stromfluss nach längerem Betrieb erschwert wird.
+Aus der Formel der Regression von $T_1$ wurde der Term $+ U_1$ nicht zur Regression
+herangezogen, da er die Fitparameter in sofern verändert hat, dass sie eine
+Verschechterung darstellten.
+
+Bei Betrachtung der Carr-Purcell-Methode ist eine Bestimmung der transversalen
+Relaxationszeit nicht möglich, da bei jeder Pulsgebung eine geringe Phasenverschiebung
+auftritt, welche sich zu einer sichtbaren Oszillation in Abbildung \ref{fig:CP2}
+addiert.
+
+Die Bestimmung der Viskosität $\eta$ birkt die Unsicherheit, dass die Raumtemperatur
+nur schätzungsweise bestimmt wurde. Zudem ist die Zeitmessung durch eine Stopuhr durch
+Menschliche Unsicherheiten verfälscht und somit keine exakte Messung. Eine mechanische-/
+elektronische Messung würde die Messung deutlich verbessern.
+
+Um die Bestimmung des Molekülradius zu überprüfen wird die Berechnung mit Hilfe der zuvor
+bestimmten Diffusionskonstante und der Viskosität jeweils mit den theoretischen
+Berechnungen verglichen.
+Somit weicht der bestimmte Wert $r$ um \SI{36.7}{\percent} von $r_\text{hcp}$ und um
+\SI{7.8}{\percent} von $r_\text{VdW}$ ab.
