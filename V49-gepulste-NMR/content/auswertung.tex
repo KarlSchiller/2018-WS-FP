@@ -27,6 +27,7 @@ Spule induzierte Spannung und der Pulsabstand $\tau$ zwischen \SI{180}{\degree}-
 und \SI{90}{\degree}-Puls gemessen. Die aufgenommenen Daten sind in Tabelle
 \ref{tab:T1} aufgeführt.
 \input{build/T1.tex}
+\FloatBarrier
 Als Regression ist eine Formel der Form
 \begin{align*}
   U(t) = U_0 \cdot \left(1- 2\text{e}^{-\frac{\tau}{T_1}}\right) + U_1
@@ -35,9 +36,8 @@ verwendet worden. Da die Werte eine Asymmetrie aufweisen und somit nicht von
 $-U_0$ bis $U_0$ gehen, muss der Parameter $U_1$ hinzugefügt werden.
 Aus der Regression folgen die Parameter
 \begin{align*}
-  U_0 &= -\SI{631(4)}{\milli\volt} \\
-  T_1 &= \SI{15(4)}{\milli\second} \\
-  U_1 &= \SI{2.149(41)}{\volt}
+  U_0 &= -\SI{622(3)}{\milli\volt} \\
+  T_1 &= \SI{2037(29)}{\milli\second}
 \end{align*}
 In Abbildung \ref{plt:T1} sind Messwerte, sowie die Regression graphisch dargestellt.
 \begin{figure}[htb]
@@ -89,7 +89,7 @@ der Form
 \end{align*}
 mit $t = 2\tau$ durchgeführt worden. Die daraus erhaltenen Parameter sind
 \begin{align*}
-  U_0 &= -\SI{588}{\milli\volt} \\
+  U_0 &= -\SI{588(3)}{\milli\volt} \\
   T_2 &= \SI{1.657(17)}{\second}.
 \end{align*}
 Regression und ermittelte Extrema der induzierten Spannung in Abhängigkeit des
@@ -113,24 +113,35 @@ folgenden Werte eingestellt:
 \end{align*}
 Zudem wurde die Lamor-Frequenz auf $\omega_\text{L} = \SI{21.71223}{\mega\hertz}$
 verwendet. Die aufgenommene Sequenz ist in Abbildung \ref{fig:CP} dargestellt.
+Des Weiteren ist in Abbildung \ref{fig:CP2} die Pulssequenz für einen
+deutlich größeres Zeitintervall dargestellt.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{rohdaten/cp_2.png}
   \caption{Am Oszilloskop aufgenommene Sequenz der Carr-Purcell-Methode.}
   \label{fig:CP}
 \end{figure}
-Die aufgenomenen Daten können nicht zur Bestimmung der transversalen
-Relaxationszeit verwendet werden, da bei jeder Pulsgebung eine Phasenverschiebung
-auftritt. Nach wenigen Iterationen tritt somit der Effekt einer Oszillation auf,
-wie in Abbildung \ref{fig:CP2} bei kleinerer Pulslänge des \SI{180}{\degree}-Pulses
-zu erkennen ist.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{rohdaten/cp_3.png}
-  \caption{Am Oszilloskop aufgenommene Carr-Purcell-Methode mit geringer
-  \SI{180}{\degree}-Pulslänge}
+  \caption{Am Oszilloskop aufgenommene Carr-Purcell-Methode für einen längeren Zeitraum.}
   \label{fig:CP2}
 \end{figure}
+Eine quantitative Auswertung des Pulshöhen in Abbildung \ref{fig:CP} wäre möglich,
+jedoch nicht sinnvoll.
+Wie im Theorieabschnitt \ref{sec:CP-und-MG} dargelegt tritt hier bei nicht
+exakt eingestellter Länge des \SI{180}{\degree}-Impulses eine systematische
+Abweichung auf, weil die Magnetisierung nicht exakt um \SI{180}{\degree}
+gedreht wurde.
+Aufgrund dessen ist die ermittelte Magnetisierung in der $\vec{x}'\vec{y}'$-Ebene
+geringer, als sie eigentlich wäre.
+Die Ungenauigkeit der Einstellung des \SI{180}{\degree}-Impulses ist klar in
+Abbildung \ref{fig:CP2} zu erkennen.
+Für einen größeren Zeitraum addieren sich die Zeitabweichungen des \SI{180}{\degree}-Impulses
+zum perfekten Wert immer weiter auf, bis die Magnetisierung wieder in die
+Ebene gedreht wird.
+Dieser Effekt erzeugt die in der Abbildung erkennbare Oszillation der
+Maxima der Pulssequenz.
 \FloatBarrier
 
 
@@ -216,6 +227,7 @@ so ergibt sich ein Wert von
 \end{align*}
 
 \subsection{Bestimmung des Molekülradius}
+\label{sec:AuswMolekuel}
 Der Molekülradius $r$ wird durch die Stockesschen Formel
 \begin{align*}
   r = \frac{k_\text{B} T}{6\pi\eta D}

@@ -144,7 +144,7 @@ def T2_Meiboom_Gill():
     make_table(header= ['$t$ /  \\milli\\second', '$U$ /  \\milli \\volt', '$t$ /  \\milli\\second', '$U$ /  \\milli \\volt','$t$ /  \\milli\\second', '$U$ /  \\milli \\volt'],
             places= [1.1, 4.2, 2.1, 3.2, 2.1, 4.2],
             data = [tau[0:6]*1000, M[0:6]*1000, tau[7:13]*1000, M[7:13]*1000, tau[14:20]*1000, M[14:20]*1000],
-            caption = 'Werte zur Bestimmung der longitudinalen Relaxationszeit $T_1$.',
+            caption = 'Werte zur Bestimmung der transveralen Relaxationszeit $T_2$.',
             label = 'tab:MG',
             filename = 'build/MG.tex')
 

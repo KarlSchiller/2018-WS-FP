@@ -105,3 +105,46 @@ in die $\vec{z}$-Richtung eingebaut wird. Dazu werden die Gradientenspulen maxim
 weit von der justierten Einstellung für ein homogenes Magnetfeld verstellt.
 Der nun erhaltene Gradient lässt sich aus der Halbwertsbreite $t_{\sfrac{1}{2}}$
 bestimmen, die mit Hilfe des Oszilloskops bestimmt werden kann.
+
+
+\subsection{Messung der Viskosität}
+\label{sec:DurchVisko}
+
+Mit Hilfe eines Ubbelohde-Viskosimeters wird die Viskosität von Wasser bestimmt.
+Aus der Durchflusszeit $t$ des Wassers durch eine Kappilare kann die
+Viskosität nach
+\begin{equation}
+  \eta\!\left(T\right) = \rho \alpha \left(t - \delta\right)
+  \label{eqn:Viskositaet}
+\end{equation}
+bestimmt werden.
+Dabei symbolisiert $\rho$ die Dichte von Wasser,
+$\alpha = \SI{1.024e-5}{\meter\squared\per\second\squared}$ eine Eichkonstante
+der Apparatur und $\delta$ eine weitere Apparaturbedingte Korrektur.
+In Tabelle \ref{tab:ViskoKorrektur} ist $\delta$ für verschiedene Werte
+von $t$ angegeben.
+
+\begin{table}
+	\centering
+  \caption{Apparative Korrektur in Abhängigkeit von der Durchflusszeit.}
+	\label{tab:ViskoKorrektur}
+	\begin{tabular}{
+		S[table-format=4.0]
+		S[table-format=1.1]
+		}
+	\toprule
+		{$t$\;/\;\si{\second}} &
+		{$\delta$\;/\;\si{\second}} \\
+	\midrule
+		  350 & 3.4 \\
+		  400 & 2.6 \\
+		  450 & 2.1 \\
+		  500 & 1.7 \\
+		  600 & 1.2 \\
+		  700 & 0.9 \\
+      800 & 0.7 \\
+      900 & 0.5 \\
+     1000 & 0.4 \\
+	\bottomrule
+	\end{tabular}
+\end{table}
