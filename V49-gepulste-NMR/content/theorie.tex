@@ -94,7 +94,7 @@ die sogenannten Blochschen Gleichungen
     \frac{\symup{d} M_\text{x}}{\symup{d} t} &= 
       \gamma B_0 M_\text{y} - \frac{M_\text{x}}{T_2} \\
     \frac{\symup{d} M_\text{y}}{\symup{d} t} &=
-      \gamma B_0 M_\text{x} - \frac{M_\text{y}}{T_2},
+      - \gamma B_0 M_\text{x} - \frac{M_\text{y}}{T_2},
   \end{split}
   \label{eqn:Bloch-Gleichungen}
 \end{equation}
@@ -141,7 +141,7 @@ sodass die Differentialgleichung zur Präzession die Gestalt
 % \end{equation*}
 \begin{equation*}
   \frac{\symup{d} \vec{M}}{\symup{d} t} =
-  \gamma \left(\vec{M} \times \vec{V}_\text{eff}\right)
+  \gamma \left(\vec{M} \times \vec{B}_\text{eff}\right)
 \end{equation*}
 mit einem eingeführten effektivem Magnetfeld
 \begin{equation*}
@@ -150,7 +150,7 @@ mit einem eingeführten effektivem Magnetfeld
 hat.
 Dies entspricht einer Präzession von $\vec{M}$ um $\vec{B}_\text{eff}$,
 was eine Änderung der $z$-Komponente von $\vec{M}$ bedeutet.
-Für $\vec{B}_\text{eff} = \vec{B}_1$ präzierdiert die Magnetisierung um $\vec{B}_1$
+Für $\vec{B}_\text{eff} = \vec{B}_1$ präzediert die Magnetisierung um $\vec{B}_1$
 mit $\sphericalangle\!\left(\vec{M}, \vec{B}_1\right) = \SI{90}{\degree}$.
 Wird das Hochfrequenzfeld für die Zeit
 \begin{equation}
@@ -160,7 +160,7 @@ Wird das Hochfrequenzfeld für die Zeit
 \end{equation}
 eingeschaltet, dreht sich die Magnetisierung aus der $z$-Richtung in die
 $y$-Richtung.
-Ebenso lässt sich ein \SI{180}{\degree}-Impuls realisieren, der die Magnetisierung
+Ebenso lässt sich ein \SI{180}{\degree}-Puls realisieren, der die Magnetisierung
 in die negative $z$-Richtung dreht.
 Im Folgenden werden verschiedene Methoden beschrieben, um die Relaxationszeiten
 $T_1$ und $T_2$ mit einer Kombination der eben erläuterten Pulsen zu bestimmen.
@@ -238,7 +238,7 @@ In Abbildung \ref{fig:Hahn-Echo} ist der gesamte erwartete Signalverlauf dargest
 \end{figure}
 Da die transversale Magnetisierung wie in Abschnitt \ref{sec:TheoMagnetisierung}
 beschrieben mit der Relaxationszeit $T_2$ zerfällt, hat das Spin-Echo nicht die
-selbe Höhe wie der Eingangsimpuls bei $t = \SI{0}{\second}$.
+selbe Höhe wie der Eingangspuls bei $t = \SI{0}{\second}$.
 Beschrieben wird dieser irreversible Zerfall durch
 \begin{equation*}
   \frac{\symup{d} M_\text{y}}{\symup{d} t} = - \frac{M_\text{y}}{T_2}
@@ -257,11 +257,11 @@ nach welchem sich aus der Höhe des Spin-Echos in Abhängigkeit der
 Zeit $\tau$ die Relaxationszeit $T_2$ bestimmen lässt.
 
 
-\subsection{Die Carr-Purcell und Meilboom-Gill Methode}
+\subsection{Die Carr-Purcell und Meiboom-Gill Methode}
 \label{sec:CP-und-MG}
 
-Die \emph{Carr-Purcell-Methode} (CPM) verwendet nach einem \SI{90}{\degree}-Impuls
-eine Reihe von \SI{180}{\degree}-Impulsen im Abstand $2 \tau$, die jeweils
+Die \emph{Carr-Purcell-Methode} (CPM) verwendet nach einem \SI{90}{\degree}-Puls
+eine Reihe von \SI{180}{\degree}-Pulsen im Abstand $2 \tau$, die jeweils
 zu einer nachfolgenden Fokussierung der transversalen Magnetisierung führen.
 Ein schematischer Signalverlauf ist in Abbildung \ref{fig:Carr-Purcell-Methode}
 dargestellt.
@@ -277,36 +277,37 @@ Echos pro Messung vermessen werden können.
 Wie im vorherigen Abschnitt beschrieben sinkt die Amplitude dieser Echos im
 Laufe der Zeit aufgrund von Relaxationsprozessen.
 Eine Schwierigkeit dieser Methode ist die exakte Einstellung der
-\SI{180}{\degree}-Impulse.
+\SI{180}{\degree}-Pulse.
 Ist diese nicht gegeben, werden die einzelnen Spins nicht genau in die
 $\vec{x}' \vec{y}'$-Ebene gedreht und die gemessene Magnetisierung
-der $\vec{x}' \vec{y}'$-Ebene ist zu klein (und damit auch das erhaltene $T_2$).
+der $\vec{x}' \vec{y}'$-Ebene ist zu klein (und damit auch das erhaltene $T_2$),
+da der Fehler akkumuliert wird.
 
-Diese Problematik wird in der \emph{Meilboom-Gill-Methode} (MGM)
+Diese Problematik wird in der \emph{Meiboom-Gill-Methode} (MGM)
 umgangen.
-Wie bei der CPM folgen auf einen \SI{90}{\degree}-Impuls mehrere \SI{180}{\degree}-Impulse.
-Hier wird jedoch die Schwingung in den \SI{180}{\degree}-Impulsen
-um \SI{90}{\degree} gegen die \SI{90}{\degree}-Impulse phasenverschoben.
+Wie bei der CPM folgen auf einen \SI{90}{\degree}-Puls mehrere \SI{180}{\degree}-Pulse.
+Hier wird jedoch die Schwingung in den \SI{180}{\degree}-Pulsen
+um \SI{90}{\degree} gegen die \SI{90}{\degree}-Pulse phasenverschoben.
 Folglich werden die einzelnen Spins nicht um die $\vec{x}'$-Achse,
 sondern um die $\vec{y}'$-Achse gedreht, da $\vec{B}_1$ nun in die $\vec{y}'$-Achse zeigt.
-Sind die \SI{180}{\degree}-Impulse nun nicht exakt eingestellt,
-wird der Fehler $\delta$ durch den darauf folgenden Impuls wieder ausgeglichen.
-In Abbildung \ref{fig:Meilboom-Gill-Methode} ist dieser Ausgleichprozess schematisch
+Sind die \SI{180}{\degree}-Pulse nun nicht exakt eingestellt,
+wird der Fehler $\delta$ durch den darauf folgenden Puls wieder ausgeglichen.
+In Abbildung \ref{fig:Meiboom-Gill-Methode} ist dieser Ausgleichprozess schematisch
 dargestellt.
-Abbildung \ref{fig:Meilboom-Gill-Methode} a) zeigt zwei exemplarische Spins,
-die nach dem ersten \SI{180}{\degree}-Impuls
+Abbildung \ref{fig:Meiboom-Gill-Methode} a) zeigt zwei exemplarische Spins,
+die nach dem ersten \SI{180}{\degree}-Puls
 nicht exakt in die $\vec{x}' \vec{y}'$-Ebene gedreht wurden.
 Somit ist gemessene transversale Magnetisierung
-nach Abbildung \ref{fig:Meilboom-Gill-Methode} b) zu klein.
-Werden die Spins in Abbildung \ref{fig:Meilboom-Gill-Methode} c) bei einem zweiten
-\SI{180}{\degree}-Impuls wiederum gedreht, so gleicht sich der Fehler
+nach Abbildung \ref{fig:Meiboom-Gill-Methode} b) zu klein.
+Werden die Spins in Abbildung \ref{fig:Meiboom-Gill-Methode} c) bei einem zweiten
+\SI{180}{\degree}-Puls wiederum gedreht, so gleicht sich der Fehler
 wieder aus und die Refokussierung liegt wieder in der $\vec{x}' \vec{y}'$-Ebene.
 Folglich besitzen anders als bei der CPM alle Echos das selbe Vorzeichen.
 \begin{figure}
   \centering
   \includegraphics[width=.7\textwidth]{images/meilboom-gill.pdf}
   \caption{Schematische Darstellung der Refokussierung bei der MGM \cite[12]{anleitung}.}
-  \label{fig:Meilboom-Gill-Methode}
+  \label{fig:Meiboom-Gill-Methode}
 \end{figure}
 
 
@@ -318,6 +319,8 @@ Molekularbewegung.
 Dies hat zur Folge, dass das von den Spins wahrgenommene Magnetfeld
 zeitlich veränderlich ist und Gleichung \eqref{eqn:Spin-Echo-Statisch} nicht mehr
 anwendbar ist.
+Bei einer festen Probe tritt zwar auch Diffusion auf, jedoch in deutlich kleinerer
+Größenordnung, die vernachlässigbar ist.
 Eine adequate Beschreibung ist nur durch Ergänzung eines zusätzlichen Diffusionsterms
 zu den Blochschen Gleichungen möglich.
 Die Diffusionsstromdichte $\vec{j}$ (Anzahl Teilchen, die pro Zeiteinheit eine
@@ -362,7 +365,7 @@ mit
 \end{equation*}
 für die $y$-Komponente der Magnetisierung gewinnen.
 Hierbei ist $\tau$ die in Abschnitt \ref{sec:CP-und-MG} eingeführte Zeit zwischen
-dem \SI{90}{\degree}- und dem \SI{180}{\degree}-Impuls.
+dem \SI{90}{\degree}- und dem \SI{180}{\degree}-Puls.
 Aufgrund der Diffusion ergibt sich also ein zweiter exponentieller Faktor, der
 zum Zerfall der Magnetisierung beiträgt.
 Die CPM und die MGM aus Abschnitt \ref{sec:CP-und-MG} können weiterhin
@@ -383,17 +386,17 @@ woraus sich bei Variation von $t$ die Diffusionskonstante ermitteln lässt.
 
 Die longitudinale Relaxationszeit $T_1$ kann auf eine ähnliche Weise wie die
 transversale Relaxationszeit bestimmt werden.
-Ein \SI{180}{\degree}-Impuls dreht alle Spins aus der $\vec{z}$-Richtung in
+Ein \SI{180}{\degree}-Puls dreht alle Spins aus der $\vec{z}$-Richtung in
 die negative $\vec{z}$-Richtung. Im zeitlichen Verlauf relaxieren die Spins zurück
 in die $\vec{z}$-Richtung (Gleichgewichtslage).
-Nach der Zeit $\tau$ dreht ein \SI{90}{\degree}-Impuls die verbliebene Magnetisierung
+Nach der Zeit $\tau$ dreht ein \SI{90}{\degree}-Puls die verbliebene Magnetisierung
 der $-\vec{z}$-Richtung in die $\vec{x}'\vec{y}'$-Ebene.
 Dort präzedieren die einzelnen Spin und induzieren damit eine Spannung, die
 proportional zur Magnetisierung ist.
 Aus den Blochschen Gleichung ergibt sich mit den Anfangsbedingungen
 \begin{equation*}
   M_\text{x}\!\left(0\right) = M_\text{y}\!\left(0\right) = 0
-  \quad \text{und} \quad M_\text{z}\!\left(0\right) = M_0
+  \quad \text{und} \quad M_\text{z}\!\left(0\right) = -M_0
 \end{equation*}
 für die Magnetisierung in $\vec{z}$-Richtung
 \begin{equation}
