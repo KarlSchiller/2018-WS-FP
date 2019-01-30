@@ -15,7 +15,7 @@ Neben den Shim-Parametern wurden die Lamor-Frequenz $\omega_\text{L}$, die
 Pulslänge $\Delta t_\text{90}$ und die Referenzphase $\phi$ eingestellt auf:
 \begin{align*}
   \omega_\text{L} &= \SI{21.71198}{\mega\hertz} \\
-  \Delta t_\text{90} &= \SI{4.40}{\mu\second} \\
+  \Delta t_\text{90} &= \SI{4.40}{\micro\second} \\
   \phi &= \SI{60}{\degree} \\
 \end{align*}
 Diese Parameter wurden bei den einzelnen Versuchsteilen nachgeprüft und
@@ -212,7 +212,7 @@ Die Viskosität wird durch die Funktion
   \eta(T) = \rho \alpha \left(t - \delta\right)
 \end{align*}
 \input{build/viskos.tex}
-verwendet. Es wurden die Werte $\rho = \SI{1000}{\kilo\gram\per\cubic\meter}$
+berechnet. Es wurden die Werte $\rho = \SI{1000}{\kilo\gram\per\cubic\meter}$
 und $\alpha = \SI{1.2024d-9}{\square\meter\per\square\second}$ verwendet. Mit
 Hilfe der gegebenen Werte aus Tabelle \ref{tab:viskos} ist durch eine lineare
 Regression ein Wert von
@@ -223,7 +223,7 @@ bestimmt worden. Wird dieser Wert mit dem gemessenen Zeitintervall
 $t = \SI{930}{\second}$ in die Formel für die Viskosität eingesetzt,
 so ergibt sich ein Wert von
 \begin{align*}
-  \eta = \SI{9.4d4}{\kilo\gram\per\meter\per\second}.
+  \eta = \SI{9.4d-4}{\kilo\gram\per\meter\per\second}.
 \end{align*}
 
 \subsection{Bestimmung des Molekülradius}
@@ -245,12 +245,12 @@ $m_{H_2O} = \SI{28.89d-27}{\kilo\gram}$ und der Dichte von
 $\rho = \SI{997.04}{\kilo\gram\per\cubic\meter}$ \cite{hcp} ergibt sich der
 Molekülradius
 \begin{align*}
-  r_\text{hcp} = \SI{1.44}{\angstrom}.
+  r_\text{hcp} = \left(\frac{m_{H_2O}}{\frac{4}{3} \pi \rho \cdot 0,74 }\right)^\frac{1}{3} = \SI{2.10}{\angstrom}.
 \end{align*}
-Als zweite Annahme wird ein van-der-Waals Gas am kristischen Punkt angenommen,
+Als zweite Annahme wird ein van-der-Waals Gas am kritischen Punkt angenommen,
 daraus ergibt sich
 \begin{align*}
-  r_\text{VdW} = \left(\frac{3kT_\text{k}}{128\pi P_\text{k}}\right)^\frac{1}{3} = \SI{2.11}{\angstrom}.
+  r_\text{VdW} = \left(\frac{3kT_\text{k}}{128\pi P_\text{k}}\right)^\frac{1}{3} = \SI{1.44}{\angstrom}.
 \end{align*}
 Dabei ist $T_\text{k} = \SI{647.05}{\kelvin}$ und $P_\text{k} = \SI{22.04e6}{\pascal}$ \cite{VdW}.
 

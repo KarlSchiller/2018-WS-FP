@@ -247,16 +247,16 @@ def r_molekuel(D, FWHM):
 
 
     #   theoriewert Van-der Waal
-    rVdW = (3*k[0]*647.05/(128*np.pi*22.04*10**6))**(1/3)
+    rVdW = (3*k[0]*642.05/(128*np.pi*22.04*10**6))**(1/3)
     print('Theoriewert für die Van-der-Waals Annahme: r = ', rVdW)
 
     # Theoriewert hcp
-    rhcp = (28.87*10**(-27)/(4/3*np.pi*0.74*997.04))**(1/3)
+    rhcp = (28.57*10**(-27)/(4/3*np.pi*0.74*997.04))**(1/3)
     print('Theoriewert für die hcp Annahme: r = ', rhcp)
 
 
     print('Vergleich mit r_VdW: ', (r_berechnet-rVdW)/rVdW)
-    print('Vergleich mit r_VdW: ', (r_berechnet-rhcp)/rhcp)
+    print('Vergleich mit r_hcp: ', (r_berechnet-rhcp)/rhcp)
 
 if __name__ == '__main__':
 
