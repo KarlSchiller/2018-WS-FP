@@ -161,3 +161,47 @@ dagestellt.
 
 Dabei ist zwischen dem mittleren Energieverlust und dem wahrscheinlichsten Energieverlust
 zu unterscheigen. Dies tritt durch die asymmetrische Landau-Funktion auf.
+
+
+\subsection{Pedestals und Noise}
+\label{sec:Theorie_Noise}
+
+Durch den Detektor und seine Ausleseelektronik enstehen Störsignaleoder Rauschen,
+sogennante Noise. Um dieses Rauschen zu Minimieren wird die gemessene Anzahl von
+Analog-Digital-Converter(ACD)-Counts für ein Signal $k$ und einen Streifen $i$
+berechnet durch
+\begin{equation}
+  \text{ADC}(i, k) = \text{P}(i) + \text{D}(k) + \text{Signal}(i, k).
+\end{equation}
+Dabei beschreibt der Pedastal P($i$) den Mittelwert der ADC-Counts für einen
+einzelnen Streifen ohne zu erwartendes Signal un der Common Mode Shift D($k$)
+eine Störung für alle Streifen während eines Events. P($i$) und D($k$) berechnen
+sich wie folgt:
+\begin{align}
+  \text{P}(i) &= \frac{1}{N} \sum_{k=1}^N \text{ADC}(i, k) \\
+  \text{D}(k) &= \frac{1}{128} \sum_{i=1}^{128} \left(\text{ADC}(i, k) - \text{P}(i) \right)
+\end{align}
+Wird nun eine Nullhypothese auf das Signal gesetzt, so lässt sich durch einen
+Root Mean Square die noise der einzelnen Streifen berechnen:
+\begin{equation}
+  \text{Noise}(i) = \sqrt{ \frac{1}{N-1} \sum_{k=1}^N \left(\text{ADC}(i,k) - \text{P} (i) - \text{D}(k)\right)^2 }
+\end{equation}
+bei einer Aufnahme von Daten wird ein \textit{Signal-to-Noise-Cut} durchgeführt,
+um das Rauschen so gut wie möglich herausfiltern zu können. Dies geschieht
+dadurch, dass ein Verhältnis zwischen den gemessenen Signalen des $\beta$-Strahlers
+und dem Rauschen der Streifen gebildet wird. Ist dieses Verhältnis größer als 5,
+so wird ein Trigger gesetzt und die Daten werden zur Messung herangezogen. Bleibt
+das Verhältnis jedoch unter 5, so werden die Daten verworfen.
+
+Zuletzt muss noch auf die Bildung von Clustern eingegangen werden. Cluster
+bezeichnet man dabei das Messen eines Signals in mehreren Streifen. Grundlegend
+gibt es drei Effekte die auftreten können.
+\begin{enumerate}
+  \item \textit{Charge Sharing}: Hier trifft ein geladenes Teilchen genau
+  zwischen zwei Streifen auf. Draufhin messen beide Streifen das Signal.
+  \item \textit{Crosstalks}: Durch ein Signal in der Ausleseelektronik wird ein
+  neues Signal an einem benachbarten Streifen gemessen.
+  \item \textit{horizontale Events}: geht ein geladenes Teilchen horizontal durch
+  alle Streifen hindurch, so geht jegliche Ortsinformation verlohren. Für diese
+  Ereignisse sind die Streifendetektoren nicht konstuiert worden.
+\end{enumerate}

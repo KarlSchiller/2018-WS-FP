@@ -24,7 +24,7 @@ Ring zur Ausleseelektronik angebracht. In Abbildung \ref{fig:streifen} ist dies 
 einer makroskopischen Aufnahme deutlich gemacht.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.7\textwidth]{images/Sensor.png}
+  \includegraphics[width=0.6\textwidth]{images/Sensor.png}
   \caption{Makroskopische Aufnahmne eines Streifen-Detektors mit entsprechender kennzeichnung der einzelnen Komponenten \cite{anleitung}.}
   \label{fig:streifen}
 \end{figure}
@@ -34,16 +34,135 @@ Spannungssignale umgewandelt. Dann werden die Signale in eine Pipeline geschickt
 
 Diese Funktionsweise funktioniert, wie in \ref{sec:Theorie} erst richtig, wenn der
 Halbleiterdetektor follständig depletiert ist. Bei dem EASy liegt dazu
-$U_\text{Dep}$ bei ungefähr \SIrange{60}{80}{\volt}.
+$U_\text{Dep}$ bei ungefähr \SIrange{60}{80}{\volt}. Um zu ermitteln, in wiefern der Detektor depletiert ist, wird die Effizienz der Ladunssammlung (CCE) bestimmt. Maximal ist diese Effizienz, wenn eine vollkommene Depletierung ($U = U_\text{Dep}$) vorhanden ist. Mithilfe eines Lasers, kann nun die CCE bestimmt werden durch
+\begin{equation}
+  \text{CCE}(U) = \frac{1 - \exp\left(\frac{-d_\text{c}(U)}{a}\right)}{1 - \exp\left(\frac{-D}{a}\right)}.
+\end{equation}
+Hierbei ist $d_\text{c}$ die Dicke der Depletionszone, $D$ die Sensordicke und $a$ die Eindringtiefe des Lasers in das Silizium.
 
+\subsection{Lasereinheit}
+\label{sec:Lasereinheit}
 Aus Abbildung \ref{fig:Gehäuse}ist das äußere Gehäuse des Detektors zu entnehmen.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.7\textwidth]{images/Gehäuse.png}
+  \includegraphics[width=0.9\textwidth]{images/Gehäuse.png}
   \caption{Fotographie des EASy Gehäuses mit integriertem Laser und Carbon-Plätchen, sowie den einzelnen Anschlüssen \cite{anleitung}.}
   \label{fig:Gehäuse}
 \end{figure}
+Auf dem Gehäuse steckt ein Reiter mit einem eingebauten Laser zur Untersuchung der
+Detektoreigenschaften. Dieser kann in zwei Laser(L)- oder in Quell(Q)-Position gestellt werden, je nachdem, welche Mesung durchgeführt werden soll.
 
+Der angebrachte Laser emittiert Licht mit einer Wellenlänge von \SI{980}{\nano\meter} mit einem Durchmesser von \SI{20}{\micro\meter}, einer Pulslänge von \SI{5}{\nano\second} und einer Spitzenleistung von \SI{0.6}{\milli\watt}.
+An dem Laser sind zwei Miktrometerschrauben angebracht um diesen in der vertikalen Fokussieren und in der horizontalen verschieben zu können.
+
+\subsection{Kontrolleinheit}
+Die Kontrolleinheit, in Abbildung \ref{fig:control} zu sehen, dient zur Steuerung des Detektors. Über den Sockel mit der Aufschrift \textit{Sensor Unit} kann durch ein  Flachbandkabel eine Verbindung zwischen Detektoreinheit und Kontrolleinheit hergestellt werden. Zudem können für die Messungen mit dem Laser ein Glasfaserkabel, bzw. für die Quellmessungen ein Triggerkabel angeschlossen werden. Über den Drehknopf \textit{Diode Bias} wird eine bestimmte Vorspannung auf den Bias Ring und somit auf die Halbleiterstreifen gegeben. Diese ist im Kontrollfenster, zusammen mit dem auftretenden Strom abzulesen.
+Auf der Rückseite der Kontrolleinheit befindet sich unter anderem ein Anschluss für einen Kaltgerätestecker.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/Control.png}
+  \caption{Front- und Rückansicht der Kontrolleinheit und ihrer Anschlüsse \cite{anleitung}.}
+  \label{fig:control}
+\end{figure}
+
+Werden alle Bestandteile angeschlossen, so ist der Aufbau wie in Abbildung \ref{fig:aufbau} dargestellt zu erhalten.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/Aufbau.png}
+  \caption{Graphischer Aufbau des kompletten Versuches mit Detektoreinheit (Daughterbrd), Kontrolleinheit (Motherboard) und Computer \cite{anleitung}.}
+  \label{fig:aufbau}
+\end{figure}
+Für Messungen mit der Sr-Quelle wird die Detektoreinheit zusätzlich in ein Kiste
+mit Bleiabdeckung plaziert, damit keine radioaktive Strahlung nach außen gelangen
+kann. dies ist in Abbildung \ref{fig:quell} noch einmal zu sehen.
+\begin{figure}[htb]
+  \centering
+  \includegraphics{images/Abschirmung.png}
+  \caption{Vertikale Sicht auf die Detektoreinheit in horizontaler Bleiabschirmung \cite{anleitung}.}
+  \label{fig:quell}
+\end{figure}
 
 \section{Durchführung}
 \label{sec:Durchführung}
+
+\subsection{Folgen des Yttrium-90 Prozesses}
+\label{sec:Yttrium}
+
+\subsection{Messung der Strom-Spannungs-Kennlinie}
+\label{sec:Kennlinie}
+Zur Aufnahme einer Strom-Spannungs-Kennlinie werden die Detektor und Kontrolleinheit
+an den Computer angeschlossen und das zum EASy mitgeführte Programm \textit{Alibava\_gui}
+gestartet werden. Zur eigentlichen Messung muss die Vorspannung von \SI{0}{\volt} bis
+einschließlich \SI{200}{\volt} in einigen Schritten durchlaufen und aufgezeichnet werden.
+
+Dann wird eine Depletionsspannung im erhaltenen Verlauf durch Übergang von einem
+sättigenden zu einer linearen Verlauf abgeschätzt. In den weiteren Messungen wird
+ein Wert für die Depletionsspannung gewählt, der ca. \SI{20}{\volt} größer ist als
+der ermittelte Wert.
+
+\subsection{Pedestals und Noise}
+\label{sec:Auswertung_Noise}
+Um Informationen über die Pedestals und Noise zu erhalten, wird eine LogData im
+Ordner Pedestal und Namen Pedestalr.h5 angelegt und ein \textit{Pedastal Run}
+durchgeführt. Hierbei wird die Messung für 1000 Events durchgeführt.
+
+\subsection{Kalibrationsmessung}
+\label{sec:Kalibrationsmessung}
+Nun wird über das Flachbandkabel ein Elektronenpuls an den Auslesechip gegeben
+um die ADC-Counts in Ladung umrechnen zu können. Um eine Kalibrationskurve
+aufzunehmen wird die Option \textit{Calibration Run} gewählt und im entsprechenden
+Optionsfenster die Default-Werte der Delay Einstellung wie in Abbildung
+\ref{fig:calibration} zu sehen verwendet. Nun wird der Delay-Scan durchgeführt
+um eine optimale Verzögerung zwischen eingegebenem Signal und Chipauslese zu
+erhalten. Anschließend ist das Maximum der entstandenen Verteilung zu suchen und
+der entsprechende Wert unter \textit{Settings} und \textit{DAQ} einzutragen.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.6\textwidth]{images/Calibration.png}
+  \caption{Default-Einstellungen der Messung einer Kalibrationskurve zur Bestimmung der besten Verzögerung zwischen gebenen Elektronenpuls und Chipauslese \cite{anleitung}.}
+  \label{fig:calibration}
+\end{figure}
+
+Im zweiten Schritt werden fünf verschiedene Kanäle bzw. Streifen des Streifendetektors
+ausgewählt und unter \textit{Option} im \textit{Calibration}-Menü nacheinander
+eingestellt. Für jeden Streifen wird ein Run durchgeführt und die Graphik gespeichert.
+Für einen der fünf Streifen wird zudem ein Run bei $U=\SI{0}{\volt}$ durchgeführt.
+
+
+\subsection{Vermessung der Streifendetektoren mittels Laser}
+\label{sec:Vermessung_Laser}
+Hier wird nun die Streifenstruktur des Detektors untersucht. Dies funktioniert,
+da sich in der Mitte diese Streifen eine Metallisierung befindet, welche das vom
+Laser emittierte Licht reflektiert und daher den Halbleiter nicht durchdringt.
+als erstes wird dazu die optimale Verzögerung zwischen Lasersignal und Chipauslese
+bestimmt. Dafür wird unter \textit{Option} \textit{Laser Sync.} ausgewählt und
+der Run durchgeführt. Aus dem Maximum der angezeigten Abhängigkeit zwischen
+gemessenen ADC-Counts und Verzögerung kann nun die optimale Verzögerung abgelesen
+und unter dem Formularfeld bei \textit{Laser Run} eingetragen werden.
+
+Als nächstes wird mithilfe der horizontalen Mikrometerschraube der Peaks maximiert.
+Dies ist der Fall, wenn genau ein Streifen getroffen wurde. Ab dort wird in \num{35}
+\SI{10}{\micro\meter}-Schritten ein Laserscan durchgeführt und diese gespeichert.
+
+
+\subsection{Bestimmung der Charge Collection Eficiency}
+\label{sec:CCE}
+\subsubsection{Unter Verwendung eines Lasers}
+Wie im Schritt zuvor wird zu Beginn dieser Messung erst der maximale Peak mit
+optimaler Verzögerung gesucht. Nun wird allerdings für je \num{1000} Events die
+Spannung von \SIrange{0}{200}{\volt} in \SI{10}{\volt}-Schritten erhöht und ein
+Run durchgeführt.
+
+\subsubsection{Unter Verwendung einer Sr-Quelle}
+Nach dem Umplatzierung der Detektoreinheit in einen strahlengeschützen Aufbau wird
+analog zu der CCE-Bestimmung duch einen Laser die Spanung in \SI{10}{\volt}-Schritten
+von \SIrange{0}{200}{\volt} erhöht. Hier werden pro Run der Datensatz auf \num{10000}
+erhöht.
+
+\subsection{Großer Quellscan}
+\label{sec:Quellscan}
+Für die letzte Messung wird die Spannung wie in der Messung der Strom-Spannungs-Kennlinie
+auf einen Wert leicht über der Depletionsspannung gesetzt und ein \textit{RS Run} mit
+einer Anzahl der Events von \num{1000000} durchgeführt und abgespeichert.
+
+Durch ein mitgeführtes Programm werden alle \textit{.h5}-Dateien in passende .txt-Dateien umgewandelt, damit diese für die Auswertung herangezogen werden können.
