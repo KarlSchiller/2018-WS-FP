@@ -40,12 +40,8 @@ def test():
 
     # plot test data
     U_plot = np.linspace(0, 19, 10000)
-    plt.plot(x=U_plot,
-            y=linear(U_plot, *params),
-            color=tugreen,
-            linestyle='-',
-            label='Regression',
-            linewidth=0.8)
+    plt.plot(U_plot, linear(U_plot, *params),
+            color=tugreen, linestyle='-', label='Regression', linewidth=0.8)
     plt.plot(U, I, 'kx', label='Messwerte')
     plt.xlabel(r'$U\:/\:\si{\volt}$')
     plt.ylabel(r'$I\:/\:\si{\milli\ampere}$')
