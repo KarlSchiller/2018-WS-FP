@@ -30,6 +30,7 @@ def ui_characteristic():
     '''Strom-Spannungs-Kennlinie'''
     U, I = np.genfromtxt('rohdaten/ui-characteristic.txt', unpack=True)
 
+    print('\tPlot UI-Characteristic')
     plt.axvspan(xmin=65, xmax=85, facecolor=tugreen, label=r'Mögliches $U_{\mathrm{Dep}}$')  # alpha=0.9
     plt.axvline(x=100, color='k', linestyle='--', linewidth=0.8, label=r'Anglegte $U_{\mathrm{Exp}}$')
     plt.plot(U, I, 'kx', label='Messwerte')
@@ -49,6 +50,67 @@ def ui_characteristic():
             filename = 'build/ui-characteristic.tex')
 
 
+def pedestal_run():
+    '''Auswertung des Pedestals, Noise und Common Mode'''
+    # adc counts
+    adc = np.genfromtxt('rohdaten/Pedestal.txt',
+            unpack=True,
+            delimiter=';')
+    # pedestal, mean of adc counts without external source
+    pedestal = np.mean(adc, axis=0)
+    # common mode shift, global noise during a measurement
+    common_mode = np.mean(adc-pedestal, axis=1)
+    # temporary variable to compute adc - pedestal - common_mode
+    difference = ((adc - pedestal).T - common_mode).T
+    # noise, the 'signal' of the measurement without ext source
+    noise = np.sqrt(np.sum((difference)**2, axis=0)/(len(adc)-1))
+
+    print('\tPlot Pedestal and Noise')
+    stripe_indices = np.array(range(128))
+    fig, ax1 = plt.subplots()
+    #  plt.bar(stripe_indices,
+            #  height = pedestal,
+            #  width = 0.8)
+    ax1.errorbar(x=stripe_indices,
+            y=pedestal,
+            xerr=0.5,
+            yerr=0.2,
+            elinewidth=0.7,
+            fmt='none',
+            color='k',
+            label='Pedestal')
+    ax1.set_ylabel('Pedestal', color='k')
+    ax1.set_xlabel('Kanal')
+    ax1.tick_params('y', colors='k')
+    ax1.set_ylim(500.5, 518.5)
+    ax2 = ax1.twinx()
+    ax2.errorbar(x=stripe_indices,
+            y=noise,
+            xerr=0.5,
+            yerr=0.01,
+            elinewidth=0.7,
+            fmt='none',
+            color=tugreen,
+            label='Noise')
+    ax2.set_ylabel('Noise', color=tugreen)
+    ax2.tick_params('y', colors=tugreen)
+    ax2.set_ylim(1.75, 2.55)
+    #  fig.legend()
+    fig.tight_layout()
+    fig.savefig('build/pedestal.pdf')
+    fig.clf()
+
+    print('\tPlot Common Mode Shift')
+    measurement_indices = np.array(range(1000))
+    plt.bar(measurement_indices, common_mode, color='k')
+    plt.xlabel('Kanal')
+    plt.ylabel('Common Mode Shift')
+    plt.tight_layout()
+    plt.savefig('build/common-mode.pdf')
+    plt.clf()
+
+
+# Alte Funktion, hier nur syntax klauen
 def eichung():
     '''Eichung der Magnetischen Flussdichte'''
     # Eichung des Elektromagneten
@@ -89,4 +151,7 @@ if __name__ == '__main__':
     if not os.path.isdir('build'):
         os.mkdir('build')
 
-    ui_characteristic()
+    #  print('UI-Characteristic')
+    #  ui_characteristic()
+    print('Pedestal Run')
+    pedestal_run()
