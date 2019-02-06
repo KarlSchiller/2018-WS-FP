@@ -26,7 +26,7 @@ def linear(x, a, b):
     '''Lineare Regressionsfunktion'''
     return a * x + b
 
-def ui_characterstic():
+def ui_characteristic():
     '''Strom-Spannungs-Kennlinie'''
     U, I = np.genfromtxt('rohdaten/ui-characteristic.txt', unpack=True)
 
