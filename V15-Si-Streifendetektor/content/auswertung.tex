@@ -5,13 +5,96 @@
 \subsection{Strom-Spannungs-Kennlinie}
 \label{sec:UI-Auswerung}
 
+Wie im Theoriekapitel % TODO: Referenz einfügen
+beschrieben, ergibt sich aus thermischen Anregungen von Elektron-Loch-Paaren
+ein Leckstrom.
+Dieser ist für einen Bereich von \SIrange{0}{200}{\volt} aufgenommen worden,
+die zugehörigen Messwerte befinden sich in Tabelle \ref{tab:ui-characteristic}.
+% Händisch aufgenommene Messwerte der UI-Kennlinie
+\input{build/ui-characteristic.tex}
+Nach Überschreiten der Depletionsspannung $U_\text{Dep}$ werden keine Ladungsträger mehr als
+Leckstrom gemessen, die aus der Dotierung resultieren.
+Somit ergibt sich im Bereich um $U_\text{Dep}$ eine Unstetigkeit der in
+Abbildung \ref{fig:ui-characteristic} dargestellten Kennlinie.
 \begin{figure}
   \centering
   \includegraphics{build/ui-characteristic.pdf}  % [width=\textwidth]
   \caption{Aufgenommene Strom-Spannungs-Kennlinie.
-  In blau ist der abgeschätzte Bereich der Depletionsspannung $U_\text{Dep}$ eingezeichnet.
+  In grün ist der abgeschätzte Bereich der Depletionsspannung $U_\text{Dep}$ eingezeichnet.
   Die für folgende Messungen eingestellte Spannung $U_\text{Exp}$ ist gestrichelt dargestellt.}
   \label{fig:ui-characteristic}
 \end{figure}
+Eine Bestimmung der Depletionsspannung ist nur auf einen Bereich zwischen
+\SIrange[range-phrase={\text{ und }}]{65}{85}{\volt}
+möglich, der in Abbildung \ref{fig:ui-characteristic} grün eingefärbt ist.
+Für weitere Messungen wurde die Spannung auf \SI{100}{\volt} eingestellt, um
+die vollständige Depletion der Diode zu erreichen.
 
-\input{build/ui-characteristic.tex}
+\FloatBarrier
+\subsection{Störsignale}
+\label{sec:Stoersignale-Auswertung}
+
+- Common Mode entsteht durch alle möglichen Effekte, die alle Streifen betreffen.
+z.B. Kabel, die als Antenne wirken oder das den Versuchsaufbau umgebene Stromnetz
+- Common Mode in einem Histogramm darstellen
+- Was ist das Nois? Bei dieser Messung gilt die Nullhypothese, dass wir kein Signal haben.
+Somit ist das Signal nach Abzug von Pedestal und Common Mode unser Noise
+
+\subsection{Kalibration des Streifendetektors}
+\label{sec:Kalibration-Auswertung}
+
+- Maximum des Delay-Scans bei \SI{64}{\nano\second}
+- Betrachtete Kanäle 35, 90, 10, 120, 60
+- Messwerte der Kanäle und deren Mittelwert plotten. Begründung:
+Weil die so wenig voneinander abweichen, nehmen wir diese Kalibration für alle Streifen.
+- Definierte Anzahl an Ladungsimpulsen auf X achse. Mit der benötigten Energie
+für die erzeugung eines Elektron-Loch-Paares lässt sich dies in eine Energie umrechnen.
+- Bei \SI{0}{\volt} Kanal 60
+
+\subsection{Vermessung der Streifensensoren}
+\label{sec:Vermessung-Auswertung}
+
+- Stellschraube bei \SI{4.00}{\milli\meter}, hier Maximum der Intensität -> Streifen
+- 35 Punkte aufgenommen von \SIrange{4.00}{4.34}{\milli\meter}
+- pitch der Streifen meint deren Periodizität. Nach Definition beträgt die Dicke der
+Streifen nicht deren p-Dotierte Dicke, sondern die Hälfte dazwischen auch mit dazu.
+Somit grenzen sie aneinander und mit der Periodizität wird quasi die Breite eines
+solchen Streifens ausgemessen.
+- Die Ausdehnung des Lasers kann aus der steigenden und fallenden Flanke des Signals
+ermittelt werden. Da der Laser fokussiert ist, zeigt es, wie viel Weg es braucht,
+bis der komplette Laser auf einen Streifen scheint. Da hier \SI{10}{\micro\meter}-Schritte,
+ist dies sehr ungenau abzuschätzen.
+
+\subsection{Bestimmung der Charge Collection Efficiency}
+\label{sec:CCE-Auswertung}
+
+- Position des Lasers horizontal wieder bei \SI{4.00}{\milli\meter}, mit vorherigem
+Kapitel motivieren.
+
+\subsubsection{Bestimmung der CCE unter Verwendung eines Lasers}
+\label{sec:CCEL-Auswertung}
+
+- Die entsprechende Gleichung gilt nur bei Anregung mit Photonen, weshalb dieser Fit
+nicht bei der CCEQ-Messung verwendet werden kann
+- Depletionsspannung bisher nur sehr ungenau vermessen, deshalb hier bitte als
+Fitparameter mitgeben.
+
+\subsubsection{Bestimmung der CCE unter Verwendung einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
+\label{sec:CCEQ-Auswertung}
+
+- Die Elektronen haben eine hohe Energie. Nach der modifizierten Bethe-Bloch-Gleichung
+ist bei diesen Energien genau ein Minimum bei der deponierten Energie pro Weg, sodass
+relativ wenig Energie deponiert wird.
+- Weiterhin dünner Sensor, damit grobe Näherung, dass die Elektronen bei dem Weg durch
+den Sensor überall die selbe Energie abgeben.
+- Energiedeposition der Elektronen immer die selbe, eine Variation in der gemessenen
+deponierten Energie liegt also nur an der angelegten Spannung
+
+\subsubsection{Quellenscan einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
+\label{sec:Quellenscan-Auswertung}
+
+- Signal/Noise = 5 als Cut, alles darunter weg geschnitten. Damit bei Clustern
+links und rechts neben dem Hauptpeakt vllt zu viele Informationen heraus genommen.
+Daher können Abweichungen entstehen.
+- WICHTIG: ACD erst in Ladung/Energiecounts umrechnen, dann Cluster addieren!
+Polynom ist nämlich nicht linear...
