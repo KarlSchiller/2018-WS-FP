@@ -1,20 +1,163 @@
 \section{Zielsetzung}
 \label{sec:Zielsetzung}
 
+Das Ziel dieses Versuches ist es, den Aufbau und die Funktionsweise eines
+Silizium-Halbleiterdetektors zu aufzuzeigen und mithilfe verschiedener Messungen dessen
+Eigenschaften zu untersuchen. Durch die Betrachtung der Ausleseelektronik und
+der Datenverarbeitung soll zudem ein Ausblick auf größere Teilchendetektoren
+gegeben werden. Schließlich wird eine $\beta^{-}$-Quelle untersucht.
+
 \section{Theorie}
 \label{sec:Theorie}
+\subsection{Aufbau eines Inneren Detektors}
 
-% \begin{figure}
-%   \centering
-%   \includegraphics[height=5.5cm]{content/Bild.png}
-%   \caption{Bilduterschrift}
-%   \label{fig:Bild}
-% \end{figure}
+Die Si-Streifendetektoren sind bei großen teilchenphysikalischen Detektoren,
+wie z.B. dem ATLAS-Detektor am LHC, Teil eines sogennanten \textit{Inneren Detektors (ID)}.
+Die Aufgabe des ID ist es die Spuren der ionisierenden Teilchen zu erfassen und
+durch die Bestimmung ihres Impulses erste wichtige Informationen über diese zu
+erhalten.
+Dabei werden dicht an die Pipeline, in der die Ausgangsteilchen beschleunigt und
+zur Kollision gebracht werden. Nahe an der Pipeline sind Pixel-Detektoren plaziert,
+diese sind sehr ähnlich aufgebaut wie Streifendetektoren. Aufgrund ihrer kleineren
+Detektionsfläche besitzen diese eine wesentlich höhere örtliche Auflösung, sind
+allerdings in der Produktion erheblich teurer. Daher werden die günstigeren
+Streifendetektoren in zueinander verdrehten Schichten über die Pixeldetektoren
+gelegt, um die Spuren weiter verfolgen zu können.
+Als letzte Schicht wird ein Übergangsstrahlungsspurdetektor verwendet, der die
+Aufgabe hat die Krümmung der Teilchenspuren bei einem angelegten Magnetfeld zu
+erfassen. Im weiteren Schritt werden die Krümmungsradien der Teilchenspuren
+berechnet und daraus die Impulse berechnet.
 
-% \subsection{Unterkapitel}
-% \label{sec:UnterKapitel}
+\subsection{Halbleiter}
+Als Halbleiter werden jene Materialien bezeichnet, die werde Isolatoren, noch Leiter
+sind. Das bedeutet, dass sie eine Bandlücke mit maximal \SIrange{4}{5}{\electronvolt}
+besitzen. Eine Bandlücke ist
+als jene Energie definiert, die ein Elektron besitzen muss, um von dem Valenz-
+in das Leitungsband zu wechselt. Dabei gibt es verschiedene
+Untergruppen der Halbleiter.
+In diesem Versuch wird dazu Silizium verwendet. Dieser Halbleiter besitzt vier
+Valenzelektronen und eine typische Bandlücke von \SI{1.107}{\electronvolt}.
+ Dabei werden die Siliziumatome in einer Diamantstruktur angeordnet. Daraus
+ resultiert, dass jedes Atom vier Nachbaratome besitzt, welche alle zur Bindungung
+ beitragen.
 
-% \begin{equation}
-% Für Formeln
-%   \label{eqn:Formel}
-% \end{equation}
+ Springt ein Elektron in das Leitungsband, so hinterlässt es einen positiv
+ geladenen Atomrumpf. Diese positive Restladung wird auch \textit{Loch} genannt,
+ welches als Quasiteilchen betrachet wird. Trifft nun ein freies Elektron auf ein
+ Loch, so kommt es zu einer Rekombination. Durch eine von außen angelegte Spannung
+ kommt es dazu, das eine Rekombination verhindert wird und sich die Elektronen
+ zu der Anode, Löcher hingegen zur Kathode bewegen. Somit kommt es zur Eigenleitung
+ mit einer geringen Ladungträgerdichte.
+
+ Durch Hinzufügen eines geeigneten Fremdatoms wird die Leitfähigkeit jedoch verbessert.
+ Hier wird zwischen p- und n-Typ halbleitern unterschieden.
+
+ Bei p-Typ Halbleitern oder Akzeptoren wird ein Fremdatom mit einer niedrigeren
+ Anzahl von Valenzelektronen als der Halbleiter
+ hinzugefügt. Dadurch fehlt in der Gitterstruktur zur kovalenten
+ Bindung eine bindende negative Ladung und das Loch bewegt sich wie ein freier
+ positiver Ladungsträger.
+
+ Die n-Typ Halbleiter oder kennzeichnen sich analog zu dem p-Typ dadurch aus, das ein
+ Fremdatom in die Gitterstruktur eingebaut wird. Jedoch besitzt dieses ein
+ Valenzelektron mehr und sorgt daher für ein zusätzliches Elektron.
+
+ Ein wichtiger Prozess ist hier ein pn-Übergang. Dieser bezeichnet eine Verbindung
+ einer p-dorierten mit einer n-dotierten Schicht innerhalb des Halbleiters. Durch den
+ Potentialunterschied der verschieden geladenen schichten entsteht eine sogennante
+ Diffusionsspannung $U_\text{D}$. Bei Detektoren wird an die p-Seite ein negatives
+ Potential und an der n-Seite ein positives Potential angelegt. Dies sorgt dafür,
+ dass sich die ladungsträger zu der Anode/kathode bewegen und am pn-Übergang eine
+ ladungträgerarme Zone oder Depletionszone mit einer Depletionsspannung $U_\text{Dep}$
+ ausbildet. Die Depletionsspannung liegt dabei typischerweise wesentlich höher als die
+ Vorspannung ($U \gg U_\text{Deg}$). Ihre Dicke hängt von der
+ angelegten Vorspannung und der effektiven Dotierungskonzentration $N_\text{eff}$.
+ \begin{equation}
+   N_\text{eff} = \frac{N_\text{D}N_\text{A}}{n_\text{D}+N_\text{A}}
+ \end{equation}
+Die Parameter $N_\text{D}$ und $N_\text{A}$ bezeichnen die Dotierungskonzetrationen
+der p- und n-Schichten.
+Daraus ergibt sich die Formel
+\begin{equation}
+  d(U) = \sqrt{\frac{e\epsilon U}{q N_\text{eff}}}
+\end{equation}
+mit der Elementarladung $q$ und der Dielektrischen Konstante $\epsilon$ von
+Silizium. Das Maximum erreicht die Depletionszone bei $U_\text{Dep}$, daher kann
+auch
+\begin{equation}
+  d(U) \approx \frac{q}{2\epsilon} N_\text{eff}D^2
+\end{equation}
+geschrieben werden. Dabei ist $D$ die Sensordicke.
+
+Im idealen Fall ist der Detektor vollständig depletiert, d.h. es fließt nur Strom,
+wenn ein geladenes Teilchen sich durch den Detektor bewegt. In Realität entstehen
+durch thermische Anregeung allerdings Elektron-Loch-Paare, die in der Depletionszone
+rekombinieren und so einen Leckstrom verursachen. Bei Silizium liegt die Energie
+zur Erzeugung eines Elektronen-Loch-paares bei \SI{3.6}{\kilo\electronvolt}.
+In diesem Fall liegt die angelegte Spannung unterhalb $U_\text{Dep}$ und es gilt
+dür die Dicke der Depletionszone
+\begin{align}
+  d_\text{c}(U) &= D\sqrt{\frac{U}{U_\text{Dep}}} \hspace{1.7cm}\text{für } U \less U_\text{Dep} \\
+  d_\text{c}(U) &= D \hspace{3cm}\text{für } U \le U_\text{Dep}
+\end{align}
+
+
+\subsection{Wechselwirkungen ionisierender Strahlung}
+In diesem Versuch wird eine ${90}^\text{Sr}$-Quelle verwendet. Diese ist eine reiner
+$\beta^{-}$-Strahler. Strontium besitzt eine Zerfallskette
+\begin{align}
+  {90}^\text{Sr} \rightarrow{\beta^{-}} {90}^\text{Y} \rightarrow{\beta^{-}} {90}^\text{Zr},
+\end{align}
+wobei sowohl Yttrium als auch Zirkonium ebenso nahezu reine $\beta^{-}$-Strahler
+sind.
+ Dabei zerfallen Neutronen wie folgt in Protonen:
+\begin{align}
+  \text{n} \rightarrow \text{p} + \text{e}^{-} + \overline{\nu_\text{e}}
+\end{align}
+Die Zerfallsenergie wird auf alle drei Endprodukte verteilt, wobei die maximale
+kinetische Energie der Elektronen bei \SI{0.546}{\mega\electronvolt} liegt.
+
+\subsubsection{Wechselwirkung von Elektronen in Materie}
+Bewegt sich ein Elektron in Materie, so gibt es durch elastische Stöße mit Kernen und
+Elektronen. Die Energie der durch den $\beta^{-}$-Zerfall induzierten Elektronen
+ist in diesem Experiment nicht gro genug um Effekte wie die Bremsstrahlung, die
+inelastischen Stöße und der Cherenkov-Strahlung auslösen zu können, daher werden
+diese Effekte hier auch nicht betrachtet.
+Ein Eindringen von Elektronen in den hier verwendeten Silizium-Detektor wird durch
+ihre Energieabgabe innerhalb des Detektors identifiziert. Dabei lässt sich die
+durchgeschnittliche Energiedisposition durch eine modifizierte Bethe-Bloch-Gleichung
+beschreiben.
+\begin{equation}
+  -\frac{\text{d}E}{\text{d}x} = 2\pi \text{N}_\text{a} \text{m}_\text{e} \text{c}\rho \frac{\text{Z}}{\text{A}}\frac{1}{\beta^2}\left[\text{ln}\left(\frac{\tau^2(\tau + 2)}{2(I\/\text{m}_\text{e}\text{c}^2)^2}\right) + \text{F}(\tau) - \delta - 2\frac{\text{c}}{\text{Z}}\right]
+\end{equation}
+In dieser Abwandlung der eigentlichen Bethe-Bloch-Gleichung beschreibt $\tau$ die
+kinetische Energie mit der Einheit m$_\text{e}$c$^2$. Der Faktor F($\tau$), welcher
+extra für Elektronen eingefügt wird, ist bestimmt durch:
+\begin{equation}
+  \text{F}(\tau) = 1 - \beta^2 + \frac{\tau^2\/8 - (2\text{r}_e + 1) \ln2}{(\tau + 1)^2} \hspace{2cm}\text{mit } \tau = \gamma - 1
+\end{equation}
+In reinem Silizium entschricht die Energiedeposition typischerweise
+\SI{3.88}{\mega\electronvolt\per\centi\meter}.
+
+\subsubsection{Energiespektrum im Silizium-Detektor}
+Bei hinreichender Dicke des Detektors ist das Spektrum der deponierten Energie eines
+Elektrons aufgrund des zentraen Grenzwertsatzes durch eine Gaußverteilung gegeben.
+Der hier verwendete Detektor erfüllt diese Bedingung bei einer Dicke von
+\SI{300}{\micro\meter} jedoch nicht. Daher gibt es nicht genug wechselwirkungen
+um den zentralen Grenzwertsatz anwendet zu können. Daher entspricht die Verteilung
+eher einer asymmetrischen Landau-Funktion. Dies resultiert auch daraus, dass manche
+Sekundarelektronen nicht innerhalb des Detektors gestoppt werden und es daher zu
+einem geringen Teil die deponierte Energie nicht korrekt bestimmt werden kann.
+Da die Energei der Elektronen des $\beta$-Zerfalls durch eine Verteilung beschreibbar
+sind, beschreibt das Spektrum der dopnierten Energie am bsten eine faltung zwischen
+einer Gauß- und einer Landau-Funktion. Diese Verteilung ist in Abbildung \ref{fig:faltung}
+dagestellt.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.6\textwidth]{images/Landau.png}
+  \caption{Spektrum der Energiedisposition eines Elektron in einem dünnen Detektor. \cite{anleitung}}
+  \label{fig:faltung}
+\end{figure}
+
+Dabei ist zwischen dem mittleren Energieverlust und dem wahrscheinlichsten Energieverlust
+zu unterscheigen. Dies tritt durch die asymmetrische Landau-Funktion auf.
