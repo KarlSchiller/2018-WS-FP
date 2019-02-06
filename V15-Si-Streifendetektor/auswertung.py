@@ -1,25 +1,26 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-import uncertainties.unumpy as unp
-from uncertainties.unumpy import nominal_values as noms
-from uncertainties.unumpy import std_devs as stds
-from uncertainties import ufloat
-from scipy.optimize import curve_fit
-import scipy.constants as const
-import imageio
-from scipy.signal import find_peaks
-import pint
+#  import uncertainties.unumpy as unp
+#  from uncertainties.unumpy import nominal_values as noms
+#  from uncertainties.unumpy import std_devs as stds
+#  from uncertainties import ufloat
+#  from scipy.optimize import curve_fit
+#  import scipy.constants as const
+#  import imageio
+#  from scipy.signal import find_peaks
+#  import pint
+import pandas as pd
 from tab2tex import make_table
-ureg = pint.UnitRegistry(auto_reduce_dimensions = True)
-Q_ = ureg.Quantity
+#  ureg = pint.UnitRegistry(auto_reduce_dimensions = True)
+#  Q_ = ureg.Quantity
 tugreen = '#80BA26'
 
 #  c = Q_(const.value('speed of light in vacuum'), const.unit('speed of light in vacuum'))
 #  h = Q_(const.value('Planck constant'), const.unit('Planck constant'))
-c = const.c
-h = const.h
-muB = const.value('Bohr magneton')
+#  c = const.c
+#  h = const.h
+#  muB = const.value('Bohr magneton')
 
 
 def linear(x, a, b):
@@ -110,6 +111,30 @@ def pedestal_run():
     plt.clf()
 
 
+def kalibration():
+    '''Kalibration zur Umrechnung ADC Counts in Energie'''
+    print('\tPlot Delay Scan')
+    #  delay, y = np.genfromtxt('rohdaten/Delay_Scan', unpack=True)
+    df_delay = pd.read_table('rohdaten/Delay_Scan', skiprows=1, decimal=',')
+    df_delay.columns = ['delay', 'adc']
+    best_delay_index = df_delay['adc'].idxmax(axis=0)
+    print('\tBest Delay at {} ns'.format(df_delay['delay'][best_delay_index]))
+    plt.bar(df_delay['delay'].drop(index=best_delay_index),
+            df_delay['adc'].drop(index=best_delay_index), color='k')
+    plt.bar(df_delay['delay'][best_delay_index], df_delay['adc'][best_delay_index],
+            color=tugreen, label='Maximum')
+    plt.xlabel(r'Delay\:/\:\si{\nano\second}')
+    plt.ylabel('Durchschnittliche ADC Counts')
+    plt.legend(loc='upper right')
+    plt.tight_layout()
+    plt.savefig('build/delay-scan.pdf')
+    plt.clf()
+
+    # Energie zur Erzeugung eines Elektron-Loch-Paares in Silizium in eV
+    energy_eh_couple = 3.6
+
+
+
 # Alte Funktion, hier nur syntax klauen
 def eichung():
     '''Eichung der Magnetischen Flussdichte'''
@@ -153,5 +178,6 @@ if __name__ == '__main__':
 
     #  print('UI-Characteristic')
     #  ui_characteristic()
-    print('Pedestal Run')
-    pedestal_run()
+    #  print('Pedestal Run')
+    #  pedestal_run()
+    kalibration()
