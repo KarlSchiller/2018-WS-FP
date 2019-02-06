@@ -18,9 +18,6 @@ calc:
 calc: auswertung.py matplotlibrc header-matplotlib.tex | build
 	TEXINPUTS=$$(pwd): python auswertung.py
 
-# further dependencies of build/main.pdf
-build/main.pdf:
-
 build/main.pdf: FORCE | build
 	  TEXINPUTS="$(call translate,build:)" \
 	  BIBINPUTS=build: \
@@ -32,12 +29,19 @@ build/main.pdf: FORCE | build
 		--halt-on-error \
 	main.tex
 
+fast: FORCE | build
+	lualatex -- output-directory=build --interaction=nonstopmode --halt-on-error main.tex
+	biber -- output-directory=build main.bcf
+	lualatex -- output-directory=build --interaction=nonstopmode --halt-on-error main.tex
+	lualatex -- output-directory=build --interaction=nonstopmode --halt-on-error main.tex
+
 build:
 	mkdir -p build
 
 clean:
 	rm -rf build
 
+# further dependencies of build/main.pdf
 FORCE:
 
 .PHONY: all clean
