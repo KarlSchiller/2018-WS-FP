@@ -16,28 +16,30 @@ wie z.B. dem ATLAS-Detektor am LHC, Teil eines sogennanten \textit{Inneren Detek
 Die Aufgabe des ID ist es die Spuren der ionisierenden Teilchen zu erfassen und
 durch die Bestimmung ihres Impulses erste wichtige Informationen über diese zu
 erhalten.
-Dabei werden dicht an die Pipeline, in der die Ausgangsteilchen beschleunigt und
-zur Kollision gebracht werden. Nahe an der Pipeline sind Pixel-Detektoren plaziert,
-diese sind sehr ähnlich aufgebaut wie Streifendetektoren. Aufgrund ihrer kleineren
-Detektionsfläche besitzen diese eine wesentlich höhere örtliche Auflösung, sind
+
+Dabei werden sie dicht an die Pipeline, in der die Ausgangsteilchen beschleunigt und
+zur Kollision gebracht werden, angebracht. Nahe an der Pipeline sind Pixel-Detektoren plaziert.
+Diese sind sehr ähnlich aufgebaut wie Streifendetektoren. Aufgrund ihrer kleineren
+Detektionsfläche besitzen sie jedoch eine wesentlich höhere örtliche Auflösung, sind
 allerdings in der Produktion erheblich teurer. Daher werden die günstigeren
 Streifendetektoren in zueinander verdrehten Schichten über die Pixeldetektoren
 gelegt, um die Spuren weiter verfolgen zu können.
-Als letzte Schicht wird ein Übergangsstrahlungsspurdetektor verwendet, der die
-Aufgabe hat die Krümmung der Teilchenspuren bei einem angelegten Magnetfeld zu
+
+Als letzte Schicht wird ein Übergangsstrahlungsspurdetektor verwendet um die
+Krümmung der Teilchenspuren bei einem angelegten Magnetfeld zu
 erfassen. Im weiteren Schritt werden die Krümmungsradien der Teilchenspuren
-berechnet und daraus die Impulse berechnet.
+berechnet und daraus die Impulse bestimmt.
 
 \subsection{Halbleiter}
 Als Halbleiter werden jene Materialien bezeichnet, die werde Isolatoren, noch Leiter
 sind. Das bedeutet, dass sie eine Bandlücke mit maximal \SIrange{4}{5}{\electronvolt}
-besitzen. Eine Bandlücke ist
+besitzen und bei Temperaturen $T \neq 0$. Eine Bandlücke ist
 als jene Energie definiert, die ein Elektron besitzen muss, um von dem Valenz-
-in das Leitungsband zu wechselt. Dabei gibt es verschiedene
-Untergruppen der Halbleiter.
+in das Leitungsband zu wechselt. Es wird allgemein unter verschiedene
+Untergruppen der Halbleiter unterschieden.
 In diesem Versuch wird dazu Silizium verwendet. Dieser Halbleiter besitzt vier
 Valenzelektronen und eine typische Bandlücke von \SI{1.107}{\electronvolt}.
- Dabei werden die Siliziumatome in einer Diamantstruktur angeordnet. Daraus
+ Dabei ordnen sich die Siliziumatome in einer Diamantstruktur an. Daraus
  resultiert, dass jedes Atom vier Nachbaratome besitzt, welche alle zur Bindungung
  beitragen.
 
@@ -53,33 +55,34 @@ Valenzelektronen und eine typische Bandlücke von \SI{1.107}{\electronvolt}.
  Hier wird zwischen p- und n-Typ halbleitern unterschieden.
 
  Bei p-Typ Halbleitern oder Akzeptoren wird ein Fremdatom mit einer niedrigeren
- Anzahl von Valenzelektronen als der Halbleiter
+ Anzahl von Valenzelektronen als die Basis
  hinzugefügt. Dadurch fehlt in der Gitterstruktur zur kovalenten
  Bindung eine bindende negative Ladung und das Loch bewegt sich wie ein freier
  positiver Ladungsträger.
 
- Die n-Typ Halbleiter oder kennzeichnen sich analog zu dem p-Typ dadurch aus, das ein
+ Die n-Typ Halbleiter oder Donator kennzeichnen sich analog zu dem p-Typ dadurch aus, das ein
  Fremdatom in die Gitterstruktur eingebaut wird. Jedoch besitzt dieses ein
- Valenzelektron mehr und sorgt daher für ein zusätzliches Elektron.
+ Valenzelektron mehr und sorgt daher für eine zusätzliche negative Ladung.
 
- Ein wichtiger Prozess ist hier ein pn-Übergang. Dieser bezeichnet eine Verbindung
+ Ein wichtiger Prozess ist hier der pn-Übergang. Dieser bezeichnet eine Verbindung
  einer p-dorierten mit einer n-dotierten Schicht innerhalb des Halbleiters. Durch den
- Potentialunterschied der verschieden geladenen schichten entsteht eine sogennante
+ Potentialunterschied der verschieden geladenen Schichten entsteht eine sogennante
  Diffusionsspannung $U_\text{D}$. Bei Detektoren wird an die p-Seite ein negatives
  Potential und an der n-Seite ein positives Potential angelegt. Dies sorgt dafür,
- dass sich die ladungsträger zu der Anode/kathode bewegen und am pn-Übergang eine
+ dass sich die Ladungsträger zu der Anode/Kathode bewegen und am pn-Übergang eine
  ladungträgerarme Zone oder Depletionszone mit einer Depletionsspannung $U_\text{Dep}$
  ausbildet. Die Depletionsspannung liegt dabei typischerweise wesentlich höher als die
- Vorspannung ($U \gg U_\text{Deg}$). Ihre Dicke hängt von der
- angelegten Vorspannung und der effektiven Dotierungskonzentration $N_\text{eff}$.
+ Vorspannung ($U \gg U_\text{Deg}$). Die räumliche Ausbreitung der Depletionszone
+ hängt von der angelegten Vorspannung und der effektiven Dotierungskonzentration
+ $N_\text{eff}$.
  \begin{equation}
-   N_\text{eff} = \frac{N_\text{D}N_\text{A}}{n_\text{D}+N_\text{A}}
+   N_\text{eff} = \frac{N_\text{D}N_\text{A}}{N_\text{D}+N_\text{A}}
  \end{equation}
 Die Parameter $N_\text{D}$ und $N_\text{A}$ bezeichnen die Dotierungskonzetrationen
 der p- und n-Schichten.
-Daraus ergibt sich die Formel
+Aus den bisherigen Überlegungen folgt die Formel
 \begin{equation}
-  d(U) = \sqrt{\frac{e\epsilon U}{q N_\text{eff}}}
+  d(U) = \sqrt{\frac{2\epsilon U}{q N_\text{eff}}}
 \end{equation}
 mit der Elementarladung $q$ und der Dielektrischen Konstante $\epsilon$ von
 Silizium. Das Maximum erreicht die Depletionszone bei $U_\text{Dep}$, daher kann
@@ -93,7 +96,7 @@ Im idealen Fall ist der Detektor vollständig depletiert, d.h. es fließt nur St
 wenn ein geladenes Teilchen sich durch den Detektor bewegt. In Realität entstehen
 durch thermische Anregeung allerdings Elektron-Loch-Paare, die in der Depletionszone
 rekombinieren und so einen Leckstrom verursachen. Bei Silizium liegt die Energie
-zur Erzeugung eines Elektronen-Loch-paares bei \SI{3.6}{\kilo\electronvolt}.
+zur Erzeugung eines Elektronen-Loch-Paares bei \SI{3.6}{\kilo\electronvolt}.
 In diesem Fall liegt die angelegte Spannung unterhalb $U_\text{Dep}$ und es gilt
 dür die Dicke der Depletionszone
 \begin{align}
@@ -109,56 +112,69 @@ $\beta^{-}$-Strahler. Strontium besitzt eine Zerfallskette
   {90}^\text{Sr} \rightarrow{\beta^{-}} {90}^\text{Y} \rightarrow{\beta^{-}} {90}^\text{Zr},
 \end{align}
 wobei sowohl Yttrium als auch Zirkonium ebenso nahezu reine $\beta^{-}$-Strahler
-sind.
- Dabei zerfallen Neutronen wie folgt in Protonen:
+sind. Strontium besitzt eine Halbwertszeit von $T_{\sfrac{1}{2}} = \num{28}\text{a}\num{328}\text{days}$
+und zerfällt danach in Yttrium, welches eine Halbwertszeit von
+$T_{\sfrac{1}{2}} = \num{2}\,\text{d}\num{16}\,\text{a}\num{3}\,\text{m}$ .
+Dabei einem $\beta^{-}$-Zerfall zerfallen Neutronen wie folgt in Protonen:
 \begin{align}
   \text{n} \rightarrow \text{p} + \text{e}^{-} + \overline{\nu_\text{e}}
 \end{align}
-Die Zerfallsenergie wird auf alle drei Endprodukte verteilt, wobei die maximale
+Die vorhandene Zerfallsenergie wird auf alle drei Endprodukte verteilt, wobei die maximale
 kinetische Energie der Elektronen bei \SI{0.546}{\mega\electronvolt} liegt.
 
 \subsubsection{Wechselwirkung von Elektronen in Materie}
-Bewegt sich ein Elektron in Materie, so gibt es durch elastische Stöße mit Kernen und
-Elektronen. Die Energie der durch den $\beta^{-}$-Zerfall induzierten Elektronen
-ist in diesem Experiment nicht gro genug um Effekte wie die Bremsstrahlung, die
-inelastischen Stöße und der Cherenkov-Strahlung auslösen zu können, daher werden
-diese Effekte hier auch nicht betrachtet.
-Ein Eindringen von Elektronen in den hier verwendeten Silizium-Detektor wird durch
+Bewegt sich ein Elektron in Materie, so führen diese elastische Stöße mit Kernen und
+Elektronen durch. Die Energie der durch den $\beta^{-}$-Zerfall induzierten Elektronen
+ist in diesem Experiment nicht groß genug um Effekte wie die Bremsstrahlung, die
+inelastischen Stöße und der Cherenkov-Strahlung auszulösen, daher werden
+diese Effekte hier vernachlässigt.
+
+Ein Eindringen von Elektronen in einen Halbleiter-Detektor wird durch
 ihre Energieabgabe innerhalb des Detektors identifiziert. Dabei lässt sich die
 durchgeschnittliche Energiedisposition durch eine modifizierte Bethe-Bloch-Gleichung
 beschreiben.
 \begin{equation}
   -\frac{\text{d}E}{\text{d}x} = 2\pi \text{N}_\text{a} \text{m}_\text{e} \text{c}\rho \frac{\text{Z}}{\text{A}}\frac{1}{\beta^2}\left[\text{ln}\left(\frac{\tau^2(\tau + 2)}{2(I\/\text{m}_\text{e}\text{c}^2)^2}\right) + \text{F}(\tau) - \delta - 2\frac{\text{c}}{\text{Z}}\right]
 \end{equation}
-In dieser Abwandlung der eigentlichen Bethe-Bloch-Gleichung beschreibt $\tau$ die
-kinetische Energie mit der Einheit m$_\text{e}$c$^2$. Der Faktor F($\tau$), welcher
-extra für Elektronen eingefügt wird, ist bestimmt durch:
+In dieser Abwandlung der eigentlichen Bethe-Bloch-Gleichung für schwere Teilchen
+beschreibt $\tau$ die kinetische Energie mit der Einheit m$_\text{e}$c$^2$. Der
+Faktor F($\tau$), welcher extra für Elektronen eingefügt wird, ist bestimmt durch:
 \begin{equation}
   \text{F}(\tau) = 1 - \beta^2 + \frac{\tau^2\/8 - (2\text{r}_e + 1) \ln2}{(\tau + 1)^2} \hspace{2cm}\text{mit } \tau = \gamma - 1
 \end{equation}
-In reinem Silizium entschricht die Energiedeposition typischerweise
+In der Abbildung \ref{fig:tab} ist eine Tabelle der Einezelnen Bestandteile der
+modifizierten Bethe-Bloch-Gleichung dargestellt.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/Tabelle.png}
+  \caption{Bestandteile der modifizierten Bethe-Bloch-Gleichung \cite{anleitung}.}
+  \label{fig:tab}
+\end{figure}
+\FloatBarrier
+Typischerweise liegt die Energiedeposition bei reinem Silizium bei
 \SI{3.88}{\mega\electronvolt\per\centi\meter}.
 
 \subsubsection{Energiespektrum im Silizium-Detektor}
 Bei hinreichender Dicke des Detektors ist das Spektrum der deponierten Energie eines
 Elektrons aufgrund des zentraen Grenzwertsatzes durch eine Gaußverteilung gegeben.
 Der hier verwendete Detektor erfüllt diese Bedingung bei einer Dicke von
-\SI{300}{\micro\meter} jedoch nicht. Daher gibt es nicht genug wechselwirkungen
-um den zentralen Grenzwertsatz anwendet zu können. Daher entspricht die Verteilung
+\SI{300}{\micro\meter} jedoch nicht.  Es gibt nicht genügen Wechselwirkungen
+innerhalb des Detektors
+um den zentralen Grenzwertsatz anwenden zu können. Daher entspricht die Verteilung
 eher einer asymmetrischen Landau-Funktion. Dies resultiert auch daraus, dass manche
-Sekundarelektronen nicht innerhalb des Detektors gestoppt werden und es daher zu
-einem geringen Teil die deponierte Energie nicht korrekt bestimmt werden kann.
-Da die Energei der Elektronen des $\beta$-Zerfalls durch eine Verteilung beschreibbar
-sind, beschreibt das Spektrum der dopnierten Energie am bsten eine faltung zwischen
+Sekundarelektronen nicht innerhalb des Detektors gestoppt werden und es daher
+ein geringer Teil der deponierte Energie nicht korrekt bestimmt werden kann.
+Da die Energie der Elektronen des $\beta$-Zerfalls durch eine Verteilung beschrien
+werden können, beschreibt das Spektrum der dopnierten Energie am bsten eine Faltung zwischen
 einer Gauß- und einer Landau-Funktion. Diese Verteilung ist in Abbildung \ref{fig:faltung}
-dagestellt.
+dargestellt.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.6\textwidth]{images/Landau.png}
   \caption{Spektrum der Energiedisposition eines Elektron in einem dünnen Detektor. \cite{anleitung}}
   \label{fig:faltung}
 \end{figure}
-
+\FloatBarrier
 Dabei ist zwischen dem mittleren Energieverlust und dem wahrscheinlichsten Energieverlust
 zu unterscheigen. Dies tritt durch die asymmetrische Landau-Funktion auf.
 
@@ -166,7 +182,7 @@ zu unterscheigen. Dies tritt durch die asymmetrische Landau-Funktion auf.
 \subsection{Pedestals und Noise}
 \label{sec:Theorie_Noise}
 
-Durch den Detektor und seine Ausleseelektronik enstehen Störsignaleoder Rauschen,
+Durch den Detektor und seine Ausleseelektronik enstehen Störsignale bzw. Rauschen,
 sogennante Noise. Um dieses Rauschen zu Minimieren wird die gemessene Anzahl von
 Analog-Digital-Converter(ACD)-Counts für ein Signal $k$ und einen Streifen $i$
 berechnet durch
@@ -174,7 +190,7 @@ berechnet durch
   \text{ADC}(i, k) = \text{P}(i) + \text{D}(k) + \text{Signal}(i, k).
 \end{equation}
 Dabei beschreibt der Pedastal P($i$) den Mittelwert der ADC-Counts für einen
-einzelnen Streifen ohne zu erwartendes Signal un der Common Mode Shift D($k$)
+einzelnen Streifen ohne zu erwartendes Signal und der Common Mode Shift D($k$)
 eine Störung für alle Streifen während eines Events. P($i$) und D($k$) berechnen
 sich wie folgt:
 \begin{align}
@@ -182,19 +198,21 @@ sich wie folgt:
   \text{D}(k) &= \frac{1}{128} \sum_{i=1}^{128} \left(\text{ADC}(i, k) - \text{P}(i) \right)
 \end{align}
 Wird nun eine Nullhypothese auf das Signal gesetzt, so lässt sich durch einen
-Root Mean Square die noise der einzelnen Streifen berechnen:
+Root Mean Square die Noise der einzelnen Streifen berechnen:
 \begin{equation}
   \text{Noise}(i) = \sqrt{ \frac{1}{N-1} \sum_{k=1}^N \left(\text{ADC}(i,k) - \text{P} (i) - \text{D}(k)\right)^2 }
 \end{equation}
-bei einer Aufnahme von Daten wird ein \textit{Signal-to-Noise-Cut} durchgeführt,
+Bei einer Aufnahme von Daten wird ein \textit{Signal-to-Noise-Cut} durchgeführt,
 um das Rauschen so gut wie möglich herausfiltern zu können. Dies geschieht
 dadurch, dass ein Verhältnis zwischen den gemessenen Signalen des $\beta$-Strahlers
 und dem Rauschen der Streifen gebildet wird. Ist dieses Verhältnis größer als 5,
 so wird ein Trigger gesetzt und die Daten werden zur Messung herangezogen. Bleibt
 das Verhältnis jedoch unter 5, so werden die Daten verworfen.
 
+\subsection{Clustering}
+\label{sec:Clustering}
 Zuletzt muss noch auf die Bildung von Clustern eingegangen werden. Cluster
-bezeichnet man dabei das Messen eines Signals in mehreren Streifen. Grundlegend
+bezeichnen dabei das Messen eines Signals in mehreren Streifen. Grundlegend
 gibt es drei Effekte die auftreten können.
 \begin{enumerate}
   \item \textit{Charge Sharing}: Hier trifft ein geladenes Teilchen genau

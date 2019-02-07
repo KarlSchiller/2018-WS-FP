@@ -1,11 +1,11 @@
 \newpage
 \section{Aufbau}
 \label{sec:Aufbau}
-Der hier untersuchte Si-Streifendetektor (EASy) der Firma Alibava besteht aus drei Komponenten, Kontrall-, Detektoreinheit und Computer mit Steuer-Software.
+Der hier untersuchte Si-Streifendetektor (EASy) der Firma Alibava besteht aus drei Komponenten. Eine Kontrall- und eine Detektoreinheit, sowie ein Computer mit Steuer-Software.
 
 \subsection{Detektoreinheit}
 \label{sec:Detektoreinheit}
- Als Detektoreinheit wierd der Si-Streifenhalbleiter und die Ausleseelektronik
+ Als Detektoreinheit wird der Si-Streifenhalbleiter und die Ausleseelektronik
  zusammengefasst. Dabei besteht der \SI{300}{\micro\meter} dicke Si-Detektor
  aus 128 einzelnen p-dotierten Streifen in dem n-dotierten Silizium.  Dieser
  Aufbau ist in Abbildung \ref{fig:schema} zu erkennen.
@@ -15,8 +15,9 @@ Der hier untersuchte Si-Streifendetektor (EASy) der Firma Alibava besteht aus dr
    \caption{Schematische Darstellung eines Si-Streifensensors mit Spannungsanschluss \cite{anleitung}.}
    \label{fig:schema}
  \end{figure}
+ \FloatBarrier
 Eine Schicht aus Siliziumoxid sorgt dafür, dass kein Signal aus den p-Implantaten
-auf überschlägt. Jeder Streifen ist durch das Wirebonding mit ein Pad und weiter
+auf den Auslesechip überschlägt. Jeder Streifen ist durch Wirebonding mit einem Pad und weiter
 einem ohmschen Widerstand
 verbunden. Dieser wiederum ist an einen Bias Ring zur Spannungsversorgung gekoppelt.
 Um den Bias Ring ist ein Guard Ring zur Vermeidung von Spannungsüberschlägen vom Bias
@@ -25,20 +26,30 @@ einer makroskopischen Aufnahme deutlich gemacht.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.6\textwidth]{images/Sensor.png}
-  \caption{Makroskopische Aufnahmne eines Streifen-Detektors mit entsprechender kennzeichnung der einzelnen Komponenten \cite{anleitung}.}
+  \caption{Makroskopische Aufnahmne eines Streifen-Detektors mit entsprechender Kennzeichnung der einzelnen Komponenten \cite{anleitung}.}
   \label{fig:streifen}
 \end{figure}
+\FloatBarrier
 Die Informationen aus den einzelnen Streifen nach Durchgang eines geladenen
 Teilchens wird durch einen Auslesechip zuerst verstärkt und danach in
-Spannungssignale umgewandelt. Dann werden die Signale in eine Pipeline geschickt.
+Spannungssignale umgewandelt. Dann werden die Signale in eine Pipeline geschickt,
+wo sie auf ein Triggersignal warten. Kommt dieses Triggersignal nicht, so werden
+die Daten verworfen.
 
-Diese Funktionsweise funktioniert, wie in \ref{sec:Theorie} erst richtig, wenn der
-Halbleiterdetektor follständig depletiert ist. Bei dem EASy liegt dazu
-$U_\text{Dep}$ bei ungefähr \SIrange{60}{80}{\volt}. Um zu ermitteln, in wiefern der Detektor depletiert ist, wird die Effizienz der Ladunssammlung (CCE) bestimmt. Maximal ist diese Effizienz, wenn eine vollkommene Depletierung ($U = U_\text{Dep}$) vorhanden ist. Mithilfe eines Lasers, kann nun die CCE bestimmt werden durch
+Diese Funktionsweise funktioniert, wie in Kapitel \ref{sec:Theorie} beschrieben
+erst richtig, wenn der Halbleiterdetektor vollständig depletiert ist. Bei dem
+EASy liegt dazu $U_\text{Dep}$ bei ungefähr \SIrange{60}{80}{\volt}. Um zu
+ermitteln, in wiefern der Detektor depletiert ist, wird die Effizienz der
+Ladunssammlung (CCE) bestimmt. Maximal ist diese Effizienz, wenn eine vollkommene
+Depletierung ($U = U_\text{Dep}$) vorhanden ist. Nun kann die CCE bestimmt werden
+durch
 \begin{equation}
   \text{CCE}(U) = \frac{1 - \exp\left(\frac{-d_\text{c}(U)}{a}\right)}{1 - \exp\left(\frac{-D}{a}\right)}.
 \end{equation}
-Hierbei ist $d_\text{c}$ die Dicke der Depletionszone, $D$ die Sensordicke und $a$ die Eindringtiefe des Lasers in das Silizium.
+Diese Formel gilt allerdings nur für Photonen, daher wird diese Messungg mit dem
+eingebauten Laser durchgeführt.
+Hierbei ist $d_\text{c}$ die Dicke der Depletionszone, $D$ die Sensordicke und
+$a$ die Eindringtiefe des Lasers in das Silizium.
 
 \subsection{Lasereinheit}
 \label{sec:Lasereinheit}
@@ -46,32 +57,49 @@ Aus Abbildung \ref{fig:Gehäuse}ist das äußere Gehäuse des Detektors zu entne
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\textwidth]{images/Gehäuse.png}
-  \caption{Fotographie des EASy Gehäuses mit integriertem Laser und Carbon-Plätchen, sowie den einzelnen Anschlüssen \cite{anleitung}.}
+  \caption{Fotographie des EASy Gehäuses mit integriertem Laser und Carbon-Plätchen,
+  sowie den einzelnen Anschlüssen \cite{anleitung}.}
   \label{fig:Gehäuse}
 \end{figure}
-Auf dem Gehäuse steckt ein Reiter mit einem eingebauten Laser zur Untersuchung der
-Detektoreigenschaften. Dieser kann in zwei Laser(L)- oder in Quell(Q)-Position gestellt werden, je nachdem, welche Mesung durchgeführt werden soll.
+\FloatBarrier
+Auf dem Gehäuse sitzt ein Reiter mit einem eingebauten Laser zur Untersuchung der
+Detektoreigenschaften. Dieser kann in zwei Laser(L)- oder in Quell(Q)-Position
+gestellt werden, je nachdem, welche Messung durchgeführt werden soll.
 
-Der angebrachte Laser emittiert Licht mit einer Wellenlänge von \SI{980}{\nano\meter} mit einem Durchmesser von \SI{20}{\micro\meter}, einer Pulslänge von \SI{5}{\nano\second} und einer Spitzenleistung von \SI{0.6}{\milli\watt}.
-An dem Laser sind zwei Miktrometerschrauben angebracht um diesen in der vertikalen Fokussieren und in der horizontalen verschieben zu können.
+Der angebrachte Laser emittiert Licht mit einer Wellenlänge von \SI{980}{\nano\meter}
+mit einem Durchmesser von \SI{20}{\micro\meter}, einer Pulslänge von
+\SI{5}{\nano\second} und einer Spitzenleistung von \SI{0.6}{\milli\watt}.
+An dem Laser sind zwei Miktrometerschrauben angebracht um diesen in der vertikalen
+Fokussieren und in der horizontalen verschieben zu können.
 
 \subsection{Kontrolleinheit}
-Die Kontrolleinheit, in Abbildung \ref{fig:control} zu sehen, dient zur Steuerung des Detektors. Über den Sockel mit der Aufschrift \textit{Sensor Unit} kann durch ein  Flachbandkabel eine Verbindung zwischen Detektoreinheit und Kontrolleinheit hergestellt werden. Zudem können für die Messungen mit dem Laser ein Glasfaserkabel, bzw. für die Quellmessungen ein Triggerkabel angeschlossen werden. Über den Drehknopf \textit{Diode Bias} wird eine bestimmte Vorspannung auf den Bias Ring und somit auf die Halbleiterstreifen gegeben. Diese ist im Kontrollfenster, zusammen mit dem auftretenden Strom abzulesen.
-Auf der Rückseite der Kontrolleinheit befindet sich unter anderem ein Anschluss für einen Kaltgerätestecker.
+Die Kontrolleinheit, in Abbildung \ref{fig:control} zu sehen, dient zur Steuerung
+des Detektors. Über den Sockel mit der Aufschrift \textit{Sensor Unit} kann durch
+ein  Flachbandkabel eine Verbindung zwischen Detektoreinheit und Kontrolleinheit
+hergestellt werden. Zudem können für die Messungen mit dem Laser ein Glasfaserkabel,
+bzw. für die Quellmessungen ein Triggerkabel angeschlossen werden. Über den
+Drehknopf \textit{Diode Bias} wird eine bestimmte Vorspannung auf den Bias Ring
+und somit auf die Halbleiterstreifen gegeben. Diese ist im Kontrollfenster,
+zusammen mit dem auftretenden Strom abzulesen.
+Auf der Rückseite der Kontrolleinheit befindet sich unter anderem ein Anschluss
+für einen Kaltgerätestecker.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/Control.png}
   \caption{Front- und Rückansicht der Kontrolleinheit und ihrer Anschlüsse \cite{anleitung}.}
   \label{fig:control}
 \end{figure}
-
-Werden alle Bestandteile angeschlossen, so ist der Aufbau wie in Abbildung \ref{fig:aufbau} dargestellt zu erhalten.
+\FloatBarrier
+Werden alle Bestandteile angeschlossen, so ist der Aufbau wie in Abbildung
+\ref{fig:aufbau} dargestellt zu erhalten.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\textwidth]{images/Aufbau.png}
-  \caption{Graphischer Aufbau des kompletten Versuches mit Detektoreinheit (Daughterbrd), Kontrolleinheit (Motherboard) und Computer \cite{anleitung}.}
+  \caption{Graphischer Aufbau des kompletten Versuches mit Detektoreinheit
+  (Daughterbrd), Kontrolleinheit (Motherboard) und Computer \cite{anleitung}.}
   \label{fig:aufbau}
 \end{figure}
+\FloatBarrier
 Für Messungen mit der Sr-Quelle wird die Detektoreinheit zusätzlich in ein Kiste
 mit Bleiabdeckung plaziert, damit keine radioaktive Strahlung nach außen gelangen
 kann. dies ist in Abbildung \ref{fig:quell} noch einmal zu sehen.
@@ -81,12 +109,9 @@ kann. dies ist in Abbildung \ref{fig:quell} noch einmal zu sehen.
   \caption{Vertikale Sicht auf die Detektoreinheit in horizontaler Bleiabschirmung \cite{anleitung}.}
   \label{fig:quell}
 \end{figure}
-
+\FloatBarrier
 \section{Durchführung}
 \label{sec:Durchführung}
-
-\subsection{Folgen des Yttrium-90 Prozesses}
-\label{sec:Yttrium}
 
 \subsection{Messung der Strom-Spannungs-Kennlinie}
 \label{sec:Kennlinie}
