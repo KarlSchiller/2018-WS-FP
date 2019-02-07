@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 #  from uncertainties.unumpy import nominal_values as noms
 #  from uncertainties.unumpy import std_devs as stds
 #  from uncertainties import ufloat
-#  from scipy.optimize import curve_fit
+from scipy.optimize import curve_fit
 #  import scipy.constants as const
 #  import imageio
 #  from scipy.signal import find_peaks
@@ -26,6 +26,12 @@ tugreen = '#80BA26'
 def linear(x, a, b):
     '''Lineare Regressionsfunktion'''
     return a * x + b
+
+
+def umrechnung(x, a0, a1, a2, a3, a4):
+    '''Polynom 4.Grades zur Umrechnung ADCC in eV'''
+    return a4*x**4 + a3*x**3 + a2*x**2 + a1*x + a0
+
 
 def ui_characteristic():
     '''Strom-Spannungs-Kennlinie'''
@@ -134,18 +140,35 @@ def kalibration():
     energy_eh_couple = 3.6
     # Importiere Kalibrationsmessungen der Channel 10, 35, 60, 90, 120
     channel_indices = [10, 35, 60, 90, 120]
-    channel_dict = {}  # Dictionary mit den vermessenen Kanälen
+    df_channel = pd.DataFrame()
     for index, channel in enumerate(channel_indices):
-        #  plt.subplot(2, 2, index+1, sharex=ax_1)
-        channel_dict['{}'.format(channel)] = pd.read_table(
-                'rohdaten/Calib/channel_{}.txt'.format(channel),
-                skiprows=1, decimal=',')
-        channel_dict['{}'.format(channel)].columns = ['pulse', 'adc']
-        # transform pulse to injected eV
-        channel_dict['{}'.format(channel)]['pulse'] *= energy_eh_couple
-    print('NOCH NICHT FERTIG!')
-    # TODO: Über alle channel_indices mitteln und Polynom fitten
-    # TODO: Gemittelte Kurve darstellen zusammen mit Fit
+        if index==0:  # get injected pulse and adc
+            df_channel = pd.read_table(
+                    'rohdaten/Calib/channel_{}.txt'.format(channel),
+                    skiprows=1, decimal=',')
+            df_channel.columns = ['pulse', '{}'.format(channel)]
+            # transform pulse to injected eV
+            df_channel['pulse'] *= energy_eh_couple
+        else:
+            # the injected pulses are the same
+            df_channel['{}'.format(channel)] = pd.read_table(
+                    'rohdaten/Calib/channel_{}.txt'.format(channel),
+                    skiprows=1, decimal=',')['Function_0']
+    # mean adc
+    df_channel['mean'] = df_channel.drop(columns='pulse').mean(axis=1)
+    # Fit from @start to @stop index
+    start = 0
+    stop = 90  # Maximum of 254
+    params, covariance = curve_fit(umrechnung, df_channel['mean'][start:stop],
+            df_channel['pulse'][start:stop])
+    errors = np.sqrt(np.diag(covariance))
+    print('\tFit von {} bis {} ADCC (Index {} bis {})'.format(df_channel['mean'][start],
+        df_channel['mean'][stop], start, stop))
+    print(f'\ta_0 = {params[0]} ± {errors[0]}')
+    print(f'\ta_1 = {params[1]} ± {errors[1]}')
+    print(f'\ta_2 = {params[2]} ± {errors[2]}')
+    print(f'\ta_3 = {params[3]} ± {errors[3]}')
+    print(f'\ta_4 = {params[4]} ± {errors[4]}')
 
     print('\tPlot Kalibration')
     plt.subplots(2, 2, sharex=True, sharey=True)
@@ -153,10 +176,10 @@ def kalibration():
     ax_2 = plt.subplot(2, 2, 2)
     ax_3 = plt.subplot(2, 2, 3, sharex=ax_1)
     ax_4 = plt.subplot(2, 2, 4, sharex=ax_2)
-    ax_1.plot(channel_dict['10']['pulse'], channel_dict['10']['adc'], 'k-', label='Kanal 10')
-    ax_2.plot(channel_dict['35']['pulse'], channel_dict['35']['adc'], 'k-', label='Kanal 35')
-    ax_3.plot(channel_dict['90']['pulse'], channel_dict['90']['adc'], 'k-', label='Kanal 90')
-    ax_4.plot(channel_dict['120']['pulse'], channel_dict['120']['adc'], 'k-', label='Kanal 120')
+    ax_1.plot(df_channel['pulse'], df_channel['10'], 'k-', label='Kanal 10')
+    ax_2.plot(df_channel['pulse'], df_channel['35'], 'k-', label='Kanal 35')
+    ax_3.plot(df_channel['pulse'], df_channel['90'], 'k-', label='Kanal 90')
+    ax_4.plot(df_channel['pulse'], df_channel['120'], 'k-', label='Kanal 120')
     ax_1.legend(loc='lower right')
     ax_2.legend(loc='lower right')
     ax_3.legend(loc='lower right')
@@ -169,13 +192,26 @@ def kalibration():
     plt.savefig('build/calibration.pdf')
     plt.clf()
 
+    # mean adc with regression
+    adcc_plot = np.linspace(df_channel['mean'][start],
+            df_channel['mean'][stop], 10000)
+    plt.plot(df_channel['mean'], df_channel['pulse'], 'k-', label='Mittelwert')
+    plt.plot(adcc_plot, umrechnung(adcc_plot, *params), color=tugreen, label='Regression')
+    plt.axvline(x=df_channel['mean'][start], color='k', linestyle='--', linewidth=0.8,
+            label='Regressionsbereich')
+    plt.axvline(x=df_channel['mean'][stop], color='k', linestyle='--', linewidth=0.8)
+    plt.xlabel('ADCC')
+    plt.ylabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
+    plt.legend(loc='upper center')
+    plt.tight_layout()
+    plt.savefig('build/umrechnung.pdf')
+    plt.clf()
+
     print('\tPlot Vergleich')
-    channel_dict['vgl'] = pd.read_table('rohdaten/Calib/channel_60_null_volt.txt',
-            skiprows=1, decimal=',')
-    channel_dict['vgl'].columns = ['pulse', 'adc']
-    channel_dict['vgl']['pulse'] *= energy_eh_couple
-    plt.plot(channel_dict['60']['pulse'], channel_dict['60']['adc'], 'k-', label=r'\SI{100}{\volt}')
-    plt.plot(channel_dict['vgl']['pulse'], channel_dict['vgl']['adc'], color=tugreen, label=r'\SI{0}{\volt}')
+    df_channel['vgl'] = pd.read_table('rohdaten/Calib/channel_60_null_volt.txt',
+            skiprows=1, decimal=',')['Function_0']
+    plt.plot(df_channel['pulse'], df_channel['60'], 'k-', label=r'\SI{100}{\volt}')
+    plt.plot(df_channel['pulse'], df_channel['vgl'], color=tugreen, label=r'\SI{0}{\volt}')
     plt.xlabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
     plt.ylabel('ADCC')
     plt.legend(loc='lower right')
@@ -183,41 +219,7 @@ def kalibration():
     plt.savefig('build/vergleich.pdf')
     plt.clf()
 
-
-
-# Alte Funktion, hier nur syntax klauen
-def eichung():
-    '''Eichung der Magnetischen Flussdichte'''
-    # Eichung des Elektromagneten
-    I, B = np.genfromtxt('rohdaten/eichung.txt', unpack=True)
-    params, covariance = curve_fit(eichfunktion, I, B)
-    errors = np.sqrt(np.diag(covariance))
-    print('Eichung')
-    print(f'\ta_0 = {params[0]} ± {errors[0]}')
-    print(f'\ta_1 = {params[1]} ± {errors[1]}')
-    print(f'\ta_2 = {params[2]} ± {errors[2]}')
-    print(f'\ta_3 = {params[3]} ± {errors[3]}')
-    print(f'\ta_4 = {params[4]} ± {errors[4]}')
-
-    # Plot
-    x_plot = np.linspace(0, 20, 10000)
-    plt.plot(I, B, 'kx', label='Messwerte')
-    plt.plot(x_plot, eichfunktion(x_plot, *params), 'b-', label='Regression')
-    plt.xlabel(r'$I\:/\:$A')
-    plt.ylabel(r'$B\:/\:$mT')
-    plt.tight_layout()
-    plt.savefig('build/eichung.pdf')
-    plt.clf()
-
-    I_halb = len(I) // 2
-    B_halb = len(B) // 2
-    # Speichern der Messwerte
-    make_table(header= ['$I$ / \\ampere', '$B$ / \milli\\tesla', '$I$ / \\ampere', '$B$ / \milli\\tesla'],
-            places= [2.1, 4.0, 2.1, 4.0],
-            data = [I[:I_halb], B[:B_halb], I[I_halb:], B[B_halb:]],
-            caption = 'Magnetische Flussdichte in Abhängigkeit des angelegten Stroms.',
-            label = 'tab:eichung',
-            filename = 'build/eichung.tex')
+    # Parameter zur Umrechnung ADCC in eV
     return params, errors
 
 
@@ -231,4 +233,4 @@ if __name__ == '__main__':
     print('Pedestal Run')
     pedestal_run()
     print('Kalibration')
-    kalibration()
+    params, errors = kalibration()

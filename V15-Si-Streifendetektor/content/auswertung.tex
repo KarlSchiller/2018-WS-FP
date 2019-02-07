@@ -77,6 +77,9 @@ Zur Kalibration bei einer Spannung von \SI{100}{\volt} wurden die Kanäle
 10, 35, 60, 90 und 120 verwendet.
 Vier sind in Abbildung \ref{fig:calibration} dargestellt und zeigen nur wenig
 Abweichung untereinander (Kanal 60 ist in Abbildung \ref{fig:vergleich} dargestellt).
+Die Anzahl injizierter Ladungsimpulse lässt sich durch den in Abschnitt \ref{sec:Halbleiter-Theorie}
+angegebenen Faktor \SI{3.6}{\electronvolt} (Energie zur Erzeugung eines
+Elektron-Loch-Paares) in eine injizierte Energie umrechnen.
 \begin{figure}
   \centering
   \includegraphics{build/calibration.pdf}  % [width=\textwidth]
@@ -87,17 +90,28 @@ Diese fehlende Abweichung motiviert die Bildung des Mittelwerts der einzelnen AD
 welcher dann zur Umrechnung der Counts in Energie für alle Streifen verwendet wird.
 Zur Umrechnung wurde ein Polynom der Form
 \begin{equation*}
-  f\!\left(E\right) = a_4 E^4 + a_3 E^3 + a_2 E^2 + a_1 E + a_0
+  E\!\left(ADCC\right) = a_4 ADCC^4 + a_3 ADCC^3 + a_2 ADCC^2 + a_1 ADCC + a_0
+  \quad\text{ mit }\quad\left[E\right] = \si{\electronvolt}
 \end{equation*}
-verwendet, welches mit der Funktion \texttt{scipy.curve\_fit} an die Mittelwerte
-der Kalibrationskurven regressiert wurde.
-In Abbildung % TODO: Referenz einfügen
-ist die Regression mit den Mittelwerten dargestellt,
+verwendet, welches mit der Funktion \texttt{curve\_fit} des Pakets
+\texttt{scipy.optimize} an die Mittelwerte der Kalibrationskurven regressiert wurde.
+Dabei wurde jedoch der Regressionsbereich auf \SIrange{0}{220}{\adc} eingeschränkt.
+In Abbildung \ref{fig:umrechnung} ist die Regression mit den Mittelwerten dargestellt,
 die regressierten Parameter $a_\text{i}$ ergaben sich zu
 \begin{align*}
-  a_4 &= asdf \\
-  a_4 &= asdf
+  a_4 &= \SI{7.5(5)e-05}{\electronvolt\raiseto{-4}\adc} \\
+  a_3 &= \SI{-0.017(2)}{\electronvolt\raiseto{-3}\adc} \\
+  a_2 &= \SI{2.2(3)}{\electronvolt\raiseto{-2}\adc} \\
+  a_2 &= \SI{1013(17)}{\electronvolt\raiseto{-1}\adc} \\
+  a_1 &= \SI{-313(282)}{\electronvolt}
 \end{align*}
+\begin{figure}
+  \centering
+  \includegraphics{build/umrechnung.pdf}  % [width=\textwidth]
+  \caption{Mittelwert der kalibrierten Streifen mit Regression zur Umrechnung
+  der \si{\adc} in \si{\electronvolt}.}
+  \label{fig:umrechnung}
+\end{figure}
 
 Für den Kanal 60 ist in Abbildung \ref{fig:vergleich} die Abweichung der Kalibrationskurve
 für einen nicht vollständig depletierten Sensor dargestellt.

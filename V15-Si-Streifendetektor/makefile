@@ -18,7 +18,14 @@ calc: rohdaten/ui-characteristic.txt
 calc: auswertung.py matplotlibrc header-matplotlib.tex | build
 	TEXINPUTS=$$(pwd): python auswertung.py
 
+build/calibration.pdf: calc | build
+build/common-mode.pdf: calc | build
+build/delay-scan.pdf: calc | build
+build/pedestal.pdf: calc | build
 build/ui-characteristic.pdf: calc | build
+build/ui-characteristic.tex: calc | build
+build/umrechnung.pdf: calc | build
+build/vergleich.pdf: calc | build
 
 build/main.pdf: FORCE | build
 	  TEXINPUTS="$(call translate,build:)" \
@@ -43,6 +50,13 @@ build:
 clean:
 	rm -rf build
 
-FORCE: build/ui-characteristic.pdf | build
+FORCE: build/calibration.pdf \
+	build/common-mode.pdf \
+	build/delay-scan.pdf \
+	build/pedestal.pdf \
+	build/ui-characteristic.pdf \
+	build/ui-characteristic.tex \
+	build/umrechnung.pdf \
+	build/vergleich.pdf | build
 
 .PHONY: all clean
