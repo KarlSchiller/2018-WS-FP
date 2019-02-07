@@ -31,6 +31,7 @@ erfassen. Im weiteren Schritt werden die Krümmungsradien der Teilchenspuren
 berechnet und daraus die Impulse bestimmt.
 
 \subsection{Halbleiter}
+\label{sec:Halbleiter-Theorie}
 Als Halbleiter werden jene Materialien bezeichnet, die werde Isolatoren, noch Leiter
 sind. Das bedeutet, dass sie eine Bandlücke mit maximal \SIrange{4}{5}{\electronvolt}
 besitzen und bei Temperaturen $T \neq 0$. Eine Bandlücke ist
@@ -186,21 +187,24 @@ Durch den Detektor und seine Ausleseelektronik enstehen Störsignale bzw. Rausch
 sogennante Noise. Um dieses Rauschen zu Minimieren wird die gemessene Anzahl von
 Analog-Digital-Converter(ACD)-Counts für ein Signal $k$ und einen Streifen $i$
 berechnet durch
-\begin{equation}
+\begin{equation*}
   \text{ADC}(i, k) = \text{P}(i) + \text{D}(k) + \text{Signal}(i, k).
-\end{equation}
+\end{equation*}
 Dabei beschreibt der Pedastal P($i$) den Mittelwert der ADC-Counts für einen
 einzelnen Streifen ohne zu erwartendes Signal und der Common Mode Shift D($k$)
 eine Störung für alle Streifen während eines Events. P($i$) und D($k$) berechnen
 sich wie folgt:
 \begin{align}
-  \text{P}(i) &= \frac{1}{N} \sum_{k=1}^N \text{ADC}(i, k) \\
+  \text{P}(i) &= \frac{1}{N} \sum_{k=1}^N \text{ADC}(i, k)
+  \label{eqn:pedestal} \\
   \text{D}(k) &= \frac{1}{128} \sum_{i=1}^{128} \left(\text{ADC}(i, k) - \text{P}(i) \right)
+  \label{eqn:common-mode}
 \end{align}
 Wird nun eine Nullhypothese auf das Signal gesetzt, so lässt sich durch einen
 Root Mean Square die Noise der einzelnen Streifen berechnen:
 \begin{equation}
   \text{Noise}(i) = \sqrt{ \frac{1}{N-1} \sum_{k=1}^N \left(\text{ADC}(i,k) - \text{P} (i) - \text{D}(k)\right)^2 }
+  \label{eqn:noise}
 \end{equation}
 Bei einer Aufnahme von Daten wird ein \textit{Signal-to-Noise-Cut} durchgeführt,
 um das Rauschen so gut wie möglich herausfiltern zu können. Dies geschieht
