@@ -5,7 +5,7 @@
 \subsection{Strom-Spannungs-Kennlinie}
 \label{sec:UI-Auswerung}
 
-Wie im Theoriekapitel % TODO: Referenz einfügen
+Wie im Theoriekapitel \ref{sec:Halbleiter-Theorie}
 beschrieben, ergibt sich aus thermischen Anregungen von Elektron-Loch-Paaren
 ein Leckstrom.
 Dieser ist für einen Bereich von \SIrange{0}{200}{\volt} aufgenommen worden,
@@ -34,22 +34,81 @@ die vollständige Depletion der Diode zu erreichen.
 \subsection{Störsignale}
 \label{sec:Stoersignale-Auswertung}
 
-- Common Mode entsteht durch alle möglichen Effekte, die alle Streifen betreffen.
-z.B. Kabel, die als Antenne wirken oder das den Versuchsaufbau umgebene Stromnetz
-- Common Mode in einem Histogramm darstellen
-- Was ist das Nois? Bei dieser Messung gilt die Nullhypothese, dass wir kein Signal haben.
-Somit ist das Signal nach Abzug von Pedestal und Common Mode unser Noise
+Vor der Kalibration der Detektorstreifen werden diese auf Störsignale untersucht.
+Bei \num{1000} Events ohne externe Signalquelle wurden Pedestal und Common Mode Shift
+nach \eqref{eqn:pedestal} und \eqref{eqn:common-mode} berechnet.
+Aus diesen lässt sich im Anschluss des Noise nach \eqref{eqn:noise} bestimmen.
+In Abbildung \ref{fig:pedestal} sind Pedestal und Noise pro Streifen dargestellt,
+wobei auch im Folgenden \si{\adc} die ADC Counts bezeichnet.
+Während der Pedestal um \SI{512}{\adc} schwankt, liegt der Noise bei grob
+\SI{2}{\adc} mit kleinen Erhöhungen an den Randstreifen.
+\begin{figure}
+  \centering
+  \includegraphics{build/pedestal.pdf}  % [width=\textwidth]
+  \caption{Pedestal und Noise der einzelnen Streifen bei einer Messung ohne externe
+  Signalquelle.}
+  \label{fig:pedestal}
+\end{figure}
+Der Common Mode Shift ist in Abbildung \ref{fig:common-mode} dargestellt und
+um \SI{0}{\adc} gaußverteilt.
+\begin{figure}
+  \centering
+  \includegraphics{build/common-mode.pdf}  % [width=\textwidth]
+  \caption{Histogramm des Common Mode Shift der einzelnen Messungen ohne externe
+  Signalquelle.}
+  \label{fig:common-mode}
+\end{figure}
 
+\FloatBarrier
 \subsection{Kalibration des Streifendetektors}
 \label{sec:Kalibration-Auswertung}
 
-- Maximum des Delay-Scans bei \SI{64}{\nano\second}
-- Betrachtete Kanäle 35, 90, 10, 120, 60
-- Messwerte der Kanäle und deren Mittelwert plotten. Begründung:
-Weil die so wenig voneinander abweichen, nehmen wir diese Kalibration für alle Streifen.
-- Definierte Anzahl an Ladungsimpulsen auf X achse. Mit der benötigten Energie
-für die erzeugung eines Elektron-Loch-Paares lässt sich dies in eine Energie umrechnen.
-- Bei \SI{0}{\volt} Kanal 60
+Die aufgenommenen Messwerte des Delay-Scans sind in Abbildung \ref{fig:delay-scan}
+dargestellt und ergeben eine optimale Verzögerung zwischen Triggersignal und
+Chipauslese von \SI{64}{\nano\second}.
+\begin{figure}
+  \centering
+  \includegraphics{build/delay-scan.pdf}  % [width=\textwidth]
+  \caption{Aufgenommene Messwerte des Delay-Scans.}
+  \label{fig:delay-scan}
+\end{figure}
+
+Zur Kalibration bei einer Spannung von \SI{100}{\volt} wurden die Kanäle
+10, 35, 60, 90 und 120 verwendet.
+Vier sind in Abbildung \ref{fig:calibration} dargestellt und zeigen nur wenig
+Abweichung untereinander (Kanal 60 ist in Abbildung \ref{fig:vergleich} dargestellt).
+\begin{figure}
+  \centering
+  \includegraphics{build/calibration.pdf}  % [width=\textwidth]
+  \caption{Aufgenommene Kalibrationskurven bei $U = \SI{100}{\volt}$.}
+  \label{fig:calibration}
+\end{figure}
+Diese fehlende Abweichung motiviert die Bildung des Mittelwerts der einzelnen ADC Counts,
+welcher dann zur Umrechnung der Counts in Energie für alle Streifen verwendet wird.
+Zur Umrechnung wurde ein Polynom der Form
+\begin{equation*}
+  f\!\left(E\right) = a_4 E^4 + a_3 E^3 + a_2 E^2 + a_1 E + a_0
+\end{equation*}
+verwendet, welches mit der Funktion \texttt{scipy.curve\_fit} an die Mittelwerte
+der Kalibrationskurven regressiert wurde.
+In Abbildung % TODO: Referenz einfügen
+ist die Regression mit den Mittelwerten dargestellt,
+die regressierten Parameter $a_\text{i}$ ergaben sich zu
+\begin{align*}
+  a_4 &= asdf \\
+  a_4 &= asdf
+\end{align*}
+
+Für den Kanal 60 ist in Abbildung \ref{fig:vergleich} die Abweichung der Kalibrationskurve
+für einen nicht vollständig depletierten Sensor dargestellt.
+\begin{figure}
+  \centering
+  \includegraphics{build/vergleich.pdf}  % [width=\textwidth]
+  \caption{Vergleich der Kalibrationskurven bei verschiedenen angelegten Spannungen
+    an Kanal 60.}
+  \label{fig:vergleich}
+\end{figure}
+
 
 \subsection{Vermessung der Streifensensoren}
 \label{sec:Vermessung-Auswertung}

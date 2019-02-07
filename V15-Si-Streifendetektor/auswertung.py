@@ -80,7 +80,7 @@ def pedestal_run():
             fmt='none',
             color='k',
             label='Pedestal')
-    ax1.set_ylabel('Pedestal', color='k')
+    ax1.set_ylabel(r'Pedestal\:/\:ADCC', color='k')
     ax1.set_xlabel('Kanal')
     ax1.tick_params('y', colors='k')
     ax1.set_ylim(500.5, 518.5)
@@ -93,7 +93,7 @@ def pedestal_run():
             fmt='none',
             color=tugreen,
             label='Noise')
-    ax2.set_ylabel('Noise', color=tugreen)
+    ax2.set_ylabel(r'Noise\:/\:ADCC', color=tugreen)
     ax2.tick_params('y', colors=tugreen)
     ax2.set_ylim(1.75, 2.55)
     #  fig.legend()
@@ -102,10 +102,9 @@ def pedestal_run():
     fig.clf()
 
     print('\tPlot Common Mode Shift')
-    measurement_indices = np.array(range(1000))
-    plt.bar(measurement_indices, common_mode, color='k')
-    plt.xlabel('Kanal')
-    plt.ylabel('Common Mode Shift')
+    plt.hist(common_mode, histtype='step', bins=30, color='k')
+    plt.xlabel('Common Mode Shift\:/\:ADCC')
+    plt.ylabel('Anzahl Messungen')
     plt.tight_layout()
     plt.savefig('build/common-mode.pdf')
     plt.clf()
@@ -130,8 +129,59 @@ def kalibration():
     plt.savefig('build/delay-scan.pdf')
     plt.clf()
 
+    print('\tCompute Kalibration')
     # Energie zur Erzeugung eines Elektron-Loch-Paares in Silizium in eV
     energy_eh_couple = 3.6
+    # Importiere Kalibrationsmessungen der Channel 10, 35, 60, 90, 120
+    channel_indices = [10, 35, 60, 90, 120]
+    channel_dict = {}  # Dictionary mit den vermessenen Kanälen
+    for index, channel in enumerate(channel_indices):
+        #  plt.subplot(2, 2, index+1, sharex=ax_1)
+        channel_dict['{}'.format(channel)] = pd.read_table(
+                'rohdaten/Calib/channel_{}.txt'.format(channel),
+                skiprows=1, decimal=',')
+        channel_dict['{}'.format(channel)].columns = ['pulse', 'adc']
+        # transform pulse to injected eV
+        channel_dict['{}'.format(channel)]['pulse'] *= energy_eh_couple
+    print('NOCH NICHT FERTIG!')
+    # TODO: Über alle channel_indices mitteln und Polynom fitten
+    # TODO: Gemittelte Kurve darstellen zusammen mit Fit
+
+    print('\tPlot Kalibration')
+    plt.subplots(2, 2, sharex=True, sharey=True)
+    ax_1 = plt.subplot(2, 2, 1)
+    ax_2 = plt.subplot(2, 2, 2)
+    ax_3 = plt.subplot(2, 2, 3, sharex=ax_1)
+    ax_4 = plt.subplot(2, 2, 4, sharex=ax_2)
+    ax_1.plot(channel_dict['10']['pulse'], channel_dict['10']['adc'], 'k-', label='Kanal 10')
+    ax_2.plot(channel_dict['35']['pulse'], channel_dict['35']['adc'], 'k-', label='Kanal 35')
+    ax_3.plot(channel_dict['90']['pulse'], channel_dict['90']['adc'], 'k-', label='Kanal 90')
+    ax_4.plot(channel_dict['120']['pulse'], channel_dict['120']['adc'], 'k-', label='Kanal 120')
+    ax_1.legend(loc='lower right')
+    ax_2.legend(loc='lower right')
+    ax_3.legend(loc='lower right')
+    ax_4.legend(loc='lower right')
+    ax_1.set_ylabel('ADCC')
+    ax_3.set_ylabel('ADCC')
+    ax_3.set_xlabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
+    ax_4.set_xlabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
+    plt.tight_layout()
+    plt.savefig('build/calibration.pdf')
+    plt.clf()
+
+    print('\tPlot Vergleich')
+    channel_dict['vgl'] = pd.read_table('rohdaten/Calib/channel_60_null_volt.txt',
+            skiprows=1, decimal=',')
+    channel_dict['vgl'].columns = ['pulse', 'adc']
+    channel_dict['vgl']['pulse'] *= energy_eh_couple
+    plt.plot(channel_dict['60']['pulse'], channel_dict['60']['adc'], 'k-', label=r'\SI{100}{\volt}')
+    plt.plot(channel_dict['vgl']['pulse'], channel_dict['vgl']['adc'], color=tugreen, label=r'\SI{0}{\volt}')
+    plt.xlabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
+    plt.ylabel('ADCC')
+    plt.legend(loc='lower right')
+    plt.tight_layout()
+    plt.savefig('build/vergleich.pdf')
+    plt.clf()
 
 
 
@@ -176,8 +226,9 @@ if __name__ == '__main__':
     if not os.path.isdir('build'):
         os.mkdir('build')
 
-    #  print('UI-Characteristic')
-    #  ui_characteristic()
-    #  print('Pedestal Run')
-    #  pedestal_run()
+    print('UI-Characteristic')
+    ui_characteristic()
+    print('Pedestal Run')
+    pedestal_run()
+    print('Kalibration')
     kalibration()
