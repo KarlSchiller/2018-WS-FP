@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 #  import scipy.constants as const
 #  import imageio
-#  from scipy.signal import find_peaks
+from scipy.signal import find_peaks
 #  import pint
 import pandas as pd
 from tab2tex import make_table
@@ -128,7 +128,7 @@ def kalibration():
             df_delay['adc'].drop(index=best_delay_index), color='k')
     plt.bar(df_delay['delay'][best_delay_index], df_delay['adc'][best_delay_index],
             color=tugreen, label='Maximum')
-    plt.xlabel(r'Delay\:/\:\si{\nano\second}')
+    plt.xlabel(r'Verzögerung\:/\:\si{\nano\second}')
     plt.ylabel('Durchschnittliche ADC Counts')
     plt.legend(loc='upper right')
     plt.tight_layout()
@@ -223,6 +223,73 @@ def kalibration():
     return params, errors
 
 
+def vermessung():
+    '''Vermessung der Streifensensoren mittels des Lasers'''
+    print('\tPlot Laser Delay')
+    df_delay = pd.read_table('rohdaten/laser_sync.txt', skiprows=1, decimal=',')
+    df_delay.columns = ['delay', 'adc']
+    best_delay_index = df_delay['adc'].idxmax(axis=0)
+    print('\tBest Laser delay at {} ns'.format(df_delay['delay'][best_delay_index]))
+    plt.bar(df_delay['delay'].drop(index=best_delay_index),
+            df_delay['adc'].drop(index=best_delay_index), color='k')
+    plt.bar(df_delay['delay'][best_delay_index], df_delay['adc'][best_delay_index],
+            color=tugreen, label='Maximum')
+    plt.xlabel(r'Verzögerung\:/\:\si{\nano\second}')
+    plt.ylabel('ADC Counts')
+    plt.ylim(0, 150)
+    plt.legend(loc='upper right')
+    plt.tight_layout()
+    plt.savefig('build/laser-delay.pdf')
+    plt.clf()
+
+    print('\tPlot Heatmap')
+    df_laser =  pd.read_csv('rohdaten/Laserscan.txt',
+            sep = '\t',
+            names = ['stripe {}'.format(i) for i in range(128)],
+            skiprows=1)
+    fig, ax = plt.subplots()
+    heatmap = ax.pcolor(df_laser, cmap='binary', edgecolors='k', linewidths=0.1)
+    cbar = plt.colorbar(heatmap)
+    cbar.set_label('ADC Counts')
+    ax.set_xlabel('Streifen')
+    ax.set_ylabel('Messposition')
+    fig.tight_layout()
+    fig.savefig('build/streifen-uebersicht.pdf')
+    fig.clf()
+
+    print('\tAnalyse single stripes 81 and 82')
+    peaks_81, peakheights = find_peaks(df_laser['stripe 81'], height=130)
+    peaks_82, peakheights = find_peaks(df_laser['stripe 82'], height=130)
+    # warning: the array starts at zero, but the axis label starts at one!
+    peaks_81 += 1
+    peaks_82 += 1
+    streifendicke = np.mean(np.concatenate((np.diff(peaks_81), np.diff(peaks_82)), axis=0))
+    print('\tmean stripe width {} pm 10 microns'.format(streifendicke*10))
+
+    measure_indices = np.arange(35)+1
+    fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, sharex=True)
+    #  ax1.plot(measure_indices, df_laser['stripe 81'], marker='x', color='k',
+            #  linestyle=':', linewidth=0.3, label='Streifen 81')
+    ax1.plot(measure_indices, df_laser['stripe 81'], 'kx', label='Streifen 81')
+    for peak in peaks_81:
+        ax1.axvline(x=peak, color='k', linestyle='--', linewidth=0.8)
+    ax2.plot(measure_indices, df_laser['stripe 82'], 'kx', label='Streifen 82')
+    #  ax2.plot(measure_indices, df_laser['stripe 82'], marker='x', color=tugreen,
+            #  linestyle=':', linewidth=0.3, label='Streifen 82')
+    for peak in peaks_82:
+        ax2.axvline(x=peak, color='k', linestyle='--', linewidth=0.8)
+    ax1.set_ylabel('ADC Counts')
+    ax2.set_ylabel('ADC Counts')
+    ax2.set_xlabel('Messposition')
+    ax1.set_title('Streifen 81')
+    ax2.set_title('Streifen 82')
+    fig.tight_layout()
+    #  fig.legend()
+    fig.savefig('build/streifen.pdf')
+    fig.clf()
+    return None
+
+
 if __name__ == '__main__':
 
     if not os.path.isdir('build'):
@@ -234,3 +301,5 @@ if __name__ == '__main__':
     pedestal_run()
     print('Kalibration')
     params, errors = kalibration()
+    print('Laser Vermessung')
+    vermessung()

@@ -123,38 +123,81 @@ für einen nicht vollständig depletierten Sensor dargestellt.
   \label{fig:vergleich}
 \end{figure}
 
-
+\FloatBarrier
 \subsection{Vermessung der Streifensensoren}
 \label{sec:Vermessung-Auswertung}
 
-- Stellschraube bei \SI{4.00}{\milli\meter}, hier Maximum der Intensität -> Streifen
-- 35 Punkte aufgenommen von \SIrange{4.00}{4.34}{\milli\meter}
-- pitch der Streifen meint deren Periodizität. Nach Definition beträgt die Dicke der
-Streifen nicht deren p-Dotierte Dicke, sondern die Hälfte dazwischen auch mit dazu.
-Somit grenzen sie aneinander und mit der Periodizität wird quasi die Breite eines
-solchen Streifens ausgemessen.
-- Die Ausdehnung des Lasers kann aus der steigenden und fallenden Flanke des Signals
-ermittelt werden. Da der Laser fokussiert ist, zeigt es, wie viel Weg es braucht,
-bis der komplette Laser auf einen Streifen scheint. Da hier \SI{10}{\micro\meter}-Schritte,
-ist dies sehr ungenau abzuschätzen.
+Zur Vermessung der Silizium-Streifensensoren wird ein in der Kontrolleinheit erzeugter
+Laser verwendet. Zur Synchronisation des Lasers mit dem System wird die
+optimale Verzögerung zwischen Lasersignal und Chipauslese ermittelt.
+Dazu ist in Abbildung \ref{fig:laser-delay} die Verzögerung gegen die ADC Counts
+der Auslese aufgetragen.
+Das Maximum wird bei einer Verzögerung von \SI{100}{\nano\second} ermittelt und
+dieser Wert wird für die eigentliche Vermessung verwendet.
+\begin{figure}
+  \centering
+  \includegraphics{build/laser-delay.pdf}  % [width=\textwidth]
+  \caption{Verzögerung zwischen Lasersignal und Chipauslese gegen ADC Counts zur
+  Synchronisation.}
+  \label{fig:laser-delay}
+\end{figure}
 
-\subsection{Bestimmung der Charge Collection Efficiency}
-\label{sec:CCE-Auswertung}
+Nach der in Abschnitt \ref{sec:Vermessung_Laser} vertikalen Fokussierung des
+Lasers wird dieser in \SI{10}{\micro\meter}-Schritten horizontal bewegt,
+angefangen bei \SI{4.00}{\milli\meter}.
+Die aufgenommenen ADC Counts pro Messposition sind in Abbildung \ref{fig:streifen-uebersicht}
+pro Streifen dargestellt.
+Dabei zeigen die Streifen 81 und 82 Maxima, sodass hier der Laser bei der jeweiligen
+Messposition auf diese Streifen ausgerichtet sein muss.
+\begin{figure}
+  \centering
+  \includegraphics{build/streifen-uebersicht.pdf}  % [width=\textwidth]
+  \caption{ADC Counts der einzelnen Streifen pro Messposition des fokussierten
+  Lasers.}
+  \label{fig:streifen-uebersicht}
+\end{figure}
+
+Aus diesem Grund sind diese beide Streifen in Abbildung \ref{fig:streifen}
+genauer dargestellt. Der \emph{pitch} der Streifen, also deren Periodizität oder
+Dicke der Streifen kann aus den Abständen der Signalmaxima bestimmt werden.
+% Nach Definition beträgt die Dicke der Streifen nicht deren p-Dotierte Dicke,
+% sondern die Hälfte dazwischen auch mit dazu.
+% Somit grenzen sie aneinander und mit der Periodizität wird quasi die Breite eines
+% solchen Streifens ausgemessen.
+Unter erneuter Verwendung von \texttt{curve\_fit} und Mittelung über beide Streifen
+beträgt der pitch \SI{110(10)}{\micro\meter}, wobei der Fehler aus der gewählten
+Schrittweite zwischen den Messpunkten resultiert.
+Schließlich kann aus den steigenden und fallenden Flanken der Signalmaxima die
+Breite des Laserpunktes grob abgeschätzt werden.
+Da der Laser fokussiert ist zeigen die Flanken an, wie viel Weg es braucht, bis
+sich der komplette Laserspot auf einem Streifen befindet.
+Hier betragen die Flanken mit Augenmaß 2 Messpunkte, sodass unter Berücksichtigung
+der gewählten Schrittweite eine Laserbreite von \SI{20(10)}{\micro\meter} resultiert.
+\begin{figure}
+  \centering
+  \includegraphics{build/streifen.pdf}  % [width=\textwidth]
+  \caption{ADC Counts der Streifen 81 und 81 pro Messposition des fokussierten
+  Lasers. Die Maxima der Signale sind durch gestrichelte Linien markiert.}
+  \label{fig:streifen}
+\end{figure}
+
+\FloatBarrier
+\subsection{Bestimmung der CCE unter Verwendung eines Lasers}
+\label{sec:CCEL-Auswertung}
 
 - Position des Lasers horizontal wieder bei \SI{4.00}{\milli\meter}, mit vorherigem
 Kapitel motivieren.
-
-\subsubsection{Bestimmung der CCE unter Verwendung eines Lasers}
-\label{sec:CCEL-Auswertung}
-
 - Die entsprechende Gleichung gilt nur bei Anregung mit Photonen, weshalb dieser Fit
 nicht bei der CCEQ-Messung verwendet werden kann
 - Depletionsspannung bisher nur sehr ungenau vermessen, deshalb hier bitte als
 Fitparameter mitgeben.
 
-\subsubsection{Bestimmung der CCE unter Verwendung einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
+\FloatBarrier
+\subsection{Bestimmung der CCE unter Verwendung einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
 \label{sec:CCEQ-Auswertung}
 
+- Position des Lasers horizontal wieder bei \SI{4.00}{\milli\meter}, mit vorherigem
+Kapitel motivieren.
 - Die Elektronen haben eine hohe Energie. Nach der modifizierten Bethe-Bloch-Gleichung
 ist bei diesen Energien genau ein Minimum bei der deponierten Energie pro Weg, sodass
 relativ wenig Energie deponiert wird.
@@ -163,6 +206,7 @@ den Sensor überall die selbe Energie abgeben.
 - Energiedeposition der Elektronen immer die selbe, eine Variation in der gemessenen
 deponierten Energie liegt also nur an der angelegten Spannung
 
+\FloatBarrier
 \subsubsection{Quellenscan einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
 \label{sec:Quellenscan-Auswertung}
 

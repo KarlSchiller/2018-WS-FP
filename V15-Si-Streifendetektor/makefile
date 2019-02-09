@@ -21,7 +21,10 @@ calc: auswertung.py matplotlibrc header-matplotlib.tex | build
 build/calibration.pdf: calc | build
 build/common-mode.pdf: calc | build
 build/delay-scan.pdf: calc | build
+build/laser-delay.pdf: calc | build
 build/pedestal.pdf: calc | build
+build/streifen-uebersicht.pdf: calc | build
+build/streifen.pdf: calc | build
 build/ui-characteristic.pdf: calc | build
 build/ui-characteristic.tex: calc | build
 build/umrechnung.pdf: calc | build
@@ -53,7 +56,10 @@ clean:
 FORCE: build/calibration.pdf \
 	build/common-mode.pdf \
 	build/delay-scan.pdf \
+	build/laser-delay.pdf \
 	build/pedestal.pdf \
+	build/streifen-uebersicht.pdf \
+	build/streifen.pdf \
 	build/ui-characteristic.pdf \
 	build/ui-characteristic.tex \
 	build/umrechnung.pdf \
