@@ -15,12 +15,16 @@ from tab2tex import make_table
 #  ureg = pint.UnitRegistry(auto_reduce_dimensions = True)
 #  Q_ = ureg.Quantity
 tugreen = '#80BA26'
+tuorange = '#E36913'
 
 #  c = Q_(const.value('speed of light in vacuum'), const.unit('speed of light in vacuum'))
 #  h = Q_(const.value('Planck constant'), const.unit('Planck constant'))
 #  c = const.c
 #  h = const.h
 #  muB = const.value('Bohr magneton')
+
+# Estimation depletion voltage. Could not fit ...
+Udepletion = 80
 
 
 def linear(x, a, b):
@@ -31,6 +35,20 @@ def linear(x, a, b):
 def umrechnung(x, a0, a1, a2, a3, a4):
     '''Polynom 4.Grades zur Umrechnung ADCC in eV'''
     return a4*x**4 + a3*x**3 + a2*x**2 + a1*x + a0
+
+
+def cce(U, a, Udep):
+    '''CCE at U < Udep'''
+    D = 300e-6  # sensor thickness in meter
+    dc = D*np.sqrt(U/Udep)
+    return 1-np.exp(-dc/a) / (1-np.exp(-D/a))
+
+
+def cce_2(U, a):
+    '''CCE at U < Udep'''
+    D = 300e-6
+    dc = D*np.sqrt(U/Udepletion)
+    return 1-np.exp(-dc/a) / (1-np.exp(-D/a))
 
 
 def ui_characteristic():
@@ -290,16 +308,77 @@ def vermessung():
     return None
 
 
+def ccel():
+    '''Estimation of the Charge Collection Efficiency with the use of a Laser'''
+    temp = pd.DataFrame()  # help Dataframe to import Data
+    for voltage in np.arange(0, 201, 10):
+        temp['{}'.format(voltage)] = np.genfromtxt('rohdaten/CCEL/{}CCEL.txt'.format(voltage),
+                unpack=True)
+
+    #  To get an idea, which strip is to analize
+    #  WARNING: Applied voltage values not correct in figure!
+    #  print('\tPlot Heatmap')
+    #  fig, ax = plt.subplots()
+    #  heatmap = ax.pcolor(temp, cmap='binary', edgecolors='k', linewidths=0.1)
+    #  cbar = plt.colorbar(heatmap)
+    #  cbar.set_label('ADC Counts')
+    #  ax.set_ylabel('Streifen')
+    #  ax.set_xlabel('Spannung')
+    #  fig.tight_layout()
+    #  fig.savefig('build/ccel-uebersicht.pdf')
+    #  fig.clf()
+
+    # analyse strip 84
+    strip_84 = temp.iloc[83]
+    df = pd.DataFrame()
+    df['ccel'] = strip_84 / strip_84.max()
+    applied_voltage = np.arange(0, 201, 10)
+    start = 0
+    stop = 8
+    #  params, covariance = curve_fit(cce, applied_voltage[start:stop], df['ccel'][start:stop],
+            #  p0 = [1e-4, 80],
+            #  bounds = ([1e-6, 80],  # lower bounds
+                      #  [1, 81])) # upper bounds
+    params, covariance = curve_fit(cce_2, applied_voltage[start:stop], df['ccel'][start:stop],
+            p0 = [1e-4],
+            bounds = (1e-6, 1)) # lower and upper bound
+    errors = np.sqrt(np.diag(covariance))
+    print('\tFit CCE from {} to {} volt (indices {} to {})'.format(applied_voltage[start],
+        applied_voltage[stop], start, stop))
+    print('\tUdep set to {} volt'.format(Udepletion))
+    print(f'\ta    = {params[0]} ± {errors[0]}')
+    #  print(f'\tUdep = {params[1]} ± {errors[1]}')
+
+
+    print('\tPlot CCEL')
+    voltage_plot = np.linspace(0, 200, 10000)
+    plt.axvspan(xmin=65, xmax=85, facecolor=tugreen, label=r'Ermitteltes $U_{\mathrm{Dep}}$')  # alpha=0.9
+    plt.plot(applied_voltage[stop:], df['ccel'][stop:], 'kx')
+    plt.plot(applied_voltage[start:stop], df['ccel'][start:stop], 'x', color=tuorange)
+    #  plt.plot(voltage_plot, cce(voltage_plot, *params), 'r-')
+    plt.plot(voltage_plot, cce_2(voltage_plot, *params), color=tuorange)
+    plt.xlabel(r'$U\:/\:\si{\volt}$')
+    plt.ylabel(r'Normiertes Messsignal')
+    plt.tight_layout()
+    #  plt.legend()
+    plt.savefig('build/ccel.pdf')
+    plt.clf()
+
+    return None
+
+
 if __name__ == '__main__':
 
     if not os.path.isdir('build'):
         os.mkdir('build')
 
-    print('UI-Characteristic')
-    ui_characteristic()
-    print('Pedestal Run')
-    pedestal_run()
-    print('Kalibration')
-    params, errors = kalibration()
-    print('Laser Vermessung')
-    vermessung()
+    #  print('UI-Characteristic')
+    #  ui_characteristic()
+    #  print('Pedestal Run')
+    #  pedestal_run()
+    #  print('Kalibration')
+    #  params, errors = kalibration()
+    #  print('Laser Vermessung')
+    #  vermessung()
+    print('CCEL')
+    ccel()

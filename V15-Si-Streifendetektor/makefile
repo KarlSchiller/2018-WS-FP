@@ -19,6 +19,7 @@ calc: auswertung.py matplotlibrc header-matplotlib.tex | build
 	TEXINPUTS=$$(pwd): python auswertung.py
 
 build/calibration.pdf: calc | build
+build/ccel.pdf: calc | build
 build/common-mode.pdf: calc | build
 build/delay-scan.pdf: calc | build
 build/laser-delay.pdf: calc | build
@@ -54,6 +55,7 @@ clean:
 	rm -rf build
 
 FORCE: build/calibration.pdf \
+	build/ccel.pdf \
 	build/common-mode.pdf \
 	build/delay-scan.pdf \
 	build/laser-delay.pdf \

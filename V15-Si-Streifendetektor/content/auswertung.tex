@@ -185,12 +185,24 @@ der gewählten Schrittweite eine Laserbreite von \SI{20(10)}{\micro\meter} resul
 \subsection{Bestimmung der CCE unter Verwendung eines Lasers}
 \label{sec:CCEL-Auswertung}
 
+\begin{figure}
+  \centering
+  \includegraphics{build/ccel.pdf}  % [width=\textwidth]
+  \caption{Normierte Messwerte in Abhängigkeit der angelegten Spannung von Kanal
+  84. Für die Regression (durchgängige Kurve) verwendete Messwerte sind in orange markiert.
+  Der grüne Bereich kennzeichnet die in Abschnitt \ref{sec:UI-Auswerung} abgeschätzte
+  Depletionsspannung.}
+  \label{fig:ccel}
+\end{figure}
+- Vergleich Beginn des Plateaus (wo auch immer das ist) mit grün eingezeichnetem
+Bereich Udep von weiter oben
 - Position des Lasers horizontal wieder bei \SI{4.00}{\milli\meter}, mit vorherigem
 Kapitel motivieren.
 - Die entsprechende Gleichung gilt nur bei Anregung mit Photonen, weshalb dieser Fit
 nicht bei der CCEQ-Messung verwendet werden kann
 - Depletionsspannung bisher nur sehr ungenau vermessen, deshalb hier bitte als
 Fitparameter mitgeben.
+-> Hat nicht funktioniert, da zu wenige Messwerte. Udep festgesetzt und damit gefittet.
 
 \FloatBarrier
 \subsection{Bestimmung der CCE unter Verwendung einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
