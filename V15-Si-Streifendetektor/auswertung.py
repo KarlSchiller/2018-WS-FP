@@ -367,6 +367,38 @@ def ccel():
     return None
 
 
+def cceq():
+    '''Estimation of the Charge Collection Efficiency with the use of a beta source'''
+    # dictionary to save the mean counts of the clusters
+    #  mean_counts = {}
+    mean_counts = np.array([])
+    applied_voltage = np.arange(0, 201, 10)
+    for voltage in applied_voltage:
+        temp =  pd.read_csv('rohdaten/CCEQ/{}_Cluster_adc_entries.txt'.format(voltage),
+            sep = '\t',
+            # Maximum Number of columns possible is the number of stripes
+            names = ['{}'.format(i) for i in range(128)],
+            skiprows=1)
+        #  mean_counts['{}'.format(voltage)] = temp.sum(axis=1).mean()
+        mean_counts = np.append(mean_counts, temp.sum(axis=1).mean())
+    # norm the signal
+    mean_counts = mean_counts / np.max(mean_counts)
+
+    print('\tPlot CCEQ')
+    voltage_plot = np.linspace(0, 200, 10000)
+    plt.plot(applied_voltage, mean_counts, 'kx')
+    plt.xlabel(r'$U\:/\:\si{\volt}$')
+    plt.ylabel(r'Normiertes Messsignal')
+    plt.tight_layout()
+    #  plt.legend()
+    plt.savefig('build/cceq.pdf')
+    plt.clf()
+
+    # TODO: Vergleich der beiden CCE's
+
+    return None
+
+
 if __name__ == '__main__':
 
     if not os.path.isdir('build'):
@@ -380,5 +412,7 @@ if __name__ == '__main__':
     #  params, errors = kalibration()
     #  print('Laser Vermessung')
     #  vermessung()
-    print('CCEL')
-    ccel()
+    #  print('CCEL')
+    #  ccel()
+    print('CCEQ')
+    cceq()
