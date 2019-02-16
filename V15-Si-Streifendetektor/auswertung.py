@@ -136,22 +136,22 @@ def pedestal_run():
 
 def kalibration():
     '''Kalibration zur Umrechnung ADC Counts in Energie'''
-    print('\tPlot Delay Scan')
-    #  delay, y = np.genfromtxt('rohdaten/Delay_Scan', unpack=True)
-    df_delay = pd.read_table('rohdaten/Delay_Scan', skiprows=1, decimal=',')
-    df_delay.columns = ['delay', 'adc']
-    best_delay_index = df_delay['adc'].idxmax(axis=0)
-    print('\tBest Delay at {} ns'.format(df_delay['delay'][best_delay_index]))
-    plt.bar(df_delay['delay'].drop(index=best_delay_index),
-            df_delay['adc'].drop(index=best_delay_index), color='k')
-    plt.bar(df_delay['delay'][best_delay_index], df_delay['adc'][best_delay_index],
-            color=tugreen, label='Maximum')
-    plt.xlabel(r'Verzögerung\:/\:\si{\nano\second}')
-    plt.ylabel('Durchschnittliche ADC Counts')
-    plt.legend(loc='upper right')
-    plt.tight_layout()
-    plt.savefig('build/delay-scan.pdf')
-    plt.clf()
+    #  print('\tPlot Delay Scan')
+    #  #  delay, y = np.genfromtxt('rohdaten/Delay_Scan', unpack=True)
+    #  df_delay = pd.read_table('rohdaten/Delay_Scan', skiprows=1, decimal=',')
+    #  df_delay.columns = ['delay', 'adc']
+    #  best_delay_index = df_delay['adc'].idxmax(axis=0)
+    #  print('\tBest Delay at {} ns'.format(df_delay['delay'][best_delay_index]))
+    #  plt.bar(df_delay['delay'].drop(index=best_delay_index),
+            #  df_delay['adc'].drop(index=best_delay_index), color='k')
+    #  plt.bar(df_delay['delay'][best_delay_index], df_delay['adc'][best_delay_index],
+            #  color=tugreen, label='Maximum')
+    #  plt.xlabel(r'Verzögerung\:/\:\si{\nano\second}')
+    #  plt.ylabel('Durchschnittliche ADC Counts')
+    #  plt.legend(loc='upper right')
+    #  plt.tight_layout()
+    #  plt.savefig('build/delay-scan.pdf')
+    #  plt.clf()
 
     print('\tCompute Kalibration')
     # Energie zur Erzeugung eines Elektron-Loch-Paares in Silizium in eV
@@ -188,54 +188,54 @@ def kalibration():
     print(f'\ta_3 = {params[3]} ± {errors[3]}')
     print(f'\ta_4 = {params[4]} ± {errors[4]}')
 
-    print('\tPlot Kalibration')
-    plt.subplots(2, 2, sharex=True, sharey=True)
-    ax_1 = plt.subplot(2, 2, 1)
-    ax_2 = plt.subplot(2, 2, 2)
-    ax_3 = plt.subplot(2, 2, 3, sharex=ax_1)
-    ax_4 = plt.subplot(2, 2, 4, sharex=ax_2)
-    ax_1.plot(df_channel['pulse'], df_channel['10'], 'k-', label='Kanal 10')
-    ax_2.plot(df_channel['pulse'], df_channel['35'], 'k-', label='Kanal 35')
-    ax_3.plot(df_channel['pulse'], df_channel['90'], 'k-', label='Kanal 90')
-    ax_4.plot(df_channel['pulse'], df_channel['120'], 'k-', label='Kanal 120')
-    ax_1.legend(loc='lower right')
-    ax_2.legend(loc='lower right')
-    ax_3.legend(loc='lower right')
-    ax_4.legend(loc='lower right')
-    ax_1.set_ylabel('ADCC')
-    ax_3.set_ylabel('ADCC')
-    ax_3.set_xlabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
-    ax_4.set_xlabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
-    plt.tight_layout()
-    plt.savefig('build/calibration.pdf')
-    plt.clf()
+    #  print('\tPlot Kalibration')
+    #  plt.subplots(2, 2, sharex=True, sharey=True)
+    #  ax_1 = plt.subplot(2, 2, 1)
+    #  ax_2 = plt.subplot(2, 2, 2)
+    #  ax_3 = plt.subplot(2, 2, 3, sharex=ax_1)
+    #  ax_4 = plt.subplot(2, 2, 4, sharex=ax_2)
+    #  ax_1.plot(df_channel['pulse'], df_channel['10'], 'k-', label='Kanal 10')
+    #  ax_2.plot(df_channel['pulse'], df_channel['35'], 'k-', label='Kanal 35')
+    #  ax_3.plot(df_channel['pulse'], df_channel['90'], 'k-', label='Kanal 90')
+    #  ax_4.plot(df_channel['pulse'], df_channel['120'], 'k-', label='Kanal 120')
+    #  ax_1.legend(loc='lower right')
+    #  ax_2.legend(loc='lower right')
+    #  ax_3.legend(loc='lower right')
+    #  ax_4.legend(loc='lower right')
+    #  ax_1.set_ylabel('ADCC')
+    #  ax_3.set_ylabel('ADCC')
+    #  ax_3.set_xlabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
+    #  ax_4.set_xlabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
+    #  plt.tight_layout()
+    #  plt.savefig('build/calibration.pdf')
+    #  plt.clf()
 
-    # mean adc with regression
-    adcc_plot = np.linspace(df_channel['mean'][start],
-            df_channel['mean'][stop], 10000)
-    plt.plot(df_channel['mean'], df_channel['pulse'], 'k-', label='Mittelwert')
-    plt.plot(adcc_plot, umrechnung(adcc_plot, *params), color=tugreen, label='Regression')
-    plt.axvline(x=df_channel['mean'][start], color='k', linestyle='--', linewidth=0.8,
-            label='Regressionsbereich')
-    plt.axvline(x=df_channel['mean'][stop], color='k', linestyle='--', linewidth=0.8)
-    plt.xlabel('ADCC')
-    plt.ylabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
-    plt.legend(loc='upper center')
-    plt.tight_layout()
-    plt.savefig('build/umrechnung.pdf')
-    plt.clf()
+    #  #  mean adc with regression
+    #  adcc_plot = np.linspace(df_channel['mean'][start],
+            #  df_channel['mean'][stop], 10000)
+    #  plt.plot(df_channel['mean'], df_channel['pulse'], 'k-', label='Mittelwert')
+    #  plt.plot(adcc_plot, umrechnung(adcc_plot, *params), color=tugreen, label='Regression')
+    #  plt.axvline(x=df_channel['mean'][start], color='k', linestyle='--', linewidth=0.8,
+            #  label='Regressionsbereich')
+    #  plt.axvline(x=df_channel['mean'][stop], color='k', linestyle='--', linewidth=0.8)
+    #  plt.xlabel('ADCC')
+    #  plt.ylabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
+    #  plt.legend(loc='upper center')
+    #  plt.tight_layout()
+    #  plt.savefig('build/umrechnung.pdf')
+    #  plt.clf()
 
-    print('\tPlot Vergleich')
-    df_channel['vgl'] = pd.read_table('rohdaten/Calib/channel_60_null_volt.txt',
-            skiprows=1, decimal=',')['Function_0']
-    plt.plot(df_channel['pulse'], df_channel['60'], 'k-', label=r'\SI{100}{\volt}')
-    plt.plot(df_channel['pulse'], df_channel['vgl'], color=tugreen, label=r'\SI{0}{\volt}')
-    plt.xlabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
-    plt.ylabel('ADCC')
-    plt.legend(loc='lower right')
-    plt.tight_layout()
-    plt.savefig('build/vergleich.pdf')
-    plt.clf()
+    #  print('\tPlot Vergleich')
+    #  df_channel['vgl'] = pd.read_table('rohdaten/Calib/channel_60_null_volt.txt',
+            #  skiprows=1, decimal=',')['Function_0']
+    #  plt.plot(df_channel['pulse'], df_channel['60'], 'k-', label=r'\SI{100}{\volt}')
+    #  plt.plot(df_channel['pulse'], df_channel['vgl'], color=tugreen, label=r'\SI{0}{\volt}')
+    #  plt.xlabel(r'Injizierte Energie$\:/\:$\si{\electronvolt}')
+    #  plt.ylabel('ADCC')
+    #  plt.legend(loc='lower right')
+    #  plt.tight_layout()
+    #  plt.savefig('build/vergleich.pdf')
+    #  plt.clf()
 
     # Parameter zur Umrechnung ADCC in eV
     return params, errors
@@ -364,7 +364,8 @@ def ccel():
     plt.savefig('build/ccel.pdf')
     plt.clf()
 
-    return None
+    # return ccel-values to compare them with the cceq measurement
+    return df['ccel']
 
 
 def cceq():
@@ -384,17 +385,57 @@ def cceq():
     # norm the signal
     mean_counts = mean_counts / np.max(mean_counts)
 
-    print('\tPlot CCEQ')
-    voltage_plot = np.linspace(0, 200, 10000)
-    plt.plot(applied_voltage, mean_counts, 'kx')
+    # Not necessary, because the same data is displayed in cce-verlgeich.pdf
+    #  print('\tPlot CCEQ')
+    #  voltage_plot = np.linspace(0, 200, 10000)
+    #  plt.plot(applied_voltage, mean_counts, 'kx')
+    #  plt.xlabel(r'$U\:/\:\si{\volt}$')
+    #  plt.ylabel(r'Normiertes Messsignal')
+    #  plt.tight_layout()
+    #  #  plt.legend()
+    #  plt.savefig('build/cceq.pdf')
+    #  plt.clf()
+
+    # return cceq-values to compare them with the ccel measurement
+    return mean_counts
+
+
+def cce_vergleich(ccel_data, cceq_data):
+    '''Compare CCE-measurements with laser and source'''
+    print('\tPlot Vergleich')
+    applied_voltage = np.arange(0, 201, 10)
+    plt.plot(applied_voltage, ccel_data, 'kx', label='Laser')
+    plt.plot(applied_voltage, cceq_data, 'x', color=tugreen, label='Quelle')
     plt.xlabel(r'$U\:/\:\si{\volt}$')
     plt.ylabel(r'Normiertes Messsignal')
+    plt.legend(loc='lower right')
     plt.tight_layout()
     #  plt.legend()
-    plt.savefig('build/cceq.pdf')
+    plt.savefig('build/cce-vergleich.pdf')
     plt.clf()
 
-    # TODO: Vergleich der beiden CCE's
+    return None
+
+
+def source_scan(calib_params, calib_errors):
+    '''Characterization of a beta source'''
+    # number of clusters per event
+    df_cluster_number = pd.read_csv('rohdaten/number_of_clusters.txt',
+            names=['adcc'],
+            skiprows=1)
+    # Dataframe indexed from 0 to 127, but number of clusters starts with 1
+    df_cluster_number.set_index(np.arange(1, 129), inplace=True)
+    # extract only the cluster numbers not equal zero
+    df_cluster_number = df_cluster_number[df_cluster_number != 0].dropna()
+    df_cluster_number['log'] = np.log10(df_cluster_number['adcc'])
+    print('\tPlot Number of Clusters')
+    plt.bar(df_cluster_number.index.values, df_cluster_number['log'], edgecolor='k', color='w')
+    plt.xlabel('Anzahl Cluster')
+    plt.ylabel('Logarithmierte Häufigkeit')
+    #  plt.legend(loc='lower right')
+    plt.tight_layout()
+    plt.savefig('build/number-of-clusters.pdf')
+    plt.clf()
 
     return None
 
@@ -408,11 +449,14 @@ if __name__ == '__main__':
     #  ui_characteristic()
     #  print('Pedestal Run')
     #  pedestal_run()
-    #  print('Kalibration')
-    #  params, errors = kalibration()
+    print('Kalibration')
+    params, errors = kalibration()
     #  print('Laser Vermessung')
     #  vermessung()
     #  print('CCEL')
-    #  ccel()
-    print('CCEQ')
-    cceq()
+    #  ccel_data = ccel()
+    #  print('CCEQ')
+    #  cceq_data = cceq()
+    #  cce_vergleich(ccel_data, cceq_data)
+    print('Quellenscan')
+    source_scan(params, errors)

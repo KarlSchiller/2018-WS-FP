@@ -19,7 +19,9 @@ calc: auswertung.py matplotlibrc header-matplotlib.tex | build
 	TEXINPUTS=$$(pwd): python auswertung.py
 
 build/calibration.pdf: calc | build
+build/cce-vergleich.pdf: calc | build
 build/ccel.pdf: calc | build
+build/cceq.pdf: calc | build
 build/common-mode.pdf: calc | build
 build/delay-scan.pdf: calc | build
 build/laser-delay.pdf: calc | build
@@ -42,12 +44,6 @@ build/main.pdf: FORCE | build
 		--halt-on-error \
 	main.tex
 
-fast: FORCE | build
-	lualatex --output-directory=build --interaction=nonstopmode --halt-on-error main.tex
-	biber --output-directory=build main.bcf
-	lualatex --output-directory=build --interaction=nonstopmode --halt-on-error main.tex
-	lualatex --output-directory=build --interaction=nonstopmode --halt-on-error main.tex
-
 build:
 	mkdir -p build
 
@@ -55,7 +51,9 @@ clean:
 	rm -rf build
 
 FORCE: build/calibration.pdf \
+	build/cce-vergleich.pdf \
 	build/ccel.pdf \
+	build/cceq.pdf \
 	build/common-mode.pdf \
 	build/delay-scan.pdf \
 	build/laser-delay.pdf \

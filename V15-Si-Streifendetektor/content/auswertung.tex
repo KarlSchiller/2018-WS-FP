@@ -208,6 +208,12 @@ Fitparameter mitgeben.
 \subsection{Bestimmung der CCE unter Verwendung einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
 \label{sec:CCEQ-Auswertung}
 
+\begin{figure}
+  \centering
+  \includegraphics{build/cceq.pdf}  % [width=\textwidth]
+  \caption{Normierte mittlere \si{\adc} der Cluster in Abhängigkeit der angelegten Spannung.}
+  \label{fig:cceq}
+\end{figure}
 - Position des Lasers horizontal wieder bei \SI{4.00}{\milli\meter}, mit vorherigem
 Kapitel motivieren.
 - Pro Spannung und Event werden die ADCC aller Streifen, die über das Signal/Noise =5
@@ -219,11 +225,25 @@ relativ wenig Energie deponiert wird.
 den Sensor überall die selbe Energie abgeben.
 - Energiedeposition der Elektronen immer die selbe, eine Variation in der gemessenen
 deponierten Energie liegt also nur an der angelegten Spannung
+\begin{figure}
+  \centering
+  \includegraphics{build/cce-vergleich.pdf}  % [width=\textwidth]
+  \caption{Vergleich der verschiedenen Messungen zur CCE.}
+  \label{fig:cce-vergleich}
+\end{figure}
 
 \FloatBarrier
 \subsection{Quellenscan einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
 \label{sec:Quellenscan-Auswertung}
 
+- Cluster pro Event: Alle "Anzahlen" ungleich Null in Abbildung.
+Dabei zur Übersichtlichkeit zur Basis 10 logarithmiert
+\begin{figure}
+  \centering
+  \includegraphics{build/number-of-clusters.pdf}  % [width=\textwidth]
+  \caption{Logarightmierte Häufigkeit der Anzahl an Cluster pro Event.}
+  \label{fig:number-of-clusters}
+\end{figure}
 - Signal/Noise = 5 als Cut, alles darunter weg geschnitten. Damit bei Clustern
 links und rechts neben dem Hauptpeakt vllt zu viele Informationen heraus genommen.
 Daher können Abweichungen entstehen.
