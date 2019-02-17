@@ -236,11 +236,45 @@ Dabei zur Übersichtlichkeit zur Basis 10 logarithmiert
 \begin{figure}
   \centering
   \includegraphics{build/number-of-clusters.pdf}  % [width=\textwidth]
-  \caption{Logarightmierte Häufigkeit der Anzahl an Cluster pro Event.}
+  \caption{Logarithmierte Häufigkeit der Anzahl an Cluster pro Event.}
   \label{fig:number-of-clusters}
+\end{figure}
+- Anzahl an Channel pro Event: Selbes Vorgehen, alle ungleich Null heraus gefiltert
+und zur Basis 10 logarithmiert.
+\begin{figure}
+  \centering
+  \includegraphics{build/number-of-channels.pdf}  % [width=\textwidth]
+  \caption{Logarithmierte Häufigkeit der Anzahl an Kanälen pro Cluster.}
+  \label{fig:number-of-channels}
+\end{figure}
+- Anzahl Events pro Kanal (Hitmap): Keine Umrechnung von irgendetwas, einfach so geplottet
+\begin{figure}
+  \centering
+  \includegraphics{build/hitmap.pdf}  % [width=\textwidth]
+  \caption{Anzahl an Ereignissen pro Kanal.}
+  \label{fig:hitmap}
+\end{figure}
+- Energiespektren nur relevanter Bereich dargestellt. Bei Darstellung mit keV
+ergab sich der MPV (most probable value) zu \SI{84(1)}{\kilo\electronvolt}
+(Fehler aus gewählter Binbreite von 1keV pro Bin)
+und der MEL (mean energy loss)
+zu ungefähr \SI{103.72(5)}{\kilo\electronvolt}
+(Mittwert und Standardabweichung des Mittelwerts)
+- gewählte Binbreiten 1 ADCC bzw 1keV
+\begin{figure}
+  \centering
+  \includegraphics{build/spectrum-adc.pdf}  % [width=\textwidth]
+  \caption{Energiespektrum der \ce{^90Sr}-Quelle in \si{\adc} Werten.}
+  \label{fig:spectrum-adc}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics{build/spectrum-eV.pdf}  % [width=\textwidth]
+  \caption{Energiespektrum der \ce{^90Sr}-Quelle in \si{\kilo\electronvolt} Werten.}
+  \label{fig:spectrum-eV}
 \end{figure}
 - Signal/Noise = 5 als Cut, alles darunter weg geschnitten. Damit bei Clustern
 links und rechts neben dem Hauptpeakt vllt zu viele Informationen heraus genommen.
 Daher können Abweichungen entstehen.
 - WICHTIG: ACD erst in Ladung/Energiecounts umrechnen, dann Cluster addieren!
-Polynom ist nämlich nicht linear...
+Polynom ist nämlich nicht linear... Ist gemacht, auch so erwähnen

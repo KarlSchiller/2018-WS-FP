@@ -370,8 +370,7 @@ def ccel():
 
 def cceq():
     '''Estimation of the Charge Collection Efficiency with the use of a beta source'''
-    # dictionary to save the mean counts of the clusters
-    #  mean_counts = {}
+    #  array to save the mean counts of the clusters
     mean_counts = np.array([])
     applied_voltage = np.arange(0, 201, 10)
     for voltage in applied_voltage:
@@ -432,10 +431,76 @@ def source_scan(calib_params, calib_errors):
     plt.bar(df_cluster_number.index.values, df_cluster_number['log'], edgecolor='k', color='w')
     plt.xlabel('Anzahl Cluster')
     plt.ylabel('Logarithmierte Häufigkeit')
-    #  plt.legend(loc='lower right')
     plt.tight_layout()
     plt.savefig('build/number-of-clusters.pdf')
     plt.clf()
+
+    # number of channels per cluster
+    df_channel_number = pd.read_csv('rohdaten/cluster_size.txt',
+            names=['adcc'],
+            skiprows=1)
+    #  extract only the number of channels not equal zero
+    df_channel_number = df_channel_number[df_channel_number != 0].dropna()
+    df_channel_number['log'] = np.log10(df_channel_number['adcc'])
+    print('\tPlot Number of Channels')
+    plt.bar(df_channel_number.index.values, df_channel_number['log'], edgecolor='k', color='w')
+    plt.xlabel('Anzahl Kanäle')
+    plt.ylabel('Logarithmierte Häufigkeit')
+    plt.tight_layout()
+    plt.savefig('build/number-of-channels.pdf')
+    plt.clf()
+
+    # hitmap, number of events per channel
+    df_hitmap = pd.read_csv('rohdaten/hitmap.txt',
+            names=['adcc'],
+            skiprows=1)
+    print('\tPlot Number of Events per Channel (Hitmap)')
+    plt.bar(df_hitmap.index.values, df_hitmap['adcc'], color='k', width=0.2)
+    plt.xlabel('Kanal')
+    plt.ylabel('Anzahl Ereignisse')
+    plt.tight_layout()
+    plt.savefig('build/hitmap.pdf')
+    plt.clf()
+
+    # energy spectrum
+    print('\tImport cluster adc entries')
+    df_spectrum = pd.read_csv('rohdaten/Cluster_adc_entries.txt',
+            sep='\t',
+            names=['{}'.format(i) for i in range(128)],
+            skiprows=1)
+    # drop empty columns
+    df_spectrum.dropna(axis=1, how='all', inplace=True)
+    # energy spectrum in adc
+    df_spectrum['adcc'] = df_spectrum.sum(axis=1)
+    # energy spectrum in eV
+    df_spectrum['eV'] = umrechnung(df_spectrum.drop(columns='adcc'), *params).sum(axis=1)
+    df_spectrum['keV'] = df_spectrum['eV']*1e-3
+
+    print('\tEnergy spectrum adc')
+    adc_bins = np.arange(start=0, stop=300, step=1)
+    plt.hist(df_spectrum['adcc'], histtype='step', bins=adc_bins, color='k', density=True)
+    plt.xlabel('ADC Counts')
+    plt.ylabel('relative Häufigkeit')
+    plt.tight_layout()
+    plt.savefig('build/spectrum-adc.pdf')
+    plt.clf()
+
+    print('\tEnergy spectrum eV')
+    eV_bins = np.arange(start=0, stop=300, step=1)
+    eV_values, bins, patches = plt.hist(df_spectrum['keV'], histtype='step', bins=eV_bins, color='k', density=True)
+    mpv = np.argmax(eV_values)  # most probable value
+    mel = df_spectrum['keV'].mean()  # mean energy loss
+    mel_error = df_spectrum['keV'].std()*(1/np.sqrt(len(df_spectrum.index)-1))  # mean standard deviation
+    plt.xlabel(r'Energie\:/\:\si{\kilo\electronvolt}')
+    plt.ylabel('relative Häufigkeit')
+    plt.axvline(mpv, color=tugreen, label='MPV', linestyle='--', linewidth=0.8)
+    plt.axvline(mel, color=tuorange, label='MEL', linestyle='--', linewidth=0.8)
+    plt.legend(loc='upper right')
+    plt.tight_layout()
+    plt.savefig('build/spectrum-eV.pdf')
+    plt.clf()
+    print('\tMPV {} keV at index {}'.format(eV_bins[mpv], mpv))
+    print('\tMEL {} keV +- {} keV'.format(mel, mel_error))
 
     return None
 
