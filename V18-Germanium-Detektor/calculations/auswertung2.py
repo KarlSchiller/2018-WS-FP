@@ -54,26 +54,27 @@ print('Achsenabschnitt b =', params[1], '±', errors[1])
 m=ufloat(params[0],errors[0])
 b=ufloat(params[1],errors[1])
 
-#Plotten des vom Detektor aufgenommenen Spektrums + logarithmische y-Achse
-x=np.linspace(1,8192,8192)
-plt.bar(lin(x,*params), data, label='Messdaten' )
-plt.bar(lin(indexes,*params),data[indexes])
-plt.xlim(0, 3300)
-plt.xlabel(r'Bin-Indizes')
-plt.ylabel(r'Zählrate $N$')
-plt.legend(loc='best')
-plt.savefig('build/orginal_Eu.pdf')
-plt.yscale('log')
-plt.savefig('build/orginal_Eu_log.pdf')
-plt.clf()
+##Plotten des vom Detektor aufgenommenen Spektrums + logarithmische y-Achse
+#x=np.linspace(1,8192,8192)
+#plt.bar(lin(x,*params), data, label='Messdaten' )
+#plt.bar(lin(indexes,*params),data[indexes])
+#plt.xlim(0, 1600)
+#plt.xlabel(r'Bin-Indizes')
+#plt.ylabel(r'Zählrate $N$')
+#plt.legend(loc='best')
+#plt.savefig('build/orginal_Eu.pdf')
+#plt.yscale('log')
+#plt.savefig('build/orginal_Eu_log.pdf')
+#plt.clf()
 
 #Plotten der Eichung/Kalibrierung am Eu-Spektrum
-x=np.linspace(1,8192,8192)
+x=np.linspace(250,3700,3450)
 plt.plot(x, lin(x,*params),'r-',label='Fit')
-plt.plot(peaks_ind,E,'bx',label='Daten')
+#plt.plot(peaks_ind,E,'bx',label='Daten')
+plt.errorbar(peaks_ind, E, xerr=100, fillstyle= None, fmt=' x', label='Daten')
 plt.ylim(0,1500)
 plt.xlim(0, 4000)
-plt.xlabel(r'Bin-Index')
+plt.xlabel(r'Kanal')
 plt.grid()
 plt.ylabel(r'E$_\gamma\:/\: \mathrm{keV}$')
 plt.legend()
@@ -133,11 +134,12 @@ omega_4pi = (1-a/(a**2+r**2)**(0.5))/2
 print('Raumwinkel',omega_4pi)
 
 #Berechnung Detektoreffizienz für jeden Energiepeak
+#print('Peakinhalte: ', peak_inhalt, '', 'Autrittswahrscheinlichkeit: ', W)
 Q=[peakinhalt[i]/(omega_4pi*A_jetzt*W[i]) for i in range(len(W))]
-
+print('Peakinhalte: ', peakinhalt)
 #Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
 make_table(
-    header= ['$a$', '$h_i$', '$\mu_i$ / \kilo\electronvolt', '$\sigma_i$ / \kilo\electronvolt'],
+    header= ['$a$', '$h_i$', '$\mu_i$', '$\sigma_i$ / \kilo\electronvolt'],
     data=[unter, hoehe, index_f, sigma],
     caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Zählraten-Offset.',
     label='tab:gauss_parameter',
@@ -145,7 +147,7 @@ make_table(
     filename='build/tables/Gauss-Fit-Parameter.tex'
     )
 
-#Erstellen einer Tabelle der Detektoreffizenz und den dazu wverwendeten Werten
+#Erstellen einer Tabelle der Detektoreffizenz und den dazu verwendeten Werten
 make_table(
     header=['$Z_i$', '$E_i$ / \kilo\electronvolt' ,'$Q_i$ / \\becquerel '],
     data=[peakinhalt, E_det, Q],
@@ -158,16 +160,18 @@ make_table(
 
 #Betrachte Exponential-Fit für Beziehnung zwischen Effizienz und Energie
 #Lasse erste Werte weg
-Q=Q[1:]
-E=E[1:]
-E_det=E_det[1:]
+#Q=Q[1:]
+#E=E[1:]
+#E_det=E_det[1:]
 
 #Potenzfunktion für Fit
 def potenz(x,a,b,c,e):
     return a*(x-b)**e+c
 
 #Durchführung des Exponential-Fits und Ausgabe der Parameter
-params2, covariance2= curve_fit(potenz,noms(E_det),noms(Q),sigma=sdevs(Q))
+print('Daten für den Exponentialfit:')
+print(noms(Q), noms(E_det))
+params2, covariance2= curve_fit(potenz,noms(E_det),noms(Q),sigma=sdevs(Q), p0=[1, 150, 13, -2])
 errors2 = np.sqrt(np.diag(covariance2))
 #Zusammenfassen der Fit-Parameter
 a=ufloat(params2[0],errors2[0])
@@ -182,13 +186,13 @@ print(f'Verschiebung c = {c}')
 print(f'Exponent e = {e}')
 
 #Plotten der Effizenz gegen die Energie mit Exponential-Fit-Funktion
-x=np.linspace(200,1600,10000)
+x=np.linspace(30,1600,10000)
 plt.plot(x, potenz(x,*params2),'r-',label='Fit')
-plt.plot(E,noms(Q),'b.',label='Daten')
+plt.errorbar(E,noms(Q), xerr=50,fmt=' x', ecolor='b',label='Daten')
 plt.legend()
 plt.xlabel(r'$E \:/\: keV$')
 plt.grid()
-plt.ylabel(r'$Q(E)$')
+plt.ylabel(r'$Q(E) \:/\: \frac{keV}{Bq}$')
 plt.savefig('build/efficiency.pdf')
 plt.clf()
 
