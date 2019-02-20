@@ -1,7 +1,8 @@
 \newpage
 \section{Aufbau}
 \label{sec:Aufbau}
-Der hier untersuchte Si-Streifendetektor (EASy) der Firma Alibava besteht aus drei Komponenten. Eine Kontrall- und eine Detektoreinheit, sowie ein Computer mit Steuer-Software.
+Der hier untersuchte Si-Streifendetektor (EASy) der Firma Alibava besteht aus drei Komponenten.
+Eine Kontroll- und eine Detektoreinheit, sowie ein Computer mit Steuer-Software.
 
 \subsection{Detektoreinheit}
 \label{sec:Detektoreinheit}
@@ -15,33 +16,31 @@ Der hier untersuchte Si-Streifendetektor (EASy) der Firma Alibava besteht aus dr
    \caption{Schematische Darstellung eines Si-Streifensensors mit Spannungsanschluss \cite{anleitung}.}
    \label{fig:schema}
  \end{figure}
- \FloatBarrier
 Eine Schicht aus Siliziumoxid sorgt dafür, dass kein Signal aus den p-Implantaten
 auf den Auslesechip überschlägt. Jeder Streifen ist durch Wirebonding mit einem Pad und weiter
-einem ohmschen Widerstand
-verbunden. Dieser wiederum ist an einen Bias Ring zur Spannungsversorgung gekoppelt.
+einem ohmschen Widerstand verbunden.
+Dieser wiederum ist an einen Bias Ring zur Spannungsversorgung gekoppelt.
 Um den Bias Ring ist ein Guard Ring zur Vermeidung von Spannungsüberschlägen vom Bias
 Ring zur Ausleseelektronik angebracht. In Abbildung \ref{fig:streifendetektor} ist dies an
 einer makroskopischen Aufnahme deutlich gemacht.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.6\textwidth]{images/Sensor.png}
+  \includegraphics[width=0.5\textwidth]{images/Sensor.png}
   \caption{Makroskopische Aufnahmne eines Streifen-Detektors mit entsprechender Kennzeichnung der einzelnen Komponenten \cite{anleitung}.}
   \label{fig:streifendetektor}
 \end{figure}
-\FloatBarrier
 Die Informationen aus den einzelnen Streifen nach Durchgang eines geladenen
-Teilchens wird durch einen Auslesechip zuerst verstärkt und danach in
+Teilchens werden durch einen Auslesechip zuerst verstärkt und danach in
 Spannungssignale umgewandelt. Dann werden die Signale in eine Pipeline geschickt,
 wo sie auf ein Triggersignal warten. Kommt dieses Triggersignal nicht, so werden
 die Daten verworfen.
 
-Diese Funktionsweise funktioniert, wie in Kapitel \ref{sec:Theorie} beschrieben
+Dieser Aufbau funktioniert wie in Kapitel \ref{sec:Theorie} beschrieben
 erst richtig, wenn der Halbleiterdetektor vollständig depletiert ist. Bei dem
 EASy liegt dazu $U_\text{Dep}$ bei ungefähr \SIrange{60}{80}{\volt}. Um zu
-ermitteln, in wiefern der Detektor depletiert ist, wird die Effizienz der
+ermitteln, inwiefern der Detektor depletiert ist, wird die Effizienz der
 Ladunssammlung (CCE) bestimmt. Maximal ist diese Effizienz, wenn eine vollkommene
-Depletierung ($U = U_\text{Dep}$) vorhanden ist. Nun kann die CCE bestimmt werden
+Depletierung ($U \ge U_\text{Dep}$) vorhanden ist. Nun kann die CCE bestimmt werden
 durch
 \begin{equation}
   \text{CCE}(U) = \frac{1 - \exp\left(\frac{-d_\text{c}(U)}{a}\right)}{1 - \exp\left(\frac{-D}{a}\right)}.
@@ -52,6 +51,7 @@ eingebauten Laser durchgeführt.
 Hierbei ist $d_\text{c}$ die Dicke der Depletionszone, $D$ die Sensordicke und
 $a$ die Eindringtiefe des Lasers in das Silizium.
 
+\FloatBarrier
 \subsection{Lasereinheit}
 \label{sec:Lasereinheit}
 Aus Abbildung \ref{fig:Gehäuse}ist das äußere Gehäuse des Detektors zu entnehmen.
@@ -62,17 +62,17 @@ Aus Abbildung \ref{fig:Gehäuse}ist das äußere Gehäuse des Detektors zu entne
   sowie den einzelnen Anschlüssen \cite{anleitung}.}
   \label{fig:Gehäuse}
 \end{figure}
-\FloatBarrier
 Auf dem Gehäuse sitzt ein Reiter mit einem eingebauten Laser zur Untersuchung der
-Detektoreigenschaften. Dieser kann in zwei Laser(L)- oder in Quell(Q)-Position
+Detektoreigenschaften. Dieser kann in Laser(L)- oder in Quell(Q)-Position
 gestellt werden, je nachdem, welche Messung durchgeführt werden soll.
 
 Der angebrachte Laser emittiert Licht mit einer Wellenlänge von \SI{980}{\nano\meter}
 mit einem Durchmesser von \SI{20}{\micro\meter}, einer Pulslänge von
-\SI{5}{\nano\second} und einer Spitzenleistung von \SI{0.6}{\milli\watt}.
-An dem Laser sind zwei Miktrometerschrauben angebracht um diesen in der vertikalen
-Fokussieren und in der horizontalen verschieben zu können.
+\SI{5}{\nano\second} und einer Leistung von \SI{0.6}{\milli\watt}.
+An dem Laser sind zwei Miktrometerschrauben angebracht, um diesen in der Vertikalen
+zu fokussieren und in der Horizontalen verschieben zu können.
 
+\FloatBarrier
 \subsection{Kontrolleinheit}
 Die Kontrolleinheit, in Abbildung \ref{fig:control} zu sehen, dient zur Steuerung
 des Detektors. Über den Sockel mit der Aufschrift \textit{Sensor Unit} kann durch
@@ -86,30 +86,29 @@ Auf der Rückseite der Kontrolleinheit befindet sich unter anderem ein Anschluss
 für einen Kaltgerätestecker.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.7\textwidth]{images/Control.png}
+  \includegraphics[width=0.4\textwidth]{images/Control.png}
   \caption{Front- und Rückansicht der Kontrolleinheit und ihrer Anschlüsse \cite{anleitung}.}
   \label{fig:control}
 \end{figure}
-\FloatBarrier
 Werden alle Bestandteile angeschlossen, so ist der Aufbau wie in Abbildung
 \ref{fig:aufbau} dargestellt zu erhalten.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.7\textwidth]{images/Aufbau.png}
+  \includegraphics[width=0.5\textwidth]{images/Aufbau.png}
   \caption{Graphischer Aufbau des kompletten Versuches mit Detektoreinheit
   (Daughterbrd), Kontrolleinheit (Motherboard) und Computer \cite{anleitung}.}
   \label{fig:aufbau}
 \end{figure}
-\FloatBarrier
 Für Messungen mit der Sr-Quelle wird die Detektoreinheit zusätzlich in ein Kiste
 mit Bleiabdeckung plaziert, damit keine radioaktive Strahlung nach außen gelangen
-kann. dies ist in Abbildung \ref{fig:quell} noch einmal zu sehen.
+kann. Dies ist in Abbildung \ref{fig:quell} noch einmal dargestellt.
 \begin{figure}[htb]
   \centering
   \includegraphics{images/Abschirmung.png}
   \caption{Vertikale Sicht auf die Detektoreinheit in horizontaler Bleiabschirmung \cite{anleitung}.}
   \label{fig:quell}
 \end{figure}
+
 \FloatBarrier
 \section{Durchführung}
 \label{sec:Durchführung}
@@ -119,33 +118,35 @@ kann. dies ist in Abbildung \ref{fig:quell} noch einmal zu sehen.
 Zur Aufnahme einer Strom-Spannungs-Kennlinie werden die Detektor und Kontrolleinheit
 an den Computer angeschlossen und das zum EASy mitgeführte Programm \textit{Alibava\_gui}
 gestartet werden. Zur eigentlichen Messung muss die Vorspannung von \SI{0}{\volt} bis
-einschließlich \SI{200}{\volt} in einigen Schritten durchlaufen und aufgezeichnet werden.
+einschließlich \SI{200}{\volt} in \SI{10}{\volt} Schritten durchlaufen und 
+der Leckstrom aufgezeichnet werden.
 
 Dann wird eine Depletionsspannung im erhaltenen Verlauf durch Übergang von einem
-sättigenden zu einer linearen Verlauf abgeschätzt. In den weiteren Messungen wird
+sättigenden zu einer linearen Verlauf abgeschätzt. Für weitere Messungen wird
 ein Wert für die Depletionsspannung gewählt, der ca. \SI{20}{\volt} größer ist als
 der ermittelte Wert.
 
 \subsection{Pedestals und Noise}
 \label{sec:Auswertung_Noise}
 Um Informationen über die Pedestals und Noise zu erhalten, wird eine LogData im
-Ordner Pedestal und Namen Pedestalr.h5 angelegt und ein \textit{Pedastal Run}
+Ordner Pedestal und Namen Pedestal.h5 angelegt und ein \textit{Pedastal Run}
 durchgeführt. Hierbei wird die Messung für 1000 Events durchgeführt.
 
 \subsection{Kalibrationsmessung}
 \label{sec:Kalibrationsmessung}
 Nun wird über das Flachbandkabel ein Elektronenpuls an den Auslesechip gegeben
 um die ADC-Counts in Ladung umrechnen zu können. Um eine Kalibrationskurve
-aufzunehmen wird die Option \textit{Calibration Run} gewählt und im entsprechenden
+aufzunehmen, wird die Option \textit{Calibration Run} gewählt und im entsprechenden
 Optionsfenster die Default-Werte der Delay Einstellung wie in Abbildung
-\ref{fig:calibration-durchfuehrung} zu sehen verwendet. Nun wird der Delay-Scan durchgeführt
+\ref{fig:calibration-durchfuehrung} zu sehen verwendet. Nun wird der Delay-Scan durchgeführt,
 um eine optimale Verzögerung zwischen eingegebenem Signal und Chipauslese zu
 erhalten. Anschließend ist das Maximum der entstandenen Verteilung zu suchen und
 der entsprechende Wert unter \textit{Settings} und \textit{DAQ} einzutragen.
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.5\textwidth]{images/Calibration.png}
-  \caption{Default-Einstellungen der Messung einer Kalibrationskurve zur Bestimmung der besten Verzögerung zwischen gebenen Elektronenpuls und Chipauslese \cite{anleitung}.}
+  \includegraphics[width=0.3\textwidth]{images/Calibration.png}
+  \caption{Default-Einstellungen der Messung einer Kalibrationskurve zur Bestimmung
+  der besten Verzögerung zwischen gebenen Elektronenpuls und Chipauslese \cite{anleitung}.}
   \label{fig:calibration-durchfuehrung}
 \end{figure}
 
@@ -154,7 +155,7 @@ ausgewählt und unter \textit{Option} im \textit{Calibration}-Menü nacheinander
 eingestellt. Für jeden Streifen wird ein Run durchgeführt und die Graphik gespeichert.
 Für einen der fünf Streifen wird zudem ein Run bei $U=\SI{0}{\volt}$ durchgeführt.
 
-
+\FloatBarrier
 \subsection{Vermessung der Streifendetektoren mittels Laser}
 \label{sec:Vermessung_Laser}
 Hier wird nun die Streifenstruktur des Detektors untersucht. Dies funktioniert,
@@ -191,4 +192,5 @@ Für die letzte Messung wird die Spannung wie in der Messung der Strom-Spannungs
 auf einen Wert leicht über der Depletionsspannung gesetzt und ein \textit{RS Run} mit
 einer Anzahl der Events von \num{1000000} durchgeführt und abgespeichert.
 
-Durch ein mitgeführtes Programm werden alle \textit{.h5}-Dateien in passende .txt-Dateien umgewandelt, damit diese für die Auswertung herangezogen werden können.
+Durch ein mitgeführtes Programm werden alle \textit{.h5}-Dateien in passende .txt-Dateien
+umgewandelt, damit diese für die Auswertung herangezogen werden können.
