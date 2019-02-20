@@ -50,6 +50,7 @@ errors = np.sqrt(np.diag(covariance))
 print('Kalibrationswerte:')
 print('Steigung m =', params[0], '±', errors[0])
 print('Achsenabschnitt b =', params[1], '±', errors[1])
+
 #Zusammenfassen der Werte und Ungenauigkeiten der Fit-Parameter
 m=ufloat(params[0],errors[0])
 b=ufloat(params[1],errors[1])
@@ -91,7 +92,7 @@ print('Aktivität zum Messzeitpunkt',A_jetzt)
 
 #Gauß-Funktion für Peakhoehenbestimmung
 def gauss(x,sigma,h,a,mu):
-    return a+h*np.exp(-(x-mu)**2/(2*sigma**2))
+    return a+h*np.exp(-((x-mu)/sigma)**2)
 
 #Verwende Gauß-Fit in jedem Bin des Spektrums um Peakhöhe zu erhalten
 def gaussian_fit_peaks(test_ind):
@@ -104,7 +105,8 @@ def gaussian_fit_peaks(test_ind):
         a=i-40
         b=i+40
 
-        params_gauss,covariance_gauss=curve_fit(gauss,np.arange(a,b+1),data[a:b+1],p0=[1,data[i],0,i-0.1])
+
+        params_gauss,covariance_gauss=curve_fit(gauss,np.arange(a,b+1),data[a:b+1],p0=[1,data[i],0,i-1])
         errors_gauss = np.sqrt(np.diag(covariance_gauss))
 
         sigma_fit=ufloat(params_gauss[0],errors_gauss[0])
@@ -112,7 +114,11 @@ def gaussian_fit_peaks(test_ind):
         a_fit=ufloat(params_gauss[2],errors_gauss[2])
         mu_fit=ufloat(params_gauss[3],errors_gauss[3])
         #print(h_fit*sigma_fit*np.sqrt(2*np.pi))
-
+        if i == 311:
+            plt.plot(np.arange(a, b+1), data[a:b+1], label='Daten')
+            plt.plot(np.arange(a, b+1), gauss(np.arange(a, b+1), *params_gauss), label='Fit')
+            plt.savefig('build/test.pdf')
+            plt.clf()
         index_fit.append(mu_fit)
         hoehe.append(h_fit)
         unter.append(a_fit)
@@ -128,18 +134,22 @@ for i in range(len(index_f)):
     E_det.append(lin(index_f[i],*params))
 
 #Berechnung des Raumwinkels
-a=ufloat(7.3+1.5, 0.1) #in cm
-r=ufloat(2.25, 0) #in cm
+a=ufloat(0.073+0.015, 0.001) #in m
+r=ufloat(0.0225, 0) #in m
 omega_4pi = (1-a/(a**2+r**2)**(0.5))/2
 print('Raumwinkel',omega_4pi)
 
 #Berechnung Detektoreffizienz für jeden Energiepeak
-#print('Peakinhalte: ', peak_inhalt, '', 'Autrittswahrscheinlichkeit: ', W)
-Q=[peakinhalt[i]/(omega_4pi*A_jetzt*W[i]) for i in range(len(W))]
-print('Peakinhalte: ', peakinhalt)
+Q=[]
+Z=[]
+for i in range(len(W)):
+    Z.append(np.sqrt(2*np.pi)*hoehe[i]*sigma[i])
+    Q.append(Z[i]/(omega_4pi*A_jetzt*W[i]/100*3600))
+
+
 #Erstellen einer Tabelle der Fit-Parameter des Gauß-Fits
 make_table(
-    header= ['$a$', '$h_i$', '$\mu_i$', '$\sigma_i$ / \kilo\electronvolt'],
+    header= ['$a$', '$h_i$', '$\mu_i$', '$\sigma_i$'],
     data=[unter, hoehe, index_f, sigma],
     caption='Parameter des durchgeführten Gauss-Fits pro Bin. Dabei ist $\mu$ der Mittelwert, $\sigma$ die Standardabweichnug, $h$ die Höhe und a der Zählraten-Offset.',
     label='tab:gauss_parameter',
@@ -149,11 +159,11 @@ make_table(
 
 #Erstellen einer Tabelle der Detektoreffizenz und den dazu verwendeten Werten
 make_table(
-    header=['$Z_i$', '$E_i$ / \kilo\electronvolt' ,'$Q_i$ / \\becquerel '],
-    data=[peakinhalt, E_det, Q],
+    header=['$Z_i$', '$E_i$ / \kilo\electronvolt' ,'$Q_i$ / \\becquerel ', 'W/\%'],
+    data=[Z, E_det, Q, W],
     caption = 'Peakhöhe, Energie und Detektoreffizenz als Ergebnis des Gaußfits.',
     label = 'tab:det_eff',
-    places = [ (5.2, 6.2), (4.2, 3.2), (3.2, 3.2)],
+    places = [ (5.2, 6.2), (4.2, 3.2), (3.2, 3.2), 2.1],
     filename = 'build/tables/det_eff.tex'
     )
 
@@ -169,9 +179,9 @@ def potenz(x,a,b,c,e):
     return a*(x-b)**e+c
 
 #Durchführung des Exponential-Fits und Ausgabe der Parameter
-print('Daten für den Exponentialfit:')
-print(noms(Q), noms(E_det))
-params2, covariance2= curve_fit(potenz,noms(E_det),noms(Q),sigma=sdevs(Q), p0=[1, 150, 13, -2])
+#print('Daten für den Exponentialfit:')
+#print(noms(Q), noms(E_det))
+params2, covariance2= curve_fit(potenz,noms(E_det),noms(Q),sigma=sdevs(Q), p0=[1, 0.1, 0, 0.5])
 errors2 = np.sqrt(np.diag(covariance2))
 #Zusammenfassen der Fit-Parameter
 a=ufloat(params2[0],errors2[0])
@@ -179,14 +189,14 @@ b=ufloat(params2[1],errors2[1])
 c=ufloat(params2[2],errors2[2])
 e=ufloat(params2[3],errors2[3])
 #Ausgabe der Fit-Parameter
-print('Kalibrationswerte Potenzfunktion:')
+print('\nKalibrationswerte Potenzfunktion:')
 print(f'Steigung a = {a}')
 print(f'Verschiebung b = {b}')
 print(f'Verschiebung c = {c}')
 print(f'Exponent e = {e}')
 
 #Plotten der Effizenz gegen die Energie mit Exponential-Fit-Funktion
-x=np.linspace(30,1600,10000)
+x=np.linspace(1,1600,10000)
 plt.plot(x, potenz(x,*params2),'r-',label='Fit')
 plt.errorbar(E,noms(Q), xerr=50,fmt=' x', ecolor='b',label='Daten')
 plt.legend()
@@ -201,36 +211,38 @@ data_b = np.genfromtxt('data/Cs.txt', unpack=True)
 x_plot = np.linspace(0, len(data_b), len(data_b))
 
 #Plotten des vom Detektor aufgenommenen Cs-Spektrums + logarithmische y_Achse
-plt.bar(x_plot, data_b)
-plt.xlim(0, 1800)
-plt.xlabel(r'Energie')
-plt.ylabel(r'Rate')
-plt.savefig('build/spektrum_Cs.pdf')
-plt.yscale('log')
-plt.savefig('build/spektrum_Cs_log.pdf')
-plt.clf()
+#plt.bar(x_plot, data_b)
+#plt.xlim(0, 1800)
+#plt.xlabel(r'Energie $E$')
+#plt.ylabel(r'Zählrate $N$')
+#plt.savefig('build/spektrum_Cs.pdf')
+#plt.yscale('log')
+#plt.savefig('build/spektrum_Cs_log.pdf')
+#plt.clf()
 
 #Finde Peaks in Spektrum und ordne sie der Energie zu
 peaks_2 = find_peaks(data_b, height=60, distance=20)
 indexes_2 = peaks_2[0]
 peak_heights_2 = peaks_2[1]
 energie_2 = lin(indexes_2, *params)
-#print(indexes_2)
-#print(energie_2)
+print('Indices der peaks: ', indexes_2)
 
 #Identifiziere die charakteristischen Energie-Peaks
 e_rueck=energie_2[-4]
+print('Rueckstreu: ', energie_2[-4], indexes_2[-4])
 e_compton=energie_2[-2]
+print('Compton: ', energie_2[-2], indexes_2[-2])
 e_photo=energie_2[-1]
+print('Photo: ', energie_2[-1], indexes_2[-1])
 #print(len(energie_2), len(indexes_2))
 #print(e_rueck, e_compton, e_photo)
 #print(indexes_2[-4], indexes_2[-2], indexes_2[-1])
 
 
 e_photo = 661.59
-m_e = 511000
+m_e = 511
 #Vergleiche zwischen gemessenen und theoretischen Werten der Peaks
-e_compton_theo = 2*e_photo*(e_photo**2/m_e*(1+2*e_photo/m_e))
+e_compton_theo = 2*e_photo**2/(m_e*(1+2*e_photo/m_e))
 vgl_compton = 1-e_compton/e_compton_theo
 print(f'Ein Vergleich des theoretischen E_compton {e_compton_theo} mit dem gemessenen E_compton {e_compton}, beträgt: {vgl_compton} ')
 
@@ -238,39 +250,62 @@ e_rueck_theo = e_photo/(1+2*e_photo/m_e)
 vgl_rueck = 1-e_rueck/e_rueck_theo
 print(f'Ein Vergleich des theoretischen E_rueck {e_rueck_theo} mit dem gemessenen E_compton {e_rueck}, beträgt: {vgl_rueck} ')
 
-#Betrachte Bereich um Vollenergiepeak herum und führe seperat eine lineare Regression von beiden Seiten durch
-left = 1638
-right = 1658
-#print(data_b[left], data_b[right])
 
-params_l, cov_l = curve_fit(lin, data_b[left:indexes_2[-1]+1], np.arange(left, indexes_2[-1]+1))
-errors_l = np.sqrt(np.diag(cov_l))
-m_l = ufloat(params_l[0], errors_l[0])
-b_l = ufloat(params_l[1], errors_l[1])
-print(f'Für die Betrachtung der linken Seite des Vollenergiepeaks beträgt die Steigung {m_l} und der Setoff {b_l}')
 
-params_r, cov_r = curve_fit(lin,data_b[indexes_2[-1]:right+1],np.arange(indexes_2[-1],right+1))
-errors_r = np.sqrt(np.diag(cov_r))
-m_r = ufloat(params_r[0], errors_r[0])
-b_r = ufloat(params_r[1], errors_r[1])
-print(f'Für die Betrachtung der rechten Seite des Vollenergiepeaks beträgt die Steigung {m_r} und der Setoff {b_r}')
+#Führe wieder Gausß-Fit für den Vollenergiepeak durch, um Peakhöhe bestimmen zu können
+a=indexes_2[-1].astype('int')-50
+b=indexes_2[-1].astype('int')+50
 
-#Berechne die Halbwertes und Zehntelbreite des Vollenergiepeaks und gebe Ergebnisse aus
-halb = m_r*1/2*data_b[indexes_2[-1]]+b_r - (m_l*1/2*data_b[indexes_2[-1]]+b_l)
-zehntel = m_r*1/10*data_b[indexes_2[-1]]+b_r - (m_l*1/10*data_b[indexes_2[-1]]+b_l)
+params_gauss_b,covariance_gauss_b=curve_fit(gauss,lin(np.arange(a,b+1),*params),data_b[a:b+1],p0=[1,data_b[indexes_2[-1]],0,lin(indexes_2[-1]-0.1,*params)])
+errors_gauss_b = np.sqrt(np.diag(covariance_gauss_b))
 
-print('Vergleich Halb- zu Zehntelwertsbreite:')
+
+#Fasse Wert und Ungenauigkeit der Fit-Parameter wieder jeweils zusammen
+sigma_fit=ufloat(params_gauss_b[0],errors_gauss_b[0])
+h_fit=ufloat(params_gauss_b[1],errors_gauss_b[1])
+a_fit=ufloat(params_gauss_b[2],errors_gauss_b[2])
+mu_fit=ufloat(params_gauss_b[3],errors_gauss_b[3])
+
+Z_photo=h_fit*sigma_fit*np.sqrt(2*np.pi)
+print(f'Die Rate des Vollenergiepeaks liegt bei {Z_photo} keV.')
+
+#-------------------------------------------------------------------------------
+
+Z_3 = data_b[a:b+1]*sigma_fit*np.sqrt(2*np.pi)
+plt.plot(lin(np.arange(a,b+1),*params), gauss(lin(np.arange(a,b+1),*params), *params_gauss_b)*noms(sigma_fit)*np.sqrt(2*np.pi), 'k-', label='Fit')
+plt.errorbar(lin(np.arange(a,b+1),*params), noms(Z_3), yerr=sdevs(Z_3), fillstyle= None, fmt=' x', label='Daten')
+plt.xlim(654, 660)
+plt.axhline(y=0.5*data_b[indexes_2[-1]]*noms(sigma_fit)*np.sqrt(2*np.pi), xmin = 0.31, xmax = 0.675, color='g',linestyle='dashed', label='Halbwertsbreite')
+plt.axhline(y=0.1*data_b[indexes_2[-1]]*noms(sigma_fit)*np.sqrt(2*np.pi), xmin = 0.158, xmax = 0.81,color='r',linestyle='dashed', label='Zehntelbreite')
+plt.ylabel('Peakhöhe $Z$')
+plt.xlabel('Energie $E$/keV')
+plt.legend(loc='best')
+plt.grid()
+plt.savefig('build/test_2.pdf')
+plt.clf()
+
+print('\nVergleich Halb- zu Zehntelwertsbreite:')
 #lin beschreibt noch die lineare Regression vom beginn der Auswertung
-print('Halbwertsbreite: ', lin(halb,*params))
-print('Zehntelbreite: ', lin(zehntel,*params))
-print('Halbwertes- nach Zehntelbreite : ', 1.823*lin(halb,*params))
-print('Verhältnis der beiden:', 1- lin(zehntel,*params)/(1.832*lin((halb),*params)))
+h_g = ufloat(2.2, 0.2)
+print('Halbwertsbreite Gemessen: ', h_g)
+h_t = np.sqrt(8*np.log(2))*sigma_fit
+print('Halbwertsbreite Theorie: ', h_t)
+z_g = ufloat(4.0, 0.3)
+print('Zehntelbreite Gemessen: ', z_g)
+z_t = np.sqrt(8*np.log(10))*sigma_fit
+print('Zehntelbreite Theorie: ', z_t)
 
+print('\nVerhältnis der Halbwertsbreiten Werte: ', (h_g-h_t)/h_t, 'und der Zehntelbreiten: ', (z_g-z_t)/z_t)
+
+
+
+#-------------------------------------------------------------------------------
 #Plotte das zugeordnete Cs-Spektrum und setze Horizontale bei Zehntel- und Harlbwertsbreite
 x=np.linspace(1,8192,8192)
 plt.plot(x, data_b,'r-',label='Fit')
 plt.plot(indexes_2,data_b[indexes_2],'bx',label='Peaks')
 plt.axhline(y=0.5*data_b[indexes_2[-1]], color='g',linestyle='dashed')
+plt.axvline(x=468, linestyle='dashed', color='k')
 print('Halbwertshöhe', 0.5*data_b[indexes_2[-1]])
 print('Zehntelwertshöhe', 0.1*data_b[indexes_2[-1]])
 plt.axhline(y=0.1*data_b[indexes_2[-1]], color='r',linestyle='dashed')
@@ -284,45 +319,18 @@ plt.yscale('log')
 plt.savefig('build/Cs_log.pdf')
 plt.clf()
 
-#Führe wieder Gausß-Fit für den Vollenergiepeak durch, um Peakhöhe bestimmen zu können
-a=indexes_2[-1].astype('int')-50
-b=indexes_2[-1].astype('int')+50
+inhalt_photo = ufloat(sum(data_b[indexes_2[-1]-20:indexes_2[-1]+20]), sum(np.sqrt(data_b[indexes_2[-1]-20:indexes_2[-1]+20])))
+print('\nInhalt des Photo-Peaks: ', inhalt_photo)
 
-params_gauss_b,covariance_gauss_b=curve_fit(gauss,np.arange(a,b+1),data_b[a:b+1],p0=[1,data_b[indexes_2[-1]],0,indexes_2[-1]-0.1])
-errors_gauss_b = np.sqrt(np.diag(covariance_gauss_b))
-#Fasse Wert und Ungenauigkeit der Fit-Parameter wieder jeweils zusammen
-sigma_fit=ufloat(params_gauss_b[0],errors_gauss_b[0])
-h_fit=ufloat(params_gauss_b[1],errors_gauss_b[1])
-a_fit=ufloat(params_gauss_b[2],errors_gauss_b[2])
-mu_fit=ufloat(params_gauss_b[3],errors_gauss_b[3])
+min_ind_comp = 468
+inhalt_comp = ufloat(sum(data_b[min_ind_comp:indexes_2[-2]]), sum(np.sqrt(data_b[min_ind_comp:indexes_2[-2]])))
+print(f'Der Inhalt des Compton-Kontinuums, liegt bei: {inhalt_comp}')
 
-inhalt_photo=h_fit*sigma_fit*np.sqrt(2*np.pi)
-print(f'Der Inhalt/ die Höhe des Vollenergiepeaks liegt bei {inhalt_photo} keV.')
-
-
-def compton(E,eps):
-    a_c = data_b[indexes_2[-2]] / (1/eps**2 *(2+ e_compton**2/(e_compton-e_photo)**2*(1/eps**2+(e_photo-e_compton)/e_photo-2/eps*(e_photo-e_compton)/e_photo)))
-    return a_c/eps**2 *(2+ E**2/(E-e_photo)**2*(1/eps**2+(e_photo-E)/e_photo-2/eps*(e_compton-e_photo)/e_photo))
-
-params_compton,covariance_compton=curve_fit(compton,lin(np.arange(1,indexes_2[-2]+1),*params),data_b[0:indexes_2[-2]])
-errors_compton = np.sqrt(np.diag(covariance_compton))
-
-
-eps=ufloat(params_compton[0],errors_compton[0])
-def compton2(E):
-    eps2 = noms(eps)
-    a_c = data_b[indexes_2[-2]] / (1/eps2**2 *(2+ e_compton**2/(e_compton-e_photo)**2*(1/eps2**2+(e_photo-e_compton)/e_photo-2/eps2*(e_photo-e_compton)/e_photo)))
-    return a_c/eps2**2 *(2+ E**2/(E-e_photo)**2*(1/eps2**2+(e_photo-E)/e_photo-2/eps2*(e_compton-e_photo)/e_photo))
-
-
-inhalt_comp = quad(compton2,a=lin(0,*params),b=lin(indexes_2[-2],*params))
-print(f'Der Inhalt des Compton-Kontinuums, liegt bei: {inhalt_comp[0]}')
-
-mu_ph = 0.002 #in cm^-1
-mu_comp = 0.38
+mu_ph = ufloat(0.007, 0.003) #in cm^-1
+mu_comp = ufloat(0.35, 0.07)
 l=3.9
-abs_wahrsch_ph = 1-np.exp(-mu_ph*l)
-abs_wahrsch_comp = 1-np.exp(-mu_comp*l)
+abs_wahrsch_ph = 1-unp.exp(-mu_ph*l)
+abs_wahrsch_comp = 1-unp.exp(-mu_comp*l)
 print(f'Die absolute Wahrscheinlichkeit eine Vollenergiepeaks liegt bei: {abs_wahrsch_ph} Prozent')
 print(f'Die absolute Wahrscheinlichkeit eine Comptonpeaks liegt bei: {abs_wahrsch_comp} Prozent')
 
@@ -343,8 +351,8 @@ peaks_3 = find_peaks(data_d, height=70, distance=15)
 indexes_3 = peaks_3[0]
 peak_heights_3 = peaks_3[1]
 energie_3 = lin(indexes_3,*params)
-print(indexes_3)
-print(energie_3)
+#print(indexes_3)
+#print(energie_3)
 
 x=np.linspace(1,8192,8192)
 plt.plot(x, data_d,'r-',label='Detektor')
@@ -389,9 +397,9 @@ index_ba, peakinhalt_ba, hoehe_ba, unter_ba, sigma_ba = gaussian_fit_peaks_d(pea
 
 #Fasse Ergebnisse in Tabelle zusammen
 make_table(
-    header= ['$E$ / \kilo\electronvolt ', '$W$ / \%', 'Index $i$', '$E_i$ / \kilo\electronvolt '],
-    data=[E_ba, W_ba, peaks_ind_ba, lin(peaks_ind_ba, *params)],
-    places=[3.2, 2.1, 3.0, 3.2],
+    header= ['$E$ / \kilo\electronvolt ', '$W$ / \%', '$E_i$ / \kilo\electronvolt '],
+    data=[E_ba, W_ba, lin(peaks_ind_ba, *params)],
+    places=[3.2, 2.1, 3.2],
     caption ='Werte der zu erwartenden Peaks der Ba-Quelle. Dazu die erwarete Energie $E$, die Emissionswahrscheinlichkeit $W$, der zugeordnete Index $i$ und die gefittete Energie $E_i$.',
     label ='tab:Ba_erwartet',
     filename ='build/tables/Ba_erwartet.tex'
@@ -427,15 +435,14 @@ make_table(
 )
 
 #Trage Ergebnisse der Aktivitätsbestimmung in Tabelle ein
-print(unter_ba, peakinhalt_ba, A_det)
-#make_table(
-#    header= ['$Z_i$', '$E_i$ / \kilo\electronvolt ', '$A_i$ / \\becquerel '],
-#    data=[unter_ba, peakinhalt_ba, A_det],
-#    places=[(2.2, 2.2), (4.2, 3.1), (4.0, 2.2)],
-#    caption='Berechnete Aktivitäten für jeden Bin mit dazu benötigten Werten.',
-#    label ='plt:aktivitaet_ba',
-#    filename ='build/tables/aktivitaet_ba.tex'
-#)
+make_table(
+    header= ['$W$\/\%', '$Q$','$Z_i$', '$E_i$ / \kilo\electronvolt ', '$A_i$ / \\becquerel '],
+    data=[W, Q, unter_ba, peakinhalt_ba, A_det],
+    places=[2.1, 1.2, (2.2, 2.2), (4.2, 3.1), (4.0, 2.2)],
+    caption='Berechnete Aktivitäten für jeden Bin mit dazu benötigten Werten.',
+    label ='plt:aktivitaet_ba',
+    filename ='build/tables/aktivitaet_ba.tex'
+)
 
 A_gem = ufloat(np.mean(noms(A)),np.mean(sdevs(A)))
 print('gemittelte Aktivität',A_gem)
