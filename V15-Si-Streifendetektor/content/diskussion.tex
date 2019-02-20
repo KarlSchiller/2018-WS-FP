@@ -1,12 +1,42 @@
 \section{Diskussion}
 \label{sec:Diskussion}
 
-- Kleinste Abweichungen in ungenauer Einstellungen der Diodenspannung (auf volt genau)
-und der Micrometerschraube (auf \SI{10}{\micro\meter} genau einstellbar, das auch
-verwendet).
-- Entspricht die bestimmte Depletionsspannung der Herstellerangabe?
-- Common Mode entsteht durch alle möglichen Effekte, die alle Streifen betreffen.
-z.B. Kabel, die als Antenne wirken oder das den Versuchsaufbau umgebene Stromnetz
-- \SI{10}{\micro\meter} ist sehr grob für die Bestimmung der Breite des Laserstrahls.
-- Udep könnte mit mehr Messwerten CCEL unterhalb Udep genauer bestimmt werden als
-Fitparameter. Hier jedoch mit einstelliger Zahl an Messwerten nicht möglich.
+Bei der Analyse der Strom-Spannungs-Kennlinie wurde für die Depletionsspannung ein
+Bereich von \SIrange{65}{85}{\volt} abgeschätzt, wobei dies jedoch nach Augenmaß
+geschah. In Abbildung \ref{fig:cce-vergleich} sind die beiden CCE-Messungen dargestellt
+und suggerieren eine Depletionsspannung am unteren Rand des vorher abgeschätzten Bereiches
+bei ungefähr \SI{60}{\volt}.
+Dies würde ebenfalls der Herstellerangabe von ungefähr \SI{60}{\volt} entsprechen \cite{alibava}.
+Kleinere Abweichungen können zumindestens bei der Lasermessung dadurch entstanden sein,
+dass sowohl bei der einstellung der Diodenspannung, als auch bei der horizontalen
+Position des Lasers die jeweils kleinste ablesbare Stelle verwendet wurde und somit
+kleinere Abweichungen auftreten können.
+
+Wie erwartet ist der Common Mode Shift um \num{0} verteilt, jedoch zeigt sich bei
+der Noise eine leichte Erhöhung an den Randstreifen. Hier werden Rauschsignale
+sensitiver detektiert.
+Der Vergleich der zwei Kalibrationskurven in Abbildung \ref{fig:vergleich} zeigt,
+dass bei einem voll depletierten Sensor mehr ADC Counts bei selber injezierter
+Energie ausgegeben werden. Dies deckt sich mit den in der Theorie beschriebenen
+Erklärung.
+% - Common Mode entsteht durch alle möglichen Effekte, die alle Streifen betreffen.
+% z.B. Kabel, die als Antenne wirken oder das den Versuchsaufbau umgebene Stromnetz
+
+Weiterhin ist die Bestimmung der Breite des Laserstrahls mit einer Standardabweichung
+von \SI{10}{\micro\meter} relativ ungenau. Dies könnte verbessert werden, indem
+mehr Messwerte genommen würden, also der Laser z.B. immer um \SI{1}{\micro\meter}
+verschoben wird.
+Der in der Versuchsanleitung angegebene pitch der Streifen von \SI{160}{\micro\meter}
+\cite[13]{anleitung} konnte nicht bestätigt werden. Aus Abbildung \ref{fig:streifen}
+ließ sich ein pitch von \SI{110(10)}{\micro\meter} bestimmen.
+
+Die Depletionsspannung könnte als Regressionsparameter der CCE-Messung unter Verwendung
+eines Lasers genauer bestimmt werden. Dazu müssten jedoch weitere Messwerte
+unterhalb der Depletionsspannung genommen werden.
+Die mittlere Eindringtiefe des Lasers konnte unter Annahme einer Depletionsspannung
+von \SI{70}{\volt} auf \SI{91(5)}{\micro\meter} bestimmt werden.
+
+Bei den Messungen unter Verwendung der Quelle ist der Schnitt des Signal zu Untergrund
+Verhältnisses bei \num{5} sehr hoch. Damit können aus Clustern links und rechts neben dem
+Hauptpeak zu viele Informationen heraus geschnitten werden und Abweichungen der
+Clusterenergien nach unten auftreten.

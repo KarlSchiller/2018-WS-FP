@@ -24,7 +24,7 @@ tuorange = '#E36913'
 #  muB = const.value('Bohr magneton')
 
 # Estimation depletion voltage. Could not fit ...
-Udepletion = 80
+Udepletion = 70
 
 
 def linear(x, a, b):
@@ -343,8 +343,9 @@ def ccel():
             p0 = [1e-4],
             bounds = (1e-6, 1)) # lower and upper bound
     errors = np.sqrt(np.diag(covariance))
+    # array[a:b] is the array from [a, b) without border b included
     print('\tFit CCE from {} to {} volt (indices {} to {})'.format(applied_voltage[start],
-        applied_voltage[stop], start, stop))
+        applied_voltage[stop-1], start, stop-1))
     print('\tUdep set to {} volt'.format(Udepletion))
     print(f'\ta    = {params[0]} ± {errors[0]}')
     #  print(f'\tUdep = {params[1]} ± {errors[1]}')
@@ -403,8 +404,8 @@ def cce_vergleich(ccel_data, cceq_data):
     '''Compare CCE-measurements with laser and source'''
     print('\tPlot Vergleich')
     applied_voltage = np.arange(0, 201, 10)
-    plt.plot(applied_voltage, ccel_data, 'kx', label='Laser')
-    plt.plot(applied_voltage, cceq_data, 'x', color=tugreen, label='Quelle')
+    plt.plot(applied_voltage, ccel_data, 'x', color=tugreen, label='Laser')
+    plt.plot(applied_voltage, cceq_data, 'kx', label='Quelle')
     plt.xlabel(r'$U\:/\:\si{\volt}$')
     plt.ylabel(r'Normiertes Messsignal')
     plt.legend(loc='lower right')
@@ -510,18 +511,18 @@ if __name__ == '__main__':
     if not os.path.isdir('build'):
         os.mkdir('build')
 
-    print('UI-Characteristic')
-    ui_characteristic()
-    print('Pedestal Run')
-    pedestal_run()
+    #  print('UI-Characteristic')
+    #  ui_characteristic()
+    #  print('Pedestal Run')
+    #  pedestal_run()
     print('Kalibration')
     params, errors = kalibration()
-    print('Laser Vermessung')
-    vermessung()
+    #  print('Laser Vermessung')
+    #  vermessung()
     print('CCEL')
     ccel_data = ccel()
     print('CCEQ')
     cceq_data = cceq()
     cce_vergleich(ccel_data, cceq_data)
-    print('Quellenscan')
-    source_scan(params, errors)
+    #  print('Quellenscan')
+    #  source_scan(params, errors)

@@ -37,7 +37,7 @@ die vollständige Depletion der Diode zu erreichen.
 Vor der Kalibration der Detektorstreifen werden diese auf Störsignale untersucht.
 Bei \num{1000} Events ohne externe Signalquelle wurden Pedestal und Common Mode Shift
 nach \eqref{eqn:pedestal} und \eqref{eqn:common-mode} berechnet.
-Aus diesen lässt sich im Anschluss des Noise nach \eqref{eqn:noise} bestimmen.
+Aus diesen lässt sich im Anschluss das Noise nach \eqref{eqn:noise} bestimmen.
 In Abbildung \ref{fig:pedestal} sind Pedestal und Noise pro Streifen dargestellt,
 wobei auch im Folgenden \si{\adc} die ADC Counts bezeichnet.
 Während der Pedestal um \SI{512}{\adc} schwankt, liegt der Noise bei grob
@@ -89,10 +89,11 @@ Elektron-Loch-Paares) in eine injizierte Energie umrechnen.
 Diese fehlende Abweichung motiviert die Bildung des Mittelwerts der einzelnen ADC Counts,
 welcher dann zur Umrechnung der Counts in Energie für alle Streifen verwendet wird.
 Zur Umrechnung wurde ein Polynom der Form
-\begin{equation*}
+\begin{equation}
   E\!\left(ADCC\right) = a_4 ADCC^4 + a_3 ADCC^3 + a_2 ADCC^2 + a_1 ADCC + a_0
   \quad\text{ mit }\quad\left[E\right] = \si{\electronvolt}
-\end{equation*}
+  \label{eqn:Umrechnung-in-Energie}
+\end{equation}
 verwendet, welches mit der Funktion \texttt{curve\_fit} des Pakets
 \texttt{scipy.optimize} an die Mittelwerte der Kalibrationskurven regressiert wurde.
 Dabei wurde jedoch der Regressionsbereich auf \SIrange{0}{220}{\adc} eingeschränkt.
@@ -185,6 +186,28 @@ der gewählten Schrittweite eine Laserbreite von \SI{20(10)}{\micro\meter} resul
 \subsection{Bestimmung der CCE unter Verwendung eines Lasers}
 \label{sec:CCEL-Auswertung}
 
+Wie in Abschnitt \ref{sec:CCE} beschrieben wird für verschiedene angelegte Spannungen
+das Signal des vom Laser angestrahlten Kanals gemessen.
+Die horizontale Stellschraube des Lasers stand dabei auf \SI{4.00}{\milli\meter},
+das entspricht in Abbildung \ref{fig:streifen-uebersicht} Messposition \num{0}
+und somit ist der hier angesprochene Streifen Nummer \num{83}.
+In Abbildung \ref{fig:ccel} sind die aufgenommenen normierten Messwerte dargestellt.
+Zusätzlich ist der in Kapitel \ref{sec:UI-Auswerung} abgeschätzte Bereich für die
+Depletionsspannung in grün eingetragen.
+Anhand der aufgenommenen Messwerte ist der Beginn des Plateaus mit dem Auge schwer
+ab zu schätzen, passt jedoch mit dem grünen Bereich zusammen.
+An diese Werte wurde im Bereich von \SIrange{0}{70}{\volt} eine Regression
+der Form \eqref{eqn:CCEL} mit Hilfe der Funktion \texttt{curve\_fit} des Pakets
+\texttt{scipy.optimize} durchgeführt.
+Dabei ließ sich die Depletionsspannung aufgrund der geringen Anzahl an Messwerten
+nicht regressieren, sondern wurde als Schätzungsparameter auf \SI{70}{\volt}
+eingestellt.
+In Abbildung \ref{fig:ccel} ist die Regression mit den für die Regression verwendeten
+Messwerten in orange dargestellt und die mittlere Eindringtiefe des Lasers
+ergab sich zu
+\begin{equation*}
+  a = \SI{91(5)}{\micro\meter}.
+\end{equation*}
 \begin{figure}
   \centering
   \includegraphics{build/ccel.pdf}  % [width=\textwidth]
@@ -194,32 +217,20 @@ der gewählten Schrittweite eine Laserbreite von \SI{20(10)}{\micro\meter} resul
   Depletionsspannung.}
   \label{fig:ccel}
 \end{figure}
-- Vergleich Beginn des Plateaus (wo auch immer das ist) mit grün eingezeichnetem
-Bereich Udep von weiter oben
-- Position des Lasers horizontal wieder bei \SI{4.00}{\milli\meter}, mit vorherigem
-Kapitel motivieren.
-- Die entsprechende Gleichung gilt nur bei Anregung mit Photonen, weshalb dieser Fit
-nicht bei der CCEQ-Messung verwendet werden kann
-- Depletionsspannung bisher nur sehr ungenau vermessen, deshalb hier bitte als
-Fitparameter mitgeben.
--> Hat nicht funktioniert, da zu wenige Messwerte. Udep festgesetzt und damit gefittet.
 
 \FloatBarrier
 \subsection{Bestimmung der CCE unter Verwendung einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
 \label{sec:CCEQ-Auswertung}
 
-- CCEQ-Messung nicht einzelnd dargestellt, ist mit bei cce-vergleich
-- Position des Lasers horizontal wieder bei \SI{4.00}{\milli\meter}, mit vorherigem
-Kapitel motivieren.
-- Pro Spannung und Event werden die ADCC aller Streifen, die über das Signal/Noise =5
-kommen, aufaddiert. Dann wird für jede Spannung der Mittelwert aller Events gebildet.
-- Die Elektronen haben eine hohe Energie. Nach der modifizierten Bethe-Bloch-Gleichung
-ist bei diesen Energien genau ein Minimum bei der deponierten Energie pro Weg, sodass
-relativ wenig Energie deponiert wird.
-- Weiterhin dünner Sensor, damit grobe Näherung, dass die Elektronen bei dem Weg durch
-den Sensor überall die selbe Energie abgeben.
-- Energiedeposition der Elektronen immer die selbe, eine Variation in der gemessenen
-deponierten Energie liegt also nur an der angelegten Spannung
+Für die Bestimmung der CCE mit Hilfe der \ce{^90Sr}-Quelle werden pro angelegter
+Spannung und pro Event die \si{\adc} aller Streifen aufaddiert, deren
+Signal zu Untergrund Verhältnis größer als \num{5} ist.
+Im Anschluss werden alle dieser Events für eine angelegte Spannung gemittelt und
+in Abbildung \ref{fig:cce-vergleich} in schwarz dargestellt.
+Hier zeigt sich im Vergleich der in grün dargestellten CCE-Auswertung unter
+Verwendung des Lasers, dass sich der Beginn der Plateaus ungefähr im selben Bereich
+befindet und die CCE der Quelle im Bereich vor dieser Depletionsspannung kleiner
+ist.
 \begin{figure}
   \centering
   \includegraphics{build/cce-vergleich.pdf}  % [width=\textwidth]
@@ -227,40 +238,70 @@ deponierten Energie liegt also nur an der angelegten Spannung
   \label{fig:cce-vergleich}
 \end{figure}
 
+Die Elektronen haben eine Energie, bei welcher der Verlauf der deponierten Energie
+pro Wegstrecke nach der modifizierten Bethe-Bloch-Gleichung ein Minimum aufweist.
+Somit deponieren die Elektronen relativ wenig Energie im Detektor.
+Weiterhin ist der Sensor mit \SI{300}{\micro\meter} relativ dünn.
+Als grobe Abschätzung kann also angenommen werden, dass die Elektronen auf dem
+Weg durch den Detektor überall die selbe Energiemenge deponieren.
+Somit hängt die Variation der \si{\adc} ausschließlich an der unvollständigen
+Depletion der Streifen. Deshalb ist der Übergang des Plateaus in Abbildung
+\ref{fig:cce-vergleich} \enquote{schärfer} als bei der Messung mit der Laserquelle.
+
 \FloatBarrier
 \subsection{Quellenscan einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
 \label{sec:Quellenscan-Auswertung}
 
-- Cluster pro Event: Alle "Anzahlen" ungleich Null in Abbildung.
-Dabei zur Übersichtlichkeit zur Basis 10 logarithmiert
+Mit Hilfe eines Auswerteskriptes werden Pedestal, Common Mode und die Noise bestimmt
+und anhand eines Signal zu Untergrund Verhältnisses von \num{5} Cluster generiert.
+In Abbildung \ref{fig:number-of-clusters} ist die Anzahl an auftretenden Clustern gegen die
+Häufigkeit aufgetragen. Zur Übersichtlichkeit ist diese Häufigkeit zur Basis \num{10}
+logarithmiert.
+Am Häufigsten traten \num{2} Cluster pro Event auf.
 \begin{figure}
   \centering
   \includegraphics{build/number-of-clusters.pdf}  % [width=\textwidth]
   \caption{Logarithmierte Häufigkeit der Anzahl an Cluster pro Event.}
   \label{fig:number-of-clusters}
 \end{figure}
-- Anzahl an Channel pro Event: Selbes Vorgehen, alle ungleich Null heraus gefiltert
-und zur Basis 10 logarithmiert.
+Analog ist auch die Anzahl an Streifen bzw. Kanälen pro Cluster in Abbildung
+\ref{fig:number-of-channels} dargestellt. Auch hier wurde zwecks Übersichtlichkeit
+zur Basis \num{10} logarithmiert.
+Meistens waren also ein oder zwei Kanäle an einem Cluster beteiligt.
 \begin{figure}
   \centering
   \includegraphics{build/number-of-channels.pdf}  % [width=\textwidth]
   \caption{Logarithmierte Häufigkeit der Anzahl an Kanälen pro Cluster.}
   \label{fig:number-of-channels}
 \end{figure}
-- Anzahl Events pro Kanal (Hitmap): Keine Umrechnung von irgendetwas, einfach so geplottet
+In Abbildung \ref{fig:hitmap} ist die Anzahl an Ereignissen pro Kanal dargestellt,
+dies wird Hitmap genannt. Hier zeigt sich die räumliche Ausdehnung der Emission der
+Quelle. Im Vergleich dazu scheint der fokussierte Laser immer nur auf einen Kanal.
 \begin{figure}
   \centering
   \includegraphics{build/hitmap.pdf}  % [width=\textwidth]
   \caption{Anzahl an Ereignissen pro Kanal.}
   \label{fig:hitmap}
 \end{figure}
-- Energiespektren nur relevanter Bereich dargestellt. Bei Darstellung mit keV
-ergab sich der MPV (most probable value) zu \SI{84(1)}{\kilo\electronvolt}
-(Fehler aus gewählter Binbreite von 1keV pro Bin)
-und der MEL (mean energy loss)
-zu ungefähr \SI{103.72(5)}{\kilo\electronvolt}
-(Mittwert und Standardabweichung des Mittelwerts)
-- gewählte Binbreiten 1 ADCC bzw 1keV
+
+Schließlich ist das Energiespektrum in Einheiten der ADC Counts und in \si{\kilo\electronvolt}
+in den Abbildungen \ref{fig:spectrum-adc} und \ref{fig:spectrum-eV}
+dargestellt.
+Dazu wurden alle angesprochenen Streifen eines Clusters zusammen addiert und dann
+die Clusterenergie gegen die relative Häufigkeit aufgetragen.
+Wie bereits in den vorherigen Abschnitten wurden alle Einträge mit einem Signal zu
+Untergrund Verhältnis kleiner als \num{5} nicht mit in die Auswertung eingezogen.
+Hierbei ist zu beachten, dass für das Spektrum in \si{\kilo\electronvolt}-Einheiten
+die Einträge der einzelnen Streifen zuerst umgerechnet und dann erst addiert werden,
+da die Umrechnungsfunktion \eqref{eqn:Umrechnung-in-Energie} nicht linear ist.
+Bei beiden Spektren ist nur ein relevanter Bereich dargestellt, auch bei höheren
+Energien bzw. ADC Counts gab es vereinzelt noch eine Detektion.
+Für das Energiespektrum in \si{\kilo\electronvolt}-Einheiten ergab sich ein
+wahrscheinlichster Wert (MPV) von \SI{84(1)}{\kilo\electronvolt}.
+Die Standardabweichung ergibt sich aus der gewählten Binbreite von einem Bin pro
+\si{\kilo\electronvolt}.
+Die mittlere deponierte Energie (MEL) beträgt \SI{103.72(5)}{\kilo\electronvolt}.
+Hier ergibt sich die Unsicherheit aus der Standardabweichung des Mittelwerts
 \begin{figure}
   \centering
   \includegraphics{build/spectrum-adc.pdf}  % [width=\textwidth]
@@ -273,8 +314,3 @@ zu ungefähr \SI{103.72(5)}{\kilo\electronvolt}
   \caption{Energiespektrum der \ce{^90Sr}-Quelle in \si{\kilo\electronvolt} Werten.}
   \label{fig:spectrum-eV}
 \end{figure}
-- Signal/Noise = 5 als Cut, alles darunter weg geschnitten. Damit bei Clustern
-links und rechts neben dem Hauptpeakt vllt zu viele Informationen heraus genommen.
-Daher können Abweichungen entstehen.
-- WICHTIG: ACD erst in Ladung/Energiecounts umrechnen, dann Cluster addieren!
-Polynom ist nämlich nicht linear... Ist gemacht, auch so erwähnen
