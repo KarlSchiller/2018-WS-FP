@@ -17,11 +17,12 @@ Eine Kontroll- und eine Detektoreinheit, sowie ein Computer mit Steuer-Software.
    \label{fig:schema}
  \end{figure}
 Eine Schicht aus Siliziumoxid sorgt dafür, dass kein Signal aus den p-Implantaten
-auf den Auslesechip überschlägt. Jeder Streifen ist durch Wirebonding mit einem Pad und weiter
-einem ohmschen Widerstand verbunden.
-Dieser wiederum ist an einen Bias Ring zur Spannungsversorgung gekoppelt.
-Um den Bias Ring ist ein Guard Ring zur Vermeidung von Spannungsüberschlägen vom Bias
-Ring zur Ausleseelektronik angebracht. In Abbildung \ref{fig:streifendetektor} ist dies an
+auf den Auslesechip überschlägt. Jeder p-Streifen ist durch Wirebonding mit der
+Ausleseelektronik verbunden. Zudem bezitzen die p-Streifen durch einen Ohmschen
+Wiederstand eine Verbindung zu dem Bias Ring, welcher eine Spannung an den Streifen
+anlegt.
+Um den Bias Ring ist ein Guard Ring zur Vermeidung von Oberflächenströmen angebracht.
+In Abbildung \ref{fig:streifendetektor} ist dies an
 einer makroskopischen Aufnahme deutlich gemacht.
 \begin{figure}[htb]
   \centering
@@ -46,7 +47,7 @@ durch
   \text{CCE}(U) = \frac{1 - \exp\left(\frac{-d_\text{c}(U)}{a}\right)}{1 - \exp\left(\frac{-D}{a}\right)}.
   \label{eqn:CCEL}
 \end{equation}
-Diese Formel gilt allerdings nur für Photonen, daher wird diese Messungg mit dem
+Diese Formel gilt allerdings nur für Photonen, daher wird diese Messung mit dem
 eingebauten Laser durchgeführt.
 Hierbei ist $d_\text{c}$ die Dicke der Depletionszone, $D$ die Sensordicke und
 $a$ die Eindringtiefe des Lasers in das Silizium.
@@ -118,7 +119,7 @@ kann. Dies ist in Abbildung \ref{fig:quell} noch einmal dargestellt.
 Zur Aufnahme einer Strom-Spannungs-Kennlinie werden die Detektor und Kontrolleinheit
 an den Computer angeschlossen und das zum EASy mitgeführte Programm \textit{Alibava\_gui}
 gestartet werden. Zur eigentlichen Messung muss die Vorspannung von \SI{0}{\volt} bis
-einschließlich \SI{200}{\volt} in \SI{10}{\volt} Schritten durchlaufen und 
+einschließlich \SI{200}{\volt} in \SI{10}{\volt} Schritten durchlaufen und
 der Leckstrom aufgezeichnet werden.
 
 Dann wird eine Depletionsspannung im erhaltenen Verlauf durch Übergang von einem
@@ -161,7 +162,7 @@ Für einen der fünf Streifen wird zudem ein Run bei $U=\SI{0}{\volt}$ durchgef�
 Hier wird nun die Streifenstruktur des Detektors untersucht. Dies funktioniert,
 da sich in der Mitte diese Streifen eine Metallisierung befindet, welche das vom
 Laser emittierte Licht reflektiert und daher den Halbleiter nicht durchdringt.
-als erstes wird dazu die optimale Verzögerung zwischen Lasersignal und Chipauslese
+Zu Beginn wird dazu die optimale Verzögerung zwischen Lasersignal und Chipauslese
 bestimmt. Dafür wird unter \textit{Option} \textit{Laser Sync.} ausgewählt und
 der Run durchgeführt. Aus dem Maximum der angezeigten Abhängigkeit zwischen
 gemessenen ADC-Counts und Verzögerung kann nun die optimale Verzögerung abgelesen

@@ -12,12 +12,12 @@ gegeben werden. Schließlich wird eine $\beta^{-}$-Quelle untersucht.
 \subsection{Aufbau eines Inneren Detektors}
 
 Die Si-Streifendetektoren sind bei großen teilchenphysikalischen Detektoren,
-wie z.B. dem ATLAS-Detektor am LHC, Teil eines sogennanten \textit{Inneren Detektors (ID)}.
+wie z.B. dem ATLAS-Detektor am LHC, Teil eines sogennanten \textit{Tracking Detektor}.
 Die Aufgabe des ID ist es die Spuren der ionisierenden Teilchen zu erfassen und
 durch die Bestimmung ihres Impulses erste wichtige Informationen über diese zu
 erhalten.
 
-Dabei werden sie dicht an die Pipeline, in der die Ausgangsteilchen beschleunigt und
+Dabei werden sie dicht an die Beampipe, in der die Ausgangsteilchen beschleunigt und
 zur Kollision gebracht werden, angebracht. Nahe an der Pipeline sind Pixel-Detektoren plaziert.
 Diese sind sehr ähnlich aufgebaut wie Streifendetektoren. Aufgrund ihrer kleineren
 Detektionsfläche besitzen sie eine wesentlich höhere örtliche Auflösung, sind
@@ -27,7 +27,8 @@ gelegt, um die Spuren weiter verfolgen zu können.
 
 Als letzte Schicht wird ein Übergangsstrahlungsspurdetektor verwendet, um die
 Krümmung der Teilchenspuren bei einem angelegten Magnetfeld zu
-erfassen. Im weiteren Schritt werden die Krümmungsradien der Teilchenspuren
+erfassen. Das Magnetfeld beeinflusst dabei auch die Pixel- und Streifendetektoren.
+Im weiteren Schritt werden die Krümmungsradien der Teilchenspuren
 berechnet und daraus die Impulse bestimmt.
 
 \subsection{Halbleiter}
@@ -39,7 +40,7 @@ als jene Energie definiert, die ein Elektron besitzen muss, um von dem Valenz-
 in das Leitungsband zu wechseln.
 % Es wird allgemein unter verschiedene Untergruppen der Halbleiter unterschieden.
 In diesem Versuch wird Silizium verwendet. Dieser Halbleiter besitzt vier
-Valenzelektronen und eine typische Bandlücke von \SI{1.107}{\electronvolt}.
+Valenzelektronen und eine typische Bandlücke von \SI{1.12}{\electronvolt} \cite{chemie}.
 Dabei ordnen sich die Siliziumatome in einer Diamantstruktur an. Daraus
 resultiert, dass jedes Atom vier Nachbaratome besitzt, welche alle zur Bindung
 beitragen.
@@ -54,15 +55,17 @@ mit einer geringen Ladungträgerdichte.
 
 Durch Hinzufügen eines geeigneten Fremdatoms lässt sich die Leitfähigkeit jedoch verbessern.
 Hier wird zwischen p- und n-Typ Halbleitern unterschieden.
-Bei p-Typ Halbleitern oder Akzeptoren wird ein Fremdatom mit einer niedrigeren
-Anzahl von Valenzelektronen als die der Basis
-hinzugefügt. Dadurch fehlt in der Gitterstruktur zur kovalenten
+Bei p-Typ Halbleitern werden sogennante dem Material Akzeptoren hinzugefügt.
+Diese sind Fremdatome mit einer niedrigeren
+Anzahl von Valenzelektronen als bei den Basisatomen. Dadurch fehlt in der
+Gitterstruktur zur kovalenten
 Bindung eine bindende negative Ladung und das Loch bewegt sich wie ein freier
 positiver Ladungsträger.
 
-Die n-Typ Halbleiter oder Donatoren zeichnen sich analog zu dem p-Typ dadurch aus, das ein
-Fremdatom in die Gitterstruktur eingebaut wird. Jedoch besitzt dieses ein
-Valenzelektron mehr und sorgt daher für eine zusätzliche negative Ladung.
+Die n-Typ Halbleiter werden mit Donatoren verunreinigt. Diese zeichnen sich analog
+zu dem p-Typ dadurch aus, das ein Fremdatom in die Gitterstruktur eingebaut wird.
+Jedoch besitzt dieses ein Valenzelektron mehr und sorgt daher für eine zusätzliche
+negative Ladung.
 
 Ein wichtiger Prozess ist hier der pn-Übergang. Dieser bezeichnet eine Verbindung
 einer p-dorierten mit einer n-dotierten Schicht innerhalb des Halbleiters. Durch den
@@ -74,7 +77,7 @@ ladungträgerarme Zone oder Depletionszone ausbildet.
 Bei der sogenannten Depletionsspannung $U_\text{Dep}$ ist der Halbleiter zwischen den
 Kontakten schließlich vollständig depletiert.
 Die Depletionsspannung liegt typischerweise wesentlich höher als die
-Vorspannung ($U \gg U_\text{Dep}$). Die räumliche Ausbreitung der Depletionszone
+Depletionsspannung ($U \gg U_\text{Dep}$). Die räumliche Ausbreitung der Depletionszone
 hängt von der angelegten Vorspannung und der effektiven Dotierungskonzentration
 $N_\text{eff}$ ab.
 \begin{equation}
@@ -99,13 +102,16 @@ wenn ein geladenes Teilchen sich durch den Detektor bewegt. In Realität entsteh
 durch thermische Anregung allerdings Elektron-Loch-Paare, die in der Depletionszone
 rekombinieren und so einen Leckstrom verursachen. Bei Silizium liegt die Energie
 zur Erzeugung eines Elektronen-Loch-Paares bei \SI{3.6}{\electronvolt}.
-In diesem Fall liegt die angelegte Spannung unterhalb $U_\text{Dep}$ und es gilt
-dür die Dicke der Depletionszone
+Liegt die angelegte Spannung unterhalb $U_\text{Dep}$ gilt
+für die Dicke der Depletionszone
 \begin{align*}
-  d_\text{c}(U) &= D\sqrt{\frac{U}{U_\text{Dep}}} \hspace{1.7cm}\text{für } U \less U_\text{Dep} \\
-  d_\text{c}(U) &= D \hspace{3cm}\text{für } U \le U_\text{Dep}
+  d_\text{c}(U) &= D\sqrt{\frac{U}{U_\text{Dep}}} \hspace{1.7cm}\text{für } U \less U_\text{Dep}.
 \end{align*}
-
+Ist die angelegte Spannung allerdings in der selben Größenordnung wie die Depletionsspannung,
+ so folgt für die Dicke der Depletionsspannung
+ \begin{align*}
+   d_\text{c}(U) &= D \hspace{3cm}\text{für } U \le U_\text{Dep}.
+ \end{align*}
 
 \subsection{Wechselwirkungen ionisierender Strahlung}
 In diesem Versuch wird eine ${90}^\text{Sr}$-Quelle verwendet. Diese ist ein reiner
@@ -114,7 +120,7 @@ $\beta^{-}$-Strahler. Strontium besitzt eine Zerfallskette
   {90}^\text{Sr} \stackrel{\beta^{-}}{\longrightarrow} {90}^\text{Y}
   \stackrel{\beta^{-}}{\longrightarrow} {90}^\text{Zr},
 \end{equation*}
-wobei sowohl Yttrium als auch Zirkonium ebenso nahezu reine $\beta^{-}$-Strahler sind.
+wobei sowohl Yttrium als auch Zirkonium nahezu reine $\beta^{-}$-Strahler sind.
 Strontium besitzt eine Halbwertszeit von
 $T_{\sfrac{1}{2}} = \SI{28}{\year}\:\SI{328}{\day}$
 und zerfällt danach in Yttrium, welches eine Halbwertszeit von
@@ -123,8 +129,8 @@ Dabei einem $\beta^{-}$-Zerfall zerfallen Neutronen wie folgt in Protonen:
 \begin{equation*}
   \text{n} \rightarrow \text{p} + \text{e}^{-} + \overline{\nu_\text{e}}
 \end{equation*}
-Die vorhandene Zerfallsenergie wird auf alle drei Endprodukte verteilt, wobei die maximale
-kinetische Energie der Elektronen bei \SI{0.546}{\mega\electronvolt} (im Fall \ce{^90Sr}) liegt.
+Die vorhandene Zerfallsenergie wird auf alle drei Endprodukte verteilt, wobei diese
+bei \SI{0.546}{\mega\electronvolt} (im Fall \ce{^90Sr}) liegt.
 
 \subsubsection{Wechselwirkung von Elektronen in Materie}
 Bewegt sich ein Elektron in Materie, so führt dieses elastische Stöße mit Kernen und
@@ -143,14 +149,15 @@ beschreiben.
   \left[\text{ln}\left(\frac{\tau^2(\tau + 2)}{2(I\/\text{m}_\text{e}\text{c}^2)^2}\right)
   + \text{F}(\tau) - \delta - 2\frac{\text{c}}{\text{Z}}\right]
 \end{equation*}
-In dieser Abwandlung der eigentlichen Bethe-Bloch-Gleichung für schwere Teilchen
+In dieser Abwandlung der eigentlichen Bethe-Bloch-Gleichung für Elektronen mit einer
+Zerfallsenergie von ungefähr \SI{0.5}{\mega\electronvolt}
 beschreibt $\tau$ die kinetische Energie mit der Einheit $m_\text{e} c^2$. Der
 Faktor F($\tau$), welcher extra für Elektronen eingefügt wird, ist bestimmt durch:
 \begin{equation*}
   \text{F}(\tau) = 1 - \beta^2 + \frac{\tau^2\/8 - (2\text{r}_e + 1) \ln2}{(\tau + 1)^2}
   \hspace{2cm}\text{mit } \tau = \gamma - 1
 \end{equation*}
-In der Abbildung \ref{fig:tab} ist eine Tabelle der Einezelnen Bestandteile der
+In der Abbildung \ref{fig:tab} ist eine Tabelle der Einzelnen Bestandteile der
 modifizierten Bethe-Bloch-Gleichung dargestellt.
 \begin{figure}[htb]
   \centering
@@ -158,20 +165,22 @@ modifizierten Bethe-Bloch-Gleichung dargestellt.
   \caption{Bestandteile der modifizierten Bethe-Bloch-Gleichung \cite{anleitung}.}
   \label{fig:tab}
 \end{figure}
-Typischerweise liegt die Energiedeposition bei reinem Silizium bei
+Typischerweise liegt die Energiedeposition von Elektronen in reinem Silizium bei
 \SI{3.88}{\mega\electronvolt\per\centi\meter}.
 
 \FloatBarrier
 \subsubsection{Energiespektrum im Silizium-Detektor}
 Bei hinreichender Dicke des Detektors ist das Spektrum der deponierten Energie eines
-Elektrons aufgrund des zentraen Grenzwertsatzes durch eine Gaußverteilung gegeben.
+Elektrons aufgrund des zentralen Grenzwertsatzes durch eine Gaußverteilung gegeben.
 Der hier verwendete Detektor erfüllt diese Bedingung bei einer Dicke von
 \SI{300}{\micro\meter} jedoch nicht. Es gibt nicht genügend Wechselwirkungen
 innerhalb des Detektors, um den zentralen Grenzwertsatz anwenden zu können.
 Daher entspricht die Verteilung eher einer asymmetrischen Landau-Funktion.
 Dies resultiert auch daraus, dass manche
 Sekundärelektronen nicht innerhalb des Detektors gestoppt werden und daher
-ein geringer Teil der deponierte Energie nicht korrekt bestimmt werden kann.
+ein geringer Teil der deponierte Energie nicht korrekt bestimmt werden kann. Zudem
+wird entlang der Fläche gestreut, was für einen langen Laufweg durch den Detektor
+sorgt und sich daher ein langer Schwanz der Vertilung bilet.
 Da die Energie der Elektronen des $\beta$-Zerfalls durch eine Verteilung beschrieben
 werden können, beschreibt das Spektrum der deponierten Energie am besten eine Faltung zwischen
 einer Gauß- und einer Landau-Funktion. Diese Verteilung ist in Abbildung \ref{fig:faltung}
@@ -230,7 +239,8 @@ gibt es drei Effekte, die auftreten können.
   zwischen zwei Streifen auf. Draufhin messen beide Streifen das Signal.
   \item \textit{Crosstalks}: Durch ein Signal in der Ausleseelektronik wird ein
   neues Signal an einem benachbarten Streifen gemessen.
-  \item \textit{horizontale Events}: geht ein geladenes Teilchen horizontal durch
-  alle Streifen hindurch, so geht jegliche Ortsinformation verloren. Für diese
+  \item \textit{horizontale Events}: geht ein geladenes Teilchen schräg durch
+  mehrere Streifen hindurch (mit einer Horizontalkomponente $\neq 0$), so gehen
+  jegliche Ortsinformationen verloren. Für diese
   Ereignisse sind die Streifendetektoren nicht konstuiert worden.
 \end{enumerate}
