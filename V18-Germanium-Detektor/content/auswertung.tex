@@ -7,9 +7,10 @@
 \label{sec:Energiekallibrierung}
 
 Für eine Energiekalibrierung wird das Spektrum der \ce{^{152}Eu}-Quelle
-aufgezeichnet. Dies ist in Abbildung \ref{plt:Eu-Spektrum} zu dargestellt. Die zu
-erkennenen Peaks werden dem erwartetem Europium-Spektrum zugeordnet,
-die wiederum in Tabelle \ref{tab:anleitung_eu} dargestellt sind.
+aufgezeichnet. Dies ist in Abbildung \ref{plt:Eu-Spektrum} dargestellt. Die zu
+erkennenen Peaks werden mit dem \textit{find.peaks}-Paket von python
+herausgefiltert und dem erwartetem Europium-Spektrum zugeordnet. Dies ist in
+Tabelle \ref{tab:anleitung_eu} dargestellt.
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{build/orginal_Eu_log.pdf}
@@ -17,12 +18,13 @@ die wiederum in Tabelle \ref{tab:anleitung_eu} dargestellt sind.
   logarithmischer y-Achse, aufgenommen innerhalb einer Stunde.}
   \label{plt:Eu-Spektrum}
 \end{figure}
-Anhand der Energien und Bin-Indizes wurde eine lineare Ausgleichsrechnung
+Anhand der Energien und der Zählrate wurde eine lineare Ausgleichsrechnung
 mit Hilfe der Formel
 \begin{align*}
   E = m \cdot x + b
 \end{align*}
-durchgeführt. Sie ist in Abbildung \ref{plt:Eu-Spektrum} dargestellt.
+durchgeführt. Dazu wurde das Paket \textit{curve\_fit} verwendet. Die
+Ausgleichsrechnung ist in Abbildung \ref{plt:Eu-Spektrum} dargestellt.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{build/kalibation.pdf}
@@ -34,8 +36,8 @@ durchgeführt. Sie ist in Abbildung \ref{plt:Eu-Spektrum} dargestellt.
 Dabei entspricht $x$ der Bin-Indizes. Für die Parameter $m$ und
 $b$ ergeben sich:
 \begin{align*}
-	m &= \SI{0.4204(69)}{\kilo\electronvolt} \\
-  b &= \SI{-41.25(1428)}{\kilo\electronvolt}
+	m &= \num{0.4054(35)} \\
+  b &= \SI{-11.22(731)}{\kilo\electronvolt}
 \end{align*}
 \input{build/tables/anleitung_eu.tex}
 \FloatBarrier
@@ -49,8 +51,7 @@ Zur Berechnung der Detektoreffizienz wird Formel
 Raumwinkel anhand Formel \eqref{eqn:Raumwinkel} berechnet. Mit
 $a = \SI{37.5(10)}{\milli\meter}$ und $r = \SI{22.5(10)}{\milli\meter}$ ergibt sich
 \begin{align*}
-  \frac{\Omega}{4\pi} = \num{0.01558(34)}
-	.
+  \frac{\Omega}{4\pi} = \num{0.01558(34)}.
 \end{align*}
 Dabei wurde $r$ so gewählt, dass der wahrscheinlichste Wechselwirkungspunkt
 \SI{1.5}{\centi\meter} innerhalb des Germaniums liegt und der Abstandshalter
@@ -87,10 +88,10 @@ durchgeführt. Dabei wurden nur solche Energien betrachtet, die über
 \SI{150}{\kilo\electronvolt} liegen.
 Der Fit ist in Abbildung \ref{plt:eff} dargestellt und ergab die Parameter:
 \begin{align*}
-  a &= -\SI{0.1(23)}{\kilo\electronvolt\per\becquerel} \\
-  b &= \SI{2(12)}{\kilo\electronvolt} \\
-  c &= \SI{6(20)}{\raiseto{-1}\becquerel} \\
-  e &= \num{0.5(20)}
+  a &= -\SI{0.01(7)}{\per\kilo\electronvolt\per\becquerel} \\
+  b &= \SI{114.0(6)}{\kilo\electronvolt} \\
+  c &= \num{0.5(4)} \\
+  e &= \num{0.5(7)}
 \end{align*}
 \begin{figure}[htb]
   \centering
@@ -135,40 +136,37 @@ Theoriwert des Vollenergiepeaks liegt bei \SI{661.59}{\kilo\electronvolt}
     \bottomrule
   \end{tabular}
 \end{table}
-Eine Berechnung der Theoriwerte für Rückstreupeak und Comptonkante durch die
+Eine Berechnung der Theoriewerte für Rückstreupeak und Comptonkante durch die
 Energie des Vollenergiepeaks $E_{\text{Voll}}$ normiert auf $m_0\:c^2$ ergibt:
 \begin{align*}
-  E_\text{Compton, Theo} &= \frac{2\epsilon}{1+2\epsilon}\cdot E_\text{Voll} = \SI{1136.32}{\kilo\electronvolt} \\
-  E_\text{Rück, Theo} &= \frac{1}{1+2\epsilon}\cdot E_\text{Voll} = \SI{659.88}{\kilo\electronvolt}
+  E_\text{Compton, Theo} &= \frac{2\epsilon}{1+2\epsilon}\cdot E_\text{Voll} = \SI{477.27}{\kilo\electronvolt} \\
+  E_\text{Rück, Theo} &= \frac{1}{1+2\epsilon}\cdot E_\text{Voll} = \SI{184.32}{\kilo\electronvolt}
 \end{align*}
 Diese Werte weichen wie folgt von den gemessenen Werten ab:
 \begin{align*}
-  \Delta E_\text{Compton} &= \SI{60.19}{\percent} \\
-  \Delta E_\text{Rück} &= \SI{73.69}{\percent}
+  \Delta E_\text{Compton} &= \SI{2.63}{\percent} \\
+  \Delta E_\text{Rück} &= \SI{6.31}{\percent}
+\end{align*}
+Daraus folgt, dass der Rückstreupeak durch andere Effekte wie dem Photoeffekt
+beeinflusst. Daraus ergibt sich eine Erhöhung der Energie.
+
+Die Halbwerts- und Zehntelbreite des Vollenergiepeaks werden per Auge durch die Abbildung \ref{plt:halb}
+abgeschätzt auf
+\begin{align*}
+  x_{\sfrac{1}{2}} &= \SI{2.2(2)}{\kilo\electronvolt} \\
+  x_{\sfrac{1}{10}} &= \SI{4.0(3)}{\kilo\electronvolt}.
+\end{align*}
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{build/test_2.pdf}
+  \caption{Bestimmung der Halbwerts- und Zehntelbreite des Vollenergiepeaks der Cäsiumquelle.}
+  \label{plt:halb}
+\end{figure}
+Diese ergeben einen Quotienten von
+\begin{align*}
+  \frac{x_{\sfrac{1}{10}}}{x_{\sfrac{1}{2}}} = \num{1.818(387)}
 \end{align*}
 
-Um zu überprüfen, ob der Vollenergiepeak eine Gaussform annimmt, wird eine
-rechte (r) und eine linke (l) Flanke mithilfe einer linearen Regression
-angenommen. Daraus ergeben sich die Parameter:
-\begin{align*}
-	a_\text{l} &= \num{0.0042(7)} & a_\text{r} &= \num{-0.0039(6)} \\
-	b_\text{l} &= \num{1640.6(6)} & b_\text{r} &= \num{1655.2(6)}
-\end{align*}
-Mit Hilfe der Formel
-\begin{align*}
-	\Delta_\text{x} = m_\text{r}xh + b_\text{r} - \left(m_\text{l}xh + b_\text{l}\right)\ \text{mit}\ h \in \left\{\num{0.1}; \num{0.5}\right\}
-\end{align*}
-kann die Halbwerts- und die Zehntelbreite bestimmt werden. Daraus ergab sich:
-\begin{align*}
-  \Delta_{1/2} &= \SI{-38.3(5)}{\kilo\electronvolt} \\
-	\num{1.823} \cdot \Delta_{1/2} &= \SI{-69.9(9)}{\kilo\electronvolt} \\
-  \Delta_{1/10} &= \SI{-35.7(4)}{\kilo\electronvolt}
-\end{align*}
-Bei einer Gaußkurve beträgt die Zehntelbreite das \num{1.823}-fache der
-Halbwertsbreite.
-Wird nun das Verhältnis zwischen den beiden unteren Werten
-betrachtet, so erhält man hier eine Abweichung von
-$\Delta_{1/10}$ von \SI{49.1}{\percent}.
 
 Im letzten Schritt dieses Auswertungsteils wird der Inhalt des Compton-Kontinuums
 und des Vollenergiepeaks mit der Absorptionswahrscheilichkeit des Compton- und
@@ -180,18 +178,11 @@ mit der Länge des Detektors $l = \SI{3.9}{\centi\meter}$ und dem
 Absorptionskoeffizienten $\mu$ verwendet. Dabei ergeben sich die
 Absorptionskoeffizienten aus Abbildung \ref{plt:Cs_abs} zu:
 \begin{align*}
-	\mu_\text{Compton} &= \SI{0.38}{\per\centi\meter} & p_\text{Compton} &= \SI{0.78}{\percent} \\
-	\mu_\text{Photo} &= \SI{0.002}{\per\centi\meter} & p_\text{Photo} &= \SI{77.28}{\percent}
+	\mu_\text{Compton} &= \SI{0.38(3)}{\per\centi\meter} & p_\text{Compton} &= \SI{74(7)}{\percent} \\
+	\mu_\text{Photo} &= \SI{0.002(3)}{\per\centi\meter} & p_\text{Photo} &= \SI{2.7(1)}{\percent}
 \end{align*}
 \begin{figure}
-  \begin{subfigure}{0.49\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{build/Cs.pdf}
-  \end{subfigure}
-  \begin{subfigure}{0.49\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{build/Cs_log.pdf}
-  \end{subfigure}
+    \includegraphics[width=0.8\textwidth]{build/Cs_log.pdf}
   \caption{Vollenergiepeak und Compton-Kontinuum des Cs-Spektrums.}
   \label{plt:Cs_abs}
 \end{figure}
@@ -203,8 +194,8 @@ es Fits ergibt sich damei ein Parameter $\epsilon = \num{111}$. Die Peakhöhe de
 untersuchten Compton-Kontinuums und des Vollenergiepeaks wird durch
 Integration dieser Formel auf
 \begin{align*}
-  Z_\text{Compton} &= \num{10580(9)} \\
-  Z_\text{Voll} &= \num{19697.88}
+  Z_\text{Compton} &= \num{9.0(8)e4} \\
+  Z_\text{Voll} &= \num{3.39(7)e4}
 \end{align*}
 bestimmt.
 
@@ -263,10 +254,8 @@ resultierenden Werte sind in Tabelle \ref{tab:last} zu finden.
 \end{figure}
 \input{build/tables/last.tex}
 \FloatBarrier
-Diese Peaks wurden mit den in der Anleitung \cite{anleitung} gegebenen Werten
-verschiedener aktiver Nukliden verglichen.
-Dort gibt es zwei Nuklide, die hier vorkommen könnten, \ce{^{214}Bi} und
-\ce{^{210}Ti}. Bei Wismut würden die gefundenen Peaks zu den Emissionslinien
-bei \SI{1120}{\kilo\electronvolt} und \SI{1378}{\kilo\electronvolt} passen. Bei Titan
-entsprächen die gefundenen Emissionslinien den Linien bei \SI{1210}{\kilo\electronvolt}
-und \SI{1310}{\kilo\electronvolt}.
+Die Peaks wurden wieder  \textit{find.peaks} bestimmt und dann Mithilfe von der
+Datenbank aus Referenz \cite{referenz} dem Isotop $^{60}\text{Co}$ identifiziert.
+Bei diesem Isotop trifft der Peak bei \SI{1172.20}{\kilo\electronvolt} in
+\SI{99.85}{\percent} und der Peak bei \SI{1332.75}{\kilo\electronvolt} in
+\SI{99.98}{\percent} der Fälle auf.
