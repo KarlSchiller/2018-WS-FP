@@ -281,6 +281,7 @@ def vermessung():
     # warning: the array starts at zero, but the axis label starts at one!
     peaks_81 += 1
     peaks_82 += 1
+    # TODO: Pitch anders definiert, ändern!
     streifendicke = np.mean(np.concatenate((np.diff(peaks_81), np.diff(peaks_82)), axis=0))
     print('\tmean stripe width {} pm 10 microns'.format(streifendicke*10))
 
@@ -396,6 +397,9 @@ def cceq():
     #  plt.savefig('build/cceq.pdf')
     #  plt.clf()
 
+    # TODO: Trage CCEQ^2 gegen U auf, da nach Theorie Abhängigkeit von sqrt(U)
+    # zu überprüfen. Wenn unbedingt nötig, dann ein linearer Fit.
+
     # return cceq-values to compare them with the ccel measurement
     return mean_counts
 
@@ -420,6 +424,8 @@ def cce_vergleich(ccel_data, cceq_data):
 def source_scan(calib_params, calib_errors):
     '''Characterization of a beta source'''
     # number of clusters per event
+    # TODO: Besser Achsenbeschriftung nicht als log
+    # TODO: Start der Anzahl Cluster bei 0
     df_cluster_number = pd.read_csv('rohdaten/number_of_clusters.txt',
             names=['adcc'],
             skiprows=1)
@@ -526,3 +532,5 @@ if __name__ == '__main__':
     cce_vergleich(ccel_data, cceq_data)
     print('Quellenscan')
     source_scan(params, errors)
+
+    # TODO: Logarithmische Plots mit 10^-Zahl an zu geben.

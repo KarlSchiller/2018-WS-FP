@@ -14,6 +14,8 @@ die zugehörigen Messwerte befinden sich in Tabelle \ref{tab:ui-characteristic}.
 \input{build/ui-characteristic.tex}
 Nach Überschreiten der Depletionsspannung $U_\text{Dep}$ werden keine Ladungsträger mehr als
 Leckstrom gemessen, die aus der Dotierung resultieren.
+Es tragen nur noch in Abschnitt \ref{sec:Halbleiter-Theorie} beschriebene
+thermische Anregungen zum Leckstrom bei.
 Somit ergibt sich im Bereich um $U_\text{Dep}$ eine Unstetigkeit der in
 Abbildung \ref{fig:ui-characteristic} dargestellten Kennlinie.
 \begin{figure}
@@ -143,7 +145,7 @@ dieser Wert wird für die eigentliche Vermessung verwendet.
   \label{fig:laser-delay}
 \end{figure}
 
-Nach der in Abschnitt \ref{sec:Vermessung_Laser} vertikalen Fokussierung des
+Nach der in Abschnitt \ref{sec:Vermessung_Laser} beschriebenen vertikalen Fokussierung des
 Lasers wird dieser in \SI{10}{\micro\meter}-Schritten horizontal bewegt,
 angefangen bei \SI{4.00}{\milli\meter}.
 Die aufgenommenen ADC Counts pro Messposition sind in Abbildung \ref{fig:streifen-uebersicht}
@@ -158,9 +160,12 @@ Messposition auf diese Streifen ausgerichtet sein muss.
   \label{fig:streifen-uebersicht}
 \end{figure}
 
-Aus diesem Grund sind diese beide Streifen in Abbildung \ref{fig:streifen}
-genauer dargestellt. Der \emph{pitch} der Streifen, also deren Periodizität oder
-Dicke der Streifen kann aus den Abständen der Signalmaxima bestimmt werden.
+Aus diesem Grund sind diese beiden Streifen in Abbildung \ref{fig:streifen}
+genauer dargestellt. Der \emph{pitch} der Streifen beschreibt deren Dicke
+und kann aus den Abständen der Signalmaxima bestimmt werden.
+% TODO: Falsch verstanden, siehe Foto. In Berechnung korrigieren und weiter unten
+% angegebenen Wert korrigieren.
+%
 % Nach Definition beträgt die Dicke der Streifen nicht deren p-Dotierte Dicke,
 % sondern die Hälfte dazwischen auch mit dazu.
 % Somit grenzen sie aneinander und mit der Periodizität wird quasi die Breite eines
@@ -199,9 +204,10 @@ ab zu schätzen, passt jedoch mit dem grünen Bereich zusammen.
 An diese Werte wurde im Bereich von \SIrange{0}{70}{\volt} eine Regression
 der Form \eqref{eqn:CCEL} mit Hilfe der Funktion \texttt{curve\_fit} des Pakets
 \texttt{scipy.optimize} durchgeführt.
-Dabei ließ sich die Depletionsspannung aufgrund der geringen Anzahl an Messwerten
-nicht regressieren, sondern wurde als Schätzungsparameter auf \SI{70}{\volt}
-eingestellt.
+Dabei wurde die Depletionsspannung als Schätzungsparameter auf \SI{70}{\volt}
+eingestellt. Ohne diese Einschränkung ist keine adequate Regression möglich,
+was sich z.B. an den Standardabweichungen der regressierten Parameter zeigt,
+die deutlich höher als die eigentlichen Werte der Parameter sind.
 In Abbildung \ref{fig:ccel} ist die Regression mit den für die Regression verwendeten
 Messwerten in orange dargestellt und die mittlere Eindringtiefe des Lasers
 ergab sich zu
@@ -247,6 +253,7 @@ Weg durch den Detektor überall die selbe Energiemenge deponieren.
 Somit hängt die Variation der \si{\adc} ausschließlich an der unvollständigen
 Depletion der Streifen. Deshalb ist der Übergang des Plateaus in Abbildung
 \ref{fig:cce-vergleich} \enquote{schärfer} als bei der Messung mit der Laserquelle.
+% TODO: Passt Verlauf zu d(U)/D ?
 
 \FloatBarrier
 \subsection{Quellenscan einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
@@ -277,6 +284,7 @@ Meistens waren also ein oder zwei Kanäle an einem Cluster beteiligt.
 In Abbildung \ref{fig:hitmap} ist die Anzahl an Ereignissen pro Kanal dargestellt,
 dies wird Hitmap genannt. Hier zeigt sich die räumliche Ausdehnung der Emission der
 Quelle. Im Vergleich dazu scheint der fokussierte Laser immer nur auf einen Kanal.
+% TODO: Formulierung neu überlegen. Der Laser scheint ja nicht immer wirklich nur auf einen Kanal
 \begin{figure}
   \centering
   \includegraphics{build/hitmap.pdf}  % [width=\textwidth]
@@ -301,6 +309,8 @@ wahrscheinlichster Wert (MPV) von \SI{84(1)}{\kilo\electronvolt}.
 Die Standardabweichung ergibt sich aus der gewählten Binbreite von einem Bin pro
 \si{\kilo\electronvolt}.
 Die mittlere deponierte Energie (MEL) beträgt \SI{103.72(5)}{\kilo\electronvolt}.
+% TODO: Umrechnung in mittlere deponierte Energie pro Streckeneinheit?
+% abhängig davon, wofür Theoriewert zugänglich...
 Hier ergibt sich die Unsicherheit aus der Standardabweichung des Mittelwerts
 \begin{figure}
   \centering
