@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 #  import uncertainties.unumpy as unp
 #  from uncertainties.unumpy import nominal_values as noms
 #  from uncertainties.unumpy import std_devs as stds
-#  from uncertainties import ufloat
+from uncertainties import ufloat
 from scipy.optimize import curve_fit
 #  import scipy.constants as const
 #  import imageio
@@ -281,8 +281,7 @@ def vermessung():
     # warning: the array starts at zero, but the axis label starts at one!
     peaks_81 += 1
     peaks_82 += 1
-    # TODO: Pitch anders definiert, ändern!
-    streifendicke = np.mean(np.concatenate((np.diff(peaks_81), np.diff(peaks_82)), axis=0))
+    streifendicke = np.mean(np.abs(peaks_81-peaks_82))
     print('\tmean stripe width {} pm 10 microns'.format(streifendicke*10))
 
     measure_indices = np.arange(35)+1
@@ -397,8 +396,28 @@ def cceq():
     #  plt.savefig('build/cceq.pdf')
     #  plt.clf()
 
-    # TODO: Trage CCEQ^2 gegen U auf, da nach Theorie Abhängigkeit von sqrt(U)
-    # zu überprüfen. Wenn unbedingt nötig, dann ein linearer Fit.
+    # validate the sqrt(U)-dependency of the depletion zone's thickness
+    squared_mean_counts = mean_counts**2
+    start = 0
+    stop = 8
+
+    params, covariance = curve_fit(linear, applied_voltage[start:stop], squared_mean_counts[start:stop])
+    errors = np.sqrt(np.diag(covariance))
+    # array[a:b] is the array from [a, b) without border b included
+    print('\tFit CCEQ^2 from {} to {} volt (indices {} to {})'.format(applied_voltage[start],
+        applied_voltage[stop-1], start, stop-1))
+    print(f'\tm    = {params[0]} ± {errors[0]}')
+    print(f'\tb    = {params[1]} ± {errors[1]}')
+
+    voltage_plot = np.linspace(0, applied_voltage[stop-1], 1000)
+    plt.plot(voltage_plot, linear(voltage_plot, *params), color=tugreen, label='Regression')
+    plt.plot(applied_voltage[start:stop], squared_mean_counts[start:stop], 'kx', label='Quelle')
+    plt.xlabel(r'$U\:/\:\si{\volt}$')
+    plt.ylabel(r'Quadriertes normiertes Messsignal')
+    #  plt.legend(loc='lower right')
+    plt.tight_layout()
+    plt.savefig('build/cceq-abhaengigkeit.pdf')
+    plt.clf()
 
     # return cceq-values to compare them with the ccel measurement
     return mean_counts
@@ -424,20 +443,19 @@ def cce_vergleich(ccel_data, cceq_data):
 def source_scan(calib_params, calib_errors):
     '''Characterization of a beta source'''
     # number of clusters per event
-    # TODO: Besser Achsenbeschriftung nicht als log
-    # TODO: Start der Anzahl Cluster bei 0
     df_cluster_number = pd.read_csv('rohdaten/number_of_clusters.txt',
             names=['adcc'],
             skiprows=1)
     # Dataframe indexed from 0 to 127, but number of clusters starts with 1
-    df_cluster_number.set_index(np.arange(1, 129), inplace=True)
+    df_cluster_number.set_index(np.arange(0, 128), inplace=True)
     # extract only the cluster numbers not equal zero
     df_cluster_number = df_cluster_number[df_cluster_number != 0].dropna()
-    df_cluster_number['log'] = np.log10(df_cluster_number['adcc'])
+    #  df_cluster_number['log'] = np.log10(df_cluster_number['adcc'])
     print('\tPlot Number of Clusters')
-    plt.bar(df_cluster_number.index.values, df_cluster_number['log'], edgecolor='k', color='w')
+    plt.bar(df_cluster_number.index.values, df_cluster_number['adcc'], edgecolor='k', color='w')
     plt.xlabel('Anzahl Cluster')
-    plt.ylabel('Logarithmierte Häufigkeit')
+    plt.ylabel('Häufigkeit')
+    plt.yscale('symlog')
     plt.tight_layout()
     plt.savefig('build/number-of-clusters.pdf')
     plt.clf()
@@ -448,11 +466,12 @@ def source_scan(calib_params, calib_errors):
             skiprows=1)
     #  extract only the number of channels not equal zero
     df_channel_number = df_channel_number[df_channel_number != 0].dropna()
-    df_channel_number['log'] = np.log10(df_channel_number['adcc'])
+    #  df_channel_number['log'] = np.log10(df_channel_number['adcc'])
     print('\tPlot Number of Channels')
-    plt.bar(df_channel_number.index.values, df_channel_number['log'], edgecolor='k', color='w')
+    plt.bar(df_channel_number.index.values, df_channel_number['adcc'], edgecolor='k', color='w')
     plt.xlabel('Anzahl Kanäle')
-    plt.ylabel('Logarithmierte Häufigkeit')
+    plt.ylabel('Häufigkeit')
+    plt.yscale('symlog')
     plt.tight_layout()
     plt.savefig('build/number-of-channels.pdf')
     plt.clf()
@@ -497,7 +516,10 @@ def source_scan(calib_params, calib_errors):
     eV_values, bins, patches = plt.hist(df_spectrum['keV'], histtype='step', bins=eV_bins, color='k', density=True)
     mpv = np.argmax(eV_values)  # most probable value
     mel = df_spectrum['keV'].mean()  # mean energy loss
+    sensor_thickness = 300e-4  # in centimeter
     mel_error = df_spectrum['keV'].std()*(1/np.sqrt(len(df_spectrum.index)-1))  # mean standard deviation
+    mel_vergleich = ufloat(mel, mel_error)*1e-3/sensor_thickness  # in MeV/cm
+    mel_theo = 3.88  # in MeV/cm
     plt.xlabel(r'Energie\:/\:\si{\kilo\electronvolt}')
     plt.ylabel('relative Häufigkeit')
     plt.axvline(mpv, color=tugreen, label='MPV', linestyle='--', linewidth=0.8)
@@ -508,6 +530,8 @@ def source_scan(calib_params, calib_errors):
     plt.clf()
     print('\tMPV {} keV at index {}'.format(eV_bins[mpv], mpv))
     print('\tMEL {} keV +- {} keV'.format(mel, mel_error))
+    print('\tMEL/D  {}MeV/cm'.format(mel_vergleich))
+    print('\tAbweichung {} %'.format((mel_theo-mel_vergleich)/mel_theo*100))
 
     return None
 
@@ -532,5 +556,3 @@ if __name__ == '__main__':
     cce_vergleich(ccel_data, cceq_data)
     print('Quellenscan')
     source_scan(params, errors)
-
-    # TODO: Logarithmische Plots mit 10^-Zahl an zu geben.

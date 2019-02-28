@@ -162,16 +162,14 @@ Messposition auf diese Streifen ausgerichtet sein muss.
 
 Aus diesem Grund sind diese beiden Streifen in Abbildung \ref{fig:streifen}
 genauer dargestellt. Der \emph{pitch} der Streifen beschreibt deren Dicke
-und kann aus den Abständen der Signalmaxima bestimmt werden.
-% TODO: Falsch verstanden, siehe Foto. In Berechnung korrigieren und weiter unten
-% angegebenen Wert korrigieren.
-%
+und kann aus den Abständen der Signalmaxima zwischen den beiden analysierten
+Streifen bestimmt werden.
 % Nach Definition beträgt die Dicke der Streifen nicht deren p-Dotierte Dicke,
 % sondern die Hälfte dazwischen auch mit dazu.
 % Somit grenzen sie aneinander und mit der Periodizität wird quasi die Breite eines
 % solchen Streifens ausgemessen.
 Unter erneuter Verwendung von \texttt{curve\_fit} und Mittelung über beide Streifen
-beträgt der pitch \SI{110(10)}{\micro\meter}, wobei der Fehler aus der gewählten
+beträgt der pitch \SI{160(10)}{\micro\meter}, wobei der Fehler aus der gewählten
 Schrittweite zwischen den Messpunkten resultiert.
 Schließlich kann aus den steigenden und fallenden Flanken der Signalmaxima die
 Breite des Laserpunktes grob abgeschätzt werden.
@@ -253,7 +251,22 @@ Weg durch den Detektor überall die selbe Energiemenge deponieren.
 Somit hängt die Variation der \si{\adc} ausschließlich an der unvollständigen
 Depletion der Streifen. Deshalb ist der Übergang des Plateaus in Abbildung
 \ref{fig:cce-vergleich} \enquote{schärfer} als bei der Messung mit der Laserquelle.
-% TODO: Passt Verlauf zu d(U)/D ?
+
+Nach Formel \eqref{eqn:dicke-depletionszone} ist die Breite der Depletionszone
+propotional zur Wurzel der angelegten Spannung.
+Zur Überprüfung dieses Zusammenhangs ist in Abbildung \ref{fig:cceq-abhaengigkeit}
+das Quadrat des in Abbildung \ref{fig:cce-vergleich} dargestellten Messsignals
+für den Bereich der Vorspannung bis \SI{70}{\volt} aufgetragen.
+Eine nicht quantitativ ausgewertete lineare Regression zeigt, dass der Verlauf
+linear ist.
+\begin{figure}
+  \centering
+  \includegraphics{build/cceq-abhaengigkeit.pdf}  % [width=\textwidth]
+  \caption{Das quadrierte normierte Messsignal der Bestimmung der CCE unter Verwendung
+  einer \ce{^90Sr}-Quelle für den Spannungsbereich vor der Depletionsspannung.
+  In grün ist eine nicht näher betrachtete lineare Regression eingezeichnet.}
+  \label{fig:cceq-abhaengigkeit}
+\end{figure}
 
 \FloatBarrier
 \subsection{Quellenscan einer \texorpdfstring{\ce{^90Sr}}{Sr}-Quelle}
@@ -262,29 +275,27 @@ Depletion der Streifen. Deshalb ist der Übergang des Plateaus in Abbildung
 Mit Hilfe eines Auswerteskriptes werden Pedestal, Common Mode und die Noise bestimmt
 und anhand eines Signal zu Untergrund Verhältnisses von \num{5} Cluster generiert.
 In Abbildung \ref{fig:number-of-clusters} ist die Anzahl an auftretenden Clustern gegen die
-Häufigkeit aufgetragen. Zur Übersichtlichkeit ist diese Häufigkeit zur Basis \num{10}
-logarithmiert.
-Am Häufigsten traten \num{2} Cluster pro Event auf.
+Häufigkeit aufgetragen.
+Am Häufigsten trat \num{1} Cluster pro Event auf.
 \begin{figure}
   \centering
   \includegraphics{build/number-of-clusters.pdf}  % [width=\textwidth]
-  \caption{Logarithmierte Häufigkeit der Anzahl an Cluster pro Event.}
+  \caption{Häufigkeit der Anzahl an Cluster pro Event.}
   \label{fig:number-of-clusters}
 \end{figure}
 Analog ist auch die Anzahl an Streifen bzw. Kanälen pro Cluster in Abbildung
-\ref{fig:number-of-channels} dargestellt. Auch hier wurde zwecks Übersichtlichkeit
-zur Basis \num{10} logarithmiert.
+\ref{fig:number-of-channels} dargestellt.
 Meistens waren also ein oder zwei Kanäle an einem Cluster beteiligt.
 \begin{figure}
   \centering
   \includegraphics{build/number-of-channels.pdf}  % [width=\textwidth]
-  \caption{Logarithmierte Häufigkeit der Anzahl an Kanälen pro Cluster.}
+  \caption{Häufigkeit der Anzahl an Kanälen pro Cluster.}
   \label{fig:number-of-channels}
 \end{figure}
 In Abbildung \ref{fig:hitmap} ist die Anzahl an Ereignissen pro Kanal dargestellt,
 dies wird Hitmap genannt. Hier zeigt sich die räumliche Ausdehnung der Emission der
-Quelle. Im Vergleich dazu scheint der fokussierte Laser immer nur auf einen Kanal.
-% TODO: Formulierung neu überlegen. Der Laser scheint ja nicht immer wirklich nur auf einen Kanal
+Quelle. Im Vergleich dazu scheint der fokussierte Laser nur auf wenige Kanäle,
+im besten Fall nur auf einen.
 \begin{figure}
   \centering
   \includegraphics{build/hitmap.pdf}  % [width=\textwidth]
@@ -308,10 +319,12 @@ Für das Energiespektrum in \si{\kilo\electronvolt}-Einheiten ergab sich ein
 wahrscheinlichster Wert (MPV) von \SI{84(1)}{\kilo\electronvolt}.
 Die Standardabweichung ergibt sich aus der gewählten Binbreite von einem Bin pro
 \si{\kilo\electronvolt}.
+
 Die mittlere deponierte Energie (MEL) beträgt \SI{103.72(5)}{\kilo\electronvolt}.
-% TODO: Umrechnung in mittlere deponierte Energie pro Streckeneinheit?
-% abhängig davon, wofür Theoriewert zugänglich...
-Hier ergibt sich die Unsicherheit aus der Standardabweichung des Mittelwerts
+Hier ergibt sich die Unsicherheit aus der Standardabweichung des Mittelwerts.
+Wird dieser Wert auf die Dicke der Silizium-Streifensensoren von \SI{300}{\micro\meter}
+normiert, ergibt sich eine mittlere Energieabgabe von
+\SI{3.45(2)}{\mega\electronvolt\per\centi\meter}.
 \begin{figure}
   \centering
   \includegraphics{build/spectrum-adc.pdf}  % [width=\textwidth]
