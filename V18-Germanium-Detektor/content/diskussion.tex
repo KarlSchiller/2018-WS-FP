@@ -1,18 +1,44 @@
 \section{Diskussion}
 \label{sec:Diskussion}
-Die Energiekalibrierung ist wie in Abbildung \ref{plt:eichung}
-zu sehen ohne nennenswerte Unsicherheiten durchgeführt worden. Dies spricht
-dafür, dass die Zuordnung der Peaks zu den entsprechenden Energien korrekt ist.
+Die Energiekalibrierung ist wie in Abbildung \ref{plt:eichung} durchgeführt worden.
+Da keine der Emissionslinien von der Geraden abweicht, spricht dies für eine gute
+Kalibration.
 
-Bei Berechnung der Aktivität am Messtag und des Raumwinkels wurden bis auf kleine
-Unsicherheiten realistische Werte erhalten. Der Fit mithilfe einer gaußförmigen
-Funktion ergab durchweg konsistente Parameter. Dabei ist die Unsicherheit auf
-den zweiten Wert in Tabelle \ref{tab:gauss_parameter} und die dadurch
-berechenten Werten in Tabelle \ref{tab:gauss_parameter} sehr hoch, was auf eine
-nicht korrekte Zuordnung des entsprechenden Peaks hinweisen könnte. Ebenso ist
-% TODO: Zuordnung überprüft? Zu zweit besprechen...
-diese Begründung für den negativen Wert in dem jeweiligen Tabellen
-anzuführen.
+Bei Berechnung der Aktivität am Messtag und des Raumwinkels wurden kleine Unsicherheiten
+in den gemessenen Größen angenommen, da bei Abmessungen von Längen und Zeitintervallen
+immer eine gewisse Unsicherheit aufgrund von elektrischen oder mechanischen Messgeräten
+auftreten.
+Der Fit mithilfe einer Gauß-Funktion ergab durchweg konsistente Parameter. Dabei
+ist der Fitparameter $h_i$ der ersten und dritten Emissionslinie wesentlich höher
+als die der anderen Linien. dies resultiert aus der hohe Emissionswahrscheinlichkeit
+eben dieser Linien.
+
+Eine Berechnung der Detektoreffizienzen aus Abbildung \ref{plt:efficiency} zeigt,
+dass die berechneten Werte der Form der gefitteten Verteilung folgen. Die Effizienz
+des Germaniumdetektors somit von kleinen zu immer größer werdenden Energien geringer
+wird.
+
+Die während der Bestimmung der Detektoreigenschaften aufgenommenen Energiewerte des
+Rückstreupeaks und der Compton-Kante mithilfe der Caesium-Quelle weichen die gemessenen
+von den theoretischen Werten ab. Für den
+Rückstreupeak bertägt die Abweichung \SI{6.2}{\percent}. Bei der Compton-Kante beträgt
+die Abweichung \SI{5.4}{\percent}. Die Abweichungen befinden sich in der gleichen
+Größenordnung, was dafür spricht, dass die Abweichungen aus einer zu geringen Statistik
+kommen und mit einer höheren Messzeit weiter zu verringern wären.
+
+Unsicherheiten bei er Bstimmung der Halbwerts- und Zehntelbreiten folgen aus dem
+Ablesen dieser aus der Abbildung \ref{plt:halb}. Trotzdem zeigen die bestimmten Werte
+eine Übereinstimmung mit dem angenommenen Verhältnis zwischen Halbwerts- und
+Zehntelbreite infolge einer Gaußverteilung. Daher ist diese Annahme, anstatt einer Poison-
+eine gaußverteilung anzunehmen, als gerechtfertigt zu interpretieren.
+
+Das Ablesen der Absorptionskoeffizienten aus Abbildung \ref{fig:Wirkungsquerschnitte-gesamt}
+führt zu Unsicherheiten. Die daraus berechneten Absorptionswahrscheinlichkeiten
+sind von unterschiedlicher Größenordnungen. Dies folgt daraus, dass der Photoeffekt
+erst ab hohen Enerigen dominant wird und somit eine höhere Anzahl von Photonen vorhanden
+sind, um in dem Detektor eine Paarerzeugung durchführen zu können. Bei den hier
+vorliegen Energien (\SIrange{0}{700}{\kilo\electronvolt}) dominiert der Compton-Effekt,
+was sich somit in der Absorptionswahrscheinlichkeit wiederspiegelt.
 
 In Abbildung \ref{plt:Cs_abs} zur Untersuchung der Detektoreigenschaften ist erkennbar,
 dass der Vollenergiepeak wesentlich höher liegt als
@@ -23,14 +49,20 @@ Energie mehrfach durch den Comptoneffekt abgeben und dann dann erst durch den
 Photoeffekt ihre Energie vollständig verlieren. Durch diesen Prozess resultiert
 ein höherer Extinktionskoeffizient als durch den Photoeffekt allein.
 
-Die Bestimmung des Nuklids von Barium oder Antimon zeigt bei Betrachtung der
-berechneten Aktivität und der geringen Unsicherheiten der Gauß-Fit Parameters
-eine ausreichend gute Zuordnung der Peaks zu den Energien. Bei der Berechnung
-der Aktivität konnten zwei Werte nicht berechnet werden, da sie die Bedingung
-$E_\gamma > \SI{150}{\kilo\electronvolt}$ nicht erfüllen. 
+Das aufgenommene Spektrum in Abbildung \ref{plt:bar} passt anhand der Peaks am besten
+zu einer Barium-Quelle. Dabei wurden die aufgenommenen Peaks mit den angegebenen Peaks
+aus der Referenz \cite{referenz} verglichen. Einige der angegebenen Peaks konnten
+dabei aufgrund einer geringen Auftrittswahrscheinlichkeit nicht gefunden werden.
+In Tabelle \ref{tab:aktivitaet_ba} konnte die Aktivität des ersten Peaks nicht
+berechnet werden, da eine Berechnung der Detektoreffizienz wie in Abschnitt \ref{sec:Effizienzmessung}
+einen verschwindenen Wert liefert. Die zur Berechnung der Aktivität beitragenden
+Emissionslinien zeigen ein konsistentes Bild, daher konnte die gemittelte Aktivität
+trotzdem berechnet werden. Dies würde sich durch die Aufnahme weiterer Emissionslinien
+für weitere Konsistenz in des Ergebnisses zeigen.
 
 Beim letzten Schritt der Auswertung, dem Identifizieren eines aktiven Nuklids
-anhand eines Spektrums, ist die Betrachtung der Emissionslinien in diesem Fall
-einfach gehalten, da nur zwei Energien mit deutlich erhöhter Zählrate auftreten.
-Dabei ist die genaue Unterscheidung zwischen Wismut und Titan nicht möglich, da
-deren Emissionslinien sehr nah beieinander liegen.
+anhand eines Spektrums, ist die die Identifizierung der Emissionslinien mit 2
+deutlich hervorstehenden Linien simpel gehalten. Referenz \cite{referenz} ergab
+nur das $^{60}Co$-Isotop, welches ein häufig vorkommendes und anhand deiner 2-Linien-Struktur
+besonders gut nachzuweisen ist. Diese Auffassung ist konnsistent mit den hier
+präsentierten Ergebnissen. 

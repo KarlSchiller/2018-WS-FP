@@ -202,7 +202,7 @@ plt.errorbar(E,noms(Q), yerr=sdevs(Q),fmt=' x', ecolor='b',label='Daten')
 plt.legend()
 plt.xlabel(r'$E \:/\: keV$')
 plt.grid()
-plt.ylabel(r'$Q(E) \:/\: \frac{keV}{Bq}$')
+plt.ylabel(r'$Q(E)$')
 plt.savefig('build/efficiency.pdf')
 plt.clf()
 
@@ -313,7 +313,7 @@ plt.xlim(0,700)
 plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
 plt.ylabel(r'Zählrate $N$')
 plt.grid()
-plt.legend(loc='upper right')
+plt.legend(loc='upper left')
 plt.savefig('build/Cs.pdf')
 plt.yscale('log')
 plt.savefig('build/Cs_log.pdf')
@@ -419,14 +419,14 @@ E_ba_det = []
 for i in range(len(index_ba)):
     E_ba_det.append(lin(index_ba[i],*params))
 
-#print(E_ba_det)
+print(E_ba_det)
 #Berechne aktivität der Quelle am Messtag
 #print(f'\nDaten zur Berechnung der Akivität: {E_ba_det}, {params2}')
-A=peakinhalt_ba[2:]/(omega_4pi*W_ba[2:]/100*potenz(E_ba_det[2:],*params2)) #nur die mit E>150keV mitnehmen
+A=peakinhalt_ba[1:]/(3600*omega_4pi*W_ba[1:]/100*potenz(E_ba_det[1:],*params2)) #nur die mit E>150keV mitnehmen
 
 A_det = []
-for i in range(0,2):
-    A_det.append(0)
+#for i in range(0,2):
+A_det.append(ufloat(0, 0))
 
 for i in A:
     A_det.append(i)
@@ -437,20 +437,22 @@ for i in A:
 #Fasse Fit-Parameter in Tabelle zusammen
 make_table(
     header= ['Bin-Index $i$', '$E_\gamma$ / \kilo\electronvolt', '$h_i$', '$\sigma_i$ / \kilo\electronvolt'],
-    data=[index_ba, E_ba_det, hoehe_ba, sigma_ba],
-    places=[(4.2, 1.2), (3.2, 1.2), (4.2, 2.2), (1.2, 1.2)],
+    data=[noms(index_ba), E_ba_det, hoehe_ba, sigma_ba],
+    places=[4.0, (4.2, 1.2), (4.2, 2.2), (1.2, 1.2)],
     caption='Parameter des Gauß-Fits. Dabei ist $\sigma_i$ die Standardabweichung.',
     label='tab:Ba',
     filename='build/tables/Ba.tex'
 )
 
 #berechnung der neuen Effizienz
-Z_d = [0, 0]
-Q_d = []
-for i in range(2, len(W_ba)):
+Z_d = [ufloat(0, 0)]
+Q_d = [ufloat(0, 0)]
+for i in range(1, len(W_ba)):
     Z_d.append(np.sqrt(2*np.pi)*hoehe_ba[i]*sigma_ba[i])
     Q_d.append(Z[i]/(omega_4pi*A_det[i]*W_ba[i]/100*3600))
+
 print('Z_d: ', Z_d)
+print('Q_d: ', noms(Q_d), sdevs(Q_d))
 
 #Trage Ergebnisse der Aktivitätsbestimmung in Tabelle ein
 #make_table(
@@ -461,17 +463,18 @@ print('Z_d: ', Z_d)
 #    label ='plt:aktivitaet_ba',
 #    filename ='build/tables/aktivitaet-ba.tex'
 #)
-make_table(
-    header= ['$W\/\%$', '$Z_i$', '$E_i\/$ \kilo\electronvolt', '$A_i\/$\\becquerel'],
-    data=[W_ba, Z_d, peakinhalt_ba, A_det],
-    places=[2.1, 4.2, 4.2, 4.0],
-    caption='Berechnete Aktivität für jeden bin mit dazu benötigten Werten.',
-    label='tab:aktivitaet_ba',
-    filename='build/tables/aktivitaet_ba.tex'
-)
+
+#make_table(
+#    header= ['$W\/\%$', 'Q', '$Z_i$', '$E_i\/$ \kilo\electronvolt', '$A_i\/$ \\becquerel'],
+#    data=[W_ba, Q_d ,Z_d, E_ba_det, A_det],
+#    places=[2.1, (1.3, 1.3), (5.2 , 3.2), (5.2, 2.2), (4.0, 2.0)],
+#    caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
+#    label='tab:aktivitaet_ba',
+#    filename='build/tables/aktivitaet_ba.tex'
+#)
 
 A_gem = ufloat(np.mean(noms(A)),np.mean(sdevs(A)))
-#print('gemittelte Aktivität',A_gem)
+print('gemittelte Aktivität',A_gem)
 
 
 #-------------Aufgabenteil e) {Was das? Gucken wir mal}
@@ -498,6 +501,7 @@ plt.plot(lin(indexes_4,*params),data_e[indexes_4],'bx',label='Peaks')
 plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
 plt.ylabel(r'Zählrate $N$')
 plt.xlim(0, 3300)
+plt.yscale('log')
 plt.legend()
 plt.grid()
 plt.savefig('build/unbekannt.pdf')
