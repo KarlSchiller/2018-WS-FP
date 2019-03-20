@@ -112,12 +112,7 @@ def gaussian_fit_peaks(test_ind):
         h_fit=ufloat(params_gauss[1],errors_gauss[1])
         a_fit=ufloat(params_gauss[2],errors_gauss[2])
         mu_fit=ufloat(params_gauss[3],errors_gauss[3])
-        #print(h_fit*sigma_fit*np.sqrt(2*np.pi))
-        if i == 311:
-            plt.plot(np.arange(a, b+1), data[a:b+1], label='Daten')
-            plt.plot(np.arange(a, b+1), gauss(np.arange(a, b+1), *params_gauss), label='Fit')
-            plt.savefig('build/test.pdf')
-            plt.clf()
+        #print(h_fit*sigma_fit*np.sqrt(2*np.pi)
         index_fit.append(mu_fit)
         hoehe.append(h_fit)
         unter.append(a_fit)
@@ -311,7 +306,7 @@ print('Zehntelwertshöhe', 0.1*data_b[indexes_2[-1]])
 plt.axhline(y=0.1*data_b[indexes_2[-1]], color='r',linestyle='dashed', label='Zehntelhöhe')
 plt.xlim(0,700)
 plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
-plt.ylabel(r'Zählrate $N$')
+plt.ylabel(r'Einträge')
 plt.grid()
 plt.legend(loc='upper left')
 plt.savefig('build/Cs.pdf')
@@ -361,8 +356,9 @@ plt.plot(lin(x, *params), data_d,'r-',label='Detektor')
 plt.plot(lin(indexes_3, *params),data_d[indexes_3],'bx',label='Peaks')
 print('Peaks des Barium-Spektrums bei : ', lin(indexes_3, *params) , 'mit Inhalt: ', data_d[indexes_3])
 plt.xlabel(r'Energie $E\:/\:$keV')
-plt.ylabel(r'Zählrate $N$')
+plt.ylabel(r'Einträge')
 plt.xlim(0, 500)
+plt.yscale('log')
 plt.grid()
 plt.legend()
 plt.savefig('build/Ba_Sb.pdf')
@@ -388,11 +384,11 @@ def gaussian_fit_peaks_d(test_ind):
         a_fit=ufloat(params_gauss_d[2],errors_gauss_d[2])
         mu_fit=ufloat(params_gauss_d[3],errors_gauss_d[3])
         #print(h_fit*sigma_fit*np.sqrt(2*np.pi))
-        if i == 208:
-            plt.plot(np.arange(a, b+1), data_d[a:b+1], label='Daten')
-            plt.plot(np.arange(a, b+1), gauss(np.arange(a, b+1), *params_gauss_d), label='Fit')
-            plt.savefig('build/test.pdf')
-            plt.clf()
+        #if i == 3316:
+        #    plt.plot(np.arange(a, b+1), data_d[a:b+1], label='Daten')
+        #    plt.plot(np.arange(a, b+1), gauss(np.arange(a, b+1), *params_gauss_d), label='Fit')
+        #    plt.savefig('build/test.pdf')
+        #    plt.clf()
         index_fit.append(mu_fit)
         hoehe.append(h_fit)
         unter.append(a_fit)
@@ -419,7 +415,7 @@ E_ba_det = []
 for i in range(len(index_ba)):
     E_ba_det.append(lin(index_ba[i],*params))
 
-print(E_ba_det)
+#print(E_ba_det)
 #Berechne aktivität der Quelle am Messtag
 #print(f'\nDaten zur Berechnung der Akivität: {E_ba_det}, {params2}')
 A=peakinhalt_ba[1:]/(3600*omega_4pi*W_ba[1:]/100*potenz(E_ba_det[1:],*params2)) #nur die mit E>150keV mitnehmen
@@ -451,8 +447,8 @@ for i in range(1, len(W_ba)):
     Z_d.append(np.sqrt(2*np.pi)*hoehe_ba[i]*sigma_ba[i])
     Q_d.append(Z[i]/(omega_4pi*A_det[i]*W_ba[i]/100*3600))
 
-print('Z_d: ', Z_d)
-print('Q_d: ', noms(Q_d), sdevs(Q_d))
+#print('Z_d: ', Z_d)
+#print('Q_d: ', noms(Q_d), sdevs(Q_d))
 
 #Trage Ergebnisse der Aktivitätsbestimmung in Tabelle ein
 #make_table(
@@ -464,14 +460,14 @@ print('Q_d: ', noms(Q_d), sdevs(Q_d))
 #    filename ='build/tables/aktivitaet-ba.tex'
 #)
 
-#make_table(
-#    header= ['$W\/\%$', 'Q', '$Z_i$', '$E_i\/$ \kilo\electronvolt', '$A_i\/$ \\becquerel'],
-#    data=[W_ba, Q_d ,Z_d, E_ba_det, A_det],
-#    places=[2.1, (1.3, 1.3), (5.2 , 3.2), (5.2, 2.2), (4.0, 2.0)],
-#    caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
-#    label='tab:aktivitaet_ba',
-#    filename='build/tables/aktivitaet_ba.tex'
-#)
+make_table(
+    header= ['$W\/\%$', 'Q', '$Z_i$', '$E_i$ / \kilo\electronvolt', '$A_i$ / \\becquerel'],
+    data=[W_ba, Q_d ,Z_d, E_ba_det, A_det],
+    places=[2.1, (1.3, 1.3), (5.2 , 3.2), (5.2, 2.2), (4.0, 2.0)],
+    caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
+    label='tab:aktivitaet_ba',
+    filename='build/tables/aktivitaet_ba.tex'
+)
 
 A_gem = ufloat(np.mean(noms(A)),np.mean(sdevs(A)))
 print('gemittelte Aktivität',A_gem)
@@ -494,15 +490,81 @@ make_table(
     filename ='build/tables/last.tex'
 )
 
+def gaussian_fit_peaks_e(test_ind):
+    peak_inhalt = []
+    index_fit = []
+    hoehe = []
+    unter = []
+    sigma = []
+    for i in test_ind:
+        a=i-10
+        b=i+10
+
+
+        params_gauss_e,covariance_gauss_e=curve_fit(gauss,np.arange(a,b+1),data_e[a:b+1],p0=[1,data_e[i],0,i-1])
+        errors_gauss_e = np.sqrt(np.diag(covariance_gauss_e))
+
+        sigma_fit=ufloat(params_gauss_e[0],errors_gauss_e[0])
+        h_fit=ufloat(params_gauss_e[1],errors_gauss_e[1])
+        a_fit=ufloat(params_gauss_e[2],errors_gauss_e[2])
+        mu_fit=ufloat(params_gauss_e[3],errors_gauss_e[3])
+        #print(h_fit*sigma_fit*np.sqrt(2*np.pi))
+        if i == 3315:
+            plt.plot(np.arange(a, b+1), data_e[a:b+1], label='Daten')
+            #plt.plot(np.arange(a, b+1), gauss(np.arange(a, b+1), *params_gauss_d), label='Fit')
+            plt.savefig('build/test.pdf')
+            plt.clf()
+        index_fit.append(mu_fit)
+        hoehe.append(h_fit)
+        unter.append(a_fit)
+        sigma.append(sigma_fit)
+        peak_inhalt.append(h_fit*sigma_fit*np.sqrt(2*np.pi))
+    return index_fit, peak_inhalt, hoehe, unter, sigma
+
+E_e, W_e, peaks_ind_e = np.genfromtxt('data/Co_sortiert.txt', unpack=True)
+index_e, peakinhalt_e, hoehe_e, unter_e, sigma_e = gaussian_fit_peaks_e(peaks_ind_e.astype('int'))
+print(f'Peakinhalt {peakinhalt_e} Hoehe {hoehe_e}, Sigma {sigma_e}')
+
+E_e_det = []
+for i in range(len(W_e)):
+    E_e_det.append(lin(index_e[i], *params))
+
+
+Z_e=[]
+Q_e = []
+A_e=[]
+for i in range(0, len(W_e)):
+    Z_e.append(np.sqrt(2*np.pi)*hoehe_e[i]*sigma_e[i])
+    A_e.append(Z_e[i]/(3600*omega_4pi*W_e[i]/100*potenz(E_e_det[i],*params2)))
+    Q_e.append(Z[i]/(omega_4pi*A_e[i]*W_e[i]/100*3600))
+
+print(f'\nDaten zur Berechnung der Akivität: {E_e}, {params2}, den Peakinhalt Z {Z_e}, die Effizienz Q {Q_e} und der Aktivität {A_e}')
+
+print('gemittelte Aktivität für Cobalt: ', np.mean(A_e))
 
 x=np.linspace(1,8192,8192)
 plt.plot(lin(x,*params), data_e,'r-',label='Fit')
 plt.plot(lin(indexes_4,*params),data_e[indexes_4],'bx',label='Peaks')
 plt.xlabel(r'E$_\gamma\:/\: \mathrm{keV}$')
-plt.ylabel(r'Zählrate $N$')
+plt.ylabel(r'Einträge')
 plt.xlim(0, 3300)
 plt.yscale('log')
 plt.legend()
 plt.grid()
 plt.savefig('build/unbekannt.pdf')
 plt.clf()
+
+make_table(
+    header= ['$W\/\%$', 'Q', '$Z_i$', '$E_i$ / \kilo\electronvolt', '$A_i$ / \\becquerel'],
+    data=[W_e, Q_e ,Z_e, E_e, A_e],
+    places=[2.2, (1.3, 1.3), (5.2 , 3.2), 4.1, (4.0, 2.0)],
+    caption='Berechnete Aktivität der betrachteten Emissionslinien mit dazu korrespondierenden Detektor-Effizienzen.',
+    label='tab:aktivitaet_e',
+    filename='build/tables/aktivitaet_e.tex'
+)
+
+
+print('Ich bin Patrizia und trage gerne schöne Röcke mit Strumpfhosen. ')
+print('Und dazu auch gerne ein rosa Tütü.')
+
+print('muhahaha .. habe deinen evtl Code geändert .. du solltest deinen PC sperren.')

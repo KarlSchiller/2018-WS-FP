@@ -8,7 +8,7 @@
 
 Für eine Energiekalibrierung wird das Spektrum der \ce{^{152}Eu}-Quelle
 aufgezeichnet. Dies ist in Abbildung \ref{plt:Eu-Spektrum} dargestellt. Die zu
-erkennenen Peaks werden mit dem \textit{find.peaks}-Paket von der \textit{scipy.signal} 
+erkennenen Peaks werden mit dem \textit{find.peaks}-Paket von der \textit{scipy.signal}
 Bibliothek von Python herausgefiltert und dem erwartetem Europium-Spektrum
 zugeordnet. Dies ist in Tabelle \ref{tab:anleitung_eu} dargestellt.
 \begin{figure}[htb]
@@ -265,3 +265,9 @@ Datenbank aus Referenz \cite{referenz} dem Isotop $^{60}\text{Co}$ identifiziert
 Bei diesem Isotop trifft der Peak bei \SI{1172.20}{\kilo\electronvolt} in
 \SI{99.85}{\percent} und der Peak bei \SI{1332.75}{\kilo\electronvolt} in
 \SI{99.98}{\percent} der Fälle auf.
+\input{build/tables/aktivitaet_e.tex}
+Werden die Ergebnisse aus Tabelle \ref{tab:aktivitaet_e} gemittelt, so wird für die
+Cobalt-Quelle eine Aktivität erhalten von:
+\begin{align*}
+  A = \SI{363(29)}{\becquerel}
+\end{align*}
